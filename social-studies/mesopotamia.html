@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mesopotamia: Land Between the Rivers — Adiaha's Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBEFD2; --paper:#FFFAEC; --ink:#23213A; --muted:#66617c; --line:#E7D5A8;
+  --lapis:#2447A8; --lapis-deep:#152659; --teal:#139E97; --gold:#F2B32B; --palm:#4E9A38;
+  --rose:#DB4B77; --clay:#A9602F; --violet:#7B4FC9;
+  --ok:#23944A; --okbg:#DDF5E4; --bad:#CF3B3B; --badbg:#FBE1E1;
+  --river:#2FA7E0;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131934; --paper:#1C2447; --ink:#F4EEDC; --muted:#AEB3CF; --line:#34416F;
+    --lapis:#7D9BFF; --lapis-deep:#0C1330; --teal:#3CC9C0; --gold:#F6C453; --palm:#7BC662;
+    --rose:#F07CA0; --clay:#E0955E; --violet:#AC8BF0;
+    --okbg:#173A26; --badbg:#3E1C22; --ok:#5FD68A; --bad:#FF7B7B; --river:#56BFF0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131934; --paper:#1C2447; --ink:#F4EEDC; --muted:#AEB3CF; --line:#34416F;
+  --lapis:#7D9BFF; --lapis-deep:#0C1330; --teal:#3CC9C0; --gold:#F6C453; --palm:#7BC662;
+  --rose:#F07CA0; --clay:#E0955E; --violet:#AC8BF0;
+  --okbg:#173A26; --badbg:#3E1C22; --ok:#5FD68A; --bad:#FF7B7B; --river:#56BFF0;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Lexend,"Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.6}
+img,svg{max-width:100%}
+h1,h2{font-family:"Rubik Dirt","Lexend",Impact,sans-serif;font-weight:400;line-height:1.05;margin:0}
+h3{font-size:1.15rem;margin:1.4em 0 .4em}
+p{margin:.5em 0 .9em}
+button{font-family:inherit;font-size:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px}
+
+/* nav */
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--lapis-deep);box-shadow:0 2px 0 var(--gold)}
+nav.top .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.top a{flex:none;color:#F7EFD8;text-decoration:none;font-size:.85rem;font-weight:600;padding:6px 12px;border-radius:999px;border:1.5px solid rgba(247,239,216,.35);white-space:nowrap}
+nav.top a:hover,nav.top a:focus-visible{background:var(--gold);color:#1a1530;border-color:var(--gold)}
+nav.top a.quizlink{background:var(--rose);border-color:var(--rose);color:#fff}
+
+/* hero */
+.hero{background:radial-gradient(circle at 80% 10%,#2c3f94 0,#152659 55%,#0e1a45 100%);color:#F7EFD8;padding:36px 0 28px}
+.hero h1{font-size:clamp(2.6rem,9vw,5.2rem);color:var(--gold);letter-spacing:.01em}
+.hero .sub{font-size:1.1rem;max-width:34ch;color:#DCE3FF;margin-top:10px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center;margin-top:18px}
+@media (max-width:720px){.hero-grid{grid-template-columns:1fr}}
+.mapbox{background:#F2DDAC;border-radius:26px;padding:8px;border:4px solid #C79A55}
+.mapbox svg{display:block;width:100%;height:auto}
+.city{cursor:pointer}
+.city circle{transition:r .2s}
+.city:hover circle,.city:focus circle{r:9}
+.city.active circle{fill:var(--rose)}
+.cityinfo{background:rgba(255,255,255,.08);border:2px dashed rgba(242,179,43,.6);border-radius:20px;padding:18px;min-height:210px}
+.cityinfo h3{margin:0 0 4px;color:var(--gold);font-size:1.4rem}
+.cityinfo .tag{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+.flow{stroke-dasharray:10 8;animation:flow 2.4s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-36}}
+@media (prefers-reduced-motion:reduce){.flow{animation:none}html{scroll-behavior:auto}}
+
+/* sections */
+section.tab{margin:34px auto;background:var(--paper);border-radius:28px;border:3px solid var(--line);overflow:hidden}
+.tabhead{padding:22px 24px 18px;color:#fff;position:relative}
+.tabhead h2{font-size:clamp(1.9rem,5.5vw,2.8rem)}
+.tabhead p{margin:.3em 0 0;opacity:.95;max-width:52ch}
+.tabbody{padding:10px 24px 26px}
+.c-teal{background:var(--teal)} .c-gold{background:#D9901A} .c-rose{background:var(--rose)}
+.c-palm{background:#3E8A2C} .c-lapis{background:#2447A8} .c-violet{background:#6C3FBF} .c-clay{background:#A9602F}
+.c-deep{background:#152659}
+
+.story{background:linear-gradient(0deg,rgba(242,179,43,.08),rgba(242,179,43,.08)),var(--paper);border-left:6px solid var(--gold);border-radius:4px 18px 18px 4px;padding:14px 18px;margin:16px 0}
+.story .who{font-weight:700;color:var(--clay)}
+.heads{background:var(--badbg);border-radius:16px;padding:12px 16px;margin:14px 0;border:2px solid var(--bad)}
+.heads b{color:var(--bad)}
+.trick{background:var(--okbg);border:2px solid var(--ok);border-radius:16px;padding:12px 16px;margin:14px 0}
+.trick b{color:var(--ok)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.fact{border:2px solid var(--line);border-radius:18px;padding:12px 14px;background:var(--bg)}
+.fact .k{font-size:.8rem;color:var(--muted);font-weight:600}
+.fact .v{font-weight:700;font-size:1.05rem}
+.big{font-family:"Rubik Dirt",Impact,sans-serif;font-size:2.3rem;color:var(--lapis);line-height:1}
+
+/* word split */
+.split{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:12px 0}
+.piece{flex:1 1 150px;border-radius:18px;padding:14px;text-align:center;color:#fff;cursor:pointer;border:none;transition:transform .15s}
+.piece:hover{transform:translateY(-3px)}
+.piece .w{font-family:"Rubik Dirt",Impact,sans-serif;font-size:1.9rem;display:block}
+.piece .m{display:block;font-weight:600;min-height:1.6em}
+.piece .m.hide{opacity:0}
+
+/* chips of cities */
+.cityrow{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.flip{perspective:800px;width:150px;height:110px;border:none;background:none;padding:0}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:8px;text-align:center}
+.flip .f{background:var(--lapis);color:#fff;font-family:"Rubik Dirt",Impact,sans-serif;font-size:1.5rem}
+.flip .b{background:var(--gold);color:#1d1830;transform:rotateY(180deg);font-size:.8rem;font-weight:600;line-height:1.3}
+
+/* pyramid */
+.pyr{display:grid;gap:6px;justify-items:center;margin:16px 0}
+.tier{border:none;color:#fff;font-weight:700;padding:12px 8px;border-radius:10px;text-align:center;transition:filter .15s,transform .15s}
+.tier:hover{filter:brightness(1.1);transform:scale(1.02)}
+.tier.sel{outline:4px solid var(--gold)}
+.tierinfo{border:3px dashed var(--line);border-radius:18px;padding:14px 16px;min-height:120px}
+
+/* north south */
+.ns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media (max-width:600px){.ns{grid-template-columns:1fr}}
+.ns > div{border-radius:20px;padding:16px;color:#fff}
+.ns h3{margin:0 0 6px;font-size:1.5rem;font-family:"Rubik Dirt",Impact,sans-serif;font-weight:400}
+.ns ul{margin:0;padding-left:20px}
+
+/* inventions tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.tabs button{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 14px;font-weight:600}
+.tabs button[aria-selected="true"]{background:var(--violet);color:#fff;border-color:var(--violet)}
+.panel{display:none}.panel.show{display:block}
+.stagebox{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center}
+@media (max-width:560px){.stagebox{grid-template-columns:1fr}}
+.claytab{background:#D9B27C;border-radius:20px;border:4px solid #A67B45;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+input[type=range]{width:100%;accent-color:var(--violet)}
+.divbtns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.divbtns button{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:6px 12px;font-weight:700;min-width:46px}
+.divbtns button.cur{background:var(--gold);color:#1d1830;border-color:var(--gold)}
+.judge{border:2px solid var(--line);border-radius:18px;padding:14px;margin:12px 0;background:var(--bg)}
+.judge .opts{display:grid;gap:8px;margin-top:8px}
+.judge .opts button{text-align:left;border:2px solid var(--line);background:var(--paper);color:var(--ink);border-radius:12px;padding:9px 12px}
+.judge .opts button.right{background:var(--okbg);border-color:var(--ok)}
+.judge .opts button.wrong{background:var(--badbg);border-color:var(--bad)}
+.judge .why{margin-top:8px;font-weight:500}
+
+/* timeline */
+.tl{position:relative;margin:18px 0 6px;padding-left:28px}
+.tl::before{content:"";position:absolute;left:10px;top:4px;bottom:4px;width:4px;border-radius:4px;background:linear-gradient(var(--teal),var(--lapis),var(--rose))}
+.tli{position:relative;margin:0 0 16px}
+.tli::before{content:"";position:absolute;left:-24px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--gold);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--lapis)}
+.tli .d{font-weight:700;color:var(--lapis)}
+.tli.bonus .d::after{content:" bonus";font-size:.72rem;background:var(--violet);color:#fff;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
+
+/* flashcards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:12px 0}
+.cards .flip{width:100%;height:130px}
+.cards .flip .f{font-size:1.2rem;background:var(--teal)}
+.cards .flip:nth-child(3n+2) .f{background:var(--rose)}
+.cards .flip:nth-child(3n) .f{background:var(--violet)}
+.cards .flip .b{font-size:.85rem}
+
+/* tricks */
+.tricks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.tricks > div{border-radius:18px;padding:14px;border:3px solid;background:var(--bg)}
+.tricks .t{font-family:"Rubik Dirt",Impact,sans-serif;font-size:1.35rem;line-height:1.1;display:block;margin-bottom:6px}
+
+/* ============== QUIZ ============== */
+.scorebar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);z-index:40;background:var(--rose);color:#fff;border-radius:16px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 14px;font-weight:700}
+.meter{flex:1;height:10px;background:rgba(255,255,255,.3);border-radius:10px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--gold);transition:width .4s}
+.qpart{margin:26px 0 8px}
+.qpart h3{font-size:1.35rem;margin:0;color:var(--rose)}
+.qpart .how{color:var(--muted);font-size:.92rem;margin:.2em 0 0}
+.q{border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin:12px 0;background:var(--bg)}
+.q .stem{font-weight:600;margin-bottom:10px}
+.q .num{display:inline-block;background:var(--lapis);color:#fff;border-radius:999px;min-width:30px;text-align:center;font-size:.85rem;padding:1px 8px;margin-right:6px}
+.opts{display:grid;gap:8px}
+.opts.tf{grid-template-columns:1fr 1fr}
+.opt{border:2px solid var(--line);background:var(--paper);color:var(--ink);border-radius:14px;padding:10px 12px;text-align:left;font-weight:500;transition:transform .12s}
+.opt:hover:not(:disabled){transform:translateX(3px);border-color:var(--lapis)}
+.opts.tf .opt{text-align:center;font-weight:700;font-size:1.05rem}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad);text-decoration:line-through}
+.fb{margin-top:10px;font-size:.93rem;border-radius:12px;padding:8px 12px;display:none}
+.fb.show{display:block}
+.fb.good{background:var(--okbg);color:var(--ink);border-left:5px solid var(--ok)}
+.fb.oops{background:var(--badbg);color:var(--ink);border-left:5px solid var(--bad)}
+
+/* drag */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:54px;padding:10px;border:2px dashed var(--line);border-radius:16px;margin-bottom:12px;background:var(--paper)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--lapis);color:#fff;border-radius:12px;padding:8px 10px;font-weight:600;font-size:.92rem;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.chip:active{cursor:grabbing}
+.chip.dragging{opacity:.35}
+.chip .x{border:none;background:rgba(255,255,255,.25);color:#fff;border-radius:50%;width:22px;height:22px;line-height:22px;padding:0;font-size:.75rem;flex:none}
+.chip.ok{background:var(--ok)}
+.chip.no{background:var(--bad)}
+.chip .fix{font-weight:500;font-size:.78rem;opacity:.95}
+.locked .chip{cursor:default}
+.ghost{position:fixed;z-index:999;pointer-events:none;transform:translate(-50%,-60%) rotate(-3deg);opacity:.95}
+.target{border:2.5px dashed var(--line);border-radius:14px;padding:8px;min-height:52px;background:var(--paper);transition:background .15s,border-color .15s}
+.target.over{background:rgba(242,179,43,.25);border-color:var(--gold);border-style:solid}
+.target .lbl{font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:6px}
+.target .items{display:flex;flex-wrap:wrap;gap:6px}
+.matchgrid{display:grid;gap:8px}
+.matchrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch}
+.matchrow .def{border-radius:14px;padding:10px 12px;background:var(--paper);border:2px solid var(--line);font-size:.93rem;display:flex;align-items:center}
+.bins{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:620px){.bins{grid-template-columns:1fr}.matchrow{grid-template-columns:1fr}}
+.bins .target{min-height:150px}
+.bins .target .lbl{font-size:1rem;color:#fff;border-radius:10px;padding:4px 10px;display:inline-block}
+.slots{display:grid;gap:8px}
+.slots .target{display:flex;align-items:center;gap:10px}
+.slots .target .lbl{margin:0;min-width:92px}
+.pyrslots .target{margin:0 auto}
+.checkbtn{margin-top:12px;border:none;background:var(--lapis);color:#fff;border-radius:12px;padding:10px 18px;font-weight:700}
+.checkbtn:disabled{opacity:.45;cursor:default}
+.warn{color:var(--bad);font-weight:600;font-size:.9rem;margin-left:8px}
+
+/* spot */
+.sentence{display:flex;flex-wrap:wrap;gap:6px;font-size:1.05rem}
+.word{border:2px solid transparent;background:var(--paper);color:var(--ink);border-radius:10px;padding:4px 8px}
+.word:hover:not(:disabled){border-color:var(--gold)}
+.word.right{background:var(--okbg);border-color:var(--ok)}
+.word.wrong{background:var(--badbg);border-color:var(--bad)}
+.word.reveal{background:var(--gold);color:#1d1830}
+
+/* map quiz */
+.mapq{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:640px){.mapq{grid-template-columns:1fr}}
+.mapq .mapbox{max-width:380px}
+.prompt{font-size:1.2rem;font-weight:700;color:var(--lapis);margin:4px 0 8px}
+.hit{cursor:pointer}
+.hit:hover .vis{filter:brightness(1.15)}
+.maplog{list-style:none;padding:0;margin:8px 0 0;font-size:.92rem}
+.maplog li{padding:4px 0}
+
+/* results */
+.results{display:none;text-align:center;border-radius:24px;padding:26px 18px;margin-top:20px;background:var(--lapis-deep);color:#F7EFD8}
+.results.show{display:block}
+.results .big{color:var(--gold);font-size:3.4rem}
+.results ul{text-align:left;max-width:520px;margin:12px auto}
+.again{border:none;background:var(--gold);color:#1d1830;border-radius:14px;padding:12px 20px;font-weight:700;margin-top:10px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <a href="#rivers">Rivers</a>
+    <a href="#sumer">Sumer</a>
+    <a href="#uruk">Uruk</a>
+    <a href="#pyramid">Social pyramid</a>
+    <a href="#empires">Assyria &amp; Babylon</a>
+    <a href="#inventions">Inventions</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#tricks">Memory tricks</a>
+    <a href="#quiz" class="quizlink">Quiz</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Mesopotamia</h1>
+    <p class="sub">The land where cities, writing and written laws were born. Tap a city on the map to meet it.</p>
+    <div class="hero-grid">
+      <div class="mapbox" id="heroMap"></div>
+      <div class="cityinfo" id="cityInfo" aria-live="polite">
+        <h3>Pick a city</h3>
+        <p>The blue lines are the two famous rivers. The <b>Euphrates</b> is on the left (west) and the <b>Tigris</b> is on the right (east). They both flow down into the <b>Persian Gulf</b>.</p>
+        <p>Dots in the north belong to the <b>Assyrians</b>. Dots in the south belong to <b>Sumer</b> and <b>Babylon</b>.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- 1 RIVERS -->
+<section class="tab" id="rivers">
+  <div class="tabhead c-teal"><h2>The name game &amp; the rivers</h2><p>Tap each block to decode the name.</p></div>
+  <div class="tabbody">
+    <div class="split">
+      <button class="piece" style="background:var(--teal)" data-m="middle / between"><span class="w">Meso</span><span class="m hide">tap me</span></button>
+      <button class="piece" style="background:var(--lapis)" data-m="rivers"><span class="w">potamia</span><span class="m hide">tap me</span></button>
+      <button class="piece" style="background:#D9901A" data-m="Land between the rivers"><span class="w">=</span><span class="m hide">tap me</span></button>
+    </div>
+    <p>“Mesopotamia” is a Greek word. It describes the place perfectly: the flat river valley between the <b>Tigris</b> and <b>Euphrates</b> rivers. Today, most of it is the country of <b>Iraq</b>.</p>
+
+    <div class="heads"><b>Watch out, two different names!</b> Your notes say the name means “Land of civilized kings.” That is the meaning of <b>Sumer</b>, the first civilization in Mesopotamia (the Sumerians called their land <i>Ki-en-gir</i>). <br>Mesopotamia = <b>land between the rivers</b>. Sumer = <b>land of civilized kings</b>. Learn both.</div>
+
+    <h3>Why here? A river story</h3>
+    <div class="story"><span class="who">Imagine you are a farmer, 6,000 years ago…</span> Every spring, snow melts in the mountains up north. The rivers swell and spill over their banks. When the water goes back down, it leaves behind a thick, dark mud called <b>silt</b>. Silt is like free fertilizer: plants love it. But summer is scorching and it barely rains. So you and your neighbours dig ditches and canals to carry river water to your barley fields. That is <b>irrigation</b>. More food means more people, more people means bigger villages, and bigger villages turn into the world's first <b>cities</b>.</div>
+
+    <div class="facts">
+      <div class="fact"><div class="k">Left river (west)</div><div class="v">Euphrates</div></div>
+      <div class="fact"><div class="k">Right river (east)</div><div class="v">Tigris (the faster one)</div></div>
+      <div class="fact"><div class="k">Where they end</div><div class="v">Persian Gulf</div></div>
+      <div class="fact"><div class="k">Bigger region</div><div class="v">The Fertile Crescent</div></div>
+      <div class="fact"><div class="k">Building material</div><div class="v">Mud bricks (little stone or wood)</div></div>
+    </div>
+    <div class="trick"><b>Memory trick:</b> read the map like a book, left to right, in ABC order. <b>E</b>uphrates comes before <b>T</b>igris, so Euphrates is on the left and Tigris is on the right.</div>
+  </div>
+</section>
+
+<!-- 2 SUMER -->
+<section class="tab" id="sumer">
+  <div class="tabhead c-lapis"><h2>Sumer: the first civilization</h2><p>Southern Mesopotamia, the flat river valley near the Gulf.</p></div>
+  <div class="tabbody">
+    <div class="facts">
+      <div class="fact"><div class="k">Location</div><div class="v">Flat river valley between the Tigris and Euphrates</div></div>
+      <div class="fact"><div class="k">Flourished</div><div class="v">About 4500 to 1900 BCE</div></div>
+      <div class="fact"><div class="k">Name meaning</div><div class="v">Land of civilized kings</div></div>
+    </div>
+    <h3>City-states: tiny countries</h3>
+    <p>Sumer was not one big country. It was a group of powerful, independent <b>city-states</b>. Each one was a city plus the farmland around it, with its own ruler, its own army and its own favourite god. Think of the islands of the Caribbean: close neighbours, similar culture, but each running itself. Tap a card to flip it.</p>
+    <div class="cityrow" id="cityFlips"></div>
+    <div class="trick"><b>Memory trick:</b> the four big Sumerian city-states are <b>U</b>ruk, <b>U</b>r, <b>E</b>ridu, <b>L</b>agash: “<b>U</b>ncle <b>U</b>ruk <b>E</b>ats <b>L</b>asagna.”</div>
+    <div class="heads"><b>BCE counts backwards!</b> BCE means “Before the Common Era.” Like a rocket countdown, the <b>bigger</b> the number, the <b>longer ago</b>. So 4500 BCE is older than 1900 BCE.</div>
+  </div>
+</section>
+
+<!-- 3 URUK -->
+<section class="tab" id="uruk">
+  <div class="tabhead c-gold"><h2>Uruk: the world's first true city</h2><p>A Sumerian (and later Babylonian) megacity in southern Mesopotamia.</p></div>
+  <div class="tabbody">
+    <div class="facts">
+      <div class="fact"><div class="k">Location</div><div class="v">East of the Euphrates, modern-day Warka, Iraq</div></div>
+      <div class="fact"><div class="k">Peak population</div><div class="v"><span class="big">50–80k</span><br>around 3100–2900 BCE</div></div>
+      <div class="fact"><div class="k">Record</div><div class="v">Largest city in the world at that time</div></div>
+    </div>
+    <p>For comparison, all of St. Kitts and Nevis has roughly 50,000 people. Now picture all of them squeezed into one walled city made of mud brick, 5,000 years ago.</p>
+    <h3>Uruk's big four innovations</h3>
+    <div class="facts">
+      <div class="fact"><div class="k">Writing</div><div class="v">Proto-cuneiform (the first version of cuneiform)</div></div>
+      <div class="fact"><div class="k">ID stamps</div><div class="v">Cylinder seals, rolled across clay like a signature</div></div>
+      <div class="fact"><div class="k">Building</div><div class="v">Monumental mud-brick architecture</div></div>
+      <div class="fact"><div class="k">Farming</div><div class="v">Advanced irrigation systems</div></div>
+    </div>
+    <div class="trick"><b>Memory trick:</b> <b>UR</b>uk starts like <b>UR</b>ban. Uruk = the first true urban centre.</div>
+
+    <h3>Story time: the king who wanted to live forever</h3>
+    <div class="story">
+      <p><span class="who">The Epic of Gilgamesh</span> is one of the oldest stories ever written down, and it's set in Uruk.</p>
+      <p>Gilgamesh was the king of Uruk, said to be two-thirds god and one-third human. He was strong but a bully, so the gods made a wild man named <b>Enkidu</b> to be his match. The two wrestled, and neither could win, so they became best friends instead. Together they travelled to the Cedar Forest and defeated the monster <b>Humbaba</b>.</p>
+      <p>When Enkidu died, Gilgamesh was heartbroken and terrified of dying too. He went on a long journey to find the secret of living forever. He finally found a magic plant at the bottom of the sea, but while he bathed, a <b>snake</b> slithered up and ate it.</p>
+      <p>Gilgamesh walked home with nothing. But as he came near, he saw the <b>massive walls of Uruk</b> that he had built, and he understood: people don't live forever, but the great things they build and the good they do can last. That's why the epic credits Gilgamesh with building Uruk's walls.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 PYRAMID -->
+<section class="tab" id="pyramid">
+  <div class="tabhead c-rose"><h2>The social pyramid</h2><p>Society was strictly hierarchical: ranked from top to bottom, like the steps of a ladder, and very hard to climb.</p></div>
+  <div class="tabbody">
+    <p>Tap each layer. The higher up, the fewer people but the more power. The bottom layer was the biggest.</p>
+    <div class="pyr" id="pyr"></div>
+    <div class="tierinfo" id="tierInfo" aria-live="polite"><b>Tap a layer to explore it.</b></div>
+    <div class="trick"><b>Memory trick, top to bottom:</b> “<b>K</b>ings <b>N</b>eed <b>M</b>any <b>F</b>armers” — <b>K</b>ing, <b>N</b>obility &amp; priests, <b>M</b>erchants &amp; artisans, <b>F</b>armers &amp; enslaved people.</div>
+    <p>Your notes list three classes: <b>nobility/priests</b> (top), a <b>middle class</b> of merchants and artisans, and a <b>large working class</b> of farmers and enslaved people. The king sat above them all, like the point on top of the pyramid.</p>
+  </div>
+</section>
+
+<!-- 5 EMPIRES -->
+<section class="tab" id="empires">
+  <div class="tabhead c-violet"><h2>Assyria above, Babylon below</h2><p>After Sumer, two big powers ruled Mesopotamia.</p></div>
+  <div class="tabbody">
+    <div class="ns">
+      <div style="background:#6C3FBF">
+        <h3>Assyrians ⬆</h3>
+        <ul>
+          <li>Lived in <b>northern</b> Mesopotamia</li>
+          <li>Cities: <b>Assur</b> and <b>Nineveh</b> (on the Tigris)</li>
+          <li>Built a <b>vast and powerful military empire</b>: iron weapons, chariots, siege towers</li>
+          <li>Bonus: King Ashurbanipal's library at Nineveh held thousands of clay tablets, including the Epic of Gilgamesh</li>
+        </ul>
+      </div>
+      <div style="background:#139E97">
+        <h3>Babylonians ⬇</h3>
+        <ul>
+          <li>Rose to power in <b>southern</b> Mesopotamia</li>
+          <li>City: <b>Babylon</b> (on the Euphrates)</li>
+          <li>Famous for rulers like <b>Hammurabi</b> and <b>early law codes</b></li>
+          <li>Bonus: Babylon later had the blue-tiled Ishtar Gate and the legendary Hanging Gardens</li>
+        </ul>
+      </div>
+    </div>
+    <div class="trick"><b>Memory trick:</b> <b>A</b>ssyria = <b>A</b>bove (north). <b>B</b>abylon = <b>B</b>elow (south). Bonus: <b>A</b>ssur starts with A, just like <b>A</b>ssyria, and <b>B</b>abylon is the Babylonians' home.</div>
+    <p>Together, the people of Mesopotamia laid the groundwork for modern society with several groundbreaking advancements. That's the next section.</p>
+  </div>
+</section>
+
+<!-- 6 INVENTIONS -->
+<section class="tab" id="inventions">
+  <div class="tabhead c-deep"><h2>Inventions we still use</h2><p>Pick an invention.</p></div>
+  <div class="tabbody">
+    <div class="tabs" role="tablist" id="invTabs">
+      <button role="tab" aria-selected="true" data-p="p-cun">Cuneiform</button>
+      <button role="tab" aria-selected="false" data-p="p-60">Counting by 60</button>
+      <button role="tab" aria-selected="false" data-p="p-wheel">The wheel</button>
+      <button role="tab" aria-selected="false" data-p="p-code">Hammurabi's code</button>
+    </div>
+
+    <div class="panel show" id="p-cun">
+      <div class="facts">
+        <div class="fact"><div class="k">What</div><div class="v">Oldest known writing system in human history</div></div>
+        <div class="fact"><div class="k">When</div><div class="v">Around 3200 BCE</div></div>
+        <div class="fact"><div class="k">Who &amp; where</div><div class="v">Sumerian scribes in the city-state of Uruk</div></div>
+        <div class="fact"><div class="k">Why</div><div class="v">A bookkeeping tool to track grain, cattle and rations</div></div>
+      </div>
+      <p><b>Cuneiform</b> means “wedge-shaped” (Latin <i>cuneus</i> = wedge). Scribes pressed a sharpened reed, called a <b>stylus</b>, into soft clay tablets. Then the tablets dried hard in the sun.</p>
+      <div class="story"><span class="who">A day in the tablet house.</span> Meet Ludi, a young scribe-in-training in Uruk. Every morning he goes to the <i>edubba</i>, the “tablet house” (school). The teacher, called the “school father,” writes a line, and Ludi copies it again and again. Today, the temple sends him to count the storehouse: 10 sheep, 30 jars of barley, a ration of bread for each worker. Ludi presses a little picture of a sheep, then marks for the number. His tablet is a <b>receipt</b>! That's the big secret: writing wasn't invented for stories. It was invented to keep track of stuff.</div>
+      <h3>Watch a sign change: drag the slider</h3>
+      <div class="stagebox">
+        <div class="claytab"><svg id="dingir" viewBox="-70 -70 140 140" width="150" height="150" aria-label="The sign for star or god"></svg></div>
+        <div>
+          <input type="range" min="0" max="2" step="1" value="0" id="stage" aria-label="Writing stage">
+          <p id="stageText"><b>Stage 1, a picture (about 3200 BCE).</b> Cuneiform started as simple drawings on soft clay. This star meant “sky” or “god.”</p>
+        </div>
+      </div>
+      <div class="heads"><b>Fix in the notes:</b> one line says the Sumerians created “the world's first writing system based on 60.” Two separate things got mixed together. The <b>writing</b> is cuneiform. The <b>based on 60</b> part is their <b>number system</b>. See the next tab.</div>
+    </div>
+
+    <div class="panel" id="p-60">
+      <p>The Sumerians counted in groups of <b>60</b> instead of 10. That's why we still have <b>60 seconds</b> in a minute, <b>60 minutes</b> in an hour and <b>360 degrees</b> (6 × 60) in a circle.</p>
+      <p>Why 60? Because 60 is the ultimate “share fairly” number. Imagine 60 dates to share with friends. Tap a number of friends:</p>
+      <div class="divbtns" id="divBtns"></div>
+      <div class="stagebox">
+        <svg id="pie" viewBox="-80 -80 160 160" width="180" height="180" aria-label="Circle split into equal parts"></svg>
+        <p id="pieText" style="font-size:1.1rem"></p>
+      </div>
+      <div class="trick"><b>Memory trick:</b> look at any clock. Every tick is a 5,000-year-old Sumerian idea.</div>
+    </div>
+
+    <div class="panel" id="p-wheel">
+      <div class="story"><span class="who">From pots to chariots.</span> The wheel was first used by potters (around 3500 BCE). A potter spun a flat round wheel with clay on top to shape perfect bowls and jars. Then someone had a brilliant idea: turn that wheel on its side, put an axle through it, and attach it to a cart. The Mesopotamians adapted it for transportation, on <b>carts</b> and <b>chariots</b>.</div>
+      <p>The early wheels were solid wood planks cut into a circle, not spokes. Spoked wheels came later, making chariots light and fast for war.</p>
+      <div class="trick"><b>Memory trick:</b> “Pots before chariots.” Pottery first, transport second.</div>
+      <h3>Other Mesopotamian firsts worth knowing</h3>
+      <div class="facts">
+        <div class="fact"><div class="k">Ziggurat</div><div class="v">Stepped temple-towers, like the Great Ziggurat of Ur</div></div>
+        <div class="fact"><div class="k">Plow</div><div class="v">Pulled by oxen to break up soil faster</div></div>
+        <div class="fact"><div class="k">Sailboat</div><div class="v">For trading up and down the rivers</div></div>
+        <div class="fact"><div class="k">Calendar</div><div class="v">Based on the moon, to plan planting</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="p-code">
+      <p>The <b>Code of Hammurabi</b> is one of the earliest and most complete written legal codes, set up by <b>King Hammurabi of Babylon</b> (around 1754 BCE) to ensure justice across his empire.</p>
+      <div class="facts">
+        <div class="fact"><div class="k">How many laws</div><div class="v">About 282</div></div>
+        <div class="fact"><div class="k">Written on</div><div class="v">A tall black stone pillar (a stele), taller than a grown-up</div></div>
+        <div class="fact"><div class="k">Where now</div><div class="v">The Louvre museum, Paris</div></div>
+        <div class="fact"><div class="k">Famous idea</div><div class="v">“An eye for an eye”</div></div>
+      </div>
+      <div class="story"><span class="who">Why carve laws in stone?</span> Before Hammurabi, a judge could make up a punishment depending on his mood. By carving the laws into stone and putting them in public, everybody could know the rules, and the rules couldn't quietly change. At the top of the stone, Hammurabi is carved standing before the sun god Shamash, the god of justice, as if to say, “These laws come with the gods' approval.”</div>
+      <h3>You be the judge</h3>
+      <div id="judges"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 TIMELINE -->
+<section class="tab" id="timeline">
+  <div class="tabhead c-palm"><h2>Timeline</h2><p>Oldest at the top. Remember, bigger BCE number = longer ago.</p></div>
+  <div class="tabbody">
+    <div class="tl">
+      <div class="tli"><span class="d">c. 4500 BCE</span> Sumer begins to flourish in southern Mesopotamia</div>
+      <div class="tli"><span class="d">c. 3500 BCE</span> The wheel is used for pottery (later for carts and chariots)</div>
+      <div class="tli"><span class="d">c. 3200 BCE</span> Cuneiform is invented by scribes in Uruk</div>
+      <div class="tli"><span class="d">c. 3100–2900 BCE</span> Uruk peaks at 50,000–80,000 people, the biggest city on Earth</div>
+      <div class="tli bonus"><span class="d">c. 2700 BCE</span> The real King Gilgamesh probably rules Uruk</div>
+      <div class="tli bonus"><span class="d">c. 2100 BCE</span> The Great Ziggurat of Ur is built</div>
+      <div class="tli"><span class="d">c. 1900 BCE</span> Sumer's time as the leading power ends</div>
+      <div class="tli"><span class="d">c. 1754 BCE</span> Hammurabi of Babylon sets up his law code</div>
+      <div class="tli"><span class="d">c. 700 BCE</span> The Assyrian empire rules from Nineveh</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 FLASHCARDS -->
+<section class="tab" id="cards">
+  <div class="tabhead c-clay"><h2>Flashcards</h2><p>Say the meaning out loud first, then tap to check.</p></div>
+  <div class="tabbody"><div class="cards" id="flashcards"></div></div>
+</section>
+
+<!-- 9 TRICKS -->
+<section class="tab" id="tricks">
+  <div class="tabhead c-teal"><h2>Lock it in</h2><p>Every memory trick in one place, for a last look before the test.</p></div>
+  <div class="tabbody">
+    <div class="tricks">
+      <div style="border-color:var(--teal)"><span class="t" style="color:var(--teal)">Meso + potamia</span>Middle + rivers = land between the rivers.</div>
+      <div style="border-color:var(--lapis)"><span class="t" style="color:var(--lapis)">E before T</span>Euphrates on the left (west), Tigris on the right (east).</div>
+      <div style="border-color:#D9901A"><span class="t" style="color:#D9901A">Uncle Uruk Eats Lasagna</span>Uruk, Ur, Eridu, Lagash: the Sumerian city-states.</div>
+      <div style="border-color:var(--rose)"><span class="t" style="color:var(--rose)">Kings Need Many Farmers</span>King, Nobility &amp; priests, Merchants &amp; artisans, Farmers &amp; enslaved.</div>
+      <div style="border-color:var(--violet)"><span class="t" style="color:var(--violet)">Assyria Above, Babylon Below</span>Assur &amp; Nineveh in the north; Babylon &amp; Hammurabi in the south.</div>
+      <div style="border-color:var(--palm)"><span class="t" style="color:var(--palm)">UR-uk = UR-ban</span>The world's first true city. 50–80 thousand people.</div>
+      <div style="border-color:var(--clay)"><span class="t" style="color:var(--clay)">Receipts, not stories</span>Cuneiform (3200 BCE) began as bookkeeping for grain, cattle, rations.</div>
+      <div style="border-color:var(--lapis)"><span class="t" style="color:var(--lapis)">Look at a clock</span>Base 60 → 60 sec, 60 min, 360°.</div>
+      <div style="border-color:var(--teal)"><span class="t" style="color:var(--teal)">Pots before chariots</span>The wheel: pottery first, transport second.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 QUIZ -->
+<section class="tab" id="quiz">
+  <div class="tabhead c-rose"><h2>The big challenge</h2><p>Eight rounds, eight different ways to prove it. No peeking at the sections above!</p></div>
+  <div class="tabbody">
+    <div class="scorebar"><span id="scoreTxt">Score 0 / 0</span><div class="meter"><i id="meter"></i></div><span id="doneTxt">0 answered</span></div>
+    <div id="quizRoot"></div>
+    <div class="results" id="results" aria-live="polite"></div>
+  </div>
+</section>
+
+</main>
+<footer>Made for Adiaha · Good luck tomorrow!</footer>
+
+<script>
+/* ---------- MAP ---------- */
+const CITIES=[
+ {id:'nineveh',name:'Nineveh',x:206,y:104,grp:'Assyrian',col:'#6C3FBF',txt:'A giant Assyrian capital on the Tigris. King Ashurbanipal kept a huge library of clay tablets here, including a copy of the Epic of Gilgamesh.'},
+ {id:'assur',name:'Assur',x:214,y:158,grp:'Assyrian',col:'#6C3FBF',txt:'The first Assyrian capital, named after their chief god, Ashur. From here the Assyrians grew a vast military empire.'},
+ {id:'babylon',name:'Babylon',x:196,y:268,grp:'Babylonian',col:'#139E97',txt:"Hammurabi's city on the Euphrates. Babylon became famous for its early law codes, and later for the blue Ishtar Gate."},
+ {id:'uruk',name:'Uruk',x:262,y:334,grp:'Sumerian',col:'#D9901A',txt:"The world's first true city! 50,000–80,000 people around 3100–2900 BCE. Home of cuneiform and of King Gilgamesh."},
+ {id:'lagash',name:'Lagash',x:292,y:314,grp:'Sumerian',col:'#D9901A',txt:'A powerful Sumerian city-state. It fought a long border war with its neighbour Umma over farmland and water.'},
+ {id:'ur',name:'Ur',x:276,y:378,grp:'Sumerian',col:'#D9901A',txt:'Sumerian city famous for its Great Ziggurat, a stepped temple-mountain built for the moon god.'},
+ {id:'eridu',name:'Eridu',x:262,y:402,grp:'Sumerian',col:'#D9901A',txt:'The Sumerians believed Eridu was the very first city, the place where kingship first came down from heaven.'}
+];
+const EUPH="M 88 30 C 66 92, 110 160, 160 218 S 204 290, 232 318 S 300 382, 322 406 L 342 432";
+const TIG ="M 188 28 C 212 70, 198 112, 214 150 S 244 222, 266 270 S 312 340, 322 406";
+const GULF="M 300 446 Q 344 420 400 392 L 400 480 L 268 480 Q 286 458 300 446 Z";
+function mapSVG(opts){
+  const {labels=true,quiz=false}=opts;
+  let s=`<svg viewBox="0 0 400 480" role="img" aria-label="Map of Mesopotamia">
+  <rect width="400" height="480" fill="#F2DDAC"/>
+  <path d="M0 0 H400 V40 Q300 58 200 34 Q100 12 0 44 Z" fill="#C79A55" opacity=".55"/>
+  ${labels?'<text x="300" y="26" font-size="13" fill="#6b4a1e" font-family="Lexend">Mountains</text>':''}
+  <path d="M40 150 Q150 120 250 180 T 360 380" fill="none" stroke="#9CC47A" stroke-width="70" opacity=".25" stroke-linecap="round"/>`;
+  if(labels) s+=`<text x="16" y="250" font-size="12" fill="#6b4a1e" font-family="Lexend">Desert</text>`;
+  s+=`<g class="hit" data-f="gulf"><path class="vis" d="${GULF}" fill="#3C8FD0"/>${labels?'<text x="318" y="458" font-size="12" fill="#fff" font-family="Lexend" font-weight="700">Persian Gulf</text>':''}</g>`;
+  [['euph',EUPH],['tig',TIG]].forEach(([id,d])=>{
+    s+=`<g class="hit" data-f="${id}"><path d="${d}" fill="none" stroke="transparent" stroke-width="26"/><path class="vis" d="${d}" fill="none" stroke="#2F8FD0" stroke-width="7" stroke-linecap="round"/>${quiz?'':`<path class="flow" d="${d}" fill="none" stroke="#BFE6FF" stroke-width="2.5" stroke-linecap="round"/>`}</g>`;
+  });
+  if(labels){
+    s+=`<text x="58" y="150" font-size="14" fill="#1d5f93" font-weight="700" font-family="Lexend" transform="rotate(62 58 150)">Euphrates</text>`;
+    s+=`<text x="232" y="196" font-size="14" fill="#1d5f93" font-weight="700" font-family="Lexend" transform="rotate(64 232 196)">Tigris</text>`;
+    s+=`<text x="30" y="108" font-size="13" fill="#6C3FBF" font-weight="700" font-family="Lexend">NORTH: Assyria</text>`;
+    s+=`<text x="30" y="352" font-size="13" fill="#A06A10" font-weight="700" font-family="Lexend">SOUTH: Sumer</text>`;
+    s+=`<text x="30" y="368" font-size="13" fill="#A06A10" font-weight="700" font-family="Lexend">&amp; Babylonia</text>`;
+  }
+  CITIES.forEach(c=>{
+    s+=`<g class="city hit" data-f="${c.id}" tabindex="0" role="button" aria-label="${labels?c.name:'a city'}"><circle cx="${c.x}" cy="${c.y}" r="${quiz?7:7}" fill="${quiz?'#3a2a14':c.col}" stroke="#fff" stroke-width="2.5"/>${labels?`<text x="${c.x+11}" y="${c.y+4}" font-size="13" font-weight="700" fill="#2a1f10" font-family="Lexend">${c.name}</text>`:''}</g>`;
+  });
+  s+=`<g transform="translate(362,78)"><circle r="16" fill="#fff" opacity=".7"/><text y="-3" text-anchor="middle" font-size="12" font-weight="700" fill="#2a1f10" font-family="Lexend">N</text><path d="M0 2 L-5 10 L5 10Z" fill="#2a1f10" transform="rotate(180 0 6)"/></g></svg>`;
+  return s;
+}
+const hm=document.getElementById('heroMap');
+hm.innerHTML=mapSVG({labels:true});
+const info=document.getElementById('cityInfo');
+function showCity(el){
+  const c=CITIES.find(x=>x.id===el.dataset.f); if(!c) return;
+  hm.querySelectorAll('.city').forEach(g=>g.classList.remove('active')); el.classList.add('active');
+  info.innerHTML=`<span class="tag" style="background:${c.col};color:#fff">${c.grp}</span><h3>${c.name}</h3><p>${c.txt}</p>`;
+}
+hm.querySelectorAll('.city').forEach(g=>{
+  g.addEventListener('click',()=>showCity(g));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showCity(g)}});
+});
+
+/* ---------- name pieces ---------- */
+document.querySelectorAll('.piece').forEach(p=>p.addEventListener('click',()=>{const m=p.querySelector('.m');m.textContent=p.dataset.m;m.classList.remove('hide')}));
+
+/* ---------- city flips ---------- */
+function flipCard(front,back){const b=document.createElement('button');b.className='flip';b.innerHTML=`<div class="in"><div class="f">${front}</div><div class="b">${back}</div></div>`;b.addEventListener('click',()=>b.classList.toggle('on'));return b}
+const cf=document.getElementById('cityFlips');
+[['Uruk','Widely considered the world’s first true city'],['Ur','Home of the Great Ziggurat'],['Eridu','Sumerians believed it was the very first city'],['Lagash','Powerful city-state that battled its neighbour Umma']].forEach(([a,b])=>cf.appendChild(flipCard(a,b)));
+
+/* ---------- pyramid ---------- */
+const TIERS=[
+ {n:'King',w:'30%',c:'#D9901A',d:'<b>The King</b> sat at the very top. People believed the gods chose him. He led the army, made laws, collected taxes and built temples and city walls (like Gilgamesh!). <br><i>Analogy:</i> the captain of the whole team.'},
+ {n:'Nobility & priests',w:'52%',c:'#6C3FBF',d:'<b>Nobility and priests</b> were the upper class. Nobles were royal family members and top officials. Priests ran the temples, which were like a church, bank and warehouse all in one, and led ceremonies to keep the gods happy.'},
+ {n:'Merchants & artisans',w:'74%',c:'#139E97',d:'<b>Merchants and artisans</b> were the middle class. Mesopotamia had lots of mud but little wood, stone or metal, so merchants traded grain and cloth for them. Artisans were skilled makers: potters, metalworkers, weavers, jewellers.'},
+ {n:'Farmers & enslaved people',w:'96%',c:'#A9602F',d:'<b>Farmers and enslaved people</b> were the large working class, the biggest group of all. Farmers grew barley, wheat and dates and dug the irrigation canals. Enslaved people were often prisoners of war or people who could not pay their debts, forced to work for others.'}
+];
+const pyr=document.getElementById('pyr'),ti=document.getElementById('tierInfo');
+TIERS.forEach(t=>{const b=document.createElement('button');b.className='tier';b.style.width=t.w;b.style.background=t.c;b.textContent=t.n;b.addEventListener('click',()=>{pyr.querySelectorAll('.tier').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');ti.innerHTML=t.d});pyr.appendChild(b)});
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('#invTabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#invTabs button').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');
+  document.querySelectorAll('#inventions .panel').forEach(p=>p.classList.remove('show'));document.getElementById(b.dataset.p).classList.add('show');
+}));
+
+/* ---------- cuneiform stages ---------- */
+function wedge(x1,y1,x2,y2){const a=Math.atan2(y2-y1,x2-x1),h=13,w=7;const p1=[x1-Math.sin(a)*w,y1+Math.cos(a)*w],p2=[x1+Math.sin(a)*w,y1-Math.cos(a)*w],tip=[x1+Math.cos(a)*h,y1+Math.sin(a)*h];
+ return `<path d="M${p1} L${p2} L${tip} Z" fill="#4a2f12"/><line x1="${tip[0]}" y1="${tip[1]}" x2="${x2}" y2="${y2}" stroke="#4a2f12" stroke-width="3" stroke-linecap="round"/>`}
+function drawStage(s){
+  const g=document.getElementById('dingir');let out='';
+  if(s===0){for(let i=0;i<8;i++){const a=i*Math.PI/4;out+=`<line x1="0" y1="0" x2="${Math.cos(a)*52}" y2="${Math.sin(a)*52}" stroke="#4a2f12" stroke-width="3.5" stroke-linecap="round"/>`}}
+  else if(s===1){for(let i=0;i<8;i++){const a=i*Math.PI/4;out+=wedge(Math.cos(a)*52,Math.sin(a)*52,0,0)}}
+  else {out+=wedge(-52,0,52,0)+wedge(0,-52,0,52)+wedge(-38,-38,38,38)+wedge(-38,38,38,-38)}
+  g.innerHTML=out;
+  document.getElementById('stageText').innerHTML=[
+   '<b>Stage 1, a picture (about 3200 BCE).</b> Cuneiform started as simple drawings on soft clay. This star meant “sky” or “god.”',
+   '<b>Stage 2, wedges appear.</b> Drawing curvy lines in wet clay is messy. Scribes started <i>pressing</i> the corner of a reed stylus instead, which leaves wedge shapes.',
+   '<b>Stage 3, true cuneiform.</b> Just four quick wedges. It no longer looks like a star; it’s a symbol you learn, like a letter. Faster to write, harder to recognise!'][s];
+}
+const st=document.getElementById('stage');st.addEventListener('input',()=>drawStage(+st.value));drawStage(0);
+
+/* ---------- base 60 pie ---------- */
+const PIECOLS=['#2447A8','#F2B32B','#139E97','#DB4B77','#4E9A38','#7B4FC9'];
+function drawPie(n){
+  const svg=document.getElementById('pie');let out='';const r=70;
+  for(let i=0;i<n;i++){const a0=i/n*2*Math.PI-Math.PI/2,a1=(i+1)/n*2*Math.PI-Math.PI/2;const large=(a1-a0)>Math.PI?1:0;
+    out+=`<path d="M0 0 L${r*Math.cos(a0)} ${r*Math.sin(a0)} A${r} ${r} 0 ${large} 1 ${r*Math.cos(a1)} ${r*Math.sin(a1)} Z" fill="${PIECOLS[i%PIECOLS.length]}" stroke="#fff" stroke-width="1.5"/>`}
+  svg.innerHTML=out;
+  const q=60/n,ok=Number.isInteger(q);
+  document.getElementById('pieText').innerHTML=ok?`<b>60 ÷ ${n} = ${q}</b><br>Everyone gets exactly ${q}. Fair and square!`:`<b>60 ÷ ${n} = ${q.toFixed(2)}…</b><br>Messy! 7 doesn't work. But look how many numbers do.`;
+  document.querySelectorAll('#divBtns button').forEach(b=>b.classList.toggle('cur',+b.textContent===n));
+}
+const db=document.getElementById('divBtns');[2,3,4,5,6,7,10,12,15,20,30].forEach(n=>{const b=document.createElement('button');b.textContent=n;b.addEventListener('click',()=>drawPie(n));db.appendChild(b)});drawPie(4);
+
+/* ---------- judge ---------- */
+const JUDGE=[
+ {s:'A builder builds a house badly. It collapses and kills the owner. What does Hammurabi\'s code say?',o:['The builder pays a small fine','The builder is put to death','Nothing, accidents happen'],a:1,w:'Harsh but true. Hammurabi wanted builders to take their work seriously.'},
+ {s:'A noble knocks out the eye of a commoner (a regular free person). What happens?',o:['The noble loses an eye too','The noble pays a fine in silver','The commoner must leave the city'],a:1,w:'“Eye for an eye” mostly applied between equals. Punishments depended on your social class, one more sign of a strictly hierarchical society.'}
+];
+const jd=document.getElementById('judges');
+JUDGE.forEach(j=>{const box=document.createElement('div');box.className='judge';box.innerHTML=`<div><b>Case:</b> ${j.s}</div><div class="opts"></div><div class="why"></div>`;
+ const o=box.querySelector('.opts');j.o.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.addEventListener('click',()=>{o.querySelectorAll('button').forEach((x,k)=>{x.disabled=true;if(k===j.a)x.classList.add('right')});if(i!==j.a)b.classList.add('wrong');box.querySelector('.why').textContent=(i===j.a?'Correct! ':'Not quite. ')+j.w});o.appendChild(b)});jd.appendChild(box)});
+
+/* ---------- flashcards ---------- */
+const FC=[['City-state','A city that ruled itself and the farmland around it'],['Cuneiform','Wedge-shaped writing pressed into clay'],['Scribe','A trained writer who kept records'],['Stylus','Sharpened reed used to press cuneiform'],['Silt','Rich mud left behind by floods'],['Irrigation','Canals that bring river water to crops'],['Ziggurat','Stepped temple tower'],['Cylinder seal','Carved stone roller used like a signature'],['Hierarchy','A ranking system, top to bottom'],['Artisan','A skilled maker, like a potter or weaver'],['Merchant','A trader who buys and sells goods'],['Empire','Many lands ruled by one powerful ruler'],['Law code','A written list of rules and punishments'],['BCE','Before the Common Era; counts backwards']];
+const fcEl=document.getElementById('flashcards');FC.forEach(([a,b])=>fcEl.appendChild(flipCard(a,b)));
+
+/* =================== QUIZ =================== */
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const QUIZ=[
+ {part:'Round 1: Multiple choice',how:'Tap one answer. Your first tap counts!',type:'mc',items:[
+  {q:'The name “Mesopotamia” means…',o:['Land between the rivers','Land of civilized kings','Land of the flood','Land of two empires'],a:0,t:'Name meanings',e:'Meso = middle, potamia = rivers. “Land of civilized kings” is Sumer.'},
+  {q:'Which city was NOT a Sumerian city-state?',o:['Ur','Nineveh','Eridu','Lagash'],a:1,t:'Sumerian city-states',e:'Nineveh was an Assyrian city in the north.'},
+  {q:'Why is there 60 minutes in an hour?',o:['The Egyptians had 60 gods','The Sumerians counted in groups of 60','Hammurabi made it a law','There were 60 city-states'],a:1,t:'Base 60',e:'Their base-60 number system gave us 60 seconds, 60 minutes and 360°.'},
+  {q:'Cuneiform was first invented mainly to…',o:['Write down poems and stories','Record Hammurabi’s laws','Keep track of goods like grain, cattle and rations','Send letters to Egypt'],a:2,t:'Cuneiform',e:'It began as a bookkeeping tool: receipts, not stories.'},
+  {q:'The wheel was first used for…',o:['War chariots','Making pottery','Farm carts','Water mills'],a:1,t:'The wheel',e:'Pots before chariots! It was adapted for carts and chariots later.'},
+  {q:'Uruk’s peak population was about…',o:['5,000–8,000','50,000–80,000','500,000','1 million'],a:1,t:'Uruk',e:'50,000–80,000 around 3100–2900 BCE, the largest city in the world then.'},
+  {q:'Which group built a vast military empire in northern Mesopotamia?',o:['Sumerians','Babylonians','Assyrians','Egyptians'],a:2,t:'Assyrians vs Babylonians',e:'Assyria Above! Around Assur and Nineveh.'},
+  {q:'Why did Mesopotamians build with mud bricks?',o:['Mud bricks were a sign of wealth','There was lots of clay but little stone or wood','The gods forbade stone','Stone was too heavy for carts'],a:1,t:'Geography',e:'The river valley was full of clay and mud but had little stone or timber.'},
+  {q:'A noble and a farmer break the same law under Hammurabi’s code. What is most likely?',o:['They get exactly the same punishment','Only the farmer is punished','The punishment can depend on their social class','Neither is punished'],a:2,t:"Hammurabi's code",e:'Punishments depended on class, a sign of a strictly hierarchical society.'},
+  {q:'Which innovation helped Uruk feed tens of thousands of people in a hot, dry land?',o:['Cylinder seals','Advanced irrigation systems','Cuneiform','Chariots'],a:1,t:'Uruk',e:'Irrigation canals carried river water to the fields.'}
+ ]},
+ {part:'Round 2: True or false',how:'Careful, some of these are sneaky.',type:'tf',items:[
+  {q:'Uruk is located in modern-day Warka, Iraq.',a:true,t:'Uruk',e:'Yes, east of the Euphrates River.'},
+  {q:'Sumer flourished between roughly 4500 and 1900 BCE.',a:true,t:'Sumer',e:'Correct, straight from the notes.'},
+  {q:'Merchants and artisans were at the very bottom of the social pyramid.',a:false,t:'Social pyramid',e:'They were the middle class. Farmers and enslaved people were at the bottom.'},
+  {q:'Cuneiform started as simple drawings on soft clay tablets.',a:true,t:'Cuneiform',e:'Pictures first, wedges later.'},
+  {q:'The Babylonians lived in northern Mesopotamia around Nineveh.',a:false,t:'Assyrians vs Babylonians',e:'Babylon Below: the Babylonians were in the south, around Babylon. Nineveh was Assyrian.'},
+  {q:'In the Epic of Gilgamesh, Gilgamesh is credited with building Uruk’s massive protective walls.',a:true,t:'Uruk',e:'Yes, the walls he saw when he came home.'},
+  {q:'The Tigris is the river on the west (left) side.',a:false,t:'Geography',e:'E before T: Euphrates west, Tigris east.'},
+  {q:'Cuneiform was created by Sumerian scribes in the city-state of Uruk around 3200 BCE.',a:true,t:'Cuneiform',e:'All three details are right.'},
+  {q:'1900 BCE happened before 4500 BCE.',a:false,t:'BCE dates',e:'BCE counts backwards. 4500 BCE is older.'},
+  {q:'Mesopotamian society was strictly hierarchical.',a:true,t:'Social pyramid',e:'Ranked top to bottom and hard to move up.'}
+ ]},
+ {part:'Round 3: Drag to match',how:'Drag each word onto the meaning it belongs to. Tap ✕ to send a word back.',type:'match',id:'match1',t:'Vocabulary',pairs:[
+  ['City-state','A city that ruled itself and the farmland around it'],['Cuneiform','Wedge-shaped writing pressed into clay'],['Scribe','A trained writer who kept records'],['Ziggurat','A stepped temple tower'],['Irrigation','Canals and ditches that carry river water to crops'],['Cylinder seal','A carved stone roller used like a signature on clay']]},
+ {part:'Round 4: Who owns it?',how:'Drag every chip into the right people’s basket.',type:'bins',id:'bins1',t:'Sumerians, Babylonians, Assyrians',
+  bins:[['sum','Sumerians','#D9901A'],['bab','Babylonians','#139E97'],['ass','Assyrians','#6C3FBF']],
+  chips:[['Uruk','sum'],['Ur','sum'],['Eridu','sum'],['Lagash','sum'],['Invented cuneiform','sum'],['“Land of civilized kings”','sum'],['Babylon','bab'],['Hammurabi','bab'],['Famous early law code','bab'],['Assur','ass'],['Nineveh','ass'],['Vast military empire','ass'],['Northern Mesopotamia','ass']]},
+ {part:'Round 5: Build the pyramid',how:'Drag each group to its layer, from the top down.',type:'slots',id:'pyr1',t:'Social pyramid',pyramid:true,
+  slots:[['Top','King'],['2nd','Nobility & priests'],['3rd','Merchants & artisans'],['Bottom','Farmers & enslaved people']]},
+ {part:'Round 6: Timeline scramble',how:'Put these in order from oldest (1st) to newest (6th). No dates to help you!',type:'slots',id:'tl1',t:'Timeline',
+  slots:[['1st (oldest)','Sumer begins to flourish'],['2nd','The wheel is used for pottery'],['3rd','Cuneiform is invented in Uruk'],['4th','Uruk reaches its peak population'],['5th','Hammurabi sets up his law code'],['6th (newest)','Assyrians rule from Nineveh']]},
+ {part:'Round 7: Map detective',how:'The labels are gone. Tap the right spot on the map.',type:'map',id:'map1',t:'Map & geography',
+  prompts:[['tig','the Tigris River'],['euph','the Euphrates River'],['gulf','the Persian Gulf'],['uruk','Uruk'],['nineveh','Nineveh'],['babylon','Babylon']]},
+ {part:'Round 8: Spot the mistake',how:'Each sentence has ONE wrong word. Tap it.',type:'spot',items:[
+  {s:'The Sumerians used a number system based on 10, which is why an hour has 60 minutes.',w:'10',fix:'60',t:'Base 60'},
+  {s:'The Assyrians built a vast military empire around the cities of Assur and Babylon.',w:'Babylon',fix:'Nineveh',t:'Assyrians vs Babylonians'},
+  {s:'Cuneiform began as simple drawings on soft stone tablets.',w:'stone',fix:'clay',t:'Cuneiform'},
+  {s:'Uruk was home to the legendary King Hammurabi, who built its massive walls.',w:'Hammurabi',fix:'Gilgamesh',t:'Uruk'},
+  {s:'Uruk was located west of the Euphrates River in modern-day Warka, Iraq.',w:'west',fix:'east',t:'Uruk'}
+ ]}
+];
+
+let SCORES={};
+function totalMax(){let m=0;QUIZ.forEach(p=>{if(p.type==='mc'||p.type==='tf'||p.type==='spot')m+=p.items.length;else if(p.type==='match')m+=p.pairs.length;else if(p.type==='bins')m+=p.chips.length;else if(p.type==='slots')m+=p.slots.length;else if(p.type==='map')m+=p.prompts.length});return m}
+const MAX=totalMax();
+function record(key,got,max,topic){SCORES[key]={got,max,topic};updateBar()}
+function updateBar(){const v=Object.values(SCORES);const got=v.reduce((a,b)=>a+b.got,0),done=v.reduce((a,b)=>a+b.max,0);
+ document.getElementById('scoreTxt').textContent=`Score ${got} / ${MAX}`;document.getElementById('meter').style.width=(done/MAX*100)+'%';document.getElementById('doneTxt').textContent=`${done} of ${MAX} answered`;
+ if(done===MAX) showResults(got)}
+function fb(el,ok,msg){el.className='fb show '+(ok?'good':'oops');el.innerHTML=(ok?'<b>Yes!</b> ':'<b>Not quite.</b> ')+msg}
+
+function renderQuiz(){
+  SCORES={};const root=document.getElementById('quizRoot');root.innerHTML='';document.getElementById('results').className='results';
+  let n=0;
+  QUIZ.forEach((p,pi)=>{
+    const head=document.createElement('div');head.className='qpart';head.innerHTML=`<h3>${p.part}</h3><p class="how">${p.how}</p>`;root.appendChild(head);
+    if(p.type==='mc'||p.type==='tf'){
+      p.items.forEach((it,ii)=>{n++;const key=`${pi}-${ii}`;const q=document.createElement('div');q.className='q';
+        q.innerHTML=`<div class="stem"><span class="num">${n}</span>${it.q}</div><div class="opts ${p.type==='tf'?'tf':''}"></div><div class="fb"></div>`;
+        const o=q.querySelector('.opts'),f=q.querySelector('.fb');
+        let opts=p.type==='tf'?[['True',true],['False',false]]:shuffle(it.o.map((t,i)=>[t,i===it.a]));
+        if(p.type==='tf')opts=opts.map(([t,v])=>[t,v===it.a]);
+        opts.forEach(([t,right])=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.dataset.r=right?1:0;
+          b.addEventListener('click',()=>{o.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.r==='1')x.classList.add('right')});if(!right)b.classList.add('wrong');fb(f,right,it.e);record(key,right?1:0,1,it.t)});o.appendChild(b)});
+        root.appendChild(q)});
+    }
+    else if(p.type==='spot'){
+      p.items.forEach((it,ii)=>{n++;const key=`${pi}-${ii}`;const q=document.createElement('div');q.className='q';
+        q.innerHTML=`<div class="stem"><span class="num">${n}</span>Tap the wrong word:</div><div class="sentence"></div><div class="fb"></div>`;
+        const s=q.querySelector('.sentence'),f=q.querySelector('.fb');
+        it.s.split(' ').forEach(tok=>{const clean=tok.replace(/[.,]/g,'');const b=document.createElement('button');b.className='word';b.textContent=tok;
+          b.addEventListener('click',()=>{const right=clean===it.w;s.querySelectorAll('.word').forEach(x=>{x.disabled=true;if(x.textContent.replace(/[.,]/g,'')===it.w)x.classList.add(right?'right':'reveal')});if(!right)b.classList.add('wrong');
+            fb(f,right,`“${it.w}” should be “${it.fix}.”`);record(key,right?1:0,1,it.t)});s.appendChild(b)});
+        root.appendChild(q)});
+    }
+    else if(p.type==='map'){ n++; root.appendChild(renderMapQ(p,pi,n)); }
+    else { n++; root.appendChild(renderDragQ(p,pi,n)); }
+  });
+  updateBar();
+}
+
+/* ---- map question ---- */
+function renderMapQ(p,pi,n){
+  const q=document.createElement('div');q.className='q';
+  q.innerHTML=`<div class="stem"><span class="num">${n}</span>Find each place in turn.</div><div class="mapq"><div class="mapbox">${mapSVG({labels:false,quiz:true})}</div><div><div>Tap:</div><div class="prompt"></div><ul class="maplog"></ul></div></div>`;
+  let i=0,got=0;const pr=q.querySelector('.prompt'),log=q.querySelector('.maplog');
+  const setP=()=>{pr.textContent=i<p.prompts.length?p.prompts[i][1]:'Done!'};setP();
+  const names={tig:'the Tigris',euph:'the Euphrates',gulf:'the Persian Gulf'};CITIES.forEach(c=>names[c.id]=c.name);
+  q.querySelectorAll('.hit').forEach(h=>h.addEventListener('click',e=>{
+    e.stopPropagation(); if(i>=p.prompts.length) return;
+    const [want,label]=p.prompts[i];const right=h.dataset.f===want;if(right)got++;
+    const li=document.createElement('li');li.innerHTML=right?`✅ ${label}`:`❌ ${label}: you tapped ${names[h.dataset.f]||'something else'}`;log.appendChild(li);
+    const tgt=q.querySelector(`.hit[data-f="${want}"] .vis, .hit[data-f="${want}"] circle`);
+    if(tgt){const old=tgt.getAttribute('fill')==='none'?null:tgt.getAttribute('fill');if(old)tgt.setAttribute('fill',right?'#23944A':'#F2B32B');else tgt.setAttribute('stroke',right?'#23944A':'#F2B32B');}
+    i++;setP();
+    if(i===p.prompts.length) record(p.id,got,p.prompts.length,p.t);
+  }));
+  return q;
+}
+
+/* ---- drag questions ---- */
+function chipEl(label,ans){const c=document.createElement('div');c.className='chip';c.draggable=true;c.dataset.ans=ans;c.innerHTML=`<span class="label">${label}</span>`;bindChip(c);return c}
+function targetEl(key,lbl,extraStyle){const t=document.createElement('div');t.className='target';t.dataset.key=key;t.innerHTML=`${lbl!==null?`<div class="lbl"${extraStyle||''}>${lbl}</div>`:''}<div class="items"></div>`;bindTarget(t);return t}
+function renderDragQ(p,pi,n){
+  const q=document.createElement('div');q.className='q';q.innerHTML=`<div class="stem"><span class="num">${n}</span>${p.type==='bins'?'Sort every chip.':p.type==='match'?'Match each word to its meaning.':'Fill every slot.'}</div><div class="pool"></div><div class="area"></div><button class="checkbtn">Check my answers</button><span class="warn"></span><div class="fb"></div>`;
+  const pool=q.querySelector('.pool'),area=q.querySelector('.area');let chips=[];
+  if(p.type==='match'){const g=document.createElement('div');g.className='matchgrid';
+    shuffle(p.pairs.map((x,i)=>[x,i])).forEach(([[w,d],i])=>{const row=document.createElement('div');row.className='matchrow';const t=targetEl('m'+i,null);t.dataset.cap=1;t.dataset.name=w;row.appendChild(t);const def=document.createElement('div');def.className='def';def.textContent=d;row.appendChild(def);g.appendChild(row)});
+    area.appendChild(g);chips=p.pairs.map(([w],i)=>chipEl(w,'m'+i));}
+  else if(p.type==='bins'){const g=document.createElement('div');g.className='bins';p.bins.forEach(([k,l,c])=>{const t=targetEl(k,l,` style="background:${c}"`);t.dataset.name=l;g.appendChild(t)});area.appendChild(g);chips=p.chips.map(([l,k])=>chipEl(l,k));}
+  else {const g=document.createElement('div');g.className='slots'+(p.pyramid?' pyrslots':'');const w=['40%','60%','80%','100%'];
+    p.slots.forEach(([l,v],i)=>{const t=targetEl('s'+i,l);t.dataset.cap=1;t.dataset.name=l;if(p.pyramid){t.style.width=w[i];t.style.minWidth='250px'}g.appendChild(t)});area.appendChild(g);chips=p.slots.map(([l,v],i)=>chipEl(v,'s'+i));}
+  shuffle(chips).forEach(c=>pool.appendChild(c));
+  const btn=q.querySelector('.checkbtn'),warn=q.querySelector('.warn'),f=q.querySelector('.fb');
+  btn.addEventListener('click',()=>{
+    if(pool.querySelector('.chip')){warn.textContent='Place every chip first.';return}
+    warn.textContent='';let got=0;const names={};q.querySelectorAll('.target').forEach(t=>names[t.dataset.key]=t.dataset.name);
+    q.querySelectorAll('.target').forEach(t=>t.querySelectorAll('.chip').forEach(c=>{c.querySelector('.x')?.remove();c.draggable=false;
+      if(c.dataset.ans===t.dataset.key){c.classList.add('ok');got++}else{c.classList.add('no');const s=document.createElement('span');s.className='fix';s.textContent=p.type==='match'?'':`→ ${names[c.dataset.ans]}`;if(s.textContent)c.appendChild(s)}}));
+    if(p.type==='match'){q.querySelectorAll('.target').forEach(t=>{const c=t.querySelector('.chip');if(c&&c.dataset.ans!==t.dataset.key){const s=document.createElement('span');s.className='fix';s.textContent=`→ answer: ${t.dataset.name}`;c.appendChild(s)}})}
+    q.classList.add('locked');btn.disabled=true;const max=chips.length;
+    fb(f,got===max,got===max?`All ${max} correct. Brilliant!`:`You got ${got} of ${max}. Red chips show where they really belong.`);record(p.id,got,max,p.t);
+  });
+  return q;
+}
+
+/* drag engine: HTML5 drag for mouse, touch events for phones/tablets */
+let dragChip=null,ghost=null,tChip=null,lastOver=null;
+function bindTarget(t){
+  t.addEventListener('dragover',e=>{if(!dragChip||dragChip.closest('.q')!==t.closest('.q'))return;e.preventDefault();t.classList.add('over')});
+  t.addEventListener('dragleave',()=>t.classList.remove('over'));
+  t.addEventListener('drop',e=>{e.preventDefault();t.classList.remove('over');if(dragChip&&dragChip.closest('.q')===t.closest('.q'))place(dragChip,t)});
+}
+function bindChip(c){
+  c.addEventListener('dragstart',e=>{if(c.closest('.locked')){e.preventDefault();return}dragChip=c;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','chip');setTimeout(()=>c.classList.add('dragging'),0)});
+  c.addEventListener('dragend',()=>{c.classList.remove('dragging');dragChip=null});
+  c.addEventListener('touchstart',touchStart,{passive:false});
+}
+function touchStart(e){
+  const c=e.currentTarget;if(c.closest('.locked'))return;if(e.target.closest('.x'))return;
+  e.preventDefault();tChip=c;ghost=c.cloneNode(true);ghost.classList.add('ghost');ghost.querySelector('.x')?.remove();document.body.appendChild(ghost);
+  moveGhost(e.touches[0]);c.classList.add('dragging');
+  document.addEventListener('touchmove',touchMove,{passive:false});document.addEventListener('touchend',touchEnd);document.addEventListener('touchcancel',touchEnd);
+}
+function moveGhost(t){ghost.style.left=t.clientX+'px';ghost.style.top=t.clientY+'px'}
+function touchMove(e){e.preventDefault();const t=e.touches[0];moveGhost(t);
+  const el=document.elementFromPoint(t.clientX,t.clientY);const tg=el&&el.closest('.target');
+  if(lastOver&&lastOver!==tg)lastOver.classList.remove('over');
+  if(tg&&tg.closest('.q')===tChip.closest('.q')){tg.classList.add('over');lastOver=tg}else lastOver=null;}
+function touchEnd(){
+  if(lastOver){place(tChip,lastOver);lastOver.classList.remove('over')}
+  ghost&&ghost.remove();ghost=null;tChip&&tChip.classList.remove('dragging');tChip=null;lastOver=null;
+  document.removeEventListener('touchmove',touchMove);document.removeEventListener('touchend',touchEnd);document.removeEventListener('touchcancel',touchEnd);
+}
+function place(chip,target){
+  const q=target.closest('.q');if(q.classList.contains('locked'))return;
+  const items=target.querySelector('.items');
+  if(target.dataset.cap==='1'){const ex=items.querySelector('.chip');if(ex&&ex!==chip)returnToPool(ex)}
+  items.appendChild(chip);
+  if(!chip.querySelector('.x')){const x=document.createElement('button');x.type='button';x.className='x';x.setAttribute('aria-label','Send back to the word pool');x.textContent='✕';
+    x.addEventListener('click',ev=>{ev.stopPropagation();returnToPool(chip)});x.addEventListener('touchstart',ev=>ev.stopPropagation(),{passive:true});chip.appendChild(x)}
+  q.querySelector('.warn').textContent='';
+}
+function returnToPool(chip){const q=chip.closest('.q');if(q.classList.contains('locked'))return;chip.querySelector('.x')?.remove();q.querySelector('.pool').appendChild(chip)}
+
+/* ---- results ---- */
+function showResults(got){
+  const pct=Math.round(got/MAX*100);const topics={};
+  Object.values(SCORES).forEach(s=>{if(s.got<s.max){topics[s.topic]=(topics[s.topic]||0)+(s.max-s.got)}});
+  const msg=pct>=90?'Mesopotamian master! Hammurabi himself would carve this score in stone.':pct>=75?'Strong work! A quick look at the topics below and you are ready.':pct>=55?'Good start. Reread the sections below, then try again.':'Time for another trip down the rivers. Reread the sections and try again, you’ve got this.';
+  const list=Object.keys(topics).length?`<p><b>Review these before the test:</b></p><ul>${Object.entries(topics).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<li>${k} (${v} missed)</li>`).join('')}</ul>`:'<p>Nothing to review. Perfect!</p>';
+  const r=document.getElementById('results');r.innerHTML=`<div class="big">${got} / ${MAX}</div><p style="font-size:1.2rem;font-weight:700">${pct}%</p><p>${msg}</p>${list}<button class="again" id="again">Shuffle and try again</button>`;r.className='results show';
+  document.getElementById('again').addEventListener('click',()=>{renderQuiz();document.getElementById('quiz').scrollIntoView()});
+}
+renderQuiz();
+</script>
+</body>
+</html>

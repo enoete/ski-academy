@@ -1,0 +1,18 @@
+{
+  "subjects": [
+    {
+      "id": "social-studies",
+      "name": "Social Studies",
+      "emoji": "🌍",
+      "color": "#E8932A",
+      "guides": [
+        {
+          "title": "Mesopotamia: Land Between the Rivers",
+          "file": "mesopotamia.html",
+          "blurb": "Rivers, Sumer, Uruk, the social pyramid, inventions and an eight-round quiz.",
+          "added": "2026-09-30"
+        }
+      ]
+    }
+  ]
+}
