@@ -40,7 +40,7 @@ The user will give a guide (usually a claude.ai artifact link) and a subject.
    { "id": "science", "name": "Science", "emoji": "🔬", "color": "#1BB5A8", "guides": [ … ] }
    ```
    `id` must equal the folder name. Pick a bright colour that differs from the other subjects and keeps white
-   text readable (used so far: social-studies `#E8932A`). Suggested: english `#FF5C8A`, science `#1BB5A8`,
+   text readable (used so far: social-studies `#E8932A`, language-arts `#E0457B`). Suggested: science `#1BB5A8`,
    math `#5B3FD1`. Validate with `python3 -m json.tool guides.json`.
 4. **Commit and push.**
    ```bash

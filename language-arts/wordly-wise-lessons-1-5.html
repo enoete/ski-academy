@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Adiaha's Word Studio · Wordly Wise Lessons 1–5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF7FF; --card:#FFFFFF; --ink:#27203D; --muted:#6A6286; --line:#E4DAF4;
+  --c1:#0FA392; --c2:#5A48D8; --c3:#EE960F; --c4:#1C8EE0; --c5:#E03D7A; --c6:#8B3FD1;
+  --ok:#159A5B; --okbg:#DFF6EA; --bad:#DB3A40; --badbg:#FDE6E7;
+  --mist:#ffffff; --peak1:#F6C3DA; --peak2:#C8B6F4; --peak3:#8FD3CB;
+  --stick:0 3px 0 rgba(39,32,61,.18);
+  --display:"Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#16122A; --card:#221C3B; --ink:#F4F0FF; --muted:#B3AACF; --line:#382F5C;
+    --c1:#2CC7B4; --c2:#8B7CFF; --c3:#FFB23E; --c4:#4FB0FF; --c5:#FF6A9E; --c6:#B67BFF;
+    --ok:#3DD68C; --okbg:#123A29; --bad:#FF6B70; --badbg:#431C25;
+    --mist:#16122A; --peak1:#5A2E57; --peak2:#3E3278; --peak3:#1E5A5A;
+    --stick:0 3px 0 rgba(0,0,0,.45); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#16122A; --card:#221C3B; --ink:#F4F0FF; --muted:#B3AACF; --line:#382F5C;
+  --c1:#2CC7B4; --c2:#8B7CFF; --c3:#FFB23E; --c4:#4FB0FF; --c5:#FF6A9E; --c6:#B67BFF;
+  --ok:#3DD68C; --okbg:#123A29; --bad:#FF6B70; --badbg:#431C25;
+  --mist:#16122A; --peak1:#5A2E57; --peak2:#3E3278; --peak3:#1E5A5A;
+  --stick:0 3px 0 rgba(0,0,0,.45); color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--c4);outline-offset:3px;border-radius:8px}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;padding:40px 0 0;min-height:340px}
+.hero svg.scape{position:absolute;inset:auto 0 0 0;width:100%;height:260px;display:block}
+.hero .wrap{position:relative;z-index:2}
+.hero h1{font-size:clamp(2.4rem,7vw,4.4rem);font-weight:700;letter-spacing:-.01em;max-width:12ch}
+.hero .brush{display:block;width:min(420px,80%);height:26px;margin:6px 0 10px}
+.hero .brush path{fill:none;stroke:var(--c5);stroke-width:9;stroke-linecap:round;stroke-dasharray:520;stroke-dashoffset:520;animation:draw 1.4s .3s ease-out forwards}
+.hero p.sub{font-size:1.15rem;max-width:44ch;color:var(--muted);margin:0 0 150px}
+@keyframes draw{to{stroke-dashoffset:0}}
+.mist{animation:drift 26s ease-in-out infinite alternate}
+.mist.b{animation-duration:34s;animation-direction:alternate-reverse}
+@keyframes drift{from{transform:translateX(-60px)}to{transform:translateX(60px)}}
+.moon{animation:eclipse 3.2s .4s ease-in-out forwards}
+@keyframes eclipse{from{transform:translateX(-70px)}to{transform:translateX(-18px)}}
+
+/* NAV */
+nav.tabs{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+nav.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-family:var(--display);font-weight:600;font-size:.98rem;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.tab .dot{width:12px;height:12px;border-radius:50%;background:var(--tc)}
+.tab[aria-current="page"]{background:var(--tc);border-color:var(--tc);color:var(--paper);box-shadow:var(--stick)}
+.tab[aria-current="page"] .dot{background:var(--paper)}
+
+main{padding:28px 0 60px}
+
+/* HOME */
+.intro{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
+.intro h2{font-size:1.9rem;margin-bottom:8px}
+.steps{list-style:none;padding:0;margin:16px 0 0;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:12px;align-items:flex-start;margin:0 0 12px}
+.steps li::before{content:counter(s);flex:0 0 32px;height:32px;border-radius:50%;background:var(--ink);color:var(--paper);font-family:var(--display);font-weight:700;display:grid;place-items:center}
+.pots{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:26px}
+.pot{border:0;text-align:left;cursor:pointer;background:var(--card);border-radius:22px 22px 22px 6px;padding:16px 16px 14px;box-shadow:inset 0 0 0 2px var(--line),var(--stick);position:relative;overflow:hidden;transition:transform .15s}
+.pot:hover{transform:translateY(-3px)}
+.pot::before{content:"";position:absolute;right:-26px;top:-26px;width:92px;height:92px;border-radius:50%;background:var(--tc);opacity:.9}
+.pot .n{font-family:var(--display);font-weight:700;font-size:1.9rem;color:#fff;position:absolute;right:12px;top:4px}
+.pot h3{font-size:1.15rem;margin:26px 0 4px;max-width:12ch}
+.pot small{color:var(--muted);display:block}
+.pot .bar{height:8px;background:var(--line);border-radius:9px;margin-top:10px;overflow:hidden}
+.pot .bar i{display:block;height:100%;background:var(--tc);border-radius:9px;width:0;transition:width .4s}
+.bigquiz{grid-column:1/-1;border-radius:22px;padding:22px;background:var(--ink);color:var(--paper);display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.bigquiz h3{font-size:1.5rem}
+.bigquiz p{margin:4px 0 0;opacity:.8;max-width:52ch}
+
+/* BUTTONS */
+.btn{border:0;cursor:pointer;background:var(--lc,var(--c2));color:#fff;font-family:var(--display);font-weight:600;font-size:1.02rem;padding:11px 20px;border-radius:14px;box-shadow:var(--stick);transition:transform .1s}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn.light{background:var(--paper);color:var(--ink)}
+.btn.big{font-size:1.15rem;padding:14px 26px}
+
+/* LESSON */
+.lhead{display:flex;gap:18px;align-items:center;margin-bottom:10px}
+.lnum{flex:0 0 72px;height:72px;border-radius:50% 50% 50% 14%;background:var(--lc);color:#fff;font-family:var(--display);font-weight:700;font-size:2.4rem;display:grid;place-items:center;box-shadow:var(--stick)}
+.lhead h2{font-size:clamp(1.6rem,4vw,2.3rem)}
+.lhead p{margin:4px 0 0;color:var(--muted);max-width:60ch}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:16px 0}
+.mastery{font-family:var(--display);font-weight:600;margin-right:auto}
+.mastery b{color:var(--lc)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.card{position:relative;perspective:1100px;cursor:pointer;outline:none;display:grid}
+.card .inner{display:grid;transition:transform .55s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d;min-height:250px}
+.card.flipped .inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:18px;background:var(--card);box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.front{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;border-top:8px solid var(--lc)}
+.front .emo{font-size:2.8rem;line-height:1}
+.front .word{font-family:var(--display);font-weight:700;font-size:1.7rem}
+.front .pos{color:var(--muted);font-style:italic;font-size:.95rem}
+.back{transform:rotateY(180deg);font-size:.95rem;background:color-mix(in srgb,var(--lc) 10%,var(--card))}
+.back h4{font-size:1.15rem;color:var(--lc);margin-bottom:4px}
+.back ol{margin:0 0 8px;padding-left:20px}
+.back li{margin-bottom:3px}
+.back .forms{font-size:.88rem;color:var(--muted);margin:0 0 6px}
+.back .ex{font-style:italic;margin:0 0 6px}
+.back .hook{margin:0;padding:8px 10px;border-radius:12px;background:var(--card);font-size:.9rem}
+.cbtns{position:absolute;top:8px;right:8px;display:flex;gap:4px;z-index:3}
+.icon{border:0;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;display:grid;place-items:center}
+.icon.star[aria-pressed="true"]{background:#FFD23F;box-shadow:inset 0 0 0 2px #E8B400}
+.card.known .front{background:color-mix(in srgb,#FFD23F 16%,var(--card))}
+h3.game{font-size:1.5rem;margin:40px 0 4px}
+p.hint{color:var(--muted);margin:0 0 14px}
+
+/* DRAG & DROP */
+.dnd{position:relative;user-select:none;-webkit-user-select:none}
+.pool{display:flex;flex-wrap:wrap;gap:10px;padding:14px;border-radius:18px;background:color-mix(in srgb,var(--lc,var(--c2)) 8%,var(--card));min-height:62px;border:2px dashed color-mix(in srgb,var(--lc,var(--c2)) 45%,var(--line))}
+.pool:empty::after{content:"All placed ✨";color:var(--muted);font-family:var(--display);padding:6px}
+.pool.sticky{position:sticky;top:calc(var(--navh,62px) + 6px);z-index:12;box-shadow:0 8px 18px -10px rgba(0,0,0,.35)}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:7px 14px;font-weight:700;cursor:grab;user-select:none;-webkit-user-select:none;box-shadow:var(--stick);touch-action:none;max-width:100%;line-height:1.3}
+.chip.long{border-radius:14px;font-weight:400;padding:9px 12px}
+.chip:active{cursor:grabbing}
+.chip.dragging{opacity:.35}
+.chip .x{display:none;border:0;background:var(--ink);color:var(--paper);width:22px;height:22px;border-radius:50%;font-size:.72rem;cursor:pointer;flex:0 0 22px;padding:0}
+.drop .chip .x{display:inline-grid;place-items:center}
+.locked .chip .x{display:none!important}
+.locked .chip{cursor:default}
+.chip.ghost{position:fixed;z-index:1000;pointer-events:none;opacity:.95;transform:rotate(-3deg) scale(1.06);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.chip.right{border-color:var(--ok);background:var(--okbg)}
+.chip.wrong{border-color:var(--bad);background:var(--badbg)}
+.pop{animation:pop .28s ease-out}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+.drop.hi{outline:3px solid var(--lc,var(--c2));outline-offset:2px;background:color-mix(in srgb,var(--lc,var(--c2)) 16%,var(--card))!important}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:14px}
+.bin{border-radius:22px;padding:12px;min-height:170px;background:var(--card);box-shadow:inset 0 0 0 3px var(--bc,var(--line));transition:background .15s}
+.binlabel{font-family:var(--display);font-weight:600;font-size:1.2rem;margin:2px 4px 10px;color:var(--bc)}
+.binbody{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.rows{display:grid;gap:10px;margin-top:14px}
+.mrow{display:grid;grid-template-columns:minmax(150px,210px) 1fr;gap:12px;align-items:center;background:var(--card);border-radius:16px;padding:8px;box-shadow:inset 0 0 0 2px var(--line)}
+.slot{min-height:46px;border-radius:999px;border:2px dashed var(--muted);display:flex;align-items:center;justify-content:center;padding:3px}
+.slot.filled{border-style:solid;border-color:transparent}
+.mdef{padding-right:6px}
+.fix{display:block;font-size:.85rem;color:var(--ok);font-weight:700;margin-top:2px}
+.blank{display:inline-flex;min-width:120px;min-height:40px;vertical-align:middle;border-bottom:3px solid var(--lc,var(--c2));border-radius:10px 10px 0 0;margin:3px 2px;padding:2px;justify-content:center;align-items:center;background:color-mix(in srgb,var(--lc,var(--c2)) 7%,transparent)}
+.storytext{background:var(--card);border-radius:20px;padding:20px;box-shadow:inset 0 0 0 2px var(--line);line-height:2.3;font-size:1.05rem}
+.seq{display:grid;gap:10px;margin-top:12px;counter-reset:q}
+.seqrow{display:flex;gap:10px;align-items:center}
+.seqrow b{flex:0 0 38px;height:38px;border-radius:50%;background:var(--lc,var(--c2));color:#fff;display:grid;place-items:center;font-family:var(--display)}
+.seqrow .drop{flex:1;min-height:50px;border-radius:14px;border:2px dashed var(--muted);padding:4px;display:flex;align-items:center}
+.seqrow .drop.filled{border-style:solid;border-color:var(--line)}
+
+/* STORY */
+.scroll{position:relative;margin-top:20px;display:grid;gap:18px}
+.scene{display:grid;grid-template-columns:90px 1fr;gap:18px;background:var(--card);border-radius:24px;padding:20px;box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.scene .art{font-size:3rem;text-align:center;line-height:1.1}
+.scene .art small{display:block;font-family:var(--display);font-size:.8rem;color:var(--muted);margin-top:6px}
+.scene h3{font-size:1.35rem;margin-bottom:6px}
+.scene p{margin:0;max-width:66ch}
+.vw{border:0;background:color-mix(in srgb,var(--c5) 16%,transparent);color:inherit;font-weight:700;padding:0 5px;border-radius:7px;cursor:pointer;border-bottom:3px solid var(--c5)}
+.vw.found{background:var(--c5);color:#fff}
+.hunt{position:sticky;top:calc(var(--navh,62px) + 6px);z-index:10;display:flex;gap:12px;align-items:center;background:var(--ink);color:var(--paper);border-radius:16px;padding:10px 16px;font-family:var(--display);font-weight:600;flex-wrap:wrap}
+.hunt .meter{flex:1;min-width:120px;height:10px;background:rgba(255,255,255,.2);border-radius:9px;overflow:hidden}
+.hunt .meter i{display:block;height:100%;width:0;background:var(--c5);transition:width .3s}
+#pop{position:absolute;z-index:50;max-width:300px;background:var(--ink);color:var(--paper);padding:12px 14px;border-radius:14px;font-size:.95rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#pop b{font-family:var(--display);font-size:1.1rem;color:#FFD23F;display:block}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:20px}
+.fact{background:var(--card);border-radius:18px;padding:14px;box-shadow:inset 0 0 0 2px var(--line)}
+.fact b{font-family:var(--display);font-size:1.8rem;color:var(--c5);display:block;line-height:1}
+
+/* QUIZ */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.track{display:flex;gap:6px;flex-wrap:wrap}
+.track span{width:26px;height:10px;border-radius:9px;background:var(--line)}
+.track span.now{background:var(--ink)}
+.track span.good{background:var(--ok)}
+.track span.meh{background:var(--c3)}
+.track span.low{background:var(--bad)}
+.total{font-family:var(--display);font-weight:700;font-size:1.2rem}
+.phead{display:flex;gap:14px;align-items:center;background:var(--ink);color:var(--paper);border-radius:22px;padding:16px 18px;margin-bottom:16px}
+.phead .pemo{font-size:2.4rem}
+.phead h3{font-size:1.45rem}
+.phead p{margin:2px 0 0;opacity:.85}
+.pfoot{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:20px;flex-wrap:wrap}
+.pfoot .msg{font-family:var(--display);font-weight:600;font-size:1.15rem}
+.q{background:var(--card);border-radius:20px;padding:16px 18px;margin-bottom:14px;box-shadow:inset 0 0 0 2px var(--line)}
+.q .qt{font-weight:700;margin:0 0 10px;font-size:1.05rem}
+.q .qt .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--lc,var(--c2));color:#fff;font-family:var(--display);margin-right:8px;font-size:.9rem}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.opt{text-align:left;border:0;cursor:pointer;background:var(--paper);border-radius:14px;padding:10px 14px;box-shadow:inset 0 0 0 2px var(--line);transition:transform .1s}
+.opt:hover:not(:disabled){transform:translateY(-2px);box-shadow:inset 0 0 0 2px var(--lc,var(--c2))}
+.opt:disabled{cursor:default}
+.opt.sel{box-shadow:inset 0 0 0 3px var(--lc,var(--c2));background:color-mix(in srgb,var(--lc,var(--c2)) 12%,var(--card))}
+.opt.right{background:var(--okbg);box-shadow:inset 0 0 0 3px var(--ok)}
+.opt.wrong{background:var(--badbg);box-shadow:inset 0 0 0 3px var(--bad)}
+.opt.missed{box-shadow:inset 0 0 0 3px var(--ok)}
+.tf{display:flex;gap:10px}
+.stamp{flex:1;border:0;cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.2rem;padding:12px;border-radius:16px;background:var(--paper);box-shadow:inset 0 0 0 3px var(--line);transform:rotate(-1deg)}
+.stamp.f{transform:rotate(1deg)}
+.stamp:hover:not(:disabled){box-shadow:inset 0 0 0 3px var(--ink)}
+.stamp.right{background:var(--okbg);box-shadow:inset 0 0 0 3px var(--ok)}
+.stamp.wrong{background:var(--badbg);box-shadow:inset 0 0 0 3px var(--bad)}
+.why{margin:10px 0 0;padding:10px 12px;border-radius:12px;font-size:.95rem}
+.why.good{background:var(--okbg)}
+.why.bad{background:var(--badbg)}
+.bold{font-weight:700;color:var(--lc,var(--c2))}
+.analogy{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:.02em}
+.results{text-align:center;padding:10px 0}
+.results .pct{font-family:var(--display);font-weight:700;font-size:clamp(3.5rem,14vw,6rem);line-height:1}
+.results .stars{font-size:2.4rem;margin:6px 0}
+.breakdown{display:grid;gap:6px;max-width:560px;margin:22px auto;text-align:left}
+.breakdown div{display:flex;justify-content:space-between;background:var(--card);padding:8px 14px;border-radius:12px;box-shadow:inset 0 0 0 2px var(--line)}
+.review{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;text-align:left;margin:14px 0 24px}
+.review div{background:var(--card);border-radius:14px;padding:10px 12px;box-shadow:inset 0 0 0 2px var(--line);border-left:6px solid var(--tc)}
+.review b{font-family:var(--display);font-size:1.1rem}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:999}
+footer{color:var(--muted);text-align:center;font-size:.9rem;padding:20px 0 40px}
+.themebtn{position:absolute;top:14px;right:14px;z-index:5}
+
+@media (max-width:720px){
+  .intro{grid-template-columns:1fr}
+  .mrow{grid-template-columns:1fr}
+  .scene{grid-template-columns:1fr}
+  .scene .art{text-align:left;display:flex;gap:10px;align-items:center}
+  .scene .art small{margin:0}
+  .hero p.sub{margin-bottom:130px}
+  body{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .hero .brush path{stroke-dashoffset:0}
+  .moon{transform:translateX(-18px)}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <button class="icon themebtn" id="themeBtn" aria-label="Switch light or dark">🌓</button>
+  <div class="wrap">
+    <h1>Adiaha's Word Studio</h1>
+    <svg class="brush" viewBox="0 0 420 26" aria-hidden="true"><path d="M6 17 C 80 5, 160 22, 240 12 S 380 8, 414 14"/></svg>
+    <p class="sub">Wordly Wise Book 6, Lessons 1 to 5: all 75 words, the story of Wang Yani, and one big quiz to prove you've got them.</p>
+  </div>
+  <svg class="scape" viewBox="0 0 1200 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <circle cx="930" cy="70" r="46" fill="#FFC23D"/>
+    <circle class="moon" cx="930" cy="70" r="44" fill="var(--paper)"/>
+    <path id="p1" fill="var(--peak2)"/>
+    <rect class="mist" x="-100" y="150" width="1400" height="26" rx="13" fill="var(--mist)" opacity=".7"/>
+    <path id="p2" fill="var(--peak1)"/>
+    <rect class="mist b" x="-100" y="200" width="1400" height="22" rx="11" fill="var(--mist)" opacity=".75"/>
+    <path id="p3" fill="var(--peak3)"/>
+  </svg>
+</header>
+
+<nav class="tabs" aria-label="Sections"><div class="wrap" id="tabs"></div></nav>
+
+<main class="wrap">
+  <section id="view-home"></section>
+  <section id="view-l1" hidden></section>
+  <section id="view-l2" hidden></section>
+  <section id="view-l3" hidden></section>
+  <section id="view-l4" hidden></section>
+  <section id="view-l5" hidden></section>
+  <section id="view-story" hidden></section>
+  <section id="view-quiz" hidden></section>
+</main>
+<footer>Made for Adiaha. Study a little every day and the words will stick. 🖌️</footer>
+<div id="pop" hidden></div>
+<canvas id="confetti"></canvas>
+
+<script>
+/* ============================ DATA ============================ */
+const LESSONS = [
+ {n:1, title:"Lady Liberty", color:"var(--c1)", blurb:"Words from the story of the Statue of Liberty: how she got her pedestal and welcomed immigrants.",
+  words:[
+   {w:"affection",e:"💞",pos:"noun",d:["n. A fond or tender feeling."],f:"affectionate (adj.): gentle and loving",ex:"Grandma's hug was full of affection.",h:"Affection is the warm-blanket feeling you get around people you love.",m:"a fond or tender feeling"},
+   {w:"appeal",e:"🙏",pos:"verb / noun",d:["v. To make an earnest request; to ask.","v. To be attractive to.","n. An earnest request for help.","n. The power to attract."],ex:"The shelter made an appeal for blankets before the storm.",h:"Appeal has two jobs: asking really nicely (please!) and being attractive (ooh, I want that).",m:"an earnest request; or the power to attract"},
+   {w:"clasp",e:"🤝",pos:"verb / noun",d:["v. To grasp or hold tightly.","n. A strong grasp or hold.","n. A hook or fastener that holds two parts together."],ex:"Lady Liberty's hand clasps the torch.",h:"A necklace clasp holds on tight, just like your hand does.",m:"to grasp or hold tightly"},
+   {w:"conspicuous",e:"🦩",pos:"adjective",d:["adj. Easily or plainly seen."],ex:"A pink flamingo would be conspicuous in a flock of pigeons.",h:"Conspicuous = you can't miss it.",m:"easily or plainly seen"},
+   {w:"contribute",e:"🎁",pos:"verb",d:["v. To give along with others who are giving.","v. To have a part in bringing about."],f:"contribution (n.): what is given · contributor (n.): one who gives",ex:"Everyone contributed a dish to the class party.",h:"Contribute = chip in. Your piece + their piece = the whole thing.",m:"to give along with others"},
+   {w:"declare",e:"📣",pos:"verb",d:["v. To make known; to state openly."],f:"declaration (n.): a public statement",ex:"The judges declared her the winner.",h:"Declare it like an announcer with a megaphone.",m:"to state openly; to make known"},
+   {w:"eloquent",e:"🎤",pos:"adjective",d:["adj. Skilled at speaking or writing; having the power to move people."],f:"eloquence (n.): skill at speaking or writing",ex:"Her eloquent speech made the whole hall go quiet.",h:"Eloquent words work like a great song: they move people.",m:"skilled at speaking or writing in a moving way"},
+   {w:"exhibit",e:"🖼️",pos:"verb / noun",d:["v. To show in public.","n. An item or collection of items in a public show."],f:"exhibition (n.): a large-scale public show",ex:"The museum exhibited a real dinosaur skeleton.",h:"An exhibit is what you'd see behind the glass at a museum.",m:"to show in public"},
+   {w:"ferry",e:"⛴️",pos:"noun / verb",d:["n. A boat that carries people and goods back and forth across a stretch of water.","v. To move people or goods by boat across water."],ex:"The ferry carries cars and people between the two islands.",h:"A ferry goes back and forth, back and forth, like a shuttle bus on water.",m:"a boat that carries people across water"},
+   {w:"immigrant",e:"🧳",pos:"noun",d:["n. A person who comes into a country to live there."],ex:"Many immigrants arrived in New York by ship.",h:"IMmigrant comes IN to a new country.",m:"a person who comes into a country to live there"},
+   {w:"lofty",e:"🏔️",pos:"adjective",d:["adj. Very tall or high.","adj. Noble in feeling or ideals.","adj. Showing a too-proud or superior attitude."],ex:"Lofty palm trees shaded the beach.",h:"Three kinds of HIGH: a high tree, a high goal, a nose held high in the air.",m:"very tall or high; noble; too proud"},
+   {w:"pedestal",e:"🗽",pos:"noun",d:["n. A base or support on which something stands."],ex:"The trophy stood on a marble pedestal.",h:"PED = foot. A pedestal is the statue's feet-stand.",m:"a base on which something stands"},
+   {w:"persecute",e:"⛓️",pos:"verb",d:["v. To treat cruelly or harshly because of political, religious, or other differences."],f:"persecution (n.): the state of being persecuted",ex:"Many families fled because they were persecuted for their beliefs.",h:"Persecute is always cruel and unfair. It's never a joke or a game.",m:"to treat cruelly because of differences"},
+   {w:"poverty",e:"🪙",pos:"noun",d:["n. The state of being poor."],ex:"The charity helps families living in poverty.",h:"Poverty sounds like POOR-verty.",m:"the state of being poor"},
+   {w:"unveil",e:"🎭",pos:"verb",d:["v. To remove a covering from.","v. To make known or reveal for the first time."],ex:"The mayor will unveil the new statue at noon.",h:"Un + veil: pull the veil off! Ta-da!",m:"to remove a covering from; to reveal"}
+  ],
+  sort:[["The bright red barn was conspicuous against the green hills.",1],["Visitors paid to see an exhibit of ancient coins.",1],["The charity thanked everyone who contributed food.",1],["The lofty puddle was barely an inch deep.",0],["He was so eloquent that nobody understood a word he said.",0],["We persecuted our friend with a surprise birthday cake.",0]]},
+ {n:2, title:"Civil Rights", color:"var(--c2)", blurb:"Words from the story of Rosa Parks and the Montgomery bus boycott.",
+  words:[
+   {w:"arrogant",e:"😤",pos:"adjective",d:["adj. Showing too much pride in oneself."],f:"arrogance (n.): too much pride in oneself",ex:"It was arrogant of him to say he'd win without even practicing.",h:"Arrogant people act like they're on a throne and everyone else is on the floor.",m:"showing too much pride in oneself"},
+   {w:"boycott",e:"🚫",pos:"verb / noun",d:["v. To join others in refusing to support an organization.","n. The act of boycotting."],ex:"Customers boycotted the store until it changed its unfair rules.",h:"Named after Captain Charles Boycott, a harsh landlord everyone refused to deal with.",m:"to join others in refusing to support an organization"},
+   {w:"campaign",e:"🗳️",pos:"noun / verb",d:["n. A series of actions intended to accomplish a goal.","n. A series of military actions in a particular area.","v. To take part in actions planned to reach a goal."],ex:"Our class ran a campaign to clean up the beach.",h:"From Latin campus, a field: armies used to be 'in the field'.",m:"a series of actions planned to reach a goal"},
+   {w:"ceremony",e:"🎓",pos:"noun",d:["n. A formal event held in honor of a special occasion."],ex:"The graduation ceremony was held in the big hall.",h:"Weddings, graduations, award nights: all ceremonies.",m:"a formal event honoring a special occasion"},
+   {w:"custody",e:"🔐",pos:"noun",d:["n. Control over and responsibility for care.","n. In the keeping of the police; in jail."],ex:"The police took the thief into custody.",h:"Custody = someone is in charge of keeping you (or a painting) safe or held.",m:"control and responsibility for care; being held by police"},
+   {w:"degrade",e:"👎",pos:"verb",d:["v. To bring shame or disgrace upon."],f:"degrading (adj.): causing shame or disgrace",ex:"Being forced to sit at the back of the bus was degrading.",h:"De-GRADE: drops someone down a grade, a step lower.",m:"to bring shame or disgrace upon"},
+   {w:"detain",e:"✋",pos:"verb",d:["v. To stop or hold; to keep from going on."],ex:"The teacher detained us after class to explain the homework.",h:"Detain sounds like detention: you're held back.",m:"to stop or hold; to keep from going on"},
+   {w:"extend",e:"↔️",pos:"verb",d:["v. To reach out.","v. To offer.","v. To make longer.","v. To stretch or spread outward from a point."],ex:"The museum extended the show by another week.",h:"Extend = stretch it out: your arm, a deadline, a welcome.",m:"to reach out, offer, or make longer"},
+   {w:"integrate",e:"🧩",pos:"verb",d:["v. To unite into a whole; especially to end the separation of people of different races."],f:"integration (n.): the act of bringing together",ex:"The court ordered the city to integrate its buses.",h:"Integer means whole. Integrate = make it whole again, all puzzle pieces together.",m:"to unite into a whole; to end separation of races"},
+   {w:"segregate",e:"🚧",pos:"verb",d:["v. To keep separate or apart."],f:"segregation (n.): the act of keeping separate",ex:"Ranchers segregate sick animals from the herd.",h:"Se- (apart) + greg (flock): keep apart from the flock. Opposite of integrate.",m:"to keep separate or apart"},
+   {w:"supreme",e:"👑",pos:"adjective",d:["adj. The highest in rank or position.","adj. Of the greatest importance."],ex:"The Supreme Court is the highest court in the United States.",h:"Supreme = top of the top.",m:"highest in rank; of greatest importance"},
+   {w:"triumph",e:"🏆",pos:"noun / verb",d:["n. A noteworthy success.","n. The joy that winning brings.","v. To win."],f:"triumphant (adj.): joyful over a victory",ex:"Winning the spelling bee was a triumph for the whole school.",h:"Triumph = trophy moment!",m:"a noteworthy success; the joy of winning"},
+   {w:"vacate",e:"🚪",pos:"verb",d:["v. To make empty, as by leaving."],ex:"Please vacate the room when the fire alarm rings.",h:"On VACation your house is VACant: you vacated it.",m:"to make empty by leaving"},
+   {w:"verdict",e:"⚖️",pos:"noun",d:["n. The decision reached at the end of a trial.","n. A judgment or opinion."],ex:"The jury's verdict was 'not guilty.'",h:"Latin verus (true) + dicere (to speak): speaking the truth.",m:"the decision at the end of a trial"},
+   {w:"violate",e:"🚨",pos:"verb",d:["v. To break, as a law or a promise.","v. To treat in an improper or disrespectful way."],f:"violation (n.): a breaking of a law or promise",ex:"Littering violates the law.",h:"Violate is breaking a rule. A violet is a purple flower. Don't mix them up!",m:"to break a law or promise"}
+  ],
+  sort:[["The jury announced its verdict after two hours.",1],["The teacher detained us after class to explain the homework.",1],["Fans boycotted the stadium until ticket prices came down.",1],["Beautiful purple violates grew in the garden.",0],["Please vacate the markers back into the box.",0],["We ate too much ceremony at the party.",0]]},
+ {n:3, title:"Land of Contrasts", color:"var(--c3)", blurb:"Words from the tour of Thailand's four distinct regions.",
+  words:[
+   {w:"abundant",e:"🍎",pos:"adjective",d:["adj. More than enough; plentiful."],f:"abundance (n.): a great amount",ex:"The rain gave farmers an abundant harvest of mangoes.",h:"Abundant = a basket that's overflowing.",m:"more than enough; plentiful"},
+   {w:"arid",e:"🌵",pos:"adjective",d:["adj. Having little or no rainfall; very dry."],ex:"Cacti grow well in arid deserts.",h:"Arid sounds like 'air-dried'. Opposite of humid.",m:"having little or no rainfall"},
+   {w:"distinct",e:"🎨",pos:"adjective",d:["adj. Not the same; different or separate.","adj. Unmistakable; definite."],ex:"Thailand has four distinct regions.",h:"Distinct things stand apart clearly, like separate paint colors.",m:"different or separate; unmistakable"},
+   {w:"graze",e:"🐄",pos:"verb",d:["v. To feed on growing grass.","v. To touch lightly in passing."],ex:"Buffalo graze on the grassy slopes.",h:"Cows GRAZE on GRASS. A ball can graze your arm too: just a light touch.",m:"to feed on grass; to touch lightly in passing"},
+   {w:"hectic",e:"🌀",pos:"adjective",d:["adj. Full of feverish activity, haste, or confusion."],ex:"The kitchen was hectic before the big dinner.",h:"Hectic = rushing around like the whole day is on fast-forward.",m:"full of feverish activity and haste"},
+   {w:"horde",e:"🐜",pos:"noun",d:["n. A large group or crowd, especially one on the move."],ex:"Hordes of tourists poured into the city.",h:"A horde moves together like a stampede. (A hoard is a hidden pile of treasure. Different word!)",m:"a large crowd, especially one on the move"},
+   {w:"humid",e:"💦",pos:"adjective",d:["adj. Having a large amount of water or moisture in the air."],f:"humidity (n.): the amount of moisture in the air",ex:"The rainforest was so humid our clothes stuck to us.",h:"Humid = sticky, sweaty air.",m:"having lots of moisture in the air"},
+   {w:"incredible",e:"🤯",pos:"adjective",d:["adj. Hard or impossible to believe."],ex:"Over a thousand kinds of butterflies? That's incredible!",h:"In (not) + cred (believe): NOT believable.",m:"hard or impossible to believe"},
+   {w:"inhabit",e:"🏡",pos:"verb",d:["v. To live in or on."],f:"inhabitant (n.): a person or animal that lives in a place",ex:"Tigers and monkeys inhabit the forests.",h:"Your HABITat is where you inHABIT.",m:"to live in or on"},
+   {w:"peninsula",e:"🗺️",pos:"noun",d:["n. A piece of land connected to a larger land mass that juts out and is almost completely surrounded by water."],ex:"Italy is a peninsula shaped like a boot.",h:"Latin paene (almost) + insula (island): ALMOST an island.",m:"land almost completely surrounded by water"},
+   {w:"rural",e:"🌾",pos:"adjective",d:["adj. Of or relating to the country and the people who live there."],ex:"Half of Thailand's people live in rural areas.",h:"Rural = farms and fields, not city streets.",m:"of or relating to the countryside"},
+   {w:"sanctuary",e:"🕊️",pos:"noun",d:["n. A place of safety or shelter.","n. Protection offered by such a place."],ex:"The wildlife sanctuary protects rare birds.",h:"A sanctuary is a safe hug in the shape of a place.",m:"a place of safety or shelter"},
+   {w:"splendor",e:"✨",pos:"noun",d:["n. Magnificence; brilliance of appearance."],f:"splendid (adj.): very impressive; magnificent",ex:"The splendor of the Grand Palace amazed us.",h:"Splendor sparkles. Splendid is its adjective twin.",m:"magnificence; brilliance of appearance"},
+   {w:"squalor",e:"🗑️",pos:"noun",d:["n. Filth; misery."],f:"squalid (adj.): dirty and unfit for living",ex:"After the flood, some families lived in squalor.",h:"Squalid is the opposite of splendid.",m:"filth and misery"},
+   {w:"terrain",e:"⛰️",pos:"noun",d:["n. An area of land; a region.","n. The surface features of a region."],ex:"The rocky terrain made the hike slow.",h:"Terra means earth. Terrain = what the ground is like.",m:"an area of land and its surface features"}
+  ],
+  sort:[["Cows grazed quietly in the meadow.",1],["Few crops can grow in arid land.",1],["The island's inhabitants welcomed the visitors.",1],["The hectic library was silent and still all afternoon.",0],["The rural skyscrapers lit up the huge city.",0],["We sweated because the air was so arid and wet.",0]]},
+ {n:4, title:"A Different Way to Fly", color:"var(--c4)", blurb:"Words from the story of blimps: how they float, hover, and get moored.",
+  words:[
+   {w:"aloft",e:"🪁",pos:"adverb",d:["adv. Up in the air, especially in flight."],ex:"A strong breeze kept the kites aloft.",h:"A-LOFT: up in the loft, up high.",m:"up in the air, especially in flight"},
+   {w:"attain",e:"🎯",pos:"verb",d:["v. To reach; to arrive at.","v. To achieve."],ex:"Blimps can attain a speed of about forty miles an hour.",h:"Attain = reach the target.",m:"to reach or achieve"},
+   {w:"buffet",e:"🍽️",pos:"noun / verb",d:["n. A piece of furniture for storing and displaying dishes.","n. A meal laid out for guests to help themselves.","v. (BUF-et) To pound repeatedly; to batter."],ex:"High winds buffeted the ship during the storm.",h:"Same spelling, two sounds: buh-FAY (food!) and BUF-et (bam, bam, bam).",m:"a self-serve meal; or to pound repeatedly"},
+   {w:"elude",e:"🐭",pos:"verb",d:["v. To escape by being quick or clever."],f:"elusive (adj.): hard to find or capture; hard to explain",ex:"The mouse eluded the cat by slipping through a crack.",h:"Elude = slip away. An elusive answer keeps slipping away from you.",m:"to escape by being quick or clever"},
+   {w:"flammable",e:"🔥",pos:"adjective",d:["adj. Able to catch fire easily."],ex:"Helium is not flammable, so blimps are safe.",h:"Flame-able: able to go up in flames.",m:"able to catch fire easily"},
+   {w:"hover",e:"🚁",pos:"verb",d:["v. To remain in place over an object or location."],ex:"Hummingbirds hover beside flowers while they drink.",h:"Hover = float in one spot, like a helicopter.",m:"to stay in place in the air over something"},
+   {w:"inflate",e:"🎈",pos:"verb",d:["v. To fill with air or other gas."],f:"inflation (n.): also means rising prices",ex:"Inflate your bike tires before the ride.",h:"In + flate (blow): blow air in.",m:"to fill with air or gas"},
+   {w:"jeopardy",e:"⚠️",pos:"noun",d:["n. Danger."],f:"jeopardize (v.): to put in danger",ex:"Riding without a helmet puts you in jeopardy.",h:"Jeopardy = danger zone.",m:"danger"},
+   {w:"moor",e:"⚓",pos:"verb",d:["v. To hold in place with ropes or anchors."],f:"mooring (n.): a place where a boat or aircraft can be moored",ex:"The sailors moored the boat to the dock.",h:"Moor = tie it down so it doesn't float away.",m:"to hold in place with ropes or anchors"},
+   {w:"plummet",e:"📉",pos:"verb",d:["v. To fall suddenly toward the earth or to a lower level; to plunge."],ex:"The elevator plummeted to the basement.",h:"Plummet = plunge. Both start with PL and both go DOWN fast.",m:"to fall suddenly; to plunge"},
+   {w:"pollute",e:"🏭",pos:"verb",d:["v. To make impure or dirty."],f:"pollution (n.): the state of being polluted",ex:"Oil spills pollute the ocean.",h:"Pollute = make it yucky.",m:"to make impure or dirty"},
+   {w:"propel",e:"🚀",pos:"verb",d:["v. To push or drive forward."],ex:"Two engines propel the blimp.",h:"A propeller propels a plane.",m:"to push or drive forward"},
+   {w:"stationary",e:"🧍",pos:"adjective",d:["adj. Not moving.","adj. Not changing."],ex:"The camera needs a stationary platform.",h:"stationAry has an A like Adjective. stationEry (paper, pens, Envelopes) has an E.",m:"not moving; not changing"},
+   {w:"superb",e:"🌟",pos:"adjective",d:["adj. Of the highest quality; grand; splendid."],ex:"Passengers enjoy superb views from the blimp.",h:"Superb = super + superb, five stars.",m:"of the highest quality"},
+   {w:"swivel",e:"🪑",pos:"noun / verb",d:["n. A fastening that allows any part joined to it to swing freely.","v. To turn freely around a fixed point."],ex:"Owls can swivel their heads to look behind them.",h:"A swivel chair spins around and around.",m:"to turn freely around a fixed point"}
+  ],
+  sort:[["Owls can swivel their heads to look behind them.",1],["The sailors moored the boat to the dock.",1],["Riding without a helmet puts you in jeopardy.",1],["I got on my bike and hovered over to my friend's house.",0],["The stationary car zoomed down the highway.",0],["This superb skateboard is the worst one ever made.",0]]},
+ {n:5, title:"A Born Artist", color:"var(--c5)", blurb:"Words from the story of Wang Yani, the painter who was famous by fourteen. This passage is on the test!",
+  words:[
+   {w:"antic",e:"🤡",pos:"noun",d:["n. (usually plural) A playful or funny act."],ex:"The monkeys' antics made everyone laugh.",h:"Antics = silly monkey business.",m:"a playful or funny act"},
+   {w:"attire",e:"👗",pos:"noun / verb",d:["n. Clothes, especially fine and expensive clothes.","v. To dress up or be dressed up."],ex:"Everyone wore formal attire to the wedding.",h:"Attire = what you're wearing. 'Attired in' = dressed in.",m:"clothes, especially fine ones"},
+   {w:"captivate",e:"😍",pos:"verb",d:["v. To please greatly; to win over by special charm."],ex:"The singer captivated the whole audience.",h:"Captivate: the performance takes you captive and you can't look away.",m:"to please greatly; to charm"},
+   {w:"deft",e:"🤹",pos:"adjective",d:["adj. Quick and sure; skillful at handling."],ex:"The deft juggler kept five balls in the air.",h:"Deft hands never fumble.",m:"quick and sure; skillful"},
+   {w:"diligent",e:"📚",pos:"adjective",d:["adj. Working with great care and effort."],ex:"Diligent students check their work twice.",h:"Diligent = doing it carefully every single day.",m:"working with great care and effort"},
+   {w:"eclipse",e:"🌒",pos:"noun / verb",d:["n. The total or partial hiding of one heavenly body by another.","v. To do or be better than; to outshine."],ex:"Her new song eclipsed all her earlier hits.",h:"When the moon covers the sun it outshines it. Eclipse someone = outshine them.",m:"to outshine; one heavenly body hiding another"},
+   {w:"evolve",e:"🦕",pos:"verb",d:["v. To develop and change gradually over time."],f:"evolution (n.): the changes that take place as something evolves",ex:"Her painting style evolved as she grew older.",h:"Evolve = slow change, step by step, like a caterpillar becoming a butterfly.",m:"to develop and change gradually"},
+   {w:"innate",e:"👶",pos:"adjective",d:["adj. Having from birth; occurring naturally rather than being learned."],ex:"Her innate musical talent showed when she was tiny.",h:"Latin natus = born. Innate = born with it.",m:"present from birth; not learned"},
+   {w:"inscribe",e:"✍️",pos:"verb",d:["v. To write, print, or etch into as a permanent record."],f:"inscription (n.): what is inscribed",ex:"Her name was inscribed on the trophy.",h:"In + scribe (write): write it IN, forever.",m:"to write or etch as a permanent record"},
+   {w:"posture",e:"🧘",pos:"noun / verb",d:["n. The way one holds one's body; a pose or position.","v. To take a particular position, especially a pretended one."],ex:"A dancer needs good posture.",h:"Posture = how your body is posed.",m:"the way one holds one's body"},
+   {w:"shroud",e:"🌫️",pos:"noun / verb",d:["n. Something that covers or hides from view.","n. A cloth used to wrap a dead body before burial.","v. To block from sight."],ex:"Dense fog shrouded the harbor.",h:"A shroud is a cover-up. Mist can shroud mountains.",m:"something that covers or hides from view"},
+   {w:"stifle",e:"😶",pos:"verb",d:["v. To cut off the air from; to smother.","v. To hold back; to check."],ex:"She stifled a giggle during the ceremony.",h:"Stifle = squash it down: a yawn, a laugh, or someone's imagination.",m:"to smother; to hold back"},
+   {w:"tentative",e:"🤔",pos:"adjective",d:["adj. Not fully worked out or final; hesitating or uncertain."],ex:"Our plans are tentative, so they might change.",h:"Tentative = pencil, not pen.",m:"not final; hesitating or uncertain"},
+   {w:"tranquil",e:"🌊",pos:"adjective",d:["adj. Calm; peaceful."],f:"tranquility (n.): the state of being tranquil",ex:"The sea was tranquil at sunrise.",h:"Tranquil = the quiet, calm sea before anyone wakes up.",m:"calm; peaceful"},
+   {w:"versatile",e:"🎺",pos:"adjective",d:["adj. Able to do many different things or to be used in many different ways."],f:"versatility (n.): being versatile",ex:"A versatile musician can play trumpet, piano, and drums.",h:"Versatile = a Swiss army knife of a person.",m:"able to do many different things"}
+  ],
+  sort:[["The clown's antics made the kids laugh.",1],["A diligent student checks her work carefully.",1],["Dense fog shrouded the harbor.",1],["The tranquil storm knocked down trees all night.",0],["Her talent is innate because she took lessons for ten years.",0],["His tentative answer was completely sure and final.",0]]}
+];
+const ALL = LESSONS.flatMap(L=>L.words.map(w=>({...w,lesson:L.n,color:L.color})));
+const WORD = Object.fromEntries(ALL.map(w=>[w.w,w]));
+
+/* ============================ HELPERS ============================ */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let uidN=0; const uid=()=>"g"+(++uidN);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+let known = store.get("ww15-known",{});
+function say(text){try{const u=new SpeechSynthesisUtterance(text);u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+
+/* ============================ HERO ============================ */
+(function(){
+  const karst=(peaks,base)=>{let d=`M0 260 L0 ${base}`;peaks.forEach(([x,h,w])=>{const top=base-h;d+=` L${x-w} ${base} C${x-w} ${base-h*.55} ${x-w*.62} ${top} ${x} ${top} C${x+w*.62} ${top} ${x+w} ${base-h*.55} ${x+w} ${base}`});return d+` L1200 ${base} L1200 260 Z`};
+  document.getElementById("p1").setAttribute("d",karst([[90,120,60],[230,150,55],[380,110,70],[560,160,60],[720,120,55],[1040,150,65],[1170,110,55]],190));
+  document.getElementById("p2").setAttribute("d",karst([[40,70,50],[170,100,50],[320,80,60],[470,120,55],[640,90,60],[820,110,55],[980,80,55],[1120,105,60]],225));
+  document.getElementById("p3").setAttribute("d",karst([[110,50,70],[300,70,65],[520,55,70],[760,75,70],[980,50,70],[1150,65,60]],262));
+})();
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store.set("ww15-theme",r.dataset.theme)};
+{const t=store.get("ww15-theme",null);if(t)document.documentElement.dataset.theme=t;}
+
+/* ============================ NAV ============================ */
+const VIEWS=[["home","Start","var(--ink)"],...LESSONS.map(L=>["l"+L.n,`${L.n}. ${L.title}`,L.color]),["story","📜 Yani's Story","var(--c6)"],["quiz","🏆 Big Quiz","var(--ink)"]];
+$("#tabs").innerHTML=VIEWS.map(([id,label,c])=>`<button class="tab" data-view="${id}" style="--tc:${c}"><span class="dot"></span>${label}</button>`).join("");
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)show(b.dataset.view)});
+const built={};
+function show(id){
+  $$("main > section").forEach(s=>s.hidden=s.id!=="view-"+id);
+  $$(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.view===id?"page":"false"));
+  const tab=$(`.tab[data-view="${id}"]`);tab&&tab.scrollIntoView({inline:"center",block:"nearest"});
+  if(!built[id]){built[id]=true;
+    if(id[0]==="l")renderLesson(LESSONS[+id[1]-1]);
+    if(id==="story")renderStory();
+    if(id==="quiz")renderQuizIntro();
+  }
+  if(id==="home")renderHome();
+  hidePop();
+  if(show.ready){const nav=$("nav.tabs");window.scrollTo({top:nav.offsetTop,behavior:"smooth"})}
+  show.ready=true;
+}
+
+/* ============================ HOME ============================ */
+function renderHome(){
+  $("#view-home").innerHTML=`
+  <div class="intro">
+    <div>
+      <h2>How to use your studio</h2>
+      <ol class="steps">
+        <li><span><b>Flip the cards.</b> Tap a card to see the meaning, an example, and a memory trick. Tap 🔊 to hear it and ⭐ when you know it cold.</span></li>
+        <li><span><b>Sort the sentences.</b> Each lesson ends with a quick game: does the word make sense, or is it silly?</span></li>
+        <li><span><b>Read Yani's story.</b> Hunt down all 15 Lesson 5 words hiding in it.</span></li>
+        <li><span><b>Take the Big Quiz.</b> 13 rounds, every question type. Retake it and you'll get new match-up words.</span></li>
+      </ol>
+    </div>
+    <div class="fact" style="align-self:stretch">
+      <b>75</b> words to master
+      <p style="margin:10px 0 0">You need to know what each word <em>means</em> and how to <em>use it in a sentence</em>. Some words have more than one meaning (like <b>buffet</b>, <b>graze</b>, and <b>eclipse</b>), so watch for those!</p>
+    </div>
+  </div>
+  <div class="pots">
+    ${LESSONS.map(L=>{const k=L.words.filter(w=>known[w.w]).length;return `<button class="pot" data-go="l${L.n}" style="--tc:${L.color}"><span class="n">${L.n}</span><h3>${L.title}</h3><small>${k} of 15 stars</small><span class="bar"><i style="width:${k/15*100}%"></i></span></button>`}).join("")}
+    <button class="pot" data-go="story" style="--tc:var(--c6)"><span class="n">📜</span><h3>Yani's Story</h3><small>Passage 5E: A Born Artist</small><span class="bar"><i style="width:${Object.keys(store.get('ww15-found',{})).length/15*100}%"></i></span></button>
+    <div class="bigquiz"><div><h3>🏆 The Big Quiz</h3><p>Drag-and-match, sorting, true or false, story fill-ins, analogies, and questions about Yani. Best score so far: <b>${store.get("ww15-best",null)!==null?store.get("ww15-best")+"%":"not yet"}</b></p></div><button class="btn light big" data-go="quiz">Start the quiz</button></div>
+  </div>`;
+  $$("#view-home [data-go]").forEach(b=>b.onclick=()=>show(b.dataset.go));
+}
+
+/* ============================ LESSONS ============================ */
+function cardHTML(w){
+  return `<div class="card ${known[w.w]?"known":""}" tabindex="0" data-w="${w.w}" role="button" aria-label="${w.w}, tap to flip">
+    <div class="cbtns"><button class="icon say" aria-label="Say ${w.w}">🔊</button><button class="icon star" aria-pressed="${!!known[w.w]}" aria-label="I know ${w.w}">${known[w.w]?"⭐":"☆"}</button></div>
+    <div class="inner">
+      <div class="face front"><span class="emo">${w.e}</span><span class="word">${w.w}</span><span class="pos">${w.pos}</span></div>
+      <div class="face back"><h4>${w.w}</h4><ol>${w.d.map(x=>`<li>${x}</li>`).join("")}</ol>${w.f?`<p class="forms">${w.f}</p>`:""}<p class="ex">“${w.ex}”</p><p class="hook">💡 ${w.h}</p></div>
+    </div></div>`;
+}
+function renderLesson(L){
+  const v=$("#view-l"+L.n); v.style.setProperty("--lc",L.color);
+  v.innerHTML=`<div class="lhead"><div class="lnum">${L.n}</div><div><h2>${L.title}</h2><p>${L.blurb}</p></div></div>
+    <div class="tools"><span class="mastery" id="m${L.n}"></span><button class="btn ghost" data-act="shuffle">🔀 Shuffle</button><button class="btn ghost" data-act="flip">🔄 Flip all</button></div>
+    <div class="cards" id="cards${L.n}">${L.words.map(cardHTML).join("")}</div>
+    <h3 class="game">Sense or silly?</h3><p class="hint">Is the word used correctly? Drop each sentence in a jar.</p>
+    <div id="sort${L.n}"></div>
+    <div style="margin-top:34px;display:flex;justify-content:flex-end">${L.n<5?`<button class="btn" data-go="l${L.n+1}">Next: Lesson ${L.n+1}</button>`:`<button class="btn" data-go="story">Next: Yani's story</button>`}</div>`;
+  updMastery(L);
+  const grid=$("#cards"+L.n);
+  grid.addEventListener("click",e=>{
+    const card=e.target.closest(".card"); if(!card)return;
+    if(e.target.closest(".say")){say(card.dataset.w);return}
+    if(e.target.closest(".star")){const w=card.dataset.w;known[w]=!known[w];if(!known[w])delete known[w];store.set("ww15-known",known);const s=card.querySelector(".star");s.setAttribute("aria-pressed",!!known[w]);s.textContent=known[w]?"⭐":"☆";card.classList.toggle("known",!!known[w]);updMastery(L);return}
+    card.classList.toggle("flipped");
+  });
+  grid.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("card")){e.preventDefault();e.target.classList.toggle("flipped")}});
+  $('[data-act="shuffle"]',v).onclick=()=>{shuffle($$(".card",grid)).forEach(c=>grid.appendChild(c))};
+  $('[data-act="flip"]',v).onclick=()=>{const cs=$$(".card",grid);const any=cs.some(c=>!c.classList.contains("flipped"));cs.forEach(c=>c.classList.toggle("flipped",any))};
+  $$("[data-go]",v).forEach(b=>b.onclick=()=>show(b.dataset.go));
+  buildLessonSort(L);
+}
+function updMastery(L){const k=L.words.filter(w=>known[w.w]).length;$("#m"+L.n).innerHTML=`⭐ <b>${k}</b> of 15 known${k===15?" · lesson mastered! 🎉":""}`}
+function buildLessonSort(L){
+  const host=$("#sort"+L.n);
+  const items=shuffle(L.sort).map(([t,ok])=>({text:t,bin:ok?"ok":"no"}));
+  host.innerHTML=sortHTML(items,[{key:"ok",label:"Makes sense ✓",c:"var(--ok)"},{key:"no",label:"Silly! ✗",c:"var(--bad)"}])+`<div class="pfoot"><span class="msg"></span><button class="btn">Check my jars</button></div>`;
+  const btn=$(".pfoot .btn",host), msg=$(".pfoot .msg",host);
+  btn.onclick=()=>{
+    if(btn.dataset.state==="done"){buildLessonSort(L);return}
+    const r=gradeSort($(".dnd",host));
+    msg.textContent=r.score===r.max?`Perfect! ${r.score}/${r.max} 🎉`:`${r.score}/${r.max}. Look at the red ones, then try again.`;
+    if(r.score===r.max)confetti(1.2);
+    btn.textContent="Play again";btn.dataset.state="done";
+  };
+}
+
+/* ============================ DRAG & DROP ENGINE ============================ */
+function chipHTML(text,data,poolId,long){
+  const attrs=Object.entries(data).map(([k,v])=>`data-${k}="${esc(v)}"`).join(" ");
+  return `<div class="chip${long?" long":""}" draggable="true" data-pool="${poolId}" ${attrs}><span>${text}</span><button class="x" aria-label="Send back">✕</button></div>`;
+}
+function sortHTML(items,bins){
+  const id=uid();
+  return `<div class="dnd" id="${id}"><div class="pool" id="${id}-pool">${items.map(it=>chipHTML(it.text,{bin:it.bin,w:it.w||""},id+"-pool",true)).join("")}</div>
+  <div class="bins">${bins.map(b=>`<div class="drop many bin" data-bin="${b.key}" style="--bc:${b.c}"><div class="binlabel">${b.label}</div><div class="binbody"></div></div>`).join("")}</div></div>`;
+}
+function gradeSort(game){
+  game.classList.add("locked");let score=0;const chips=$$(".chip",game);const missed=[];
+  chips.forEach(c=>{const bin=c.closest(".bin");const ok=bin&&bin.dataset.bin===c.dataset.bin;c.classList.add(ok?"right":"wrong");if(ok)score++;else if(c.dataset.w)missed.push(...c.dataset.w.split(","))});
+  return {score,max:chips.length,missed};
+}
+let drag=null,ghost=null,hiEl=null;
+function setHi(d){if(hiEl&&hiEl!==d)hiEl.classList.remove("hi");hiEl=d;if(d)d.classList.add("hi")}
+function dropFor(el,chip){if(!el||!el.closest||!chip)return null;const d=el.closest(".drop");if(!d)return null;if(d.closest(".dnd")!==chip.closest(".dnd"))return null;if(d.closest(".locked"))return null;return d}
+function refresh(game){$$(".drop.one",game).forEach(d=>d.classList.toggle("filled",!!d.querySelector(".chip")))}
+function sendBack(chip){const p=document.getElementById(chip.dataset.pool);if(p){p.appendChild(chip);pop(chip);refresh(chip.closest(".dnd"))}}
+function pop(el){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop")}
+function place(chip,d){
+  const body=d.querySelector(".binbody")||d;
+  if(d.classList.contains("one")){const ex=body.querySelector(".chip");if(ex&&ex!==chip)sendBack(ex)}
+  body.appendChild(chip);pop(chip);refresh(d.closest(".dnd"));
+}
+document.addEventListener("dragstart",e=>{const c=e.target.closest&&e.target.closest(".chip");if(!c)return;if(ghost||c.closest(".locked")){e.preventDefault();return}drag=c;c.classList.add("dragging");try{e.dataTransfer.setData("text/plain",c.textContent);e.dataTransfer.effectAllowed="move"}catch(_){}});
+document.addEventListener("dragend",()=>{if(drag&&!ghost){drag.classList.remove("dragging");drag=null}setHi(null)});
+document.addEventListener("dragover",e=>{if(!drag||ghost)return;const d=dropFor(e.target,drag);if(d){e.preventDefault();setHi(d)}else setHi(null)});
+document.addEventListener("drop",e=>{if(!drag||ghost)return;const d=dropFor(e.target,drag);if(d){e.preventDefault();place(drag,d)}setHi(null)});
+function moveGhost(t){ghost.style.left=(t.clientX-ghost._dx)+"px";ghost.style.top=(t.clientY-ghost._dy)+"px"}
+document.addEventListener("touchstart",e=>{
+  const c=e.target.closest&&e.target.closest(".chip");if(!c||e.target.closest(".x")||c.closest(".locked")||e.touches.length>1)return;
+  const t=e.touches[0],r=c.getBoundingClientRect();drag=c;
+  ghost=c.cloneNode(true);ghost.classList.add("ghost");ghost.classList.remove("pop");ghost.style.width=r.width+"px";ghost._dx=t.clientX-r.left;ghost._dy=t.clientY-r.top;
+  document.body.appendChild(ghost);moveGhost(t);c.classList.add("dragging");
+},{passive:true});
+document.addEventListener("touchmove",e=>{
+  if(!ghost)return;e.preventDefault();const t=e.touches[0];moveGhost(t);
+  setHi(dropFor(document.elementFromPoint(t.clientX,t.clientY),drag));
+  if(t.clientY<90)window.scrollBy(0,-14);else if(t.clientY>innerHeight-90)window.scrollBy(0,14);
+},{passive:false});
+function endTouch(e,cancel){if(!ghost)return;const t=e.changedTouches[0];const d=cancel?null:dropFor(document.elementFromPoint(t.clientX,t.clientY),drag);ghost.remove();ghost=null;drag.classList.remove("dragging");if(d)place(drag,d);drag=null;setHi(null)}
+document.addEventListener("touchend",e=>endTouch(e,false));
+document.addEventListener("touchcancel",e=>endTouch(e,true));
+document.addEventListener("click",e=>{const x=e.target.closest(".x");if(!x)return;const c=x.closest(".chip");if(c&&!c.closest(".locked")){e.stopPropagation();sendBack(c)}});
+
+/* ============================ STORY ============================ */
+const SCENES=[
+ {art:"🏛️",when:"1989 · age 14",t:"A painter at the Smithsonian",p:`Imagine being fourteen and having your paintings shown at the Smithsonian Institution in Washington, D.C., one of the most famous museums on earth. That's exactly what happened to Wang Yani, a painter from China. Hundreds of thousands of visitors came, and they were {captivated|captivate|charmed and greatly pleased} by her pictures of animals, birds, and landscapes. At the Sackler Gallery, Yani even painted live on stage, barefoot and {attired|attire|dressed} casually in a shirt and denim shorts (not fancy clothes at all!). With {deft|deft|quick, sure, and skillful} strokes of her brush she made art right in front of everyone, so focused that she hardly noticed the crowd.`},
+ {art:"🖌️",when:"age 2 to 4",t:"Painting since she was two",p:`Fourteen sounds young, but Yani's first exhibition in China happened when she was only four! She had been working {diligently|diligent|with great care and effort} at her art since age two. Her father, Wang Shi Chiang, was a well-known artist. He gave her big sheets of paper, ink, and brushes, the traditional tools of Chinese painting. But he never gave her a lesson, and he asked her teachers not to either. He believed lessons would {stifle|stifle|hold back or check (here it does NOT mean cut off the air)} her imagination and stop her from expressing her feelings freely. He trusted her {innate|innate|born with it; natural, not learned} talent, and he was right. Before long, Yani's fame {eclipsed|eclipse|outshone; became greater than (nothing to do with the moon here!)} her father's.`},
+ {art:"🐒",when:"early years",t:"Monkey business",p:`Yani's first favorite subject was monkeys. After a visit to the zoo, she was fascinated by their {antics|antic|playful, funny acts}. She painted hundreds of monkey pictures. One of her favorites is thirty feet long, took just four hours to finish, and shows 112 monkeys in different {postures|posture|body positions or poses}, each with its own expression.`},
+ {art:"🏞️",when:"growing up",t:"Growing and changing",p:`As she got older, Yani became more {versatile|versatile|able to do many different things} and painted birds, horses, and lions too. Her style {evolved|evolve|developed and changed gradually}: she added trees, flowers, and especially landscapes. She lives in a beautiful part of southern China with rolling hills, clear streams, and ancient temples, close to the cone-shaped Guilin mountains, which are often {shrouded|shroud|covered and hidden from view} in mist. Yani paints what she <em>feels</em> about a place, not just what she sees. In her mountain paintings she tries to capture the {tranquility|tranquil|calm, peaceful feeling} she felt while visiting.`},
+ {art:"💧",when:"her method",t:"How Yani paints",p:`She often begins by spilling ink onto the paper, a method called <em>po-mo</em>. Next come a few {tentative|tentative|hesitant, uncertain; she's feeling out where the painting will go} strokes. Then she works fast, often finishing in under half an hour. Many of her paintings include an {inscription|inscribe|words written on it as a permanent part of the art} in Chinese characters, so you'd need to read Chinese to enjoy it fully.`},
+ {art:"🎶",when:"age 16 and beyond",t:"The brush sings",p:`By sixteen, Yani had painted more than ten thousand pictures. As an adult she is still painting, and her work keeps growing and changing. She finds new ideas in nature, in the changing world, and even in singing and dancing, which she feels help her paint. There's a Chinese saying that in a good painting, the brush sings and the ink dances.`}
+];
+function renderStory(){
+  const v=$("#view-story");v.style.setProperty("--lc","var(--c6)");
+  const found=store.get("ww15-found",{});
+  v.innerHTML=`<div class="lhead"><div class="lnum" style="background:var(--c6)">5E</div><div><h2>A Born Artist: the story of Wang Yani</h2><p>This is a retelling of your textbook passage. All 15 Lesson 5 words are hiding in it. Tap each pink word to see what it means <em>in this story</em>.</p></div></div>
+  <div class="hunt"><span>🔎 Word hunt</span><span class="meter"><i id="huntbar"></i></span><span id="huntn">0 / 15</span></div>
+  <div class="scroll">${SCENES.map(s=>`<article class="scene"><div class="art">${s.art}<small>${s.when}</small></div><div><h3>${s.t}</h3><p>${s.p.replace(/\{([^|]+)\|([^|]+)\|([^}]+)\}/g,(m,shown,base,mean)=>`<button class="vw ${found[base]?"found":""}" data-base="${base}" data-mean="${esc(mean)}">${shown}</button>`)}</p></div></article>`).join("")}</div>
+  <h3 class="game">Yani by the numbers</h3>
+  <div class="facts"><div class="fact"><b>2</b>age she started painting</div><div class="fact"><b>4</b>age of her first exhibition, in China</div><div class="fact"><b>14</b>age at the Smithsonian (1989)</div><div class="fact"><b>112</b>monkeys in one 30-foot painting</div><div class="fact"><b>4 hrs</b>to paint that monkey scroll</div><div class="fact"><b>10,000+</b>paintings by age 16</div></div>
+  <h3 class="game">Tricky meanings to remember</h3>
+  <div class="facts">
+   <div class="fact"><b style="font-size:1.2rem">stifle</b>In the story: hold back her imagination. Not "smother".</div>
+   <div class="fact"><b style="font-size:1.2rem">eclipse</b>In the story: her fame outshone her father's. Not the moon.</div>
+   <div class="fact"><b style="font-size:1.2rem">shroud</b>In the story: mist covers and hides the mountains.</div>
+   <div class="fact"><b style="font-size:1.2rem">posture</b>In the story: the monkeys' body positions.</div>
+   <div class="fact"><b style="font-size:1.2rem">attire</b>Yani was NOT in fancy or traditional clothes, just a shirt and denim shorts.</div>
+  </div>
+  <div style="margin-top:30px;display:flex;justify-content:flex-end"><button class="btn big" data-go="quiz">I'm ready: Big Quiz</button></div>`;
+  $("[data-go]",v).onclick=()=>show("quiz");
+  const upd=()=>{const n=Object.keys(found).length;$("#huntbar").style.width=n/15*100+"%";$("#huntn").textContent=`${n} / 15${n===15?" 🎉":""}`};upd();
+  v.addEventListener("click",e=>{
+    const b=e.target.closest(".vw");if(!b)return;e.stopPropagation();
+    const base=b.dataset.base;const first=!found[base];found[base]=1;store.set("ww15-found",found);
+    $$(`.vw[data-base="${base}"]`,v).forEach(x=>x.classList.add("found"));upd();
+    showPop(b,`<b>${b.textContent}</b>${b.dataset.mean}<br><small style="opacity:.75">Base word: ${base}</small>`);
+    if(first&&Object.keys(found).length===15)confetti(1.5);
+  });
+}
+function showPop(anchor,html){const p=$("#pop");p.innerHTML=html;p.hidden=false;const r=anchor.getBoundingClientRect();const w=Math.min(300,innerWidth-24);p.style.maxWidth=w+"px";let left=r.left+scrollX;left=Math.min(left,scrollX+innerWidth-w-12);p.style.left=Math.max(12,left)+"px";p.style.top=(r.bottom+scrollY+8)+"px"}
+function hidePop(){$("#pop").hidden=true}
+document.addEventListener("click",e=>{if(!e.target.closest("#pop")&&!e.target.closest(".vw"))hidePop()});
+
+/* ============================ QUIZ CONTENT ============================ */
+const SYNANT=[["deft","skillful","S"],["eclipse","outshine","S"],["lofty","tall","S"],["jeopardy","danger","S"],["plummet","plunge","S"],["elude","escape","S"],["abundant","plentiful","S"],["tranquil","hectic","A"],["arid","humid","A"],["integrate","segregate","A"],["tentative","definite","A"],["conspicuous","hidden","A"],["diligent","lazy","A"]];
+const TF=[
+ ["A tranquil beach is noisy and crowded.",false,"Tranquil means calm and peaceful.","tranquil"],
+ ["Something stationary is not moving.",true,"Stationary (with an A) means not moving or not changing.","stationary"],
+ ["A peninsula is land completely surrounded by water.",false,"A peninsula is ALMOST surrounded by water. It's still attached to a larger land mass.","peninsula"],
+ ["If you vacate a room, you fill it with people.",false,"Vacate means to make empty by leaving.","vacate"],
+ ["An immigrant is a person who comes into a country to live there.",true,"Im- = in. An immigrant comes in to live.","immigrant"],
+ ["Lofty can describe a tall tree, a noble goal, OR a snobby attitude.",true,"Lofty has all three meanings.","lofty"],
+ ["A verdict can only be used when talking about a courtroom trial.",false,"A verdict can also be any judgment or opinion, like the verdict on a new restaurant.","verdict"],
+ ["To segregate is to bring different groups together.",false,"Segregate means keep apart. Integrate means bring together.","segregate"],
+ ["A horde is a large crowd, especially one on the move.",true,"Hordes of tourists, hordes of ants.","horde"],
+ ["An elusive animal is easy to find and catch.",false,"Elusive means hard to find or capture.","elude"],
+ ["An innate talent is one you are born with.",true,"Latin natus = born.","innate"],
+ ["When the moon passes in front of the sun, that is an eclipse.",true,"That's the first meaning of eclipse.","eclipse"],
+ ["Rural areas are big, busy cities.",false,"Rural means the countryside.","rural"],
+ ["In Yani's story, she walked on stage at the Sackler Gallery wearing fancy traditional attire.",false,"She was attired casually in a shirt and denim shorts, and barefoot!","attire"],
+ ["In Yani's story, her father gave her painting lessons every day.",false,"He never gave her lessons. He thought lessons would stifle her imagination.","stifle"],
+ ["Helium is not flammable, which helps make blimps safe.",true,"Flammable means able to catch fire easily. Helium isn't.","flammable"]
+];
+const FIT=[
+ ["The toddler held her mother's hand in a tight ____ as they crossed the street.",["clasp","pedestal","ferry","exhibit"]],
+ ["All night the heavy waves ____ the little ship.",["buffeted","moored","inflated","attained"]],
+ ["The ____ juggler kept seven balls in the air without dropping one.",["deft","arid","rural","tentative"]],
+ ["The police took the robber into ____.",["custody","ceremony","campaign","splendor"]],
+ ["Hummingbirds can ____ in one spot while they drink nectar.",["hover","plummet","inflate","elude"]],
+ ["Our plans for Saturday are only ____; they might still change.",["tentative","superb","innate","supreme"]],
+ ["The animal shelter offered ____ to pets caught in the hurricane.",["sanctuary","squalor","terrain","jeopardy"]],
+ ["Everyone had to ____ the building when the fire alarm rang.",["vacate","violate","integrate","inscribe"]],
+ ["Thick smoke from the campfire nearly ____ us.",["stifled","captivated","unveiled","evolved"]],
+ ["With her magical voice, the singer ____ the whole audience.",["captivated","degraded","persecuted","detained"]],
+ ["The mayor pulled off the cloth to ____ the new statue.",["unveil","declare","clasp","contribute"]],
+ ["Cacti grow well in ____ places where it hardly ever rains.",["arid","humid","abundant","tranquil"]],
+ ["The jeweler ____ the winner's name on the gold medal.",["inscribed","eclipsed","shrouded","propelled"]],
+ ["Reading your sister's diary would be a ____ of her trust.",["violation","verdict","triumph","ceremony"]],
+ ["A spoon isn't very ____. It can't cut, saw, or open cans like a pocket knife can.",["versatile","conspicuous","eloquent","flammable"]],
+ ["The shoppers joined together and refused to buy anything from the store. The ____ lasted three months.",["boycott","exhibit","pedestal","horde"]]
+];
+const MEAN=[
+ ["The hotel set out a breakfast <b>buffet</b> by the pool.",["a meal where guests serve themselves","to pound again and again","a piece of furniture for dishes","a sudden fall"],"buffet"],
+ ["Strong winds <b>buffeted</b> our windows all night.",["pounded again and again","served food to","kept still","fastened tightly"],"buffet"],
+ ["Her new song <b>eclipsed</b> everything she had recorded before.",["was better than; outshone","hid behind the moon","copied","was quieter than"],"eclipse"],
+ ["The tennis ball just <b>grazed</b> my elbow.",["touched lightly in passing","fed on grass","smashed hard","missed completely"],"graze"],
+ ["The museum decided to <b>extend</b> the art show by another week.",["make longer","reach out","offer","close early"],"extend"],
+ ["The spectators tried to <b>stifle</b> their yawns during the long ceremony.",["hold back","cut off the air from","show off","write down"],"stifle"],
+ ["The duke's <b>lofty</b> manner made the servants feel small.",["too proud; superior","very tall","noble and good","kind and gentle"],"lofty"],
+ ["Her perfume has a <b>distinct</b> smell of roses.",["unmistakable; definite","separate; different","faint; hard to notice","terrible"],"distinct"],
+ ["The shelter made an <b>appeal</b> for warm blankets.",["an earnest request for help","the power to attract","a type of fruit peel","a public show"],"appeal"],
+ ["Gentle fog <b>shrouded</b> the mountain peaks.",["blocked from sight","wrapped for burial","made brighter","blew away"],"shroud"]
+];
+const SELECT=[
+ ["Which of these could be <b>inflated</b>?",[["a balloon",1],["a bicycle tire",1],["a brick",0],["a raft",1]],"inflate"],
+ ["Which of these would be <b>conspicuous</b>?",[["a lighthouse on a cliff",1],["a pebble on a beach",0],["a neon-green car in a parking lot",1],["a whisper in a loud stadium",0]],"conspicuous"],
+ ["Which of these could <b>graze</b>? (Careful: two meanings!)",[["a herd of cows",1],["a shark",0],["a snowball brushing your cheek",1],["sheep in a field",1]],"graze"],
+ ["Which of these could be <b>exhibited</b>?",[["paintings",1],["ancient coins",1],["next Tuesday",0],["dinosaur bones",1]],"exhibit"],
+ ["Which of these could be <b>tranquil</b>?",[["a lake at sunrise",1],["a hectic airport",0],["a quiet garden",1],["a fire alarm going off",0]],"tranquil"],
+ ["Which words describe <b>Yani</b> in the passage?",[["diligent",1],["versatile",1],["arrogant",0],["her talent was innate",1]],"versatile"],
+ ["Which of these have <b>evolved</b>?",[["airplanes, since the Wright brothers",1],["Yani's painting style",1],["plants and animals",1],["a rock that never changes",0]],"evolve"]
+];
+const STORIES=[
+ {title:"The Steel Pan Festival",text:"The night of the steel pan festival was completely [hectic]: [hordes] of people squeezed into the square, and the air was so [humid] that everyone's shirts stuck to their backs. Marisol's band had practiced [diligently] for months. When they walked on stage in matching gold [attire], the crowd went quiet. Their leader, a [versatile] musician who could play pan, trumpet, and drums, gave the signal. From the first note, the music [captivated] everyone. When the judges announced their [verdict] (first place!), it was a total [triumph].",decoys:["tranquil","arid"]},
+ {title:"The Kite Contest",text:"Dev's kite shot [aloft] on the very first gust. It [hovered] for a moment above the field, then suddenly [plummeted] toward a tree! With one [deft] flick of his wrist, he swooped it back up. The wind [buffeted] it from every side, but it stayed up. Finally it [attained] the greatest height of any kite that day, and Dev's grin was so [conspicuous] you could see it from across the park.",decoys:["moored","inflated","stationary"]}
+];
+const BASE={diligently:"diligent",hordes:"horde",hovered:"hover",plummeted:"plummet",buffeted:"buffet",attained:"attain",captivated:"captivate"};
+const LIFE=["Starts painting at age two","Holds her first exhibition in China at age four","Paintings shown at the Smithsonian at age fourteen","Has painted more than 10,000 pictures by sixteen","Keeps painting and changing as an adult"];
+const METHOD=["Spills ink onto the paper (po-mo)","Makes a few tentative strokes","Works quickly until the painting is finished"];
+const PASSAGE=[
+ ["Yani's father thought lessons would <b>stifle</b> her imagination. Here, stifle means…",["hold it back","cut off its air","make it stronger","paint over it"],"stifle"],
+ ["\"Yani's fame soon <b>eclipsed</b> her father's fame\" means…",["her fame became greater than his","her fame hid behind the moon","her fame faded quickly","her fame was equal to his"],"eclipse"],
+ ["The monkeys were painted in different <b>postures</b>. Postures are…",["body positions or poses","places in a zoo","colors of fur","kinds of monkeys"],"posture"],
+ ["The Guilin mountains are often <b>shrouded</b> in mist. They are…",["covered and hidden","made brighter","wrapped for burial","blown away"],"shroud"],
+ ["Why might Yani's first strokes be <b>tentative</b>?",["She's still feeling out what the painting will become","She's scared of the audience","Her brush is broken","Her father told her to paint slowly"],"tentative"],
+ ["What would you need to enjoy the <b>inscription</b> on one of her paintings?",["the ability to read Chinese","the ability to paint monkeys","a ticket to the Smithsonian","a magnifying glass"],"inscribe"],
+ ["How does Yani show her <b>versatility</b>?",["She paints many subjects: monkeys, birds, horses, lions, landscapes","She paints only monkeys","She paints barefoot","She paints in under half an hour"],"versatile"],
+ ["How could Yani paint so well so young without any lessons?",["Her talent was innate","She copied her teachers","She studied art in America","She only started painting at fourteen"],"innate"],
+ ["What feeling does Yani try to capture in her mountain paintings?",["tranquility","hectic excitement","arrogance","squalor"],"tranquil"],
+ ["Why was painting such a short job for Yani, often under half an hour?",["After a few careful strokes she works rapidly and with total focus","She uses a computer","Her father helps her finish","She only paints tiny pictures"],"deft"]
+];
+const ANALOG=[
+ ["HUMID : ARID ::",["wet : dry","hungry : thirsty","big : large","hot : warm"],"humid","Humid and arid are opposites, just like wet and dry."],
+ ["SPLENDID : SQUALID ::",["attractive : ugly","loud : noisy","tall : lofty","fast : quick"],"squalor","Splendid and squalid are opposites."],
+ ["INTEGRATE : SEGREGATE ::",["join : separate","build : make","shout : yell","sit : chair"],"integrate","Opposites: bring together vs. keep apart."],
+ ["DEFT : SKILLFUL ::",["tranquil : calm","hectic : calm","tall : short","arid : wet"],"deft","Synonyms: deft means skillful, tranquil means calm."],
+ ["TRIUMPH : DEFEAT ::",["success : failure","win : victory","joy : happiness","game : sport"],"triumph","Opposites: a triumph is a success, the opposite of a defeat."],
+ ["FERRY : WATER ::",["blimp : air","car : garage","kite : string","bird : nest"],"ferry","A ferry travels across water; a blimp travels through the air."]
+];
+
+/* ============================ QUIZ ENGINE ============================ */
+const Q={parts:[],i:0,res:[]};
+function mcHTML(items,opts){
+  return items.map((it,qi)=>`<div class="q" data-qi="${qi}"><p class="qt"><span class="num">${qi+1}</span>${it.q}</p><div class="opts">${it.shuffled.map(o=>`<button class="opt" data-ok="${o===it.correct?1:0}">${o}</button>`).join("")}</div></div>`).join("");
+}
+function wireMC(body,items,done,whyFn){
+  let answered=0,score=0;const missed=[];
+  body.addEventListener("click",e=>{
+    const b=e.target.closest(".opt");if(!b||b.disabled)return;const q=b.closest(".q");const it=items[+q.dataset.qi];
+    $$(".opt",q).forEach(o=>{o.disabled=true;if(o.dataset.ok==="1")o.classList.add(o===b?"right":"missed")});
+    const ok=b.dataset.ok==="1";if(!ok){b.classList.add("wrong");missed.push(it.w)}else score++;
+    const why=whyFn?whyFn(it,ok):(ok?"Yes!":`The answer is “${it.correct}”.`);
+    q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅ ":"❌ "}${why}</p>`);
+    if(++answered===items.length)done(score,items.length,missed);
+  });
+}
+function buildParts(){
+  const pick=shuffle(LESSONS.flatMap(L=>shuffle(L.words).slice(0,5))).slice(0,24);
+  const parts=[];
+  [0,1,2].forEach(r=>{const words=pick.slice(r*8,r*8+8);parts.push({emoji:"🧩",title:`Match Madness, round ${r+1}`,intro:"Drag each word onto its meaning.",render:(b,d)=>matchPart(b,d,words)})});
+  parts.push({emoji:"⚖️",title:"Twins or opposites?",intro:"Synonyms mean the same. Antonyms mean the opposite. Sort each pair.",render:synAntPart});
+  parts.push({emoji:"✅",title:"True or false",intro:"Stamp each statement. Watch for sneaky ones!",render:tfPart});
+  parts.push({emoji:"🔤",title:"Which word fits?",intro:"Pick the word that makes the sentence make sense.",render:fitPart});
+  parts.push({emoji:"🎭",title:"Same word, different meaning",intro:"These words have more than one meaning. Which one is used here?",render:meanPart});
+  parts.push({emoji:"☑️",title:"Pick ALL that apply",intro:"There may be more than one right answer. Choose every one, then check.",render:selectPart});
+  STORIES.forEach(s=>parts.push({emoji:"📖",title:`Story fill: ${s.title}`,intro:"Drag the words into the blanks. Some extra words don't belong anywhere!",render:(b,d)=>storyPart(b,d,s)}));
+  parts.push({emoji:"🗓️",title:"Yani's timeline",intro:"Put Yani's life and her painting method in the right order.",render:orderPart});
+  parts.push({emoji:"🐒",title:"Questions about A Born Artist",intro:"All about passage 5E.",render:passagePart});
+  parts.push({emoji:"🔗",title:"Analogy puzzles",intro:"Find the pair that has the same relationship as the capital-letter pair.",render:analogyPart});
+  return parts;
+}
+function renderQuizIntro(){
+  const v=$("#view-quiz");v.style.setProperty("--lc","var(--c2)");
+  v.innerHTML=`<div class="lhead"><div class="lnum" style="background:var(--ink);color:var(--paper)">🏆</div><div><h2>The Big Quiz</h2><p>13 rounds covering all 75 words and passage 5E. You'll get feedback as you go. Aim for 90% or higher!</p></div></div>
+  <div class="qtop"><div class="track" id="track"></div><div class="total" id="total"></div></div>
+  <div id="stage"></div>`;
+  startQuiz();
+}
+function startQuiz(){Q.parts=buildParts();Q.i=0;Q.res=[];renderPart()}
+function totals(){let s=0,m=0;Q.res.forEach(r=>{if(r){s+=r.score;m+=r.max}});return {s,m}}
+function drawTrack(){
+  $("#track").innerHTML=Q.parts.map((p,i)=>{const r=Q.res[i];let c="";if(r){const pc=r.score/r.max;c=pc>=.85?"good":pc>=.6?"meh":"low"}else if(i===Q.i)c="now";return `<span class="${c}" title="${esc(p.title)}"></span>`}).join("");
+  const t=totals();$("#total").textContent=`Score: ${t.s} / ${t.m}`;
+}
+function renderPart(){
+  const p=Q.parts[Q.i];const stage=$("#stage");
+  stage.innerHTML=`<div class="phead"><span class="pemo">${p.emoji}</span><div><h3>Round ${Q.i+1} of ${Q.parts.length}: ${p.title}</h3><p>${p.intro}</p></div></div><div id="pbody"></div><div class="pfoot"><span class="msg" id="pmsg"></span><button class="btn big" id="nextBtn" disabled>${Q.i===Q.parts.length-1?"See my results":"Next round"}</button></div>`;
+  drawTrack();
+  p.render($("#pbody"),(score,max,missed)=>{
+    Q.res[Q.i]={title:p.title,score,max,missed:missed||[]};drawTrack();
+    const pc=score/max;$("#pmsg").textContent=`${score} / ${max} ${pc===1?"· Flawless! 🌟":pc>=.8?"· Great work! 💪":pc>=.6?"· Not bad, keep going!":"· Review these words later 💡"}`;
+    const nb=$("#nextBtn");nb.disabled=false;nb.focus({preventScroll:true});
+    if(pc===1)confetti(.6);
+  });
+  $("#nextBtn").onclick=()=>{Q.i++;if(Q.i>=Q.parts.length)showResults();else{renderPart();$("#view-quiz").scrollIntoView({behavior:"smooth"})}};
+}
+function checkBtn(body,label,fn){const w=document.createElement("div");w.style.cssText="margin-top:14px;display:flex;justify-content:flex-end";w.innerHTML=`<button class="btn">${label}</button>`;body.appendChild(w);const b=$(".btn",w);b.onclick=()=>{b.disabled=true;fn()};return b}
+
+function matchPart(body,done,words){
+  const id=uid();
+  body.innerHTML=`<div class="dnd" id="${id}"><div class="pool sticky" id="${id}-pool">${shuffle(words).map(w=>chipHTML(w.w,{val:w.w},id+"-pool")).join("")}</div>
+  <div class="rows">${shuffle(words).map(w=>`<div class="mrow"><div class="drop one slot" data-ans="${w.w}"></div><div class="mdef">${w.m}</div></div>`).join("")}</div></div>`;
+  checkBtn(body,"Check my matches",()=>{
+    const g=$("#"+id);g.classList.add("locked");let s=0;const missed=[];
+    $$(".slot",g).forEach(sl=>{const c=sl.querySelector(".chip");const ok=c&&c.dataset.val===sl.dataset.ans;if(c)c.classList.add(ok?"right":"wrong");if(ok)s++;else{missed.push(sl.dataset.ans);sl.nextElementSibling.insertAdjacentHTML("beforeend",`<span class="fix">✓ ${sl.dataset.ans}</span>`)}});
+    $$(`#${id}-pool .chip`).forEach(c=>c.classList.add("wrong"));
+    done(s,words.length,missed);
+  });
+}
+function synAntPart(body,done){
+  const items=shuffle(SYNANT).map(([a,b,k])=>({text:`${a} ↔ ${b}`,bin:k,w:WORD[a]?a:b}));
+  body.innerHTML=sortHTML(items,[{key:"S",label:"👯 Synonyms (same)",c:"var(--c1)"},{key:"A",label:"🙃 Antonyms (opposite)",c:"var(--c5)"}]);
+  checkBtn(body,"Check my sorting",()=>{const r=gradeSort($(".dnd",body));done(r.score,r.max,r.missed)});
+}
+function tfPart(body,done){
+  const items=shuffle(TF);let answered=0,score=0;const missed=[];
+  body.innerHTML=items.map(([s],i)=>`<div class="q" data-i="${i}"><p class="qt"><span class="num">${i+1}</span>${s}</p><div class="tf"><button class="stamp" data-v="1">👍 True</button><button class="stamp f" data-v="0">👎 False</button></div></div>`).join("");
+  body.addEventListener("click",e=>{const b=e.target.closest(".stamp");if(!b||b.disabled)return;const q=b.closest(".q");const [,ans,why,w]=items[+q.dataset.i];
+    $$(".stamp",q).forEach(x=>x.disabled=true);const ok=(b.dataset.v==="1")===ans;b.classList.add(ok?"right":"wrong");if(ok)score++;else missed.push(w);
+    q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅ Right!":"❌ It's "+(ans?"TRUE":"FALSE")+"."} ${why}</p>`);
+    if(++answered===items.length)done(score,items.length,missed)});
+}
+function fitPart(body,done){
+  const items=shuffle(FIT).map(([s,o])=>({q:s.replace("____",'<span class="bold">_______</span>'),correct:o[0],shuffled:shuffle(o),w:BASE[o[0]]||(WORD[o[0]]?o[0]:guessBase(o[0])),raw:s}));
+  body.innerHTML=mcHTML(items);
+  wireMC(body,items,done,(it,ok)=>`“${it.raw.replace("____","<b>"+it.correct+"</b>")}”`);
+}
+function guessBase(form){for(const w of Object.keys(WORD)){if(form.startsWith(w.slice(0,Math.max(4,w.length-2))))return w}return form}
+function meanPart(body,done){
+  const items=shuffle(MEAN).map(([s,o,w])=>({q:s,correct:o[0],shuffled:shuffle(o),w}));
+  body.innerHTML=mcHTML(items);wireMC(body,items,done,(it,ok)=>ok?`Yes, here it means “${it.correct}.”`:`Here it means “${it.correct}.”`);
+}
+function selectPart(body,done){
+  const items=shuffle(SELECT);let checked=0,score=0;const missed=[];
+  body.innerHTML=items.map(([q,o],i)=>`<div class="q" data-i="${i}"><p class="qt"><span class="num">${i+1}</span>${q}</p><div class="opts">${shuffle(o).map(([t,ok])=>`<button class="opt" data-ok="${ok}" aria-pressed="false">${t}</button>`).join("")}</div><div style="margin-top:10px"><button class="btn ghost chk">Check</button></div></div>`).join("");
+  body.addEventListener("click",e=>{
+    const o=e.target.closest(".opt");if(o&&!o.disabled){o.classList.toggle("sel");o.setAttribute("aria-pressed",o.classList.contains("sel"));return}
+    const c=e.target.closest(".chk");if(!c)return;const q=c.closest(".q");c.remove();
+    let ok=true;$$(".opt",q).forEach(x=>{x.disabled=true;const want=x.dataset.ok==="1",got=x.classList.contains("sel");x.classList.remove("sel");if(want&&got)x.classList.add("right");else if(!want&&got){x.classList.add("wrong");ok=false}else if(want&&!got){x.classList.add("missed");ok=false}});
+    if(ok)score++;else missed.push(items[+q.dataset.i][2]);
+    q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅ You got every one!":"❌ Not quite. Green outlines show every right answer."}</p>`);
+    if(++checked===items.length)done(score,items.length,missed);
+  });
+}
+function storyPart(body,done,s){
+  const id=uid();const answers=[...s.text.matchAll(/\[([^\]]+)\]/g)].map(m=>m[1]);
+  const chips=shuffle([...answers,...s.decoys]);
+  body.innerHTML=`<div class="dnd" id="${id}"><div class="pool sticky" id="${id}-pool">${chips.map(c=>chipHTML(c,{val:c},id+"-pool")).join("")}</div>
+  <div class="storytext" style="margin-top:14px"><h4 style="font-size:1.3rem;margin-bottom:6px">${s.title}</h4>${s.text.replace(/\[([^\]]+)\]/g,(m,a)=>`<span class="drop one blank" data-ans="${a}"></span>`)}</div></div>`;
+  checkBtn(body,"Check my story",()=>{
+    const g=$("#"+id);g.classList.add("locked");let sc=0;const missed=[];
+    $$(".blank",g).forEach(bl=>{const c=bl.querySelector(".chip");const ok=c&&c.dataset.val===bl.dataset.ans;if(c)c.classList.add(ok?"right":"wrong");if(ok)sc++;else{missed.push(BASE[bl.dataset.ans]||bl.dataset.ans);bl.insertAdjacentHTML("afterend",`<span class="fix" style="display:inline;margin-left:4px">(${bl.dataset.ans})</span>`)}});
+    done(sc,answers.length,missed);
+  });
+}
+function orderPart(body,done){
+  const mk=(list,title)=>{const id=uid();return {id,html:`<h4 style="font-size:1.25rem;margin:18px 0 8px">${title}</h4><div class="dnd" id="${id}"><div class="pool" id="${id}-pool">${shuffle(list).map(t=>chipHTML(t,{val:t},id+"-pool",true)).join("")}</div><div class="seq">${list.map((t,i)=>`<div class="seqrow"><b>${i+1}</b><div class="drop one" data-ans="${esc(t)}"></div></div>`).join("")}</div></div>`}};
+  const a=mk(LIFE,"🌱 Yani's life, first to last"),b=mk(METHOD,"🖌️ How she paints a picture, first to last");
+  body.innerHTML=a.html+b.html;
+  checkBtn(body,"Check my order",()=>{let s=0;[a,b].forEach(x=>{const g=$("#"+x.id);g.classList.add("locked");$$(".seqrow .drop",g).forEach(d=>{const c=d.querySelector(".chip");const ok=c&&c.dataset.val===d.dataset.ans;if(c)c.classList.add(ok?"right":"wrong");if(ok)s++;else d.insertAdjacentHTML("beforeend",`<span class="fix" style="margin-left:8px">✓ ${d.dataset.ans}</span>`)})});
+    done(s,LIFE.length+METHOD.length,s<8?["diligent"]:[])});
+}
+function passagePart(body,done){
+  const items=shuffle(PASSAGE).map(([q,o,w])=>({q,correct:o[0],shuffled:shuffle(o),w}));
+  body.innerHTML=mcHTML(items);wireMC(body,items,done);
+}
+function analogyPart(body,done){
+  const items=shuffle(ANALOG).map(([q,o,w,why])=>({q:`<span class="analogy">${q}</span>`,correct:o[0],shuffled:shuffle(o),w,why}));
+  body.innerHTML=mcHTML(items);wireMC(body,items,done,(it)=>it.why);
+}
+function showResults(){
+  const t=totals();const pc=Math.round(t.s/t.m*100);
+  const best=store.get("ww15-best",null);if(best===null||pc>best)store.set("ww15-best",pc);
+  const stars=pc>=95?"⭐⭐⭐⭐⭐":pc>=85?"⭐⭐⭐⭐":pc>=70?"⭐⭐⭐":pc>=55?"⭐⭐":"⭐";
+  const msg=pc>=95?"Word wizard! You're ready for Friday.":pc>=85?"Superb! Just polish the few words below.":pc>=70?"Good progress. Review the words below and retake.":"Keep going: flip the cards for the words below, then try again.";
+  const missed=[...new Set(Q.res.flatMap(r=>r.missed))].filter(w=>WORD[w]);
+  drawTrack();
+  $("#stage").innerHTML=`<div class="results"><div class="pct">${pc}%</div><div class="stars">${stars}</div><h3 style="font-size:1.6rem">${msg}</h3><p style="color:var(--muted)">${t.s} out of ${t.m} points${best!==null?` · best before: ${best}%`:""}</p>
+  <div class="breakdown">${Q.res.map(r=>`<div><span>${r.title}</span><b>${r.score} / ${r.max}</b></div>`).join("")}</div>
+  ${missed.length?`<h3 style="font-size:1.4rem;margin-top:10px">Words to review (${missed.length})</h3><div class="review">${missed.map(w=>{const x=WORD[w];return `<div style="--tc:${x.color}"><b>${x.e} ${x.w}</b> <small style="color:var(--muted)">Lesson ${x.lesson}</small><br>${x.m}</div>`}).join("")}</div>`:`<p style="font-size:1.2rem">No words to review. Every single one is yours! 🎉</p>`}
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn big" id="retake">🔁 Retake with new words</button><button class="btn ghost big" id="home">Back to the studio</button></div></div>`;
+  $("#retake").onclick=()=>{startQuiz();$("#view-quiz").scrollIntoView({behavior:"smooth"})};
+  $("#home").onclick=()=>show("home");
+  confetti(pc>=85?2.2:pc>=70?1:0);
+}
+
+/* ============================ CONFETTI ============================ */
+function confetti(sec){
+  if(!sec||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const cv=$("#confetti"),ctx=cv.getContext("2d");cv.width=innerWidth;cv.height=innerHeight;
+  const cols=["#0FA392","#5A48D8","#EE960F","#1C8EE0","#E03D7A","#FFD23F"];
+  const ps=Array.from({length:Math.round(120*Math.min(sec,1.5))},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.4,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[Math.random()*cols.length|0]}));
+  const end=performance.now()+sec*1000+1800;
+  (function f(now){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);ctx.restore()});if(now<end)requestAnimationFrame(f);else ctx.clearRect(0,0,cv.width,cv.height)})(performance.now());
+}
+
+const setNavH=()=>document.documentElement.style.setProperty("--navh",$("nav.tabs").offsetHeight+"px");setNavH();addEventListener("resize",setNavH);
+show("home");
+</script>
+</body>
+</html>

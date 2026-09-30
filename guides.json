@@ -13,6 +13,20 @@
           "added": "2026-09-30"
         }
       ]
+    },
+    {
+      "id": "language-arts",
+      "name": "Language Arts",
+      "emoji": "📚",
+      "color": "#E0457B",
+      "guides": [
+        {
+          "title": "Wordly Wise – Lessons 1–5 (Book 6)",
+          "file": "wordly-wise-lessons-1-5.html",
+          "blurb": "All 75 vocabulary words, the Wang Yani passage (5E), and a 13-round interactive quiz.",
+          "added": "2026-09-30"
+        }
+      ]
     }
   ]
 }
