@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Survive the Stone Age: Hunter-Gatherers Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#F1E1C4;--panel:#FCF5E7;--ink:#2A1F19;--muted:#6B5341;--line:#DCC5A0;--soft:#EDE0C7;
+  --ochre:#E3A13C;--red:#C24634;--rust:#9A4526;--moss:#7A9A4F;--torch:#FF8A2B;--ice:#56A8CC;--char:#3A2A20;--berry:#8E4E86;
+  --ok:#2E7D4F;--bad:#C2362C;--okbg:#DEF0E2;--badbg:#F9DFDB;
+  --display:"Rowdies","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",Verdana,system-ui,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wall:#18110D;--panel:#261A13;--ink:#F6E8D2;--muted:#C5A683;--line:#45311F;--soft:#31231A;--okbg:#17331F;--badbg:#3C1A17;color-scheme:dark}}
+:root[data-theme="dark"]{--wall:#18110D;--panel:#261A13;--ink:#F6E8D2;--muted:#C5A683;--line:#45311F;--soft:#31231A;--okbg:#17331F;--badbg:#3C1A17;color-scheme:dark}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 68px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6;overflow-x:hidden;
+  background:
+   radial-gradient(circle at 18% 12%,rgba(154,69,38,.10) 0 90px,transparent 91px),
+   radial-gradient(circle at 76% 44%,rgba(227,161,60,.10) 0 120px,transparent 121px),
+   radial-gradient(circle at 42% 82%,rgba(122,154,79,.09) 0 100px,transparent 101px),
+   var(--wall);}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;margin:0;font-weight:700}
+p{margin:0 0 12px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--torch);outline-offset:3px;border-radius:8px}
+
+/* torch nav */
+.torches{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:9px 10px;background:color-mix(in srgb,var(--wall) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:2px solid var(--line)}
+.torches a{width:32px;height:32px;border-radius:40% 40% 46% 46%;background:var(--c);display:grid;place-items:center;text-decoration:none;font-size:15px;border:2px solid var(--char);transition:transform .15s,box-shadow .15s}
+.torches a:hover{transform:translateY(-3px);box-shadow:0 0 14px var(--torch)}
+
+/* hero */
+.hero{position:relative;padding:28px 20px 10px;max-width:960px;margin:0 auto}
+.hero h1{font-size:clamp(42px,9vw,86px);letter-spacing:-1px;line-height:.95;color:var(--rust)}
+.hero h1 small{display:block;font-size:.26em;color:var(--muted);letter-spacing:.5px;font-weight:300;margin-bottom:10px}
+.cavewall{position:relative;margin:18px 0;border-radius:26px;overflow:hidden;border:4px solid var(--char);background:linear-gradient(160deg,#C98B4B,#8A5A33 55%,#5E3A22)}
+.cavewall svg{display:block;width:100%;height:auto}
+.glow{position:absolute;inset:0;background:radial-gradient(circle at 20% 55%,rgba(255,196,110,.55),rgba(0,0,0,.55) 58%,rgba(0,0,0,.8));mix-blend-mode:multiply;animation:flicker 4.5s ease-in-out infinite}
+@keyframes flicker{0%,100%{opacity:.85;transform:scale(1)}35%{opacity:.7;transform:scale(1.04)}60%{opacity:.95;transform:scale(.98)}}
+.chambers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}
+.slab{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);background:var(--panel);border:3px solid var(--char);border-radius:8px 22px 10px 20px;padding:12px 14px;font-family:var(--display);font-size:19px;box-shadow:4px 4px 0 var(--char);animation:rise .6s cubic-bezier(.2,.9,.3,1.3) both;animation-delay:calc(var(--i)*70ms)}
+.slab:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--char)}
+.slab .ic{font-size:28px;filter:saturate(1.1)}
+.slab small{display:block;font-family:var(--body);font-weight:400;font-size:14px;color:var(--muted)}
+@keyframes rise{from{transform:translateY(26px);opacity:0}to{transform:none;opacity:1}}
+
+/* flint the bison guide */
+.flint{display:flex;gap:12px;align-items:flex-start;margin:18px 0}
+.flint svg{width:74px;flex:none;animation:sway 5s ease-in-out infinite}
+@keyframes sway{50%{transform:translateY(-4px) rotate(-2deg)}}
+.bubble{position:relative;background:var(--panel);border:3px solid var(--char);border-radius:20px;padding:12px 16px;font-size:17px;box-shadow:5px 5px 0 var(--c,var(--ochre))}
+.bubble::before{content:"";position:absolute;left:-12px;top:24px;width:18px;height:18px;background:var(--panel);border-left:3px solid var(--char);border-bottom:3px solid var(--char);transform:rotate(45deg)}
+.bubble b.who{display:block;font-family:var(--display);font-size:14px;color:var(--muted);font-weight:300}
+
+main{max-width:960px;margin:0 auto;padding:0 20px 60px}
+.chap{padding-top:62px}
+.chap-head{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+.chap-head .num{flex:none;width:62px;height:62px;border-radius:50% 46% 52% 48%;background:var(--c);border:3px solid var(--char);display:grid;place-items:center;font-family:var(--display);font-size:28px;color:#2A1F19;box-shadow:4px 4px 0 var(--char)}
+.chap-head h2{font-size:clamp(30px,5.4vw,46px)}
+.chap-head .sub{margin:0;color:var(--muted);font-size:15.5px}
+.lead{font-size:20px}
+.card{background:var(--panel);border:3px solid var(--line);border-radius:20px;padding:20px;margin:18px 0}
+.card.game{border-color:var(--c);box-shadow:0 6px 0 color-mix(in srgb,var(--c) 70%,var(--char))}
+.card h3{font-size:25px;margin-bottom:6px}
+.card .how{color:var(--muted);font-size:15.5px;margin-bottom:12px}
+mark{background:color-mix(in srgb,var(--ochre) 55%,transparent);color:inherit;padding:0 3px;border-radius:4px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.mini{border-radius:16px;padding:15px;background:color-mix(in srgb,var(--mc,var(--c)) 16%,var(--panel));border:2.5px solid color-mix(in srgb,var(--mc,var(--c)) 55%,transparent)}
+.mini h4{font-size:20px;margin-bottom:4px}
+.mini .big{font-size:32px;line-height:1}
+ul.tidy{margin:6px 0 0;padding-left:20px}ul.tidy li{margin:3px 0}
+.btn{border:3px solid var(--char);background:var(--c,var(--ochre));color:#2A1F19;font-family:var(--display);font-size:17px;padding:8px 18px;border-radius:12px;cursor:pointer;box-shadow:0 4px 0 var(--char);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--char)}
+.btn.alt{background:var(--panel);color:var(--ink)}
+.btn.big{font-size:19px;padding:10px 22px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.fb{margin-top:12px;font-weight:700;min-height:1.6em}
+.fb.good{color:var(--ok)}.fb.bad{color:var(--bad)}
+.pill{display:inline-block;padding:2px 12px;border-radius:999px;background:color-mix(in srgb,var(--c) 25%,var(--panel));font-weight:700;font-size:15px;border:2px solid var(--line)}
+
+/* flip */
+.flip{perspective:1000px;border:0;background:none;padding:0;cursor:pointer;text-align:left;width:100%;display:block}
+.flip-in{display:grid;transition:transform .6s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;padding:16px;border:3px solid var(--char);min-height:155px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.front{background:var(--fc,var(--ochre));color:#2A1F19}
+.back{background:var(--panel);color:var(--ink);transform:rotateY(180deg);font-size:16.5px}
+.front .t{font-family:var(--display);font-size:23px;line-height:1.1}
+.front .h{font-size:13.5px;opacity:.8}
+.front .e{font-size:32px;line-height:1}
+
+/* drag & drop */
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--panel);border:2.5px solid var(--char);font-weight:700;font-size:16px;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 3px 0 var(--char);line-height:1.3;max-width:100%}
+.chip:active{cursor:grabbing}
+.chip.dragging{opacity:.35}
+.chip.ghost{position:fixed;z-index:9999;pointer-events:none;transform:rotate(-3deg) scale(1.06);box-shadow:0 12px 24px rgba(0,0,0,.35);margin:0}
+.chip .x{border:0;background:var(--char);color:var(--panel);width:22px;height:22px;border-radius:50%;font-size:11px;cursor:pointer;flex:none;display:grid;place-items:center;padding:0;line-height:1}
+.chip.ok{background:var(--okbg);border-color:var(--ok);box-shadow:0 3px 0 var(--ok)}
+.chip.bad{background:var(--badbg);border-color:var(--bad);box-shadow:0 3px 0 var(--bad)}
+.chip.ok::after{content:"✓";color:var(--ok);font-weight:800}
+.chip.bad::after{content:"✗";color:var(--bad);font-weight:800}
+.chip.locked{cursor:default}
+.pool{display:flex;flex-wrap:wrap;gap:10px;min-height:60px;padding:12px;border-radius:14px;background:var(--soft);border:2px dashed var(--line)}
+.pool:empty::before{content:"All placed. Press Check!";color:var(--muted);font-style:italic;font-size:15px;align-self:center}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+.bin{border:3px solid var(--bc);border-radius:18px;min-height:160px;background:var(--panel);transition:transform .15s,background .15s;overflow:hidden}
+.bin-h{background:var(--bc);color:#FFF6E6;font-family:var(--display);padding:6px 14px;font-size:19px}
+.bin-b{display:flex;flex-wrap:wrap;gap:8px;padding:12px;min-height:110px;align-content:flex-start}
+.bin.over{background:color-mix(in srgb,var(--bc) 20%,var(--panel));transform:scale(1.02)}
+.mrow{display:grid;grid-template-columns:minmax(160px,230px) 1fr;gap:14px;align-items:center;padding:8px 0;border-bottom:1.5px dashed var(--line)}
+.slot{min-height:50px;border:2.5px dashed var(--muted);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:4px;transition:transform .15s,background .15s}
+.slot.over,.blank.over{background:color-mix(in srgb,var(--ochre) 35%,var(--panel));border-style:solid;transform:scale(1.03)}
+.slot.missed,.blank.missed{border-color:var(--bad);background:var(--badbg)}
+.oslots{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.oslot{display:flex;flex-direction:column;gap:4px}
+.oslot .lbl{font-family:var(--display);font-size:14px;color:var(--muted)}
+.oslot .slot{min-height:66px}
+.arrow{height:12px;margin-top:10px;border-radius:6px;background:linear-gradient(90deg,var(--ice),var(--moss),var(--ochre),var(--red))}
+.arrow-l{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);font-weight:700;margin-top:4px}
+.cloze{font-size:19px;line-height:2.5;margin-top:14px}
+.blank{display:inline-flex;min-width:145px;min-height:44px;vertical-align:middle;border:2.5px dashed var(--muted);border-radius:12px;padding:2px;margin:2px 4px;align-items:center;justify-content:center}
+@media(max-width:560px){.mrow{grid-template-columns:1fr;gap:6px}.mrow .def{order:-1}}
+
+/* widgets */
+.deeptime{margin-top:12px}
+.dtbar{display:flex;height:60px;border:3px solid var(--char);border-radius:12px;overflow:hidden}
+.dtbar div{display:grid;place-items:center;font-family:var(--display);font-size:14px;color:#2A1F19;transition:flex .8s cubic-bezier(.3,1,.4,1);overflow:hidden;white-space:nowrap}
+.dtP{background:var(--ochre);flex:9960}
+.dtR{background:var(--moss);flex:40}
+.scene{position:relative;border:3px solid var(--char);border-radius:16px;overflow:hidden;background:#BFE3F2}
+.scene svg{display:block;width:100%;height:auto}
+.sliderow{display:flex;gap:10px;align-items:center;margin-top:10px}
+.sliderow input{flex:1;accent-color:var(--ice)}
+.firebox{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+@media(max-width:520px){.firebox{grid-template-columns:1fr}}
+.firepit{position:relative;height:160px;display:grid;place-items:end center;background:radial-gradient(circle at 50% 95%,#4a3526,transparent 70%);border-radius:14px}
+.flame{font-size:0;transition:font-size .4s}
+.flame.lit{font-size:64px;animation:dance .7s ease-in-out infinite alternate}
+@keyframes dance{from{transform:scale(1) rotate(-3deg)}to{transform:scale(1.12) rotate(4deg)}}
+.sticks{font-size:40px;position:absolute;bottom:14px;transition:transform .12s}
+.sticks.rub{transform:rotate(12deg) translateX(6px)}
+.meterbar{height:18px;border:3px solid var(--char);border-radius:10px;overflow:hidden;background:var(--soft)}
+.meterbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--moss),var(--ochre),var(--torch));transition:width .15s}
+.uses{display:grid;gap:8px;margin-top:12px}
+.use{opacity:.25;transition:opacity .4s,transform .4s;transform:translateX(-10px);border-left:5px solid var(--torch);padding:6px 12px;background:var(--soft);border-radius:0 10px 10px 0}
+.use.on{opacity:1;transform:none}
+.paint-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;align-items:center}
+.swatch{width:40px;height:40px;border-radius:50%;border:3px solid var(--char);cursor:pointer;padding:0}
+.swatch.on{box-shadow:0 0 0 4px var(--torch)}
+.stampbtn{border:3px solid var(--char);background:var(--panel);border-radius:12px;padding:6px 12px;cursor:pointer;font-weight:700}
+.stampbtn.on{background:var(--ochre);color:#2A1F19}
+#cave{width:100%;height:auto;display:block;border:4px solid var(--char);border-radius:16px;touch-action:none;cursor:crosshair;background:#9a6a40}
+.survive .opt{display:block;width:100%;text-align:left;border:3px solid var(--char);background:var(--panel);border-radius:14px;padding:12px 14px;margin-top:10px;cursor:pointer;font-weight:700;box-shadow:0 3px 0 var(--char)}
+.survive .opt.ok{background:var(--okbg);border-color:var(--ok)}
+.survive .opt.bad{background:var(--badbg);border-color:var(--bad)}
+.hearts{font-size:24px;letter-spacing:3px}
+.scen{display:grid;gap:10px}
+.scen .s{border:2.5px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--panel)}
+.scen .s button{border:2.5px solid var(--char);border-radius:10px;padding:6px 14px;background:var(--panel);cursor:pointer;font-weight:700}
+.scen .s button.ok{background:var(--okbg);border-color:var(--ok)}
+.scen .s button.bad{background:var(--badbg);border-color:var(--bad)}
+.scen .s .why{margin-top:6px;font-size:15.5px;display:none}
+.scen .s.done .why{display:block}
+
+/* quiz */
+.quiz-wrap{background:linear-gradient(165deg,#3A2A20,#1E1510);color:#F6E8D2;border-radius:26px;padding:24px;margin-top:10px;border:4px solid var(--char)}
+.quiz-wrap h3{font-size:30px}
+.types{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.types span{background:rgba(255,255,255,.08);border:1.5px solid rgba(246,232,210,.3);padding:4px 12px;border-radius:999px;font-size:15px}
+.qcard{background:var(--panel);color:var(--ink);border-radius:20px;padding:20px;border:3px solid var(--char);animation:pop .35s}
+@keyframes pop{from{transform:scale(.95);opacity:0}to{transform:none;opacity:1}}
+.qtop{display:flex;justify-content:space-between;gap:10px;align-items:center;font-weight:700;font-size:15px}
+.qtopic{background:var(--tc);color:#FFF6E6;padding:3px 12px;border-radius:999px}
+.qbar{height:8px;border-radius:4px;background:var(--soft);margin:10px 0 14px;overflow:hidden}
+.qbar i{display:block;height:100%;background:linear-gradient(90deg,var(--moss),var(--ochre),var(--red));transition:width .4s}
+.qtype{font-weight:700;color:var(--muted);font-size:15px}
+.qq{font-size:24px;margin:6px 0 4px;font-family:var(--display);font-weight:700;line-height:1.2}
+.opts{display:grid;gap:10px;margin-top:12px}
+.opt{border:2.5px solid var(--char);border-radius:14px;padding:12px 14px;background:var(--panel);cursor:pointer;font-weight:700;font-size:17px;text-align:left;box-shadow:0 3px 0 var(--char)}
+.opt.sel{background:color-mix(in srgb,var(--ochre) 45%,var(--panel))}
+.opt.ok{background:var(--okbg);border-color:var(--ok);box-shadow:0 3px 0 var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad);box-shadow:0 3px 0 var(--bad)}
+.opt:disabled{cursor:default}
+.tf{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.tf .opt{text-align:center;font-family:var(--display);font-size:24px;padding:16px}
+.dpair{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:10px}
+.dpair .opt{text-align:center;font-family:var(--display);font-size:19px}
+.vs{font-family:var(--display);color:var(--muted)}
+.qfb{margin-top:14px;padding:12px 16px;border-radius:14px;font-size:17px}
+.qfb.good{background:var(--okbg)}.qfb.part{background:color-mix(in srgb,var(--ochre) 35%,var(--panel))}.qfb.bad{background:var(--badbg)}.qfb.warn{background:var(--soft)}
+.qact{margin-top:16px;display:flex;gap:10px;justify-content:flex-end}
+.qscore{font-family:var(--display);font-size:17px;margin-bottom:10px;display:flex;justify-content:space-between}
+.res{background:var(--panel);color:var(--ink);border-radius:20px;padding:22px;border:3px solid var(--char)}
+.res .pct{font-family:var(--display);font-size:clamp(60px,13vw,104px);line-height:1;color:var(--rust)}
+.badge{display:inline-block;font-family:var(--display);font-size:22px;padding:6px 18px;border-radius:999px;background:var(--ochre);color:#2A1F19;border:3px solid var(--char);margin:8px 0}
+.tbar{display:grid;grid-template-columns:minmax(120px,190px) 1fr 50px;gap:10px;align-items:center;margin:6px 0;font-size:15px;font-weight:700}
+.tbar .tr{height:14px;border-radius:7px;background:var(--soft);overflow:hidden}
+.tbar .tr i{display:block;height:100%;transition:width .8s}
+.miss{border-left:5px solid var(--bad);padding:8px 12px;margin:8px 0;background:var(--soft);border-radius:0 12px 12px 0;font-size:16px}
+.confetti{position:fixed;top:-20px;width:10px;height:16px;z-index:9998;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media(max-width:560px){body{font-size:17px}.quiz-wrap{padding:16px}.qcard{padding:16px}.qq{font-size:21px}}
+</style>
+</head>
+<body>
+
+<nav class="torches" aria-label="Chapters">
+  <a href="#s1" style="--c:var(--ochre)" title="Key terms">🗝️</a>
+  <a href="#s2" style="--c:var(--moss)" title="Life in the Paleolithic Age">🏕️</a>
+  <a href="#s3" style="--c:var(--red)" title="Finding food">🍖</a>
+  <a href="#s4" style="--c:var(--rust)" title="Tools and technology">🪨</a>
+  <a href="#s5" style="--c:var(--torch)" title="Fire">🔥</a>
+  <a href="#s6" style="--c:var(--berry)" title="Language and art">🎨</a>
+  <a href="#s7" style="--c:var(--ice)" title="The Ice Ages">🧊</a>
+  <a href="#s8" style="--c:var(--moss)" title="Review questions">🧠</a>
+  <a href="#s9" style="--c:var(--red)" title="Final quiz">🏆</a>
+</nav>
+
+<header class="hero">
+  <h1><small>Social Studies: Hunter-Gatherers, Lesson 1</small>Survive the Stone Age</h1>
+  <div class="cavewall">
+    <svg viewBox="0 0 900 300" role="img" aria-label="A cave wall painted with a bison, deer, horses and handprints">
+      <g fill="#2E1C12" opacity=".92">
+        <path d="M120 180c-6-26 10-48 40-54 22-5 46-2 62 8 8-14 18-16 24-8 5 7 2 16-6 22 10 14 10 32-2 44l10 30-14 2-10-24c-16 6-36 7-52 2l-8 26-14-2 8-28c-20-4-34-10-38-18z"/>
+        <path d="M470 150c14-18 42-24 66-14 10-18 22-22 28-12 4 8-1 16-10 20 10 16 6 36-10 46l12 34-14 3-12-30c-14 4-30 4-44 0l-10 30-14-3 12-32c-12-10-16-28-4-42z" opacity=".85"/>
+        <path d="M690 196c10-22 36-30 58-22l6-28 10 2-4 28c14 10 18 28 10 42l10 22-12 4-9-19c-14 5-30 5-44 0l-8 20-12-4 9-22c-12-6-18-14-14-23z" opacity=".7"/>
+      </g>
+      <g fill="#B5452C" opacity=".8">
+        <path d="M300 70c-10 0-16 8-16 18v16l-10-8c-7-6-16-5-19 2-3 6 0 12 7 16l24 14c6 4 14 4 20 0l24-14c7-4 10-10 7-16-3-7-12-8-19-2l-10 8V88c0-10-6-18-16-18h8z"/>
+        <circle cx="620" cy="70" r="12"/><circle cx="660" cy="56" r="8"/><circle cx="586" cy="56" r="7"/>
+      </g>
+      <g fill="#E8C98D" opacity=".55"><circle cx="820" cy="120" r="9"/><circle cx="845" cy="150" r="6"/><circle cx="800" cy="160" r="5"/></g>
+    </svg>
+    <div class="glow"></div>
+  </div>
+  <p class="lead">Everything for the test on <b>Hunter-Gatherers and the Paleolithic Age</b>, plus a quick review of historians and research. Nine chambers to explore, then the final quiz.</p>
+  <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg>
+    <div class="bubble"><b class="who">Flint, the painted bison</b>Hi Adiaha! I’ve been on this cave wall for 17,000 years, so I saw all of it happen. Tap, drag, rub, paint and slide everything. The last chamber is a quiz, and I’ll be watching. 🐂</div></div>
+  <div class="chambers">
+    <a class="slab" href="#s1" style="--i:0"><span class="ic">🗝️</span><span>Key terms<small>Six words that unlock the unit</small></span></a>
+    <a class="slab" href="#s2" style="--i:1"><span class="ic">🏕️</span><span>Paleolithic life<small>Nomads, bands, hunting and gathering</small></span></a>
+    <a class="slab" href="#s3" style="--i:2"><span class="ic">🍖</span><span>Finding food<small>Who did what, and how</small></span></a>
+    <a class="slab" href="#s4" style="--i:3"><span class="ic">🪨</span><span>Tools and culture<small>Flint, hand axes, needles</small></span></a>
+    <a class="slab" href="#s5" style="--i:4"><span class="ic">🔥</span><span>Fire<small>Make it, then use it</small></span></a>
+    <a class="slab" href="#s6" style="--i:5"><span class="ic">🎨</span><span>Language and art<small>Altamira, Lascaux, your own cave</small></span></a>
+    <a class="slab" href="#s7" style="--i:6"><span class="ic">🧊</span><span>The Ice Ages<small>Glaciers and the land bridge</small></span></a>
+    <a class="slab" href="#s8" style="--i:7"><span class="ic">🧠</span><span>Review questions<small>From your slides</small></span></a>
+    <a class="slab" href="#s9" style="--i:8"><span class="ic">🏆</span><span>The final quiz<small>43 challenges, 9 kinds</small></span></a>
+  </div>
+</header>
+
+<main>
+
+<!-- 1 -->
+<section class="chap" id="s1" style="--c:var(--ochre)">
+  <div class="chap-head"><span class="num">1</span><div><h2>Six key terms</h2><p class="sub">Learn these and half the test is already won</p></div></div>
+  <div class="grid2">
+    <button class="flip" style="--fc:var(--ochre)"><div class="flip-in"><div class="face front"><span class="e">🪨</span><span class="t">Paleolithic Age</span><span class="h">Tap to flip</span></div><div class="face back">The <b>early phase of the Stone Age</b>, lasting about <b>2.5 million years</b>, until around <b>8000 B.C.</b></div></div></button>
+    <button class="flip" style="--fc:var(--moss)"><div class="flip-in"><div class="face front"><span class="e">🚶🏾‍♀️</span><span class="t">Nomad</span><span class="h">Tap to flip</span></div><div class="face back">People who <b>move from place to place as a group</b> in order to <b>find food</b> for themselves.</div></div></button>
+    <button class="flip" style="--fc:var(--red)"><div class="flip-in"><div class="face front"><span class="e">🔧</span><span class="t">Technology</span><span class="h">Tap to flip</span></div><div class="face back">An ability gained by the <b>practical use of knowledge</b>. A sharpened flint is technology, just like your phone.</div></div></button>
+    <button class="flip" style="--fc:var(--ice)"><div class="flip-in"><div class="face front"><span class="e">🧊</span><span class="t">Ice Age</span><span class="h">Tap to flip</span></div><div class="face back">A time when <b>glaciers covered much of the land</b>.</div></div></button>
+    <button class="flip" style="--fc:var(--berry)"><div class="flip-in"><div class="face front"><span class="e">🦴</span><span class="t">Hominid</span><span class="h">Tap to flip</span></div><div class="face back">A term used to identify <b>mankind’s early ancestors</b> that resembled and acted like mankind (such as <i>Australopithecus</i>, <i>Homo habilis</i>, <i>Homo erectus</i>).</div></div></button>
+    <button class="flip" style="--fc:var(--rust)"><div class="flip-in"><div class="face front"><span class="e">🏹</span><span class="t">Hunter-Gatherer</span><span class="h">Tap to flip</span></div><div class="face back">A member of <b>nomadic people</b> who live chiefly by <b>hunting and fishing, and harvesting wild food</b>.</div></div></button>
+  </div>
+  <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--ochre)"><b>Paleo</b> means “old” and <b>lithic</b> means “stone.” Paleolithic = <b>Old Stone Age</b>. Say it like that and you’ll never forget it.</div></div>
+
+  <div class="card game">
+    <h3>⏳ How long is 2.5 million years?</h3>
+    <p class="how">The green sliver is everything since 8000 B.C.: farms, pyramids, phones, you. The orange is the Paleolithic Age.</p>
+    <div class="deeptime">
+      <div class="dtbar"><div class="dtP" id="dtP">Paleolithic Age</div><div class="dtR" id="dtR"></div></div>
+      <div class="row" style="margin-top:12px"><button class="btn" id="dtZoom">Zoom in on the sliver</button></div>
+      <p id="dtSay" style="margin-top:10px">About <b>99.6%</b> of the human story happened in the Paleolithic Age.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="chap" id="s2" style="--c:var(--moss)">
+  <div class="chap-head"><span class="num">2</span><div><h2>Surviving in the Paleolithic Age</h2><p class="sub">Life in a band of 20 to 30 people</p></div></div>
+  <p class="lead">Historians call the earliest era of prehistory the <b>Stone Age</b> because <mark>it was the time when people used stone to make tools and weapons</mark>. The earliest part of the Stone Age was the <b>Paleolithic Age</b>.</p>
+  <div class="grid3">
+    <div class="mini" style="--mc:var(--moss)"><div class="big">🚶🏾</div><h4>Always moving</h4>They moved around in search of food. They were <b>nomads</b>.</div>
+    <div class="mini" style="--mc:var(--ochre)"><div class="big">👨‍👩‍👧‍👦</div><h4>Small bands</h4>They traveled in groups or <b>bands of about 20 to 30 members</b>.</div>
+    <div class="mini" style="--mc:var(--red)"><div class="big">🏹</div><h4>Hunt and gather</h4>Searching for food was their <b>main activity</b>, and it was often difficult. They had to learn which animals to hunt and which plants to eat.</div>
+  </div>
+  <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--moss)">A band of 20 to 30 is about the size of Adiaha's class. Imagine your whole class packing up and walking to a new place every time the berries ran out!</div></div>
+
+  <div class="card game" id="hgGame">
+    <h3>🍖 Hunted or gathered?</h3>
+    <p class="how">Drag each food into the right basket.</p>
+    <div id="hgHost"></div>
+    <div class="row" style="margin-top:14px"><button class="btn" data-check>Check</button><button class="btn alt" data-reset>Reset</button></div>
+    <div class="fb" data-fb></div>
+  </div>
+
+  <div class="card game">
+    <h3>🎲 Survive five days</h3>
+    <p class="how">You lead a band of 25 people. Choose carefully: every answer comes straight from your notes.</p>
+    <div class="row" style="justify-content:space-between"><span class="hearts" id="hearts">❤️❤️❤️❤️❤️</span><span class="pill" id="sDay">Day 1 of 5</span></div>
+    <div class="survive" id="survive"></div>
+    <div class="fb" id="sFb"></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="chap" id="s3" style="--c:var(--red)">
+  <div class="chap-head"><span class="num">3</span><div><h2>Finding food</h2><p class="sub">Men and women performed different tasks</p></div></div>
+  <div class="grid2">
+    <div class="mini" style="--mc:var(--rust)"><h4>🏹 Men: far from camp</h4><ul class="tidy"><li>Hunted <b>large animals far from camp</b></li><li>Used <b>tracking methods</b> to locate animals</li><li>Used <b>clubs</b>, or drove animals <b>off cliffs</b></li><li>Over time developed <b>traps and spears</b> to improve their chances</li></ul></div>
+    <div class="mini" style="--mc:var(--moss)"><h4>🧺 Women: close to camp</h4><ul class="tidy"><li>Stayed near camp, which was often <b>near a stream or other body of water</b></li><li><b>Looked after the children</b></li><li>Searched nearby woods and meadows for <b>berries, nuts and grains</b></li></ul></div>
+  </div>
+  <div class="card">
+    <h3>Everyone worked</h3>
+    <p>Finding food was <b>the key to the group’s survival</b>, so everybody helped. Some scientists believe both men and women <b>made decisions for the good of the group</b>. They may even have hunted in <b>monogamous pairs</b>, which means a man and a woman hunted together to find food for their children, <mark>creating the first families</mark>.</p>
+  </div>
+  <div class="card game" id="roleGame">
+    <h3>📍 Near camp or far from camp?</h3>
+    <p class="how">Drag each job to where it happened.</p>
+    <div id="roleHost"></div>
+    <div class="row" style="margin-top:14px"><button class="btn" data-check>Check</button><button class="btn alt" data-reset>Reset</button></div>
+    <div class="fb" data-fb></div>
+  </div>
+  <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--red)">Careful on the test: gathering sounds easy, but it fed the band most days. Hunting a bison is a jackpot; berries and nuts are the steady paycheck.</div></div>
+</section>
+
+<!-- 4 -->
+<section class="chap" id="s4" style="--c:var(--rust)">
+  <div class="chap-head"><span class="num">4</span><div><h2>Tools and culture</h2><p class="sub">The invention that changed everything</p></div></div>
+  <p class="lead"><b>Culture</b> is <mark>the way of life for a group of people who share similar beliefs and customs</mark>. The methods and tools Paleolithic people used to hunt and gather were part of their culture.</p>
+  <div class="grid2">
+    <div class="mini" style="--mc:var(--rust)"><h4>🪨 Flint flaking</h4>They learned that hitting <b>flint</b> with another hard stone made it <b>flake into pieces</b>. The pieces had <b>sharp edges</b> for cutting.</div>
+    <div class="mini" style="--mc:var(--ochre)"><h4>🪓 The hand axe</h4>A <b>large piece of flint tied to a wooden pole</b>. <b>Flint technology was a major breakthrough</b> for early people.</div>
+  </div>
+  <div class="card game" id="toolGame">
+    <h3>🧰 The tool workshop</h3>
+    <p class="how">Drag each tool onto the job it was invented for.</p>
+    <div id="toolHost"></div>
+    <div class="row" style="margin-top:14px"><button class="btn" data-check>Check</button><button class="btn alt" data-reset>Reset</button></div>
+    <div class="fb" data-fb></div>
+  </div>
+  <div class="card">
+    <h3>🌱 Why tools matter so much</h3>
+    <p>This early technology <b>influenced later farming technologies</b>, and farming influenced <b>the places where early people chose to settle</b>. Better tools, more food, fewer moves, and eventually: villages.</p>
+    <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--rust)">Think of flint like the first app update. One small upgrade, and suddenly everything else became possible.</div></div>
+  </div>
+  <div class="card">
+    <h3>🌡️ Climate decided almost everything</h3>
+    <p class="how">Tap a climate to see how Paleolithic people changed to survive.</p>
+    <div class="row" id="climTabs"></div>
+    <div class="mini" style="--mc:var(--ice);margin-top:12px" id="climOut">👆 Pick a climate.</div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="chap" id="s5" style="--c:var(--torch)">
+  <div class="chap-head"><span class="num">5</span><div><h2>Fire!</h2><p class="sub">Make it first, then learn what it gave them</p></div></div>
+  <div class="card game">
+    <h3>🔥 Start a fire by friction</h3>
+    <p class="how">Early people rubbed two pieces of wood together. The wood became heated, charred, and produced fire. Keep tapping!</p>
+    <div class="firebox">
+      <div class="firepit"><span class="sticks" id="sticks">🪵</span><span class="flame" id="flame">🔥</span></div>
+      <div>
+        <div class="meterbar"><i id="fireMeter"></i></div>
+        <div class="row" style="margin-top:12px"><button class="btn" id="rub" style="--c:var(--torch)">Rub the sticks</button><button class="btn alt" id="pyrite">Strike iron pyrite</button></div>
+        <p id="fireSay" style="margin-top:10px">Cold, dark, and something is growling out there. Get a fire going.</p>
+      </div>
+    </div>
+    <div class="uses" id="fireUses"></div>
+  </div>
+  <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--torch)">Two ways to make fire: <b>friction</b> (rub wood on wood) and <b>sparks</b> from a stone called <b>iron pyrite</b> struck against another rock. The sparks lit dried leaves or grass.</div></div>
+</section>
+
+<!-- 6 -->
+<section class="chap" id="s6" style="--c:var(--berry)">
+  <div class="chap-head"><span class="num">6</span><div><h2>Language and art</h2><p class="sub">The first stories ever told</p></div></div>
+  <p class="lead">Paleolithic people began to express themselves with <b>spoken language</b> for much the same reasons we do. Before that, they communicated through <mark>sounds and physical gestures</mark>. Language let them share <b>information and emotions</b>.</p>
+  <div class="grid2">
+    <button class="flip" style="--fc:var(--ochre)"><div class="flip-in"><div class="face front"><span class="e">🇪🇸</span><span class="t">Altamira, Spain</span><span class="h">1879</span></div><div class="face back">A young girl named <b>Maria de Sautuola</b> wandered into a cave on her grandfather’s farm near <b>Altamira, Spain</b>, and was startled by the paintings on the walls.</div></div></button>
+    <button class="flip" style="--fc:var(--berry)"><div class="flip-in"><div class="face front"><span class="e">🇫🇷</span><span class="t">Lascaux, France</span><span class="h">1940</span></div><div class="face back">A cave with <b>similar paintings</b> to those in Spain was discovered near <b>Lascaux in southern France</b>.</div></div></button>
+  </div>
+  <div class="card">
+    <h3>🎨 How they made paint</h3>
+    <p>Early artists <b>crushed yellow, black and red rocks</b> and combined them with <b>animal fat</b>. They applied the paint with <b>twigs and their fingertips</b>, and later used <b>brushes made from animal hair</b>. They painted scenes of <b>lions, oxen, panthers</b> and other animals. <b>Few humans</b> appear in these paintings.</p>
+    <p>Historians are not sure why. Three ideas: it might <b>bring hunters good luck</b>, it might <b>record the group’s history</b>, or it might have been made <b>simply to be enjoyed</b>.</p>
+  </div>
+  <div class="card game">
+    <h3>🖐🏾 Your own cave wall</h3>
+    <p class="how">Pick a pigment and draw with your finger or mouse. Stamps paint a whole animal in one tap.</p>
+    <div class="paint-tools" id="tools">
+      <button class="swatch on" data-col="#E8B64C" style="background:#E8B64C" aria-label="Yellow ochre"></button>
+      <button class="swatch" data-col="#B5452C" style="background:#B5452C" aria-label="Red ochre"></button>
+      <button class="swatch" data-col="#2E1C12" style="background:#2E1C12" aria-label="Charcoal black"></button>
+      <button class="stampbtn on" data-stamp="brush">✍🏾 Brush</button>
+      <button class="stampbtn" data-stamp="bison">🐂 Bison</button>
+      <button class="stampbtn" data-stamp="deer">🦌 Deer</button>
+      <button class="stampbtn" data-stamp="hand">🖐🏾 Handprint</button>
+      <button class="btn alt" id="clearCave">Clear wall</button>
+    </div>
+    <canvas id="cave" width="900" height="470" aria-label="A cave wall you can paint on"></canvas>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="chap" id="s7" style="--c:var(--ice)">
+  <div class="chap-head"><span class="num">7</span><div><h2>The Ice Ages</h2><p class="sub">Cold enough to build a highway between continents</p></div></div>
+  <p class="lead">The ice ages were <mark>long periods of extreme cold that affected all of Earth</mark>. The most recent Ice Age began about <b>100,000 years ago</b>. Thick sheets of ice moved across large parts of <b>Europe, Asia and North America</b>.</p>
+  <div class="card game">
+    <h3>🧊 Drag the glacier slider</h3>
+    <p class="how">As the ice sheets, or glaciers, grew larger, the water level of the oceans was lowered. Watch what appears.</p>
+    <div class="scene">
+      <svg viewBox="0 0 600 260" aria-label="Asia and North America with a sea between them">
+        <rect width="600" height="260" fill="#BFE3F2"/>
+        <g id="iceG"><rect x="0" y="0" width="600" height="40" fill="#EAF7FD"/><path d="M0 40 Q80 70 160 45 T320 50 T480 42 T600 48 L600 0 L0 0Z" fill="#DCF0FA"/></g>
+        <path d="M0 150 Q60 120 140 130 L200 170 L0 220Z" fill="#7A9A4F"/><text x="40" y="190" font-size="18" fill="#2A1F19" font-family="sans-serif">ASIA</text>
+        <path d="M600 150 Q540 118 450 132 L400 170 L600 225Z" fill="#7A9A4F"/><text x="470" y="192" font-size="18" fill="#2A1F19" font-family="sans-serif">N. AMERICA</text>
+        <path id="bridge" d="M190 168 Q300 150 410 168 Q300 196 190 168Z" fill="#C8A96A" opacity="0"/>
+        <rect id="sea" x="0" y="150" width="600" height="110" fill="#2F8FBF" opacity=".9"/>
+        <g id="walkers" opacity="0"><text x="250" y="170" font-size="16">🚶🏽‍♀️</text><text x="285" y="174" font-size="16">🚶🏿</text><text x="320" y="170" font-size="16">🚶🏽</text></g>
+      </svg>
+    </div>
+    <div class="sliderow"><span>🌤️</span><input type="range" id="iceR" min="0" max="100" value="0" aria-label="How much ice"><span>🧊</span></div>
+    <p id="iceSay"></p>
+  </div>
+  <div class="card">
+    <h3>🌉 The land bridge</h3>
+    <p>The low sea levels exposed a <b>strip of dry land connecting Asia and North America</b>. It was known as a <b>land bridge</b>, and it acted as a <mark>natural highway that allowed people to travel from Asia into North America</mark>. From there, Paleolithic peoples moved <b>southward</b> to settle in different regions.</p>
+  </div>
+  <div class="card">
+    <h3>🧥 How did people adapt?</h3>
+    <p>Ice age conditions were a <b>grave threat</b> to human life. To survive the cold, humans had to <b>adapt</b>, or change, many areas of their lives:</p>
+    <div class="grid2">
+      <div class="mini" style="--mc:var(--red)"><div class="big">🥩</div><h4>Diet</h4>They changed their diets, <b>enriching meals with fat</b>.</div>
+      <div class="mini" style="--mc:var(--rust)"><div class="big">🛖</div><h4>Shelter</h4>They built <b>sturdier shelters</b>.</div>
+      <div class="mini" style="--mc:var(--ochre)"><div class="big">🧥</div><h4>Clothing</h4>They made <b>warm clothing using animal furs</b>.</div>
+      <div class="mini" style="--mc:var(--torch)"><div class="big">🔥</div><h4>Fire</h4>They used <b>fire to stay warm</b>.</div>
+    </div>
+    <p style="margin-top:14px">The last Ice Age lasted about <b>90,000 years</b>, ending between <b>9000 and 8000 B.C.</b> — right when the Paleolithic Age ends too.</p>
+  </div>
+  <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--ice)">Think of the ocean as a bathtub. The glaciers are a giant freezer stealing the water. Less water in the tub, and the floor of the tub shows: that floor was the land bridge.</div></div>
+</section>
+
+<!-- 8 -->
+<section class="chap" id="s8" style="--c:var(--moss)">
+  <div class="chap-head"><span class="num">8</span><div><h2>Review questions</h2><p class="sub">Answer out loud, then flip the stone</p></div></div>
+  <div class="grid2" id="review"></div>
+</section>
+
+<!-- 9 -->
+<section class="chap" id="s9" style="--c:var(--red)">
+  <div class="chap-head"><span class="num">🏆</span><div><h2>The final quiz</h2><p class="sub">Deepest chamber. Torches on.</p></div></div>
+  <div class="quiz-wrap">
+    <div id="quizStage">
+      <h3>43 challenges. No typing.</h3>
+      <p>Every chamber is in here, plus the research review from the first slide. Drag questions give partial credit, so each correct piece counts.</p>
+      <div class="types"><span>🎯 Multiple choice</span><span>✅ True or false</span><span>☑️ Choose all</span><span>⚔️ Which came first</span><span>🗂️ Sort</span><span>🔗 Match</span><span>📏 Put in order</span><span>🧩 Fill the blanks</span><span>🕵️ Odd one out</span></div>
+      <p id="bestScore" style="opacity:.85"></p>
+      <button class="btn big" id="quizStart" style="--c:var(--ochre)">Start the quiz</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>Made for Adiaha’s Social Studies test: Hunter-Gatherers and the Paleolithic Age.</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="bison">
+  <path d="M14 46c-3-14 6-25 21-28 12-3 24-1 32 4 4-7 9-8 12-4 3 4 1 8-3 11 5 7 5 17-1 23l5 16-7 1-5-13c-8 3-19 4-27 1l-4 14-7-1 4-15c-11-2-18-5-20-9z" fill="#B5452C"/>
+  <circle cx="72" cy="27" r="2.6" fill="#2E1C12"/><path d="M76 20c4-3 8-2 9 1" stroke="#2E1C12" stroke-width="3" fill="none" stroke-linecap="round"/>
+</g></defs></svg>
+
+<script>
+/* ---------- helpers ---------- */
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.addEventListener('click',e=>{const f=e.target.closest('.flip');if(f)f.classList.toggle('on')});
+
+/* ---------- drag & drop ---------- */
+const DnD=(()=>{let dragging=null,ghost=null,over=null;
+ const clear=()=>$$('.over').forEach(z=>z.classList.remove('over'));
+ const move=t=>{ghost.style.left=(t.clientX-ghost._dx)+'px';ghost.style.top=(t.clientY-ghost._dy)+'px'};
+ function chip(c){c.draggable=true;
+  c.addEventListener('dragstart',e=>{if(c.classList.contains('locked')){e.preventDefault();return}dragging=c;c.classList.add('dragging');try{e.dataTransfer.setData('text/plain','c');e.dataTransfer.effectAllowed='move'}catch(_){}});
+  c.addEventListener('dragend',()=>{c.classList.remove('dragging');dragging=null;clear()});
+  c.addEventListener('touchstart',e=>{if(c.classList.contains('locked')||e.target.closest('.x'))return;const t=e.touches[0],r=c.getBoundingClientRect();dragging=c;
+    ghost=c.cloneNode(true);ghost.classList.add('ghost');ghost.style.width=r.width+'px';ghost._dx=t.clientX-r.left;ghost._dy=t.clientY-r.top;document.body.appendChild(ghost);move(t);c.classList.add('dragging')},{passive:true});
+  c.addEventListener('touchmove',e=>{if(!ghost)return;e.preventDefault();const t=e.touches[0];move(t);clear();const h=document.elementFromPoint(t.clientX,t.clientY);over=h?h.closest('.dz'):null;if(over)over.classList.add('over')},{passive:false});
+  const end=()=>{if(!ghost)return;ghost.remove();ghost=null;c.classList.remove('dragging');clear();if(over&&over._drop)over._drop(c);over=null;dragging=null};
+  c.addEventListener('touchend',end);c.addEventListener('touchcancel',end)}
+ function zone(z,fn){z.classList.add('dz');z._drop=fn;
+  z.addEventListener('dragover',e=>{if(!dragging)return;e.preventDefault();z.classList.add('over')});
+  z.addEventListener('dragleave',e=>{if(!z.contains(e.relatedTarget))z.classList.remove('over')});
+  z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('over');if(dragging)fn(dragging)})}
+ return{chip,zone}})();
+function makeChip(text,key,pool){const c=el('div','chip',`<span>${text}</span>`);c.dataset.key=key;c._pool=pool;DnD.chip(c);return c}
+function addX(c){if(c.querySelector('.x'))return;const b=el('button','x','✕');b.type='button';b.setAttribute('aria-label','Send back to the pool');b.onclick=e=>{e.stopPropagation();if(!c.classList.contains('locked'))sendBack(c)};c.appendChild(b)}
+function sendBack(c){const x=c.querySelector('.x');if(x)x.remove();c.classList.remove('ok','bad');c._pool.appendChild(c)}
+function placeInto(c,t){c.classList.remove('ok','bad');t.appendChild(c);addX(c)}
+function lockAll(h){$$('.chip',h).forEach(c=>{c.classList.add('locked');c.draggable=false;const x=c.querySelector('.x');if(x)x.remove()})}
+const BINCOL=['var(--rust)','var(--moss)','var(--berry)','var(--ice)'];
+function buildSort(host,bins,items){host.innerHTML='';const pool=el('div','pool');host.appendChild(pool);const row=el('div','bins');host.appendChild(row);
+ bins.forEach((b,i)=>{const B=el('div','bin',`<div class="bin-h">${b}</div><div class="bin-b"></div>`);B.style.setProperty('--bc',BINCOL[i%4]);B.dataset.key=b;DnD.zone(B,c=>placeInto(c,B.querySelector('.bin-b')));row.appendChild(B)});
+ shuffle(items).forEach(([t,k])=>pool.appendChild(makeChip(t,k,pool)));
+ return{placed:()=>$$('.bin .chip',host).length>0,
+  check(){let ok=0;const all=$$('.chip',host);all.forEach(c=>{const b=c.closest('.bin');const r=b&&b.dataset.key===c.dataset.key;c.classList.toggle('ok',!!r);c.classList.toggle('bad',!!b&&!r);if(r)ok++});return{ok,total:all.length}},
+  lock(){lockAll(host)}}}
+function slotZone(s){DnD.zone(s,c=>{const o=s.querySelector('.chip');if(o&&o!==c)sendBack(o);placeInto(c,s)})}
+function slotsAPI(host){return{placed:()=>$$('.slot .chip,.blank .chip',host).length>0,
+ check(){let ok=0;const ss=$$('.slot,.blank',host);ss.forEach(s=>{const c=s.querySelector('.chip');if(!c){s.classList.add('missed');return}const r=c.dataset.key===s.dataset.key;c.classList.toggle('ok',r);c.classList.toggle('bad',!r);if(r)ok++});
+  $$('.pool .chip',host).forEach(c=>{if(c.dataset.key!=='__x')c.classList.add('bad')});return{ok,total:ss.length}},
+ lock(){lockAll(host)}}}
+const ord=n=>n+(['th','st','nd','rd'][(n%100>10&&n%100<14)?0:(n%10<4?n%10:0)]);
+function buildMatch(host,pairs){host.innerHTML='';const pool=el('div','pool');host.appendChild(pool);const list=el('div','mlist');host.appendChild(list);
+ shuffle(pairs).forEach(([term,def])=>{const r=el('div','mrow');const s=el('div','slot');s.dataset.key=term;slotZone(s);r.appendChild(s);r.appendChild(el('div','def',def));list.appendChild(r)});
+ shuffle(pairs).forEach(([t])=>pool.appendChild(makeChip(t,t,pool)));return slotsAPI(host)}
+function buildOrder(host,items,labels,ends){host.innerHTML='';const pool=el('div','pool');host.appendChild(pool);const g=el('div','oslots');host.appendChild(g);
+ items.forEach((t,i)=>{const o=el('div','oslot',`<span class="lbl">${labels?labels[i]:ord(i+1)}</span>`);const s=el('div','slot');s.dataset.key=String(i);slotZone(s);o.appendChild(s);g.appendChild(o)});
+ host.appendChild(el('div','arrow'));host.appendChild(el('div','arrow-l',`<span>${(ends||['First','Last'])[0]}</span><span>${(ends||['First','Last'])[1]}</span>`));
+ shuffle(items.map((t,i)=>[t,i])).forEach(([t,i])=>pool.appendChild(makeChip(t,String(i),pool)));return slotsAPI(host)}
+function buildCloze(host,parts,extras){host.innerHTML='';const pool=el('div','pool');host.appendChild(pool);const p=el('div','cloze');host.appendChild(p);const words=[];
+ parts.forEach(x=>{if(typeof x==='string')p.appendChild(document.createTextNode(x));else{const b=el('span','blank');b.dataset.key=x.b;slotZone(b);p.appendChild(b);words.push([x.b,x.b])}});
+ (extras||[]).forEach(w=>words.push([w,'__x']));
+ shuffle(words).forEach(([t,k])=>pool.appendChild(makeChip(t,k,pool)));return slotsAPI(host)}
+function wireGame(root,build){let api=build();const fb=$('[data-fb]',root);
+ $('[data-check]',root).onclick=()=>{const r=api.check();fb.className='fb '+(r.ok===r.total?'good':'bad');fb.textContent=r.ok===r.total?`All ${r.total} correct! 🎉`:`${r.ok} of ${r.total} correct. Use ✕ to move the red ones back and try again.`};
+ $('[data-reset]',root).onclick=()=>{api=build();fb.textContent=''}}
+
+/* ---------- 1: deep time ---------- */
+let zoomed=false;
+$('#dtZoom').onclick=()=>{zoomed=!zoomed;$('#dtP').style.flex=zoomed?'50':'9960';$('#dtR').style.flex=zoomed?'50':'40';
+ $('#dtR').textContent=zoomed?'Everything since 8000 B.C.':'';$('#dtZoom').textContent=zoomed?'Zoom back out':'Zoom in on the sliver';
+ $('#dtSay').innerHTML=zoomed?'Zoomed in, the last 10,000 years finally look big. In real scale, the Paleolithic Age is <b>250 times longer</b> than everything that came after it.':'About <b>99.6%</b> of the human story happened in the Paleolithic Age.'};
+
+/* ---------- 2: sorts and survival ---------- */
+wireGame($('#hgGame'),()=>buildSort($('#hgHost'),['Hunted or fished','Gathered'],[
+ ['🦬 Bison','Hunted or fished'],['🐂 Buffalo','Hunted or fished'],['🐐 Wild goats','Hunted or fished'],['🦌 Reindeer','Hunted or fished'],['🐟 Fish along the coast','Hunted or fished'],
+ ['🌰 Wild nuts','Gathered'],['🫐 Berries','Gathered'],['🍎 Fruits','Gathered'],['🌾 Wild grains','Gathered'],['🌿 Green plants','Gathered']]));
+
+const DAYS=[
+ {q:"The berries and nuts around your camp are finished. What does your band do?",o:[["Pack up and move on to a new place",1,"Correct. You are nomads: you move from place to place as a group to find food."],["Plant seeds and wait for a harvest",0,"Not yet! Farming comes much later, in the Neolithic Age. Paleolithic people hunted and gathered."],["Stay put and eat less",0,"Staying means starving. Searching for food was the band's main activity."]]},
+ {q:"Where should you set up the new camp?",o:[["Right beside a stream",1,"Correct. Camps were often located near a stream or other body of water."],["On top of an open hill, far from water",0,"Water is life, and carrying it is heavy. Camps were set near a stream or other body of water."],["Deep inside a glacier",0,"Glaciers are ice sheets, not shelters. Try a cave, a rock overhang or a hut of hides and brush."]]},
+ {q:"Scouts spot a herd of bison a long walk away. What do the hunters do?",o:[["Track them, then use spears and traps, or drive them off a cliff",1,"Correct. Men hunted large animals far from camp, using tracking methods, clubs, traps and spears."],["Run at them with bare hands",0,"Brave, but short. Paleolithic people developed tools and weapons to improve their chances."],["Wait for the bison to come to camp",0,"Bison do not deliver. Hunting meant travelling far from camp."]]},
+ {q:"Night falls and it is freezing. The band has no fire.",o:[["Rub two pieces of wood together until they char, or strike iron pyrite for sparks",1,"Correct. Friction or sparks from iron pyrite, catching dried leaves or grass."],["Rub two pieces of ice together",0,"Ice makes water, not heat. Fire came from friction or from iron pyrite sparks."],["Wait until morning and hope for sun",0,"Dangerous. Fire gave warmth, light, protection from animals and cooked food."]]},
+ {q:"The Ice Age deepens. Winters are brutal. How do you adapt?",o:[["Enrich meals with fat, build sturdier shelters, wear animal furs and keep fires going",1,"Correct. Those are exactly the four adaptations in your notes."],["Keep wearing the same light clothing and move north toward the glaciers",0,"That is the opposite. People wore warm furs and built sturdier shelters."],["Stop hunting and live on wild grains only",0,"Grain alone could not survive the cold season. They enriched meals with fat."]]}];
+let day=0,hp=5;
+function renderDay(){const host=$('#survive');host.innerHTML='';$('#sDay').textContent=`Day ${day+1} of 5`;
+ if(day>=DAYS.length){host.innerHTML=`<p style="font-size:20px"><b>${hp===5?'Your band thrives! 🎉':hp>=3?'Your band survives the week. 🙂':'A hard week. Reread chapters 2 to 5 and try again.'}</b> You kept ${hp} of 5 hearts.</p>`;
+  const b=el('button','btn','Play again');b.onclick=()=>{day=0;hp=5;$('#hearts').textContent='❤️❤️❤️❤️❤️';$('#sFb').textContent='';renderDay()};host.appendChild(b);return}
+ const d=DAYS[day];host.appendChild(el('p',null,`<b>${d.q}</b>`));
+ shuffle(d.o).forEach(([text,good,why])=>{const b=el('button','opt',text);b.type='button';
+  b.onclick=()=>{if(host.dataset.done)return;host.dataset.done='1';b.classList.add(good?'ok':'bad');
+   if(!good){hp--;$('#hearts').textContent='❤️'.repeat(hp)+'🤍'.repeat(5-hp)}
+   $('#sFb').className='fb '+(good?'good':'bad');$('#sFb').textContent=why;
+   setTimeout(()=>{day++;delete host.dataset.done;renderDay()},2600)};host.appendChild(b)})}
+renderDay();
+
+/* ---------- 3: roles ---------- */
+wireGame($('#roleGame'),()=>buildSort($('#roleHost'),['Far from camp','Close to camp'],[
+ ['Tracking large animals','Far from camp'],['Driving animals off cliffs','Far from camp'],['Hunting with spears and traps','Far from camp'],['Using clubs on large prey','Far from camp'],
+ ['Looking after the children','Close to camp'],['Searching woods and meadows for berries','Close to camp'],['Gathering nuts and grains','Close to camp'],['Staying near the stream','Close to camp']]));
+
+/* ---------- 4: tools and climate ---------- */
+wireGame($('#toolGame'),()=>buildMatch($('#toolHost'),[
+ ['Spears, bows and arrows','Made killing large animals easier'],
+ ['Harpoons','Increased the number of fish caught'],
+ ['Blades','Used to cut up plants and dig roots'],
+ ['Scraping tools','Used to clean animal hides for clothing and shelter'],
+ ['Needles from animal bones','Used to make nets and baskets, and sew hides together'],
+ ['Hand axe','A large piece of flint tied to a wooden pole']]));
+
+const CLIM=[["❄️ Freezing","Thick clothing from animal furs, sturdier shelters, caves and huts made from bones and hides of wooly mammoths, meals enriched with fat, fires kept burning."],
+ ["🌤️ Mild","Lighter clothing from hides, shelters in caves or rock overhangs, tents and huts of animal skins, brush and wood, plenty of berries, nuts and grains nearby."],
+ ["🌊 Coastal","Fishing added to the menu alongside hunting, camps near water, harpoons to increase the catch, shelters built from wood and brush."]];
+CLIM.forEach(([n,d])=>{const b=el('button','btn alt',n);b.onclick=()=>{$$('#climTabs .btn').forEach(x=>x.classList.add('alt'));b.classList.remove('alt');$('#climOut').innerHTML=`<b>${n}</b><br>${d}`};$('#climTabs').appendChild(b)});
+
+/* ---------- 5: fire ---------- */
+let heat=0,lit=false;
+const FIRE_USES=["🔥 <b>Warmth</b> in cold caves","💡 <b>Light</b> in the dark, and a way to scare animals off","🌙 Hunters used fire to <b>hunt at night</b>","📖 People gathered around fire to <b>tell stories and cook</b>","🍖 <b>Cooked food</b> tasted better, could be preserved longer, and was easier to chew and digest"];
+FIRE_USES.forEach(u=>$('#fireUses').appendChild(el('div','use',u)));
+function bump(n,msg){if(lit)return;heat=Math.min(100,heat+n);$('#fireMeter').style.width=heat+'%';
+ $('#sticks').classList.add('rub');setTimeout(()=>$('#sticks').classList.remove('rub'),120);
+ $('#fireSay').innerHTML=heat>=100?'':msg||(heat<35?'The wood is warming up…':heat<70?'It is getting hot and starting to char. Keep going!':'Smoke! Almost there…');
+ if(heat>=100){lit=true;$('#flame').classList.add('lit');$('#sticks').style.opacity=.3;
+  $('#fireSay').innerHTML='<b>Fire!</b> Now watch what it gave early people.';
+  $$('.use').forEach((u,i)=>setTimeout(()=>u.classList.add('on'),reduced()?0:500+i*650))}}
+$('#rub').onclick=()=>bump(12);
+$('#pyrite').onclick=()=>bump(34,'Sparks from the iron pyrite land on dried leaves and grass…');
+
+/* ---------- 6: cave painting ---------- */
+const cv=$('#cave'),ctx=cv.getContext('2d');
+function wall(){const g=ctx.createLinearGradient(0,0,900,470);g.addColorStop(0,'#A9713F');g.addColorStop(.5,'#8B5A33');g.addColorStop(1,'#6B4326');ctx.fillStyle=g;ctx.fillRect(0,0,900,470);
+ for(let i=0;i<260;i++){ctx.globalAlpha=.06+Math.random()*.1;ctx.fillStyle=Math.random()<.5?'#000':'#E8C98D';const x=Math.random()*900,y=Math.random()*470,r=4+Math.random()*26;ctx.beginPath();ctx.ellipse(x,y,r,r*.5,Math.random()*3,0,7);ctx.fill()}ctx.globalAlpha=1}
+wall();
+let col='#E8B64C',mode='brush',drawing=false,last=null;
+$$('#tools .swatch').forEach(b=>b.onclick=()=>{$$('#tools .swatch').forEach(x=>x.classList.remove('on'));b.classList.add('on');col=b.dataset.col});
+$$('#tools .stampbtn').forEach(b=>b.onclick=()=>{$$('#tools .stampbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');mode=b.dataset.stamp});
+$('#clearCave').onclick=()=>wall();
+const pos=e=>{const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*(900/r.width),y:(e.clientY-r.top)*(470/r.height)}};
+function stampBison(x,y,s){ctx.fillStyle=col;ctx.beginPath();ctx.ellipse(x,y,46*s,26*s,0,0,7);ctx.fill();
+ ctx.beginPath();ctx.ellipse(x-18*s,y-20*s,26*s,16*s,-.3,0,7);ctx.fill();
+ ctx.beginPath();ctx.ellipse(x+44*s,y-10*s,18*s,13*s,.4,0,7);ctx.fill();
+ ctx.lineWidth=7*s;ctx.strokeStyle=col;ctx.lineCap='round';
+ [[-28,0],[-12,0],[14,0],[30,0]].forEach(([dx])=>{ctx.beginPath();ctx.moveTo(x+dx*s,y+18*s);ctx.lineTo(x+dx*s+6*s,y+54*s);ctx.stroke()});
+ ctx.beginPath();ctx.moveTo(x+52*s,y-22*s);ctx.quadraticCurveTo(x+66*s,y-34*s,x+58*s,y-40*s);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(x-46*s,y-4*s);ctx.lineTo(x-64*s,y+14*s);ctx.stroke()}
+function stampDeer(x,y,s){ctx.fillStyle=col;ctx.beginPath();ctx.ellipse(x,y,40*s,20*s,0,0,7);ctx.fill();
+ ctx.lineWidth=8*s;ctx.strokeStyle=col;ctx.lineCap='round';
+ ctx.beginPath();ctx.moveTo(x+32*s,y-8*s);ctx.lineTo(x+54*s,y-44*s);ctx.stroke();
+ ctx.beginPath();ctx.ellipse(x+58*s,y-50*s,13*s,8*s,-.6,0,7);ctx.fill();
+ [[-26,0],[-12,0],[16,0],[28,0]].forEach(([dx])=>{ctx.beginPath();ctx.moveTo(x+dx*s,y+14*s);ctx.lineTo(x+dx*s+4*s,y+50*s);ctx.stroke()});
+ ctx.lineWidth=5*s;[[-10,-18],[6,-22],[18,-14]].forEach(([dx,dy])=>{ctx.beginPath();ctx.moveTo(x+56*s,y-58*s);ctx.lineTo(x+56*s+dx*s,y-58*s+dy*s);ctx.stroke()})}
+function stampHand(x,y,s){ctx.fillStyle=col;ctx.beginPath();ctx.ellipse(x,y+14*s,26*s,30*s,0,0,7);ctx.fill();
+ ctx.lineWidth=14*s;ctx.strokeStyle=col;ctx.lineCap='round';
+ [[-22,-46],[-8,-56],[6,-56],[20,-44],[-34,-6]].forEach(([dx,dy])=>{ctx.beginPath();ctx.moveTo(x,y+6*s);ctx.lineTo(x+dx*s,y+dy*s);ctx.stroke()})}
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);const p=pos(e);
+ if(mode==='brush'){drawing=true;last=p;ctx.strokeStyle=col;ctx.lineWidth=9;ctx.lineCap='round';ctx.beginPath();ctx.arc(p.x,p.y,4.5,0,7);ctx.fillStyle=col;ctx.fill()}
+ else if(mode==='bison')stampBison(p.x,p.y,.8);else if(mode==='deer')stampDeer(p.x,p.y,.8);else stampHand(p.x,p.y,.9)});
+cv.addEventListener('pointermove',e=>{if(!drawing)return;const p=pos(e);ctx.strokeStyle=col;ctx.lineWidth=9;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p});
+['pointerup','pointerleave','pointercancel'].forEach(ev=>cv.addEventListener(ev,()=>drawing=false));
+
+/* ---------- 7: ice slider ---------- */
+function ice(){const v=+$('#iceR').value;$('#sea').setAttribute('y',150+v*0.42);$('#sea').setAttribute('height',Math.max(0,110-v*0.42));
+ $('#iceG').setAttribute('transform',`scale(1,${1+v/55})`);$('#bridge').setAttribute('opacity',v>55?Math.min(1,(v-55)/25):0);
+ $('#walkers').setAttribute('opacity',v>85?1:0);
+ $('#iceSay').innerHTML=v<30?'A warm world. Deep sea between Asia and North America.':v<60?'Glaciers are growing. They lock up water, so the ocean level drops.':v<86?'Land is appearing: the <b>land bridge</b> between Asia and North America.':'People cross the land bridge from <b>Asia into North America</b>, then move <b>southward</b> to settle. 🚶🏽‍♀️'}
+$('#iceR').oninput=ice;ice();
+
+/* ---------- 8: review ---------- */
+const REV=[
+ ["Name one way a primary source is different from a secondary source.","A <b>primary</b> source is firsthand: it was created by someone who <b>saw or experienced</b> the event (a diary, a letter). A <b>secondary</b> source is made <b>later</b> by someone who was not there (a textbook, an encyclopedia)."],
+ ["Which URL ending would identify a website for a charity?","<b>.org</b>, which is usually used by non-profit organizations."],
+ ["How would you know if a resource is credible?","It is <b>trustworthy and reliable in its facts</b>. Check the author’s <b>credentials</b>, whether it is hosted by a university, government office or museum, and run the <b>CRAAP test</b>: Currency, Relevance, Authority, Accuracy, Purpose."],
+ ["List the 6 big questions you should answer when researching.","<b>Who, what, where, when, why and how</b> — one at the top of each note card."],
+ ["How many periods is prehistory divided into? List them.","<b>Three</b>: the <b>Paleolithic</b> (Old Stone Age), the <b>Mesolithic</b> (Middle Stone Age) and the <b>Neolithic</b> (New Stone Age)."],
+ ["When did the Paleolithic period begin and end?","It began about <b>2.5 million years ago</b> and ended around <b>8000 B.C.</b>"],
+ ["How did people find food during Paleolithic times?","By <b>hunting and gathering</b>. Men hunted large animals far from camp; women gathered berries, nuts and grains near camp; along coasts they also fished."],
+ ["What types of materials did early people use to paint?","Crushed <b>yellow, black and red rocks</b> mixed with <b>animal fat</b>, applied with <b>twigs and fingertips</b>, and later with <b>brushes made from animal hair</b>."],
+ ["What changes caused nomadic people to eventually settle into villages?","<b>Warmer climate</b> as the Ice Age ended, and better <b>technology</b>: early tools influenced <b>farming technologies</b>, so people could grow food in one place instead of following it."],
+ ["Why do historians call the earliest era of prehistory the Stone Age?","Because it was the time when people used <b>stone to make tools and weapons</b>."],
+ ["Explain what culture is.","The <b>way of life for a group of people who share similar beliefs and customs</b>, including the methods and tools they use."],
+ ["List three details about life in the Stone Age.","Examples: people were <b>nomads</b> travelling in bands of <b>20 to 30</b>; they <b>hunted and gathered</b> their food; they made <b>stone tools</b> such as hand axes; they used <b>fire</b> for warmth, light and cooking; they painted on <b>cave walls</b>."]];
+const RC=['var(--ochre)','var(--moss)','var(--red)','var(--ice)','var(--berry)','var(--rust)'];
+REV.forEach(([q,a],i)=>{const b=el('button','flip',`<div class="flip-in"><div class="face front" style="--fc:${RC[i%6]}"><span class="h">Question ${i+1}</span><span class="t" style="font-size:19px">${q}</span></div><div class="face back">${a}</div></div>`);b.type='button';$('#review').appendChild(b)});
+
+/* ---------- 9: quiz ---------- */
+const KT="Key terms",PL="Paleolithic life",FD="Food and roles",TC2="Tools and culture",FI="Fire",AL="Language and art",IA="Ice Ages",RR="Research review";
+const TCOL={[KT]:"#B07A1E",[PL]:"#5C7A36",[FD]:"#9A4526",[TC2]:"#7A4B2A",[FI]:"#C25E12",[AL]:"#7B3D73",[IA]:"#2A7FA3",[RR]:"#4A6E55"};
+const TYPE={mc:"🎯 Multiple choice",tf:"✅ True or false",multi:"☑️ Choose ALL that are correct",duel:"⚔️ Tap the one that came FIRST in each pair",sort:"🗂️ Drag to sort",match:"🔗 Drag each one onto its match",order:"📏 Drag into the correct order",cloze:"🧩 Drag words into the blanks (watch out for traps!)",odd:"🕵️ Odd one out"};
+const QUIZ=[
+{t:KT,type:"match",q:"Match each key term to its meaning.",pairs:[["Paleolithic Age","The early phase of the Stone Age, lasting about 2.5 million years until around 8000 B.C."],["Nomad","People who move from place to place as a group in order to find food"],["Technology","An ability gained by the practical use of knowledge"],["Ice Age","A time when glaciers covered much of the land"],["Hominid","A term for mankind’s early ancestors that resembled and acted like mankind"],["Hunter-Gatherer","A member of nomadic people who live chiefly by hunting, fishing and harvesting wild food"]],why:"These six terms are the backbone of the whole lesson."},
+{t:KT,type:"mc",q:"About how long did the Paleolithic Age last, and when did it end?",opts:["About 2.5 million years, ending around 8000 B.C.","About 90,000 years, ending in A.D. 1400","About 10,000 years, ending around 1 B.C.","About 100,000 years, ending in 1879"],a:0,why:"The Paleolithic Age lasted about 2.5 million years, until around 8000 B.C."},
+{t:KT,type:"tf",q:"A nomad is a person who stays in one village all year round.",a:false,why:"False. Nomads move from place to place as a group in order to find food."},
+{t:KT,type:"mc",q:"A sharpened flint blade is an example of…",opts:["Technology: an ability gained by the practical use of knowledge","A fossil","A nomad","A hominid"],a:0,why:"Technology is an ability gained by the practical use of knowledge, and stone tools count."},
+{t:KT,type:"odd",q:"Which of these is NOT a hominid?",opts:["Australopithecus afarensis","Homo habilis","Homo erectus","Iron pyrite"],a:3,why:"Iron pyrite is a stone that makes sparks. The others are early human ancestors."},
+{t:PL,type:"mc",q:"Why do historians call the earliest era of prehistory the Stone Age?",opts:["Because it was the time when people used stone to make tools and weapons","Because people lived only inside stone caves","Because the ground was made of stone","Because they wrote their laws on stone tablets"],a:0,why:"Stone tools and weapons give the Stone Age its name, and the Paleolithic Age is its earliest part."},
+{t:PL,type:"mc",q:"Paleolithic bands usually had about how many members?",opts:["20 to 30","2 or 3","200 to 300","2,000"],a:0,why:"They traveled in groups or bands of about 20 to 30 members."},
+{t:PL,type:"multi",q:"Which statements describe Paleolithic people?",opts:["They were nomads","They survived by hunting and gathering","Searching for food was their main activity","They traveled in small bands","They lived in large farming villages","They built cities with stone walls"],a:[0,1,2,3],why:"Nomadic, hunting and gathering, in bands of 20 to 30, always searching for food."},
+{t:PL,type:"sort",q:"Hunted (or fished) or gathered?",bins:["Hunted or fished","Gathered"],items:[["Bison","Hunted or fished"],["Wild goats","Hunted or fished"],["Reindeer","Hunted or fished"],["Fish along the coast","Hunted or fished"],["Wild nuts","Gathered"],["Berries","Gathered"],["Wild grains","Gathered"],["Green plants","Gathered"]],why:"Buffalo, bison, wild goats and reindeer were hunted; coastal groups fished; nuts, berries, fruits, grains and green plants were gathered."},
+{t:PL,type:"tf",q:"Learning which animals to hunt and which plants to eat was an important part of survival.",a:true,why:"True. Searching for food was difficult, so this knowledge kept the band alive."},
+{t:FD,type:"sort",q:"Where did each job happen?",bins:["Far from camp","Close to camp"],items:[["Tracking large animals","Far from camp"],["Driving animals off cliffs","Far from camp"],["Hunting with spears and traps","Far from camp"],["Looking after the children","Close to camp"],["Searching nearby woods for berries","Close to camp"],["Gathering nuts and grains","Close to camp"]],why:"Men hunted large animals far from camp; women stayed near camp, cared for children and gathered food nearby."},
+{t:FD,type:"mc",q:"The camp was often located near a stream or other body of water. Why does that matter?",opts:["It kept drinking water close while women gathered food and cared for children nearby","It let them sail boats to new continents","It made cave painting easier","It kept the glaciers away"],a:0,why:"Camps were set near a stream or other body of water, with gathering done in the nearby woods and meadows."},
+{t:FD,type:"tf",q:"Only the men worked to find food for the band.",a:false,why:"False. Everyone worked to find food, because it was the key to the group’s survival."},
+{t:FD,type:"mc",q:"Some scientists believe Paleolithic people hunted in “monogamous pairs.” What does that mean?",opts:["A man and a woman hunted together to find food for their children, creating the first families","Two men hunted together and shared everything","The whole band of 30 hunted as one unit","Children hunted while adults rested"],a:0,why:"That theory describes the first families: a man and woman hunting together for their children."},
+{t:FD,type:"mc",q:"How did Paleolithic men locate animals before attacking?",opts:["They used tracking methods","They set fire to the forest","They waited for animals to enter the camp","They used maps drawn on hides"],a:0,why:"Men used tracking methods to locate animals, then used clubs, traps and spears, or drove them off cliffs."},
+{t:TC2,type:"mc",q:"What is culture?",opts:["The way of life for a group of people who share similar beliefs and customs","A tool made of flint","A period of extreme cold","A group of 20 to 30 nomads"],a:0,why:"Culture is a group’s way of life, and the tools and methods they use are part of it."},
+{t:TC2,type:"mc",q:"What happened when Paleolithic people hit flint with another hard stone?",opts:["The flint flaked into pieces with sharp edges that could cut","The flint melted into metal","The flint turned into fire","Nothing: flint is too soft"],a:0,why:"Flint flaked into sharp-edged pieces. Flint technology was a major breakthrough."},
+{t:TC2,type:"mc",q:"A hand axe was made of…",opts:["A large piece of flint tied to a wooden pole","Bronze poured into a mold","A mammoth bone carved into a blade","Two rocks glued with tree sap"],a:0,why:"Hand axes were large pieces of flint tied to a wooden pole."},
+{t:TC2,type:"match",q:"Match each tool to its job.",pairs:[["Spears, bows and arrows","Made killing large animals easier"],["Harpoons","Increased the number of fish caught"],["Blades","Used to cut up plants and dig roots"],["Scraping tools","Used to clean animal hides for clothing and shelter"],["Needles from animal bones","Used to make nets and baskets, and sew hides together"]],why:"Each new tool solved one specific survival problem."},
+{t:TC2,type:"mc",q:"Early tool technology mattered later because it…",opts:["Influenced farming technologies, which influenced where early people chose to settle","Made cave paintings waterproof","Ended the Ice Age","Created written language"],a:0,why:"Better tools led to farming technology, and farming decided where people settled."},
+{t:TC2,type:"multi",q:"Climate affected which parts of Paleolithic life?",opts:["The type of clothing they wore","The shelters they inhabited","The types of food they were able to eat","The number of hours in a day","The language families of Europe"],a:[0,1,2],why:"Climate determined clothing, shelter and food."},
+{t:TC2,type:"multi",q:"Which of these were used as Paleolithic shelters?",opts:["Caves","Rock overhangings","Tents and huts of animal skins and brush","Shelters of bones and hides of wooly mammoths","Brick apartment buildings","Wooden ships"],a:[0,1,2,3],why:"Shelters also gave protection against attacks by large animals."},
+{t:FI,type:"order",q:"Put the iron pyrite fire-starting steps in order.",items:["Strike iron pyrite against another rock","Sparks fly off","Sparks ignite dried leaves or grass","A fire burns"],labels:["Step 1","Step 2","Step 3","Step 4"],ends:["Start","Fire"],why:"Early people also made fire by friction: rubbing two pieces of wood until they heated, charred and produced fire."},
+{t:FI,type:"mc",q:"Which stone gave off sparks when struck against another rock?",opts:["Iron pyrite","Flint tied to a pole","Limestone","Obsidian glass"],a:0,why:"Iron pyrite made sparks that could ignite dried leaves or grass."},
+{t:FI,type:"multi",q:"What was fire used for?",opts:["Warmth in cold caves","Light in the dark, and scaring animals off","Hunting at night","Gathering around to tell stories and cook","Powering engines","Melting the glaciers"],a:[0,1,2,3],why:"Fire gave warmth, light, protection, night hunting, stories and cooking."},
+{t:FI,type:"tf",q:"Cooked food tasted better, could be preserved longer, and was easier to chew and digest.",a:true,why:"True. That is why fire changed the Paleolithic diet so much."},
+{t:FI,type:"mc",q:"How did early people first produce fire by friction?",opts:["They rubbed two pieces of wood together until the wood heated, charred and produced fire","They poured animal fat onto hot sand","They rubbed two pieces of ice together","They waited for lightning only"],a:0,why:"Friction first, and later sparks from iron pyrite."},
+{t:AL,type:"mc",q:"Before spoken language developed, how did people communicate?",opts:["Through sounds and physical gestures","Through cave paintings only","Through written symbols","They did not communicate"],a:0,why:"Sounds and gestures came first; spoken language let them share information and emotions."},
+{t:AL,type:"cloze",q:"Complete the sentences about cave paint.",parts:["Early artists crushed yellow, black and red rocks and combined them with ",{b:"animal fat"},". They applied the paint with ",{b:"twigs"}," and their fingertips, and later used brushes made from ",{b:"animal hair"},". Their scenes showed ",{b:"animals"}," far more often than people."],extras:["water","feathers","people"],why:"Paint = crushed colored rocks + animal fat, applied with twigs, fingertips and later animal-hair brushes. Few humans appear."},
+{t:AL,type:"mc",q:"Who discovered the painted cave at Altamira, and when?",opts:["Maria de Sautuola, a young girl, in Spain in 1879","Lascaux, a French explorer, in 1940","Maria de Sautuola, an archaeologist, in Ethiopia in 1974","A group of hunters in southern France in 1879"],a:0,why:"She wandered into a cave on her grandfather’s farm near Altamira, Spain."},
+{t:AL,type:"mc",q:"In 1940, a cave with similar paintings was discovered near…",opts:["Lascaux, in southern France","Altamira, in northern Spain","Hadar, in Ethiopia","Medina, in Arabia"],a:0,why:"Lascaux, southern France, 1940."},
+{t:AL,type:"multi",q:"Which are ideas historians have about WHY early people painted caves?",opts:["Painting an animal might bring hunters good luck","The paintings may record the group’s history","They may have been created simply to be enjoyed","They were maps showing where the glaciers were","They were receipts for trading"],a:[0,1,2],why:"Historians are not sure, but these three ideas are the ones in your notes."},
+{t:AL,type:"tf",q:"Paleolithic cave paintings show many detailed pictures of humans.",a:false,why:"False. They show lions, oxen, panthers and other animals. Few humans appear."},
+{t:IA,type:"mc",q:"When did the most recent Ice Age begin?",opts:["About 100,000 years ago","About 2.5 million years ago","About 8000 B.C.","In A.D. 1879"],a:0,why:"It began about 100,000 years ago, with ice sheets across Europe, Asia and North America."},
+{t:IA,type:"order",q:"Put the Ice Age chain of events in order.",items:["Glaciers grow larger","The water level of the oceans is lowered","A strip of dry land is exposed between Asia and North America","People travel across the land bridge into North America"],labels:["First","Then","Then","Finally"],ends:["Cause","Effect"],why:"Growing glaciers lock up water, sea levels fall, the land bridge appears, people cross and then move southward."},
+{t:IA,type:"mc",q:"The land bridge is best described as…",opts:["A natural highway that allowed people to travel from Asia into North America","A wooden bridge built by Paleolithic engineers","A tunnel carved through a glacier","A trade route between Spain and France"],a:0,why:"Low sea levels exposed dry land connecting the two continents."},
+{t:IA,type:"multi",q:"How did humans adapt to survive ice age conditions?",opts:["Changed their diets, enriching meals with fat","Built sturdier shelters","Made warm clothing using animal furs","Used fire to help them stay warm","Moved into stone castles","Stopped hunting completely"],a:[0,1,2,3],why:"Those four adaptations are exactly what your notes list."},
+{t:IA,type:"mc",q:"The last Ice Age lasted about 90,000 years and ended between…",opts:["9000 and 8000 B.C.","1000 and 500 B.C.","A.D. 500 and 1400","100,000 and 90,000 years ago"],a:0,why:"It ended between 9000 and 8000 B.C., around the time the Paleolithic Age ends."},
+{t:IA,type:"duel",q:"Which came first?",pairs:[["The Paleolithic Age begins (about 2.5 million years ago)","The most recent Ice Age begins (about 100,000 years ago)",0],["The Paleolithic Age ends (about 8000 B.C.)","Mexico’s independence (1810)",0],["Altamira cave art discovered (1879)","Lascaux cave art discovered (1940)",0]],why:"Bigger numbers of years ago, and bigger B.C. numbers, mean earlier."},
+{t:RR,type:"mc",q:"Which URL ending would identify a website for a charity?",opts:[".org",".gov",".edu",".com"],a:0,why:".org is usually used by non-profit organizations; .gov is government and .edu is educational."},
+{t:RR,type:"mc",q:"Name one way a primary source is different from a secondary source.",opts:["A primary source was created by someone who saw or experienced the event; a secondary source was created later by someone who was not there","A primary source is always a book; a secondary source is always a video","A primary source is always older than 100 years","A primary source cannot be trusted"],a:0,why:"Primary = firsthand. Secondary = created afterward, often from primary sources."},
+{t:RR,type:"multi",q:"Which are the six big questions to answer when researching?",opts:["Who","What","Where","When","Why","How","How much","Which"],a:[0,1,2,3,4,5],why:"Who, what, where, when, why and how: one at the top of each note card."},
+{t:RR,type:"mc",q:"How would you know a resource is credible?",opts:["It is trustworthy and reliable in its facts: check the author’s credentials, the site, and run the CRAAP test","It appears first in a search","It has lots of pictures","It agrees with what you already think"],a:0,why:"Credible means trustworthy and reliable. CRAAP: Currency, Relevance, Authority, Accuracy, Purpose."}];
+
+function optsUI(q,body,cls,multi){const w=el('div',cls);body.appendChild(w);let sel=multi?new Set():null;
+ const list=q.type==='tf'?[{t:'✓ True',i:true},{t:'✗ False',i:false}]:shuffle(q.opts.map((t,i)=>({t,i})));
+ list.forEach(o=>{const b=el('button','opt',o.t);b.type='button';b._i=o.i;
+  b.onclick=()=>{if(b.disabled)return;if(multi){sel.has(o.i)?sel.delete(o.i):sel.add(o.i);b.classList.toggle('sel')}else{sel=o.i;$$('.opt',w).forEach(x=>x.classList.remove('sel'));b.classList.add('sel')}};w.appendChild(b)});
+ return{w,get sel(){return sel}}}
+function markSingle(w,q,sel){$$('.opt',w).forEach(b=>{b.disabled=true;b.classList.remove('sel');if(b._i===q.a)b.classList.add('ok');else if(b._i===sel)b.classList.add('bad')})}
+const R={
+ mc(q,body){const u=optsUI(q,body,'opts');return{answered:()=>u.sel!==null,grade(){markSingle(u.w,q,u.sel);return{s:u.sel===q.a?1:0}}}},
+ tf(q,body){const u=optsUI(q,body,'tf');return{answered:()=>u.sel!==null,grade(){markSingle(u.w,q,u.sel);return{s:u.sel===q.a?1:0}}}},
+ multi(q,body){const u=optsUI(q,body,'opts',true);return{answered:()=>u.sel.size>0,grade(){let good=0,bad=0;
+  $$('.opt',u.w).forEach(b=>{b.disabled=true;b.classList.remove('sel');const right=q.a.includes(b._i),ch=u.sel.has(b._i);
+   if(right&&ch){good++;b.classList.add('ok')}else if(right){b.classList.add('ok');b.style.opacity=.6}else if(ch){bad++;b.classList.add('bad')}});
+  return{s:Math.max(0,(good-bad)/q.a.length),detail:`${good} of ${q.a.length} right picks${bad?`, ${bad} wrong`:''}`}}}},
+ duel(q,body){const sel=[];q.pairs.forEach((p,pi)=>{const r=el('div','dpair');[0,null,1].forEach(k=>{if(k===null){r.appendChild(el('span','vs','vs'));return}
+   const b=el('button','opt',p[k]);b.type='button';b._k=k;b.onclick=()=>{if(b.disabled)return;sel[pi]=k;$$('.opt',r).forEach(x=>x.classList.remove('sel'));b.classList.add('sel')};r.appendChild(b)});body.appendChild(r)});
+  return{answered:()=>sel.filter(x=>x!==undefined).length===q.pairs.length,
+   grade(){let ok=0;$$('.dpair',body).forEach((r,pi)=>{$$('.opt',r).forEach(b=>{b.disabled=true;b.classList.remove('sel');if(b._k===q.pairs[pi][2])b.classList.add('ok');else if(b._k===sel[pi])b.classList.add('bad')});if(sel[pi]===q.pairs[pi][2])ok++});
+    return{s:ok/q.pairs.length,detail:`${ok} of ${q.pairs.length} pairs`}}}},
+ sort(q,body){return dragR(buildSort(body,q.bins,q.items))},
+ match(q,body){return dragR(buildMatch(body,q.pairs))},
+ order(q,body){return dragR(buildOrder(body,q.items,q.labels,q.ends))},
+ cloze(q,body){return dragR(buildCloze(body,q.parts,q.extras))}};
+R.odd=R.mc;
+function dragR(api){return{answered:api.placed,grade(){const r=api.check();api.lock();return{s:r.ok/r.total,detail:`${r.ok} of ${r.total} correct`}}}}
+const GOOD=["Correct! 🎉","Nailed it! 🔥","Yes! Stone-cold accurate. 🪨","Spot on! ⭐","Flint would be proud. 🐂"];
+let QZ;
+function startQuiz(list){QZ={list,i:0,res:[]};renderQ()}
+function renderQ(){const q=QZ.list[QZ.i],host=$('#quizStage');host.innerHTML='';
+ const pts=QZ.res.reduce((a,r)=>a+r.s,0);
+ host.appendChild(el('div','qscore',`<span>⭐ Score: ${+pts.toFixed(2)}</span><span>${QZ.i+1} of ${QZ.list.length}</span>`));
+ const card=el('div','qcard',`<div class="qtop"><span class="qtopic" style="--tc:${TCOL[q.t]}">${q.t}</span></div><div class="qbar"><i style="width:${QZ.i/QZ.list.length*100}%"></i></div><div class="qtype">${TYPE[q.type]}</div><h3 class="qq">${q.q}</h3><div class="qbody"></div><div class="qfb" hidden></div><div class="qact"><button class="btn big" data-a="check">Check answer</button><button class="btn big alt" data-a="next" hidden>Next</button></div>`);
+ host.appendChild(card);
+ const w=R[q.type](q,$('.qbody',card)),chk=$('[data-a=check]',card),nxt=$('[data-a=next]',card),fb=$('.qfb',card);
+ chk.onclick=()=>{if(!w.answered()){fb.hidden=false;fb.className='qfb warn';fb.textContent=q.type==='duel'?'Pick one in every pair first.':(['sort','match','order','cloze'].includes(q.type)?'Drag at least one item first.':'Choose an answer first.');return}
+  const r=w.grade();QZ.res.push({q,s:r.s});fb.hidden=false;fb.className='qfb '+(r.s===1?'good':r.s>0?'part':'bad');
+  fb.innerHTML=`<b>${r.s===1?pick(GOOD):r.s>0?`Partly right: ${r.detail}.`:'Not quite.'}</b> ${q.why}`;
+  chk.hidden=true;nxt.hidden=false;nxt.textContent=QZ.i===QZ.list.length-1?'See my results 🏆':'Next question';$('.qscore span',host).textContent=`⭐ Score: ${+(pts+r.s).toFixed(2)}`};
+ nxt.onclick=()=>{QZ.i++;if(QZ.i<QZ.list.length)renderQ();else results();$('#s9').scrollIntoView({behavior:'smooth'})}}
+function results(){const host=$('#quizStage'),n=QZ.res.length,pts=QZ.res.reduce((a,r)=>a+r.s,0),pct=Math.round(pts/n*100);
+ const badge=pct>=90?'🏆 Master of the Stone Age':pct>=75?'🏹 Skilled Hunter-Gatherer':pct>=60?'🪨 Apprentice Toolmaker':'🌱 Keep exploring the cave';
+ const msg=pct>=90?'Outstanding. You are ready for this test.':pct>=75?'Strong work. Patch the few gaps below and you will ace it.':pct>=60?'Solid start. Revisit the chambers listed below, then try again.':'Walk back through the chambers, play the games, and retake the quiz. It gets easier fast.';
+ const topics={};QZ.res.forEach(r=>{topics[r.q.t]=topics[r.q.t]||[0,0];topics[r.q.t][0]+=r.s;topics[r.q.t][1]++});
+ const missed=QZ.res.filter(r=>r.s<1);
+ try{if(QZ.list.length===QUIZ.length&&pct>+(localStorage.getItem('stoneAgeBest')||0))localStorage.setItem('stoneAgeBest',pct)}catch(_){}
+ host.innerHTML='';const r=el('div','res',`<div class="pct">${pct}%</div><div class="badge">${badge}</div><p>${msg} You scored <b>${+pts.toFixed(2)} out of ${n}</b>.</p>
+  <h4 style="font-size:21px;margin:14px 0 6px">By topic</h4>${Object.entries(topics).map(([t,[s,c]])=>`<div class="tbar"><span>${t}</span><span class="tr"><i style="width:0;background:${TCOL[t]}" data-w="${s/c*100}"></i></span><span>${Math.round(s/c*100)}%</span></div>`).join('')}
+  ${missed.length?`<h4 style="font-size:21px;margin:18px 0 6px">Review these (${missed.length})</h4>${missed.map(m=>`<div class="miss"><b>${m.q.q}</b><br>${m.q.why}</div>`).join('')}`:''}
+  <div class="row" style="margin-top:16px"><button class="btn big" id="again">Retake full quiz</button>${missed.length?'<button class="btn big alt" id="missedOnly">Practice only the missed ones</button>':''}</div>`);
+ host.appendChild(r);setTimeout(()=>$$('.tbar i',r).forEach(i=>i.style.width=i.dataset.w+'%'),60);
+ $('#again',r).onclick=()=>startQuiz(QUIZ);if(missed.length)$('#missedOnly',r).onclick=()=>startQuiz(missed.map(m=>m.q));
+ if(pct>=75)confetti()}
+function confetti(){if(reduced())return;const cols=['#E3A13C','#C24634','#7A9A4F','#56A8CC','#FF8A2B','#8E4E86'];
+ for(let i=0;i<90;i++){const c=el('i','confetti');c.style.left=Math.random()*100+'vw';c.style.background=pick(cols);c.style.animationDuration=(2+Math.random()*2.5)+'s';c.style.animationDelay=Math.random()*.8+'s';c.style.borderRadius=Math.random()<.5?'50%':'2px';document.body.appendChild(c);setTimeout(()=>c.remove(),5500)}}
+$('#quizStart').onclick=()=>startQuiz(QUIZ);
+try{const b=localStorage.getItem('stoneAgeBest');if(b)$('#bestScore').textContent=`Your best score so far: ${b}%`}catch(_){}
+</script>
+</body>
+</html>
