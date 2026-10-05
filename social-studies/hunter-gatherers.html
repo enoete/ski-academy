@@ -171,6 +171,18 @@ ul.tidy{margin:6px 0 0;padding-left:20px}ul.tidy li{margin:3px 0}
 .scen .s .why{margin-top:6px;font-size:15.5px;display:none}
 .scen .s.done .why{display:block}
 
+/* story */
+.story{margin:18px 0;padding:18px 20px 16px;border-radius:6px 22px 8px 20px;background:color-mix(in srgb,var(--c) 10%,var(--panel));border:3px dashed color-mix(in srgb,var(--c) 60%,var(--char));font-size:18.5px}
+.story .tag{display:block;font-family:var(--display);font-weight:300;font-size:14px;color:var(--muted);margin-bottom:6px;letter-spacing:.3px}
+.story p:last-child{margin-bottom:0}
+.story .hook{font-weight:700;border-top:2px dotted var(--line);padding-top:10px;margin-top:10px}
+.wonder{margin:16px 0;border:3px solid var(--char);border-radius:16px;background:var(--panel);box-shadow:4px 4px 0 var(--c)}
+.wonder summary{cursor:pointer;padding:12px 16px;font-family:var(--display);font-size:19px;list-style:none;display:flex;gap:10px;align-items:center;line-height:1.25}
+.wonder summary::-webkit-details-marker{display:none}
+.wonder summary::after{content:"Tap to find out";margin-left:auto;font-family:var(--body);font-size:13px;color:var(--muted);white-space:nowrap}
+.wonder[open] summary::after{content:"✓"}
+.wonder .ans{padding:0 16px 14px;font-size:17px}
+
 /* quiz */
 .quiz-wrap{background:linear-gradient(165deg,#3A2A20,#1E1510);color:#F6E8D2;border-radius:26px;padding:24px;margin-top:10px;border:4px solid var(--char)}
 .quiz-wrap h3{font-size:30px}
@@ -244,9 +256,9 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
     </svg>
     <div class="glow"></div>
   </div>
-  <p class="lead">Everything for the test on <b>Hunter-Gatherers and the Paleolithic Age</b>, plus a quick review of historians and research. Nine chambers to explore, then the final quiz.</p>
+  <p class="lead">Seventeen thousand years ago, a girl about your age named Ama woke up in a camp beside a stream. She had never seen a farm, a town or a written word. Everything her family owned, they could carry on their backs. Follow her through nine chambers and you’ll have everything for the test on <b>Hunter-Gatherers and the Paleolithic Age</b>, plus a quick review of research skills.</p>
   <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg>
-    <div class="bubble"><b class="who">Flint, the painted bison</b>Hi Adiaha! I’ve been on this cave wall for 17,000 years, so I saw all of it happen. Tap, drag, rub, paint and slide everything. The last chamber is a quiz, and I’ll be watching. 🐂</div></div>
+    <div class="bubble"><b class="who">Flint, the painted bison</b>Hi Adiaha! Ama’s aunt painted me onto this cave wall 17,000 years ago, and I’ve been watching ever since. Tap, drag, rub, paint and slide everything. The last chamber is a quiz, and I’ll be watching. 🐂</div></div>
   <div class="chambers">
     <a class="slab" href="#s1" style="--i:0"><span class="ic">🗝️</span><span>Key terms<small>Six words that unlock the unit</small></span></a>
     <a class="slab" href="#s2" style="--i:1"><span class="ic">🏕️</span><span>Paleolithic life<small>Nomads, bands, hunting and gathering</small></span></a>
@@ -274,6 +286,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
     <button class="flip" style="--fc:var(--rust)"><div class="flip-in"><div class="face front"><span class="e">🏹</span><span class="t">Hunter-Gatherer</span><span class="h">Tap to flip</span></div><div class="face back">A member of <b>nomadic people</b> who live chiefly by <b>hunting and fishing, and harvesting wild food</b>.</div></div></button>
   </div>
   <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--ochre)"><b>Paleo</b> means “old” and <b>lithic</b> means “stone.” Paleolithic = <b>Old Stone Age</b>. Say it like that and you’ll never forget it.</div></div>
+  <details class="wonder"><summary>🔍 How do we know anything about people who never wrote a single word?</summary><div class="ans">They left clues: stone tools, the ashes of old campfires, animal bones with cut marks on them, and paintings on cave walls. Archaeologists read those clues the way a detective reads footprints. Every fact in this guide was worked out that way.</div></details>
 
   <div class="card game">
     <h3>⏳ How long is 2.5 million years?</h3>
@@ -289,12 +302,16 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
 <!-- 2 -->
 <section class="chap" id="s2" style="--c:var(--moss)">
   <div class="chap-head"><span class="num">2</span><div><h2>Surviving in the Paleolithic Age</h2><p class="sub">Life in a band of 20 to 30 people</p></div></div>
+  <div class="story"><span class="tag">Ama’s story · Part 1: Moving day</span>
+    <p>The berry bushes along the river were picked bare, and the deer had stopped coming down to drink. So one morning Ama’s mother rolled up the hide tent, her uncle shouldered the spears, and all twenty-five of them started walking: babies, grandparents, and Ama carrying the basket of flint. Nobody complained. This happened every few weeks. Home wasn’t a place. Home was the band.</p>
+    <p class="hook">Ama’s band had no map and no fields. So how did they know where to go next?</p></div>
   <p class="lead">Historians call the earliest era of prehistory the <b>Stone Age</b> because <mark>it was the time when people used stone to make tools and weapons</mark>. The earliest part of the Stone Age was the <b>Paleolithic Age</b>.</p>
   <div class="grid3">
     <div class="mini" style="--mc:var(--moss)"><div class="big">🚶🏾</div><h4>Always moving</h4>They moved around in search of food. They were <b>nomads</b>.</div>
     <div class="mini" style="--mc:var(--ochre)"><div class="big">👨‍👩‍👧‍👦</div><h4>Small bands</h4>They traveled in groups or <b>bands of about 20 to 30 members</b>.</div>
     <div class="mini" style="--mc:var(--red)"><div class="big">🏹</div><h4>Hunt and gather</h4>Searching for food was their <b>main activity</b>, and it was often difficult. They had to learn which animals to hunt and which plants to eat.</div>
   </div>
+  <details class="wonder"><summary>🧭 So how <i>did</i> Ama’s band know where to go?</summary><div class="ans">Memory. The elders knew where the nut trees dropped their nuts in autumn and where the reindeer crossed the river in spring. They knew which berries were safe and which would make you sick. That knowledge kept everyone alive, and it was passed down by talking, which is one reason spoken language mattered so much (you’ll see that in chamber 6).</div></details>
   <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--moss)">A band of 20 to 30 is about the size of Adiaha's class. Imagine your whole class packing up and walking to a new place every time the berries ran out!</div></div>
 
   <div class="card game" id="hgGame">
@@ -307,7 +324,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
 
   <div class="card game">
     <h3>🎲 Survive five days</h3>
-    <p class="how">You lead a band of 25 people. Choose carefully: every answer comes straight from your notes.</p>
+    <p class="how">Ama’s band of 25 is counting on you. Five days, five choices. Keep your people alive.</p>
     <div class="row" style="justify-content:space-between"><span class="hearts" id="hearts">❤️❤️❤️❤️❤️</span><span class="pill" id="sDay">Day 1 of 5</span></div>
     <div class="survive" id="survive"></div>
     <div class="fb" id="sFb"></div>
@@ -317,6 +334,10 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
 <!-- 3 -->
 <section class="chap" id="s3" style="--c:var(--red)">
   <div class="chap-head"><span class="num">3</span><div><h2>Finding food</h2><p class="sub">Men and women performed different tasks</p></div></div>
+  <div class="story"><span class="tag">Ama’s story · Part 2: The long hunt</span>
+    <p>Ama’s father and uncles had been gone four days. They were following a bison herd across the plain, reading bent grass and hoofprints in the mud. Back at camp beside the stream, Ama and her mother filled baskets with hazelnuts and berries and kept the little ones away from the water.</p>
+    <p>On the fifth night the hunters came home tired, sore and empty-handed. And yet nobody in the band went to bed hungry.</p>
+    <p class="hook">Why not? Who was really feeding the band? (Flint has the answer at the bottom of this chamber.)</p></div>
   <div class="grid2">
     <div class="mini" style="--mc:var(--rust)"><h4>🏹 Men: far from camp</h4><ul class="tidy"><li>Hunted <b>large animals far from camp</b></li><li>Used <b>tracking methods</b> to locate animals</li><li>Used <b>clubs</b>, or drove animals <b>off cliffs</b></li><li>Over time developed <b>traps and spears</b> to improve their chances</li></ul></div>
     <div class="mini" style="--mc:var(--moss)"><h4>🧺 Women: close to camp</h4><ul class="tidy"><li>Stayed near camp, which was often <b>near a stream or other body of water</b></li><li><b>Looked after the children</b></li><li>Searched nearby woods and meadows for <b>berries, nuts and grains</b></li></ul></div>
@@ -338,11 +359,15 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
 <!-- 4 -->
 <section class="chap" id="s4" style="--c:var(--rust)">
   <div class="chap-head"><span class="num">4</span><div><h2>Tools and culture</h2><p class="sub">The invention that changed everything</p></div></div>
+  <div class="story"><span class="tag">Ama’s story · Part 3: Grandfather’s stone</span>
+    <p>Ama’s grandfather sat with a lump of grey flint between his knees. <i>Crack.</i> He struck it with a round river stone and a thin flake fell away. Ama picked it up and yelped: it had sliced her thumb as neatly as a knife. Her grandfather laughed. He had learned the trick from his grandfather, who had learned it from his.</p>
+    <p class="hook">That trick was handed down for more than two million years. How could breaking a rock be one of the greatest inventions ever?</p></div>
   <p class="lead"><b>Culture</b> is <mark>the way of life for a group of people who share similar beliefs and customs</mark>. The methods and tools Paleolithic people used to hunt and gather were part of their culture.</p>
   <div class="grid2">
     <div class="mini" style="--mc:var(--rust)"><h4>🪨 Flint flaking</h4>They learned that hitting <b>flint</b> with another hard stone made it <b>flake into pieces</b>. The pieces had <b>sharp edges</b> for cutting.</div>
     <div class="mini" style="--mc:var(--ochre)"><h4>🪓 The hand axe</h4>A <b>large piece of flint tied to a wooden pole</b>. <b>Flint technology was a major breakthrough</b> for early people.</div>
   </div>
+  <details class="wonder" style="--c:var(--rust)"><summary>🔪 Was a flint edge really as sharp as Ama found out?</summary><div class="ans">Yes. A fresh flake is sharp enough to slice meat off a bone and cut through tough hide. Its cousin, a black volcanic glass called obsidian, breaks into edges so fine that some surgeons today still use obsidian blades for delicate operations. A sharp edge meant more meat, warmer clothes and better shelters. That’s why it was a breakthrough.</div></details>
   <div class="card game" id="toolGame">
     <h3>🧰 The tool workshop</h3>
     <p class="how">Drag each tool onto the job it was invented for.</p>
@@ -366,6 +391,9 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
 <!-- 5 -->
 <section class="chap" id="s5" style="--c:var(--torch)">
   <div class="chap-head"><span class="num">5</span><div><h2>Fire!</h2><p class="sub">Make it first, then learn what it gave them</p></div></div>
+  <div class="story"><span class="tag">Ama’s story · Part 4: The night the fire died</span>
+    <p>Rain blew into the mouth of the cave and the fire hissed out. In the sudden dark, Ama heard something large breathing just outside. Her little brother started to cry. Her mother didn’t panic. She felt in her pouch for two dry sticks and a heavy, shiny, yellowish stone.</p>
+    <p class="hook">What was that stone, and why was getting the fire back so urgent? Try it yourself.</p></div>
   <div class="card game">
     <h3>🔥 Start a fire by friction</h3>
     <p class="how">Early people rubbed two pieces of wood together. The wood became heated, charred, and produced fire. Keep tapping!</p>
@@ -380,21 +408,26 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
     <div class="uses" id="fireUses"></div>
   </div>
   <div class="flint"><svg viewBox="0 0 90 80" aria-hidden="true"><use href="#bison"/></svg><div class="bubble" style="--c:var(--torch)">Two ways to make fire: <b>friction</b> (rub wood on wood) and <b>sparks</b> from a stone called <b>iron pyrite</b> struck against another rock. The sparks lit dried leaves or grass.</div></div>
+  <details class="wonder" style="--c:var(--torch)"><summary>🪔 Making fire was hard work. Why not just keep one burning forever?</summary><div class="ans">Many bands probably tried. When they moved camp, they could carry glowing embers wrapped in moss or tucked inside a shell or hollow horn, then blow them back into flame at the new camp. Starting a fire from nothing took skill and patience, so keeping one alive was the easier option.</div></details>
 </section>
 
 <!-- 6 -->
 <section class="chap" id="s6" style="--c:var(--berry)">
   <div class="chap-head"><span class="num">6</span><div><h2>Language and art</h2><p class="sub">The first stories ever told</p></div></div>
+  <div class="story"><span class="tag">Ama’s story · Part 5: A hand on the wall</span>
+    <p>Deep in the cave, far past where daylight reached, Ama held a stone lamp burning animal fat. By its flicker her aunt was painting a bison (yes, that’s Flint). Then her aunt pressed Ama’s hand flat against the rock, filled her mouth with red paint and blew. When Ama pulled her hand away, its outline glowed on the stone.</p>
+    <p>Thousands of years later, in 1879, another young girl wandered into a cave in Spain, held up a light and looked at the ceiling.</p>
+    <p class="hook">Who was she, and what did she find?</p></div>
   <p class="lead">Paleolithic people began to express themselves with <b>spoken language</b> for much the same reasons we do. Before that, they communicated through <mark>sounds and physical gestures</mark>. Language let them share <b>information and emotions</b>.</p>
   <div class="grid2">
     <button class="flip" style="--fc:var(--ochre)"><div class="flip-in"><div class="face front"><span class="e">🇪🇸</span><span class="t">Altamira, Spain</span><span class="h">1879</span></div><div class="face back">A young girl named <b>Maria de Sautuola</b> wandered into a cave on her grandfather’s farm near <b>Altamira, Spain</b>, and was startled by the paintings on the walls.</div></div></button>
-    <button class="flip" style="--fc:var(--berry)"><div class="flip-in"><div class="face front"><span class="e">🇫🇷</span><span class="t">Lascaux, France</span><span class="h">1940</span></div><div class="face back">A cave with <b>similar paintings</b> to those in Spain was discovered near <b>Lascaux in southern France</b>.</div></div></button>
+    <button class="flip" style="--fc:var(--berry)"><div class="flip-in"><div class="face front"><span class="e">🇫🇷</span><span class="t">Lascaux, France</span><span class="h">1940</span></div><div class="face back">A cave with <b>similar paintings</b> to those in Spain was discovered near <b>Lascaux in southern France</b>. The story goes that four teenagers found it while chasing after their dog.</div></div></button>
   </div>
   <div class="card">
     <h3>🎨 How they made paint</h3>
     <p>Early artists <b>crushed yellow, black and red rocks</b> and combined them with <b>animal fat</b>. They applied the paint with <b>twigs and their fingertips</b>, and later used <b>brushes made from animal hair</b>. They painted scenes of <b>lions, oxen, panthers</b> and other animals. <b>Few humans</b> appear in these paintings.</p>
-    <p>Historians are not sure why. Three ideas: it might <b>bring hunters good luck</b>, it might <b>record the group’s history</b>, or it might have been made <b>simply to be enjoyed</b>.</p>
   </div>
+  <details class="wonder" style="--c:var(--berry)"><summary>🤔 Why paint in the darkest part of a cave, where hardly anyone would see?</summary><div class="ans">Nobody knows for sure, and that’s what makes it exciting. Historians have three main ideas: painting an animal might <b>bring hunters good luck</b>, the paintings might <b>record the group’s history</b>, or they were made <b>simply to be enjoyed</b>. Which one do you believe? There’s no wrong answer, and it’s a great thing to argue about at dinner.</div></details>
   <div class="card game">
     <h3>🖐🏾 Your own cave wall</h3>
     <p class="how">Pick a pigment and draw with your finger or mouse. Stamps paint a whole animal in one tap.</p>
@@ -415,6 +448,9 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
 <!-- 7 -->
 <section class="chap" id="s7" style="--c:var(--ice)">
   <div class="chap-head"><span class="num">7</span><div><h2>The Ice Ages</h2><p class="sub">Cold enough to build a highway between continents</p></div></div>
+  <div class="story"><span class="tag">Meanwhile, far to the east…</span>
+    <p>Thousands of miles from Ama’s cave, another band was following caribou across a cold, windy grassland. Their grandparents told stories of a sea that used to be here. Now there was only dry land stretching toward the sunrise. The caribou kept walking east, so the band did too. Nobody planted a flag. Nobody knew they had just walked onto a new continent.</p>
+    <p class="hook">Where did the sea go? Drag the slider and watch.</p></div>
   <p class="lead">The ice ages were <mark>long periods of extreme cold that affected all of Earth</mark>. The most recent Ice Age began about <b>100,000 years ago</b>. Thick sheets of ice moved across large parts of <b>Europe, Asia and North America</b>.</p>
   <div class="card game">
     <h3>🧊 Drag the glacier slider</h3>
@@ -437,6 +473,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
     <h3>🌉 The land bridge</h3>
     <p>The low sea levels exposed a <b>strip of dry land connecting Asia and North America</b>. It was known as a <b>land bridge</b>, and it acted as a <mark>natural highway that allowed people to travel from Asia into North America</mark>. From there, Paleolithic peoples moved <b>southward</b> to settle in different regions.</p>
   </div>
+  <details class="wonder" style="--c:var(--ice)"><summary>🌊 How much water did the glaciers actually steal?</summary><div class="ans">Enough to drop the oceans by about 120 metres (400 feet), taller than a 30-storey building. Some ice sheets were more than 3 kilometres (2 miles) thick. Today the land bridge, called <b>Beringia</b>, is underwater again, beneath the Bering Sea between Russia and Alaska.</div></details>
   <div class="card">
     <h3>🧥 How did people adapt?</h3>
     <p>Ice age conditions were a <b>grave threat</b> to human life. To survive the cold, humans had to <b>adapt</b>, or change, many areas of their lives:</p>
@@ -454,6 +491,8 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 20px 50p
 <!-- 8 -->
 <section class="chap" id="s8" style="--c:var(--moss)">
   <div class="chap-head"><span class="num">8</span><div><h2>Review questions</h2><p class="sub">Answer out loud, then flip the stone</p></div></div>
+  <div class="story" style="--c:var(--moss)"><span class="tag">Ama’s story · Epilogue</span>
+    <p>Ama grew up, and so did her children, and their children’s children, for hundreds of generations. Slowly the ice melted and the world grew warmer. Someone noticed that seeds dropped near camp sprouted into new plants. With a warmer climate and better tools, some bands decided to stop walking. They planted, they stayed, and they built the first villages. The Paleolithic Age was over.</p></div>
   <div class="grid2" id="review"></div>
 </section>
 
@@ -554,7 +593,7 @@ const DAYS=[
  {q:"Where should you set up the new camp?",o:[["Right beside a stream",1,"Correct. Camps were often located near a stream or other body of water."],["On top of an open hill, far from water",0,"Water is life, and carrying it is heavy. Camps were set near a stream or other body of water."],["Deep inside a glacier",0,"Glaciers are ice sheets, not shelters. Try a cave, a rock overhang or a hut of hides and brush."]]},
  {q:"Scouts spot a herd of bison a long walk away. What do the hunters do?",o:[["Track them, then use spears and traps, or drive them off a cliff",1,"Correct. Men hunted large animals far from camp, using tracking methods, clubs, traps and spears."],["Run at them with bare hands",0,"Brave, but short. Paleolithic people developed tools and weapons to improve their chances."],["Wait for the bison to come to camp",0,"Bison do not deliver. Hunting meant travelling far from camp."]]},
  {q:"Night falls and it is freezing. The band has no fire.",o:[["Rub two pieces of wood together until they char, or strike iron pyrite for sparks",1,"Correct. Friction or sparks from iron pyrite, catching dried leaves or grass."],["Rub two pieces of ice together",0,"Ice makes water, not heat. Fire came from friction or from iron pyrite sparks."],["Wait until morning and hope for sun",0,"Dangerous. Fire gave warmth, light, protection from animals and cooked food."]]},
- {q:"The Ice Age deepens. Winters are brutal. How do you adapt?",o:[["Enrich meals with fat, build sturdier shelters, wear animal furs and keep fires going",1,"Correct. Those are exactly the four adaptations in your notes."],["Keep wearing the same light clothing and move north toward the glaciers",0,"That is the opposite. People wore warm furs and built sturdier shelters."],["Stop hunting and live on wild grains only",0,"Grain alone could not survive the cold season. They enriched meals with fat."]]}];
+ {q:"The Ice Age deepens. Winters are brutal. How do you adapt?",o:[["Enrich meals with fat, build sturdier shelters, wear animal furs and keep fires going",1,"Correct. Fat, shelter, fur and fire: the four ways people beat the cold."],["Keep wearing the same light clothing and move north toward the glaciers",0,"That is the opposite. People wore warm furs and built sturdier shelters."],["Stop hunting and live on wild grains only",0,"Grain alone could not survive the cold season. They enriched meals with fat."]]}];
 let day=0,hp=5;
 function renderDay(){const host=$('#survive');host.innerHTML='';$('#sDay').textContent=`Day ${day+1} of 5`;
  if(day>=DAYS.length){host.innerHTML=`<p style="font-size:20px"><b>${hp===5?'Your band thrives! 🎉':hp>=3?'Your band survives the week. 🙂':'A hard week. Reread chapters 2 to 5 and try again.'}</b> You kept ${hp} of 5 hearts.</p>`;
@@ -691,12 +730,12 @@ const QUIZ=[
 {t:AL,type:"cloze",q:"Complete the sentences about cave paint.",parts:["Early artists crushed yellow, black and red rocks and combined them with ",{b:"animal fat"},". They applied the paint with ",{b:"twigs"}," and their fingertips, and later used brushes made from ",{b:"animal hair"},". Their scenes showed ",{b:"animals"}," far more often than people."],extras:["water","feathers","people"],why:"Paint = crushed colored rocks + animal fat, applied with twigs, fingertips and later animal-hair brushes. Few humans appear."},
 {t:AL,type:"mc",q:"Who discovered the painted cave at Altamira, and when?",opts:["Maria de Sautuola, a young girl, in Spain in 1879","Lascaux, a French explorer, in 1940","Maria de Sautuola, an archaeologist, in Ethiopia in 1974","A group of hunters in southern France in 1879"],a:0,why:"She wandered into a cave on her grandfather’s farm near Altamira, Spain."},
 {t:AL,type:"mc",q:"In 1940, a cave with similar paintings was discovered near…",opts:["Lascaux, in southern France","Altamira, in northern Spain","Hadar, in Ethiopia","Medina, in Arabia"],a:0,why:"Lascaux, southern France, 1940."},
-{t:AL,type:"multi",q:"Which are ideas historians have about WHY early people painted caves?",opts:["Painting an animal might bring hunters good luck","The paintings may record the group’s history","They may have been created simply to be enjoyed","They were maps showing where the glaciers were","They were receipts for trading"],a:[0,1,2],why:"Historians are not sure, but these three ideas are the ones in your notes."},
+{t:AL,type:"multi",q:"Which are ideas historians have about WHY early people painted caves?",opts:["Painting an animal might bring hunters good luck","The paintings may record the group’s history","They may have been created simply to be enjoyed","They were maps showing where the glaciers were","They were receipts for trading"],a:[0,1,2],why:"Historians are not sure, but these are their three main ideas."},
 {t:AL,type:"tf",q:"Paleolithic cave paintings show many detailed pictures of humans.",a:false,why:"False. They show lions, oxen, panthers and other animals. Few humans appear."},
 {t:IA,type:"mc",q:"When did the most recent Ice Age begin?",opts:["About 100,000 years ago","About 2.5 million years ago","About 8000 B.C.","In A.D. 1879"],a:0,why:"It began about 100,000 years ago, with ice sheets across Europe, Asia and North America."},
 {t:IA,type:"order",q:"Put the Ice Age chain of events in order.",items:["Glaciers grow larger","The water level of the oceans is lowered","A strip of dry land is exposed between Asia and North America","People travel across the land bridge into North America"],labels:["First","Then","Then","Finally"],ends:["Cause","Effect"],why:"Growing glaciers lock up water, sea levels fall, the land bridge appears, people cross and then move southward."},
 {t:IA,type:"mc",q:"The land bridge is best described as…",opts:["A natural highway that allowed people to travel from Asia into North America","A wooden bridge built by Paleolithic engineers","A tunnel carved through a glacier","A trade route between Spain and France"],a:0,why:"Low sea levels exposed dry land connecting the two continents."},
-{t:IA,type:"multi",q:"How did humans adapt to survive ice age conditions?",opts:["Changed their diets, enriching meals with fat","Built sturdier shelters","Made warm clothing using animal furs","Used fire to help them stay warm","Moved into stone castles","Stopped hunting completely"],a:[0,1,2,3],why:"Those four adaptations are exactly what your notes list."},
+{t:IA,type:"multi",q:"How did humans adapt to survive ice age conditions?",opts:["Changed their diets, enriching meals with fat","Built sturdier shelters","Made warm clothing using animal furs","Used fire to help them stay warm","Moved into stone castles","Stopped hunting completely"],a:[0,1,2,3],why:"Fat, shelter, fur and fire: the four ways people beat the cold."},
 {t:IA,type:"mc",q:"The last Ice Age lasted about 90,000 years and ended between…",opts:["9000 and 8000 B.C.","1000 and 500 B.C.","A.D. 500 and 1400","100,000 and 90,000 years ago"],a:0,why:"It ended between 9000 and 8000 B.C., around the time the Paleolithic Age ends."},
 {t:IA,type:"duel",q:"Which came first?",pairs:[["The Paleolithic Age begins (about 2.5 million years ago)","The most recent Ice Age begins (about 100,000 years ago)",0],["The Paleolithic Age ends (about 8000 B.C.)","Mexico’s independence (1810)",0],["Altamira cave art discovered (1879)","Lascaux cave art discovered (1940)",0]],why:"Bigger numbers of years ago, and bigger B.C. numbers, mean earlier."},
 {t:RR,type:"mc",q:"Which URL ending would identify a website for a charity?",opts:[".org",".gov",".edu",".com"],a:0,why:".org is usually used by non-profit organizations; .gov is government and .edu is educational."},
