@@ -1,0 +1,768 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Biodiversity Test Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+/* Layout: a lagoon-coloured study trail — one centered column of numbered lesson stops, each with a hands-on activity, ending at the quiz. */
+:root{
+  --bg:#eef8f5; --surface:#ffffff; --ink:#12343b; --muted:#4f6d71; --line:#cde4df;
+  --teal:#0e8a8b; --hib:#d93a68; --sun:#e9a21c; --leaf:#3f9a35; --sea:#2457a4; --fungi:#a0632e;
+  --good:#23824f; --bad:#c8364b;
+  --display:"Grandstander","Comic Sans MS","Trebuchet MS",system-ui,sans-serif;
+  --body:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1d22; --surface:#12303a; --ink:#e6f5f2; --muted:#9dbcbc; --line:#24474f;
+  --teal:#3fc7c2; --hib:#ff7096; --sun:#ffc552; --leaf:#7ccb63; --sea:#79a9ff; --fungi:#e0a46a;
+  --good:#5fd394; --bad:#ff7b8c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1d22; --surface:#12303a; --ink:#e6f5f2; --muted:#9dbcbc; --line:#24474f;
+  --teal:#3fc7c2; --hib:#ff7096; --sun:#ffc552; --leaf:#7ccb63; --sea:#79a9ff; --fungi:#e0a46a;
+  --good:#5fd394; --bad:#ff7b8c; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:16px;padding-block:0 60px}
+.wrap{max-width:900px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,4.5vw,2.3rem);color:var(--teal)}
+h3{font-size:1.25rem}
+p{margin:0}
+.muted{color:var(--muted)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,.chip:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+
+/* nav */
+nav.trail{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);margin-inline:-16px;padding:10px 16px;border-bottom:1px solid var(--line)}
+nav.trail ol{list-style:none;display:flex;gap:8px;overflow-x:auto;margin:0 auto;padding:0;max-width:900px;scrollbar-width:none}
+nav.trail a{display:inline-flex;gap:6px;align-items:center;white-space:nowrap;text-decoration:none;color:var(--ink);font-size:.85rem;font-weight:500;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+nav.trail a b{font-family:var(--display);color:var(--teal)}
+nav.trail a.quiz{background:var(--hib);color:#fff;border-color:transparent}
+nav.trail a.quiz b{color:#fff}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;padding-block:44px 30px}
+.hero h1{font-size:clamp(2.4rem,7vw,4rem);color:var(--teal);letter-spacing:-.01em}
+.hero h1 span{color:var(--hib)}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--sea);margin-bottom:10px}
+.hero p.lede{font-size:1.1rem;margin-top:14px;max-width:34em}
+.critters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.critters div{aspect-ratio:1;border-radius:24px;display:grid;place-items:center;font-size:2.4rem;max-width:100%}
+.critters div:nth-child(1){background:color-mix(in srgb,var(--teal) 22%,var(--surface));transform:rotate(-4deg)}
+.critters div:nth-child(2){background:color-mix(in srgb,var(--sun) 28%,var(--surface));transform:translateY(10px)}
+.critters div:nth-child(3){background:color-mix(in srgb,var(--hib) 20%,var(--surface));transform:rotate(5deg)}
+.critters div:nth-child(4){background:color-mix(in srgb,var(--leaf) 24%,var(--surface));transform:rotate(3deg)}
+.critters div:nth-child(5){background:color-mix(in srgb,var(--sea) 18%,var(--surface));transform:translateY(-8px)}
+.critters div:nth-child(6){background:color-mix(in srgb,var(--fungi) 22%,var(--surface));transform:rotate(-5deg)}
+@media (prefers-reduced-motion:no-preference){.critters div{animation:bob 4s ease-in-out infinite}.critters div:nth-child(2n){animation-delay:-2s}}
+@keyframes bob{50%{translate:0 -6px}}
+.goals{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.goals span{font-size:.85rem;padding:5px 12px;border-radius:999px;background:var(--surface);border:1.5px solid var(--line)}
+.goals b{color:var(--hib)}
+
+/* sections */
+section.stop{padding-block:42px 10px;scroll-margin-top:70px}
+.stop-head{display:flex;gap:14px;align-items:baseline;margin-bottom:8px}
+.num{font-family:var(--display);font-size:1rem;color:#fff;background:var(--teal);min-width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex:none;transform:translateY(-4px)}
+.intro{max-width:40em;margin-bottom:18px}
+.panel{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:20px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.callout{border-radius:14px;padding:14px 16px;margin-top:16px;background:color-mix(in srgb,var(--sun) 18%,var(--surface));border:1.5px solid color-mix(in srgb,var(--sun) 45%,var(--line))}
+.callout b:first-child{display:block;font-family:var(--display);color:var(--fungi)}
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:2px 8px;border-radius:6px}
+.btn{border:none;background:var(--teal);color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--teal);border:2px solid var(--teal)}
+.btn.hib{background:var(--hib)}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+
+/* flip cards */
+.flip{perspective:900px;min-height:200px;border:none;background:none;padding:0;text-align:left}
+.flip .in{position:relative;height:100%;min-height:200px;transition:transform .55s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;border-radius:var(--r);padding:18px;backface-visibility:hidden;display:flex;flex-direction:column;gap:8px}
+.flip .f{background:var(--c);color:#fff;justify-content:space-between}
+.flip .f .big{font-size:2.6rem;line-height:1}
+.flip .f h3{font-size:1.5rem}
+.flip .f small{opacity:.9;font-size:.78rem}
+.flip .b{background:var(--surface);border:2px solid var(--c);transform:rotateY(180deg);font-size:.92rem;overflow:auto}
+.flip .b strong{color:var(--c)}
+@media (prefers-reduced-motion:reduce){.flip .in{transition:none}}
+
+/* buzz toggle */
+.buzz{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.buzz div{border-radius:14px;padding:12px;text-align:center;background:color-mix(in srgb,var(--leaf) 14%,var(--surface));border:1.5px solid var(--line);transition:filter .5s,opacity .5s,transform .5s;font-size:.85rem}
+.buzz div span{display:block;font-size:2rem}
+.buzz.off div.dep{filter:grayscale(1);opacity:.45;transform:scale(.94)}
+.buzz div em{display:none;font-style:normal;color:var(--bad);font-weight:700;font-size:.75rem}
+.buzz.off div.dep em{display:block}
+
+/* food web */
+.web{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.sp{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:10px;text-align:left;display:flex;flex-direction:column;gap:2px;transition:all .3s;position:relative}
+.sp .e{font-size:1.8rem;line-height:1.1}
+.sp .n{font-weight:700}
+.sp .s{font-size:.75rem;color:var(--muted)}
+.sp.removed{opacity:.35;border-style:dashed;text-decoration:line-through}
+.sp.collapsed{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.sp.collapsed .s{color:var(--bad);font-weight:700}
+.sp.stressed{border-color:var(--sun);background:color-mix(in srgb,var(--sun) 16%,var(--surface))}
+.sp.stressed .s{color:var(--fungi);font-weight:700}
+.webmsg{margin-top:12px;font-weight:500;min-height:3em}
+
+/* disease sim */
+.forest{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;padding:12px;border-radius:14px;background:color-mix(in srgb,var(--fungi) 14%,var(--surface));margin-top:8px}
+.tree{aspect-ratio:1;border-radius:50% 50% 45% 45%;transition:all .6s;max-width:100%}
+.tree.dead{background:var(--muted)!important;opacity:.35;transform:scale(.55)}
+.tree.seed{transform:scale(.55)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:.78rem;margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.meter{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:8px}
+.meter b{display:block;height:100%;background:var(--leaf);transition:width .6s}
+.simnote{font-size:.88rem;margin-top:6px;min-height:2.8em}
+
+/* reveal cards */
+.reveal{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:6px}
+.reveal .hint{color:var(--teal);font-weight:700}
+.reveal p{display:none;font-size:.9rem}
+.reveal.on{border-color:var(--teal)}
+.reveal.on p{display:block}
+
+/* recipe */
+.recipe{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.recipe div{border-radius:16px;padding:14px;color:#fff}
+.recipe h3{font-size:1.2rem}
+.recipe p{font-size:.88rem;margin-top:4px}
+.sample{margin-top:16px;line-height:2}
+.sample mark{padding:3px 6px;border-radius:6px;color:var(--ink)}
+.m-c{background:color-mix(in srgb,var(--sea) 25%,var(--surface))}
+.m-r{background:color-mix(in srgb,var(--hib) 22%,var(--surface))}
+.m-e{background:color-mix(in srgb,var(--leaf) 25%,var(--surface))}
+.cmd{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:16px}
+
+/* choices */
+.q{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:18px}
+.q + .q{margin-top:12px}
+.q-stem{font-weight:500;margin-bottom:12px;display:flex;gap:10px}
+.qn{font-family:var(--display);color:var(--hib);flex:none}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 14px;transition:border-color .15s,background .15s;font-size:.95rem}
+.opt:hover:not(:disabled){border-color:var(--teal)}
+.opt.sel{border-color:var(--sea);background:color-mix(in srgb,var(--sea) 14%,var(--surface));font-weight:500}
+.opt.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 16%,var(--surface))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--surface));text-decoration:line-through}
+.opt:disabled{cursor:default;color:var(--ink)}
+.opts.tf{grid-template-columns:1fr 1fr;max-width:280px}
+.opts.tf .opt{text-align:center;font-weight:700}
+.tfrow{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+.tfrow + .tfrow{border-top:1px dashed var(--line);padding-top:12px;margin-top:12px}
+.tfrow .opts{width:200px}
+.fb{display:none;margin-top:10px;font-size:.9rem;padding:10px 12px;border-radius:10px}
+.fb.show{display:block}
+.fb.good{background:color-mix(in srgb,var(--good) 14%,var(--surface));border-left:4px solid var(--good)}
+.fb.bad{background:color-mix(in srgb,var(--bad) 12%,var(--surface));border-left:4px solid var(--bad)}
+.tfrow .fb{grid-column:1/-1;margin-top:0}
+.part{margin-top:12px}
+.part .tag{margin-bottom:6px}
+
+/* drag & drop */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:58px;padding:12px;border-radius:14px;border:2px dashed var(--line);background:var(--bg);margin-bottom:12px}
+.pool:empty::after{content:"All placed — check your work!";color:var(--muted);font-size:.85rem;align-self:center}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:12px;background:var(--surface);border:2px solid var(--teal);font-size:.88rem;font-weight:500;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;max-width:100%}
+.chip.dragging{opacity:.4}
+.chip.ghost{position:fixed;z-index:999;pointer-events:none;opacity:.92;box-shadow:0 10px 30px rgba(0,0,0,.25);transform:rotate(-2deg)}
+.chip .x{border:none;background:color-mix(in srgb,var(--bad) 16%,var(--surface));color:var(--bad);width:22px;height:22px;border-radius:50%;font-size:.7rem;display:grid;place-items:center;padding:0;flex:none}
+.chip.locked{cursor:default}
+.chip.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 16%,var(--surface))}
+.chip.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--surface))}
+.chip .fix{font-size:.72rem;color:var(--bad);font-weight:700}
+.bins{display:grid;gap:12px}
+.zone{border:2px solid var(--line);border-radius:16px;padding:12px;background:var(--surface);transition:all .15s;min-width:0}
+.zone.over{border-color:var(--sun);background:color-mix(in srgb,var(--sun) 18%,var(--surface));transform:scale(1.01)}
+.zone h4{margin:0 0 8px;font-family:var(--display);font-size:1.05rem}
+.zone .zb{display:flex;flex-wrap:wrap;gap:8px;min-height:48px}
+.matchrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:10px;align-items:center}
+.matchrow + .matchrow{margin-top:10px}
+.matchrow .sc{font-size:.92rem}
+.matchrow .zone,.ordrow .zone{padding:6px;border-style:dashed}
+.matchrow .zone .zb,.ordrow .zone .zb{min-height:44px}
+.ordrow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center}
+.ordrow + .ordrow{margin-top:8px}
+.ordrow .slotn{font-family:var(--display);font-size:1.3rem;color:var(--hib);width:30px;text-align:center}
+.ordrow .chip{width:100%}
+
+/* quiz */
+.qsec{margin-top:26px}
+.qsec-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.qsec-head h3{color:var(--sea)}
+.qsec .how{font-size:.9rem;color:var(--muted);margin-bottom:12px}
+.pts{font-size:.8rem;font-weight:700;color:var(--muted)}
+.result{font-weight:700;font-family:var(--display);font-size:1.1rem}
+.warn{color:var(--fungi);font-size:.88rem;font-weight:500}
+.board{position:relative;overflow:hidden;background:var(--teal);color:#fff;border-radius:24px;padding:24px;margin-top:30px}
+.board h3{font-size:1.6rem}
+.board .total{font-family:var(--display);font-size:3rem;line-height:1}
+.board .rows{display:grid;gap:6px;margin-top:14px;font-size:.88rem}
+.board .row{display:grid;grid-template-columns:minmax(0,1fr) 60px;gap:10px;align-items:center}
+.board .bar{height:8px;border-radius:9px;background:rgba(255,255,255,.25);overflow:hidden;margin-top:3px}
+.board .bar b{display:block;height:100%;background:var(--sun);transition:width .6s}
+.board .btn{background:#fff;color:var(--teal)}
+.confetti{position:absolute;inset:0;pointer-events:none}
+
+@media (max-width:720px){
+  .hero{grid-template-columns:1fr;padding-top:28px}
+  .critters{max-width:320px}
+  .grid3,.recipe{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
+  .buzz{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .web{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cmd{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .matchrow{grid-template-columns:1fr}
+  .tfrow{grid-template-columns:1fr}
+  .tfrow .opts{width:100%;max-width:none}
+}
+</style>
+
+<nav class="trail" aria-label="Lesson trail"><ol>
+  <li><a href="#words"><b>1</b>Key words</a></li>
+  <li><a href="#benefits"><b>2</b>Why it matters</a></li>
+  <li><a href="#web"><b>3</b>Web of life</a></li>
+  <li><a href="#disrupt"><b>4</b>Disruptions</a></li>
+  <li><a href="#resilience"><b>5</b>Bouncing back</a></li>
+  <li><a href="#mangroves"><b>6</b>Mangroves</a></li>
+  <li><a href="#answer"><b>7</b>Answer like a scientist</a></li>
+  <li><a href="#quiz" class="quiz"><b>★</b>Quiz</a></li>
+</ol></nav>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <div class="eyebrow">Science · Test prep for Adiaha</div>
+    <h1>The Wonder of <span>Biodiversity</span></h1>
+    <p class="lede">Why does Earth need every living creature, from the tiniest bacteria to the biggest whale? Work through the seven stops, play with each activity, then take on the challenge quiz.</p>
+    <div class="goals">
+      <span><b>Define</b> biodiversity</span>
+      <span><b>Explain</b> 3 benefits to humans</span>
+      <span><b>Describe</b> how ecosystems recover</span>
+    </div>
+  </div>
+  <div class="critters" aria-hidden="true"><div>🐢</div><div>🐝</div><div>🌺</div><div>🐒</div><div>🐠</div><div>🍄</div></div>
+</header>
+
+<!-- warm-up -->
+<div class="panel">
+  <div class="eyebrow">Warm-up</div>
+  <h3>Imagine an island without buzz</h3>
+  <p class="muted" style="margin-top:6px">What would happen to food crops, wild flowers and forests if every insect vanished overnight? Flip the switch and see.</p>
+  <div class="buzz" id="buzz">
+    <div class="dep"><span>🥭</span>Mangoes<em>Fewer flowers pollinated</em></div>
+    <div class="dep"><span>🍉</span>Watermelons<em>Need bees to pollinate</em></div>
+    <div class="dep"><span>🍫</span>Cocoa (chocolate!)<em>Pollinated by tiny midges</em></div>
+    <div class="dep"><span>🌸</span>Wild flowers<em>Can't make seeds</em></div>
+    <div class="dep"><span>🐸</span>Frogs<em>Lose their food</em></div>
+    <div class="dep"><span>🐦</span>Insect-eating birds<em>Go hungry</em></div>
+    <div class="dep"><span>🍂</span>Forest floor<em>Dead leaves rot slowly</em></div>
+    <div><span>🌬️</span>Wind-pollinated grasses<em></em></div>
+  </div>
+  <div class="btnrow"><button class="btn hib" id="buzzBtn" type="button">Make every insect vanish</button><span class="muted" id="buzzNote" style="font-size:.9rem"></span></div>
+</div>
+
+<!-- 1 words -->
+<section class="stop" id="words">
+  <div class="stop-head"><span class="num">1</span><h2>Key scientific words</h2></div>
+  <p class="intro">Tap each card to flip it. The back gives the meaning, an everyday comparison, and a Caribbean example. These five words show up in almost every test question.</p>
+  <div class="grid3" id="flips"></div>
+</section>
+
+<!-- 2 benefits -->
+<section class="stop" id="benefits">
+  <div class="stop-head"><span class="num">2</span><h2>Nature gives us everything</h2></div>
+  <p class="intro">Biodiversity is not just "nice to have". People depend on it every day in three big ways. Learn these three; the test will ask you to <b>explain</b> them.</p>
+  <div class="grid3">
+    <div class="panel" style="border-color:var(--sun)"><span class="tag" style="background:var(--sun);color:#2b1d00">Food & nutrition</span><p style="margin-top:8px">Crops, fruits and fish rely on <b>wild genetic variety</b> and <b>animal pollinators</b> like bees and hummingbirds. Wild relatives of crops carry genes that can make farm crops survive drought or disease.</p></div>
+    <div class="panel" style="border-color:var(--leaf)"><span class="tag" style="background:var(--leaf);color:#fff">Medicine & health</span><p style="margin-top:8px"><b>Over half</b> of modern medicines come from compounds first found in wild plants and fungi. Penicillin came from a mould. Aloe soothes burns. Every lost species could be a lost cure.</p></div>
+    <div class="panel" style="border-color:var(--fungi)"><span class="tag" style="background:var(--fungi);color:#fff">Useful materials</span><p style="margin-top:8px">Timber, cotton, rubber, bamboo and plant fibres give us <b>shelter and clothing</b>. Your school uniform and the wood in your house both started as living things.</p></div>
+  </div>
+  <h3 style="margin-top:28px">Two places, one big idea</h3>
+  <div class="grid2" style="margin-top:12px">
+    <div class="panel"><span class="tag" style="background:color-mix(in srgb,var(--leaf) 25%,var(--surface))">Local · St Kitts</span><h3 style="margin-top:6px">Central Forest Reserve</h3><p style="margin-top:6px">A tropical forest on the mountains that gives habitat to native plants, birds, monkeys and other wildlife. It shows that even a small island ecosystem can hold lots of biodiversity.</p></div>
+    <div class="panel"><span class="tag" style="background:color-mix(in srgb,var(--sea) 22%,var(--surface))">Global · South America</span><h3 style="margin-top:6px">Amazon Basin</h3><p style="margin-top:6px">A huge rainforest holding millions of living organisms. It affects climate and water cycles far beyond its own borders, so what happens there matters to the whole world.</p></div>
+  </div>
+  <div class="q" style="margin-top:16px" id="qc1"></div>
+</section>
+
+<!-- 3 web -->
+<section class="stop" id="web">
+  <div class="stop-head"><span class="num">3</span><h2>The web of life</h2></div>
+  <p class="intro">Plants make food, pollinators help plants reproduce, predators keep populations in check, and decomposers return nutrients to the soil. <b>Tap a species to remove it</b> and watch what happens to everyone connected to it.</p>
+  <div class="panel">
+    <div class="web" id="webGrid"></div>
+    <div class="legend"><span><i style="background:var(--sun)"></i>Lost a food source but has a backup</span><span><i style="background:var(--bad)"></i>In danger: no backup left</span></div>
+    <p class="webmsg" id="webMsg">Every species is healthy. Try removing the caterpillar first, then reset and remove the bee.</p>
+    <div class="btnrow"><button class="btn ghost" id="webInsects" type="button">Remove all insects</button><button class="btn ghost" id="webReset" type="button">Reset the web</button></div>
+  </div>
+  <div class="callout"><b>The big lesson</b>Species with more than one food source or helper (like the small bird) survive a loss. Species with only one (like the frog) are in trouble. More biodiversity means more backups.</div>
+</section>
+
+<!-- 4 disruptions -->
+<section class="stop" id="disrupt">
+  <div class="stop-head"><span class="num">4</span><h2>What disrupts ecosystems?</h2></div>
+  <p class="intro">A <b>disruption</b> is a sudden or major change that harms an ecosystem. Some come from nature. Some come from people.</p>
+  <div class="grid2">
+    <div class="panel"><span class="tag" style="background:var(--sea);color:#fff">Natural causes</span>
+      <p style="margin-top:8px">🌀 Hurricanes &nbsp;☀️ Droughts &nbsp;🌊 Floods<br>🔥 Wildfires &nbsp;🌋 Volcanic eruptions</p>
+      <p class="muted" style="margin-top:8px;font-size:.9rem">Caribbean link: hurricanes can flatten mangroves and break coral reefs.</p></div>
+    <div class="panel"><span class="tag" style="background:var(--hib);color:#fff">Human causes</span>
+      <p style="margin-top:8px">🧴 Pollution &nbsp;🪓 Deforestation<br>🐟 Invasive species &nbsp;🎣 Overfishing</p>
+      <p class="muted" style="margin-top:8px;font-size:.9rem">Caribbean link: lionfish were released by people into Atlantic waters and now eat huge numbers of young reef fish.</p></div>
+  </div>
+  <div class="callout"><b>Why it matters</b>A disruption can remove <b>food, shelter or breeding places</b>. The damage spreads through the web, in coral reefs, grasslands, forests, lakes, wetlands and even city parks.</div>
+  <div class="panel" style="margin-top:16px">
+    <h3>Story: the parrotfish problem</h3>
+    <p style="margin-top:6px">Parrotfish graze on algae that grows over coral, like lawnmowers on a reef. Tap each step to see the chain reaction when a reef is overfished.</p>
+    <div class="grid2" style="margin-top:12px" id="chain"></div>
+  </div>
+</section>
+
+<!-- 5 resilience -->
+<section class="stop" id="resilience">
+  <div class="stop-head"><span class="num">5</span><h2>Resilience: bouncing back</h2></div>
+  <p class="intro"><b>Resilience</b> is the ability of an ecosystem to recover after a disruption and return to a healthy state. Think of a sports team with a full bench: if one player gets hurt, someone else steps in. Run the experiment below.</p>
+  <div class="grid2">
+    <div class="panel"><h3>Forest A: one tree species</h3><div class="forest" id="fA"></div><div class="meter"><b id="mA" style="width:100%"></b></div><p class="simnote" id="nA">24 healthy trees, all the same kind.</p></div>
+    <div class="panel"><h3>Forest B: four tree species</h3><div class="forest" id="fB"></div><div class="meter"><b id="mB" style="width:100%"></b></div><p class="simnote" id="nB">24 healthy trees of four different kinds.</p></div>
+  </div>
+  <div class="legend" id="treeLegend"></div>
+  <div class="btnrow"><button class="btn hib" id="disease" type="button">Step 1: A disease attacks the green species</button><button class="btn" id="years" type="button" disabled>Step 2: Fast-forward 10 years</button><button class="btn ghost" id="simReset" type="button">Reset</button></div>
+  <div class="callout"><b>Key idea</b>Recovery can take weeks, years or even decades. Protecting habitats and species gives ecosystems a better chance to recover.</div>
+  <div class="q" style="margin-top:16px" id="qc2"></div>
+</section>
+
+<!-- 6 mangroves -->
+<section class="stop" id="mangroves">
+  <div class="stop-head"><span class="num">6</span><h2>Protecting mangroves</h2></div>
+  <p class="intro">Your class asked: <i>If people plan to clear a coastal mangrove swamp to build shops, what ecological risks should they consider?</i> Tap each card to reveal what mangroves do. Every one is a risk if they disappear.</p>
+  <div class="grid2" id="mang"></div>
+</section>
+
+<!-- 7 answer -->
+<section class="stop" id="answer">
+  <div class="stop-head"><span class="num">7</span><h2>Answer like a scientist</h2></div>
+  <p class="intro">Your test uses <b>application questions</b> with short answers. A strong short answer has three ingredients. Use this recipe every time.</p>
+  <div class="recipe">
+    <div style="background:var(--sea)"><h3>1. Say it</h3><p><b>Claim.</b> Answer the question directly in one sentence.</p></div>
+    <div style="background:var(--hib)"><h3>2. Science it</h3><p><b>Reason.</b> Explain why, using a key word: biodiversity, habitat, resilience, ecosystem.</p></div>
+    <div style="background:var(--leaf)"><h3>3. Show it</h3><p><b>Example.</b> Give a real effect or example: fish, bees, soil, storms.</p></div>
+  </div>
+  <div class="panel sample">
+    <p class="muted" style="line-height:1.5"><b>Question:</b> Why does a forest with many tree species recover faster after a disease?</p>
+    <p><mark class="m-c">A forest with many species recovers faster</mark> <mark class="m-r">because the disease usually attacks only one species, so the other species survive and keep the ecosystem working.</mark> <mark class="m-e">The surviving trees still hold the soil together and give birds and monkeys shelter while new trees grow.</mark></p>
+  </div>
+  <h3 style="margin-top:24px">Decode the command word</h3>
+  <p class="muted" style="font-size:.92rem">Tap a word to see what the teacher wants.</p>
+  <div class="cmd" id="cmd"></div>
+</section>
+
+<!-- QUIZ -->
+<section class="stop" id="quiz">
+  <div class="stop-head"><span class="num" style="background:var(--hib)">★</span><h2 style="color:var(--hib)">Challenge quiz</h2></div>
+  <p class="intro">Ten rounds, mostly real-world problems. Finish each round, press <b>Check</b>, and read the feedback. Your scoreboard is at the bottom.</p>
+  <div id="quizBody"></div>
+  <div class="board" id="board">
+    <canvas class="confetti" id="confetti"></canvas>
+    <div style="position:relative">
+      <div class="eyebrow" style="color:#fff;opacity:.85">Scoreboard</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap">
+        <h3 id="boardMsg">Check each round to fill your scoreboard</h3>
+        <div class="total" id="total">0</div>
+      </div>
+      <div class="rows" id="rows"></div>
+      <div class="btnrow"><button class="btn" id="retake" type="button">Retake with shuffled questions</button></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const h = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const praise = ["Nailed it!", "Correct!", "Brilliant!", "Spot on!", "Yes!", "Great thinking!"];
+const pick = a => a[Math.floor(Math.random() * a.length)];
+
+/* ---------- warm-up ---------- */
+$('#buzzBtn').onclick = () => {
+  const b = $('#buzz'); b.classList.toggle('off');
+  const off = b.classList.contains('off');
+  $('#buzzBtn').textContent = off ? 'Bring the insects back' : 'Make every insect vanish';
+  $('#buzzNote').textContent = off ? 'Seven of eight things here suffer. Tiny insects hold up whole food webs.' : '';
+};
+
+/* ---------- flip cards ---------- */
+const words = [
+  ["🌈","Biodiversity","var(--teal)","The <strong>variety of living organisms</strong> in an ecosystem, from bacteria to whales.","Like a box of crayons: more colours means you can draw more things.","A reef with hundreds of fish, corals, sponges and turtles."],
+  ["🔄","Ecosystem","var(--sea)","<strong>Living organisms interacting</strong> with their physical environment (water, soil, sunlight, air).","Like a whole school: students, teachers, the building and the timetable all working together.","A mangrove swamp: trees, crabs, fish, mud, salt water and sunlight."],
+  ["🏠","Habitat","var(--leaf)","The <strong>place</strong> where an organism lives, finds food and gets shelter.","Like your home address for an animal.","The tall trees of the Central Forest Reserve are a monkey's habitat."],
+  ["💪","Resilience","var(--hib)","The ability of an ecosystem to <strong>recover after a disruption</strong> and return to a healthy state.","Like a sports team with a full bench: someone steps in when a player is hurt.","A forest growing back green years after a hurricane."],
+  ["⚡","Disruption","var(--fungi)","A <strong>sudden or major change</strong> that harms an ecosystem. Can be natural or human-caused.","Like a storm knocking out the power in your house.","A hurricane, an oil spill, or cutting down a forest."],
+  ["🍄","Decomposer","var(--sun)","An organism like <strong>fungi or bacteria</strong> that breaks down dead things and returns nutrients to the soil.","Nature's recycling crew.","Mushrooms breaking down a fallen log on the forest floor."]
+];
+words.forEach(([e,t,c,d,a,x]) => {
+  const b = h('button','flip'); b.type='button'; b.style.setProperty('--c',c); b.setAttribute('aria-label',`${t}: flip card`);
+  b.innerHTML = `<div class="in"><div class="f"><span class="big">${e}</span><div><h3>${t}</h3><small>Tap to flip</small></div></div><div class="b"><span>${d}</span><span><strong>Think of it like:</strong> ${a}</span><span><strong>Example:</strong> ${x}</span></div></div>`;
+  b.onclick = () => b.classList.toggle('on');
+  $('#flips').appendChild(b);
+});
+
+/* ---------- generic choice ---------- */
+function choice(container, opts, answer, why, {multi=false, cls='', instant=false} = {}){
+  const box = h('div','opts '+cls);
+  const sel = new Set();
+  const order = cls==='tf' ? opts.map((t,j)=>({t,j})) : shuffle(opts.map((t,j)=>({t,j})));
+  const btns = order.map(o => {
+    const b = h('button','opt',o.t); b.type='button'; b.dataset.j=o.j;
+    b.onclick = () => {
+      if (multi) { sel.has(o.j) ? sel.delete(o.j) : sel.add(o.j); b.classList.toggle('sel'); }
+      else { sel.clear(); sel.add(o.j); btns.forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); }
+      if (instant && !multi) api.grade();
+    };
+    box.appendChild(b); return b;
+  });
+  const fb = h('div','fb');
+  container.append(box, fb);
+  const ans = multi ? new Set(answer) : new Set([answer]);
+  const api = {
+    answered: () => sel.size>0,
+    grade(){
+      btns.forEach(b => { const j=+b.dataset.j; b.disabled=true; if (ans.has(j)) b.classList.add('right'); else if (sel.has(j)) b.classList.add('wrong'); });
+      let score, max;
+      if (multi){ let hit=0, miss=0; sel.forEach(j=> ans.has(j)?hit++:miss++); max=ans.size; score=Math.max(0,hit-miss); }
+      else { max=1; score = sel.has(answer)?1:0; }
+      const ok = score===max;
+      fb.className='fb show '+(ok?'good':'bad');
+      fb.innerHTML = `<b>${ok?pick(praise):(multi&&score>0?`Partly right (${score}/${max}).`:'Not quite.')}</b> ${why}`;
+      return {score,max};
+    }
+  };
+  return api;
+}
+
+/* quick checks in lesson */
+function quick(id, stem, opts, ans, why, multi){
+  const el = $(id);
+  el.appendChild(h('p','q-stem',`<span class="qn">Check</span><span>${stem}</span>`));
+  const c = choice(el, opts, ans, why, {multi, instant:!multi});
+  if (multi){ const r=h('div','btnrow'); const b=h('button','btn','Check my picks'); b.type='button'; b.onclick=()=>{c.grade(); b.disabled=true}; r.appendChild(b); el.appendChild(r); }
+}
+quick('#qc1','Which statements about biodiversity are true? Pick all that apply.',[
+  "Biodiversity refers only to warm tropical ocean animals.",
+  "Many vital medicines were first made from compounds found in wild organisms.",
+  "Ecosystems with very few species recover from hurricanes much faster.",
+  "Biodiversity supplies wild genes that make food crops resilient to drought."],[1,3],
+  "Biodiversity includes all life everywhere, and ecosystems with <i>more</i> species recover better, not fewer.", true);
+quick('#qc2','Why does a forest with many different tree species recover faster after disease strikes?',[
+  "The disease transforms quickly into useful plant nutrients.",
+  "All tree species share identical defences against the disease.",
+  "Animals will instantly plant new seeds to replace fallen trees.",
+  "Other tree species survive and maintain the soil and animal shelters."],3,
+  "Different species have different defences, so a disease rarely kills them all. The survivors keep the ecosystem working.");
+
+/* ---------- food web ---------- */
+const sp = {
+  plant:{e:"🌺",n:"Flowering plant",needs:[["soil"],["bee","hummingbird"]],role:"Producer"},
+  bee:{e:"🐝",n:"Bee",needs:[["plant"]],role:"Pollinator"},
+  hummingbird:{e:"🐦",n:"Hummingbird",needs:[["plant"]],role:"Pollinator"},
+  caterpillar:{e:"🐛",n:"Caterpillar",needs:[["plant"]],role:"Herbivore"},
+  bird:{e:"🐤",n:"Small bird",needs:[["caterpillar","bee"]],role:"Eats caterpillars & bees"},
+  frog:{e:"🐸",n:"Frog",needs:[["caterpillar"]],role:"Eats caterpillars only"},
+  snake:{e:"🐍",n:"Snake",needs:[["frog","bird"]],role:"Eats frogs & birds"},
+  fungi:{e:"🍄",n:"Fungi",needs:[["plant","caterpillar","frog","snake","bird","bee","hummingbird"]],role:"Decomposer"},
+  soil:{e:"🟫",n:"Soil nutrients",needs:[["fungi"]],role:"Fed by decomposers"}
+};
+const removed = new Set();
+const webBtns = {};
+Object.entries(sp).forEach(([k,v])=>{
+  const b=h('button','sp',`<span class="e">${v.e}</span><span class="n">${v.n}</span><span class="s">${v.role}</span>`); b.type='button';
+  b.onclick=()=>{ removed.has(k)?removed.delete(k):removed.add(k); updateWeb(); };
+  webBtns[k]=b; $('#webGrid').appendChild(b);
+});
+function updateWeb(){
+  const gone=new Set(removed); let changed=true;
+  while(changed){ changed=false; for(const [k,v] of Object.entries(sp)){ if(gone.has(k)) continue; if(v.needs.some(g=>g.every(x=>gone.has(x)))){gone.add(k);changed=true;} } }
+  const collapsed=[], stressed=[];
+  for(const [k,v] of Object.entries(sp)){
+    const b=webBtns[k]; b.className='sp'; let s=v.role;
+    if(removed.has(k)){ b.classList.add('removed'); s='Removed'; }
+    else if(gone.has(k)){ b.classList.add('collapsed'); s='In danger: no backup'; collapsed.push(v.n); }
+    else if(v.needs.some(g=>g.some(x=>gone.has(x)))){ b.classList.add('stressed'); s='Lost some food, has backup'; stressed.push(v.n); }
+    b.querySelector('.s').textContent=s;
+  }
+  let m;
+  if(!removed.size) m='Every species is healthy. Try removing the caterpillar first, then reset and remove the bee.';
+  else { m = collapsed.length ? `<b style="color:var(--bad)">In danger:</b> ${collapsed.join(', ')}. ` : '<b style="color:var(--good)">No one collapsed!</b> '; if(stressed.length) m+=`<b style="color:var(--fungi)">Coping with a backup:</b> ${stressed.join(', ')}.`; }
+  $('#webMsg').innerHTML=m;
+}
+$('#webInsects').onclick=()=>{ removed.clear(); removed.add('bee'); removed.add('caterpillar'); updateWeb(); };
+$('#webReset').onclick=()=>{ removed.clear(); updateWeb(); };
+
+/* ---------- parrotfish chain ---------- */
+const chain=[["Step 1","People catch too many parrotfish (overfishing)."],["Step 2","With fewer grazers, algae grows quickly over the coral."],["Step 3","Algae blocks sunlight, so coral gets weak and some dies."],["Step 4","Reef fish lose their habitat and the reef is less resilient after the next hurricane."]];
+chain.forEach(([t,p],i)=>{ const b=h('button','reveal',`<span class="hint">${t} ▸ tap</span><p>${p}</p>`); b.type='button'; b.onclick=()=>b.classList.toggle('on'); $('#chain').appendChild(b); });
+
+/* ---------- mangroves ---------- */
+[["🌊 Storm shield","Mangrove roots slow down waves and storm surges, protecting homes and roads on the coast during hurricanes."],
+ ["🏖️ Mud holders","Tangled roots trap mud and sand, stopping coastal erosion so the shoreline doesn't wash away."],
+ ["🐟 Fish nursery","Young fish shelter between the roots until they are big enough for the open sea. Fishing communities depend on them."],
+ ["🦀 Habitat for many","Crabs, birds, shellfish and insects live, feed and breed there. Clearing it lowers biodiversity and weakens resilience."]]
+.forEach(([t,p])=>{ const b=h('button','reveal',`<span class="hint">${t}</span><p>${p}</p>`); b.type='button'; b.onclick=()=>b.classList.toggle('on'); $('#mang').appendChild(b); });
+
+/* ---------- command words ---------- */
+[["Define","Give the meaning in your own words."],["Explain","Say WHY or HOW. Use 'because'."],["Describe","Say WHAT happens, step by step."],["Predict","Say what WILL happen next, and why."],["Suggest","Give a sensible idea or solution."]]
+.forEach(([t,p])=>{ const b=h('button','reveal',`<span class="hint">${t}</span><p>${p}</p>`); b.type='button'; b.onclick=()=>b.classList.toggle('on'); $('#cmd').appendChild(b); });
+
+/* ---------- disease sim ---------- */
+const treeCols=["var(--leaf)","var(--sun)","var(--hib)","var(--sea)"];
+const treeNames=["Green species (sick)","Yellow species","Pink species","Blue species"];
+$('#treeLegend').innerHTML=treeNames.map((n,i)=>`<span><i style="background:${treeCols[i]}"></i>${n}</span>`).join('');
+let forestB=[];
+function drawForests(){
+  $('#fA').innerHTML=''; $('#fB').innerHTML='';
+  for(let i=0;i<24;i++){ const t=h('div','tree'); t.style.background=treeCols[0]; t.dataset.s=0; $('#fA').appendChild(t); }
+  forestB=shuffle([...Array(24)].map((_,i)=>i%4));
+  forestB.forEach(s=>{ const t=h('div','tree'); t.style.background=treeCols[s]; t.dataset.s=s; $('#fB').appendChild(t); });
+  $('#mA').style.width='100%'; $('#mB').style.width='100%';
+  $('#nA').textContent='24 healthy trees, all the same kind.'; $('#nB').textContent='24 healthy trees of four different kinds.';
+  $('#years').disabled=true; $('#disease').disabled=false;
+}
+drawForests();
+$('#disease').onclick=()=>{
+  document.querySelectorAll('.tree').forEach(t=>{ if(t.dataset.s==='0') t.classList.add('dead'); });
+  $('#mA').style.width='0%'; $('#mB').style.width='75%';
+  $('#nA').innerHTML='<b style="color:var(--bad)">0 of 24 standing.</b> Bare ground. Soil washes away and animals lose their homes.';
+  $('#nB').innerHTML='<b style="color:var(--good)">18 of 24 standing.</b> The other species still hold the soil and shelter animals.';
+  $('#disease').disabled=true; $('#years').disabled=false;
+};
+$('#years').onclick=()=>{
+  [...$('#fB').children].forEach(t=>{ if(t.classList.contains('dead')){ const s=1+Math.floor(Math.random()*3); t.classList.remove('dead'); t.classList.add('seed'); t.style.background=treeCols[s]; setTimeout(()=>t.classList.remove('seed'),400);} });
+  $('#mB').style.width='100%';
+  $('#nA').innerHTML='<b style="color:var(--bad)">Still struggling.</b> With no seeds nearby and the soil gone, recovery could take decades.';
+  $('#nB').innerHTML='<b style="color:var(--good)">Recovered!</b> Seeds from surviving species filled the gaps. That is resilience.';
+  $('#years').disabled=true;
+};
+$('#simReset').onclick=drawForests;
+
+/* ---------- drag & drop engine ---------- */
+const DnD = (() => {
+  let drag=null, ghost=null, offX=0, offY=0, over=null;
+  const pool = chip => document.getElementById(chip.dataset.pool);
+  function addX(chip){ if(chip.querySelector('.x')) return; const x=h('button','x','✕'); x.type='button'; x.setAttribute('aria-label','Send back to the word pool'); x.addEventListener('click',e=>{e.stopPropagation(); back(chip);}); x.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true}); chip.appendChild(x); }
+  function back(chip){ if(chip.classList.contains('locked')) return; chip.querySelector('.x')?.remove(); pool(chip).appendChild(chip); }
+  function place(chip, zone){
+    const body=zone.querySelector('.zb'); const cap=+zone.dataset.cap||Infinity;
+    if(body.contains(chip)) return;
+    const inside=body.querySelectorAll('.chip');
+    if(inside.length>=cap) back(inside[0]);
+    body.appendChild(chip); addX(chip);
+  }
+  function setOver(z){ if(over&&over!==z) over.classList.remove('over'); over=z; z&&z.classList.add('over'); }
+  function chipEvents(chip){
+    chip.draggable=true;
+    chip.addEventListener('dragstart',e=>{ if(chip.classList.contains('locked')){e.preventDefault();return;} drag=chip; e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain',chip.dataset.id);}catch(_){} setTimeout(()=>chip.classList.add('dragging'),0); });
+    chip.addEventListener('dragend',()=>{ chip.classList.remove('dragging'); drag=null; setOver(null); });
+    chip.addEventListener('touchstart',e=>{
+      if(chip.classList.contains('locked')||e.target.closest('.x')) return;
+      const t=e.touches[0], r=chip.getBoundingClientRect();
+      drag=chip; offX=t.clientX-r.left; offY=t.clientY-r.top;
+      ghost=chip.cloneNode(true); ghost.classList.add('ghost'); ghost.querySelector('.x')?.remove(); ghost.style.width=r.width+'px';
+      ghost.style.left=(t.clientX-offX)+'px'; ghost.style.top=(t.clientY-offY)+'px';
+      document.body.appendChild(ghost); chip.classList.add('dragging');
+    },{passive:true});
+    chip.addEventListener('touchmove',e=>{
+      if(!ghost) return; e.preventDefault();
+      const t=e.touches[0]; ghost.style.left=(t.clientX-offX)+'px'; ghost.style.top=(t.clientY-offY)+'px';
+      const z=document.elementFromPoint(t.clientX,t.clientY)?.closest('.zone');
+      setOver(z && z.dataset.group===drag.dataset.group ? z : null);
+    },{passive:false});
+    const end=()=>{ if(!ghost) return; ghost.remove(); ghost=null; drag.classList.remove('dragging'); if(over) place(drag,over); setOver(null); drag=null; };
+    chip.addEventListener('touchend',end); chip.addEventListener('touchcancel',end);
+  }
+  function zoneEvents(zone){
+    zone.addEventListener('dragover',e=>{ if(!drag||drag.dataset.group!==zone.dataset.group) return; e.preventDefault(); setOver(zone); });
+    zone.addEventListener('dragleave',e=>{ if(!zone.contains(e.relatedTarget)) zone.classList.remove('over'); });
+    zone.addEventListener('drop',e=>{ e.preventDefault(); if(drag&&drag.dataset.group===zone.dataset.group) place(drag,zone); setOver(null); });
+  }
+  return { chip:chipEvents, zone:zoneEvents };
+})();
+
+let gid=0;
+function makeChip(text, key, poolId, group){ const c=h('div','chip',`<span>${text}</span>`); c.dataset.key=key; c.dataset.pool=poolId; c.dataset.group=group; c.tabIndex=0; DnD.chip(c); return c; }
+function makeZone(group, cap, key, title){ const z=h('div','zone'); z.dataset.group=group; z.dataset.cap=cap; z.dataset.key=key; if(title) z.appendChild(h('h4',null,title)); z.appendChild(h('div','zb')); DnD.zone(z); return z; }
+function lockChips(root){ root.querySelectorAll('.chip').forEach(c=>{ c.classList.add('locked'); c.draggable=false; c.querySelector('.x')?.remove(); }); }
+
+function sortActivity(el, bins, items){
+  const g='g'+(++gid), pid=g+'-pool';
+  const pool=h('div','pool'); pool.id=pid; el.appendChild(pool);
+  shuffle(items).forEach(([t,b])=>pool.appendChild(makeChip(t,b,pid,g)));
+  const wrap=h('div','bins'); wrap.style.gridTemplateColumns=`repeat(auto-fit,minmax(200px,1fr))`;
+  bins.forEach((b,i)=>{ const z=makeZone(g,0,i,b); wrap.appendChild(z); });
+  el.appendChild(wrap);
+  return { answered:()=>!pool.querySelector('.chip'), grade(){
+    let s=0; el.querySelectorAll('.chip').forEach(c=>{ const z=c.closest('.zone'); if(z && z.dataset.key===c.dataset.key){c.classList.add('right');s++;} else { c.classList.add('wrong'); c.insertAdjacentHTML('beforeend',`<span class="fix">→ ${bins[c.dataset.key]}</span>`);} });
+    lockChips(el); return {score:s,max:items.length}; } };
+}
+function matchActivity(el, pairs){ // pairs: [term, scenario]
+  const g='g'+(++gid), pid=g+'-pool';
+  const pool=h('div','pool'); pool.id=pid; el.appendChild(pool);
+  shuffle(pairs.map((p,i)=>[p[0],i])).forEach(([t,i])=>pool.appendChild(makeChip(t,i,pid,g)));
+  shuffle(pairs.map((p,i)=>[p[1],i])).forEach(([sc,i])=>{ const row=h('div','matchrow'); row.appendChild(h('div','sc',sc)); row.appendChild(makeZone(g,1,i)); el.appendChild(row); });
+  return { answered:()=>!pool.querySelector('.chip'), grade(){
+    let s=0; el.querySelectorAll('.zone').forEach(z=>{ const c=z.querySelector('.chip'); if(c&&c.dataset.key===z.dataset.key){c.classList.add('right');s++;} else { if(c) c.classList.add('wrong'); z.insertAdjacentHTML('beforeend',`<span class="fix" style="color:var(--bad);font-size:.78rem;font-weight:700">Answer: ${pairs[z.dataset.key][0]}</span>`);} });
+    lockChips(el); return {score:s,max:pairs.length}; } };
+}
+function orderActivity(el, steps){
+  const g='g'+(++gid), pid=g+'-pool';
+  const pool=h('div','pool'); pool.id=pid; el.appendChild(pool);
+  shuffle(steps.map((t,i)=>[t,i])).forEach(([t,i])=>pool.appendChild(makeChip(t,i,pid,g)));
+  steps.forEach((_,i)=>{ const row=h('div','ordrow'); row.appendChild(h('div','slotn',i+1)); row.appendChild(makeZone(g,1,i)); el.appendChild(row); });
+  return { answered:()=>!pool.querySelector('.chip'), grade(){
+    let s=0; el.querySelectorAll('.ordrow .zone').forEach(z=>{ const c=z.querySelector('.chip'); if(c&&c.dataset.key===z.dataset.key){c.classList.add('right');s++;} else if(c){ c.classList.add('wrong'); c.insertAdjacentHTML('beforeend',`<span class="fix">→ goes in step ${+c.dataset.key+1}</span>`);} });
+    lockChips(el); return {score:s,max:steps.length}; } };
+}
+
+/* ---------- quiz data ---------- */
+const MCQ=[
+ ["After a hurricane, scientists study two coral reefs. Reef A has 40 kinds of coral and fish. Reef B has only 5. Which reef is more likely to recover, and why?",
+  ["Reef B, because fewer species means less damage to fix.","Reef A, because if some species are harmed, others can keep doing their jobs in the reef.","Reef A, because hurricanes cannot damage reefs with many species.","Both recover at the same speed because the ocean resets itself."],1,
+  "More species means more backups. Watch out for the trap: biodiversity does <i>not</i> stop damage from happening; it helps the reef recover afterwards."],
+ ["A farmer plants only ONE variety of banana on all her land. A fungus that attacks that variety arrives. What is the biggest risk?",
+  ["The whole crop could be lost, because every plant has the same weakness.","The fungus will turn into fertiliser for the bananas.","Pollinators will cure the plants.","Nothing, because one variety is always the strongest."],0,
+  "With no variety, there is no backup. If she had planted several varieties, some would survive."],
+ ["Lionfish were released into Caribbean waters by people and now eat many young reef fish. This disruption is best described as…",
+  ["A natural disruption, like a hurricane","A human-caused disruption: an invasive species","An example of resilience","A new habitat"],1,
+  "People brought lionfish here, so it is human-caused. A species that spreads in a place where it does not belong and causes harm is an invasive species."],
+ ["Parrotfish graze on algae that grows over coral. If a reef is overfished and most parrotfish are removed, what will most likely happen?",
+  ["Algae spreads over the coral, so the reef becomes less healthy.","Coral grows faster because it has more space.","Nothing changes, because parrotfish are only one species.","Other fish turn into parrotfish to replace them."],0,
+  "Every species has a job. Remove the algae-grazers and the algae takes over, weakening the coral and the whole reef."],
+ ["A green vervet monkey sleeps in the tall trees of the Central Forest Reserve and eats the fruit there. For the monkey, those trees are its…",
+  ["Ecosystem","Biodiversity","Habitat","Resilience"],2,
+  "A habitat is the place where an organism lives, finds food and gets shelter. The ecosystem is the bigger picture of all living and non-living things interacting."],
+ ["Scientists discover a substance in a rare rainforest plant that may treat a disease. Which is the BEST reason this shows biodiversity matters?",
+  ["Wild plants can be the source of new medicines, so losing species could mean losing future cures.","Rainforests look beautiful in photographs.","Only rainforest plants can make medicine.","Medicines are made in factories, so plants don't matter."],0,
+  "Over half of modern medicines began as compounds found in wild plants and fungi."],
+ ["Which action would make a coastal mangrove ecosystem LESS resilient?",
+  ["Planting young mangroves after a storm","Clearing most of the mangroves and filling in the swamp to build shops","Protecting the fish nurseries in the roots","Stopping rubbish from washing into the water"],1,
+  "Clearing mangroves removes species and habitats, so there are fewer survivors to help the ecosystem recover."],
+ ["In a food web, frogs eat only caterpillars. Small birds eat caterpillars AND bees. If the caterpillars disappear, which animal is in more danger?",
+  ["The small bird, because it is smaller","The frog, because it has no other food source","Both are equally safe","Neither, because animals don't need food webs"],1,
+  "The bird has a backup food (bees). The frog does not. More food options means more resilience, the same idea as biodiversity."]
+];
+const TF=[
+ ["Biodiversity includes tiny bacteria and fungi, not just big animals.",true,"From microscopic bacteria to whales: all of life counts."],
+ ["Biodiversity only matters in tropical rainforests and coral reefs.",false,"It matters everywhere: grasslands, lakes, wetlands, even city parks."],
+ ["If an ecosystem has many species, it can never be damaged.",false,"It can still be damaged. Biodiversity helps it recover faster."],
+ ["Recovery after a disruption can take weeks, years or even decades.",true,"Some damage heals fast; a destroyed forest may take decades."],
+ ["Decomposers such as fungi return nutrients to the soil.",true,"They are nature's recyclers, feeding the soil that plants need."],
+ ["A hurricane is a human-caused disruption.",false,"Hurricanes are natural. Pollution, deforestation, invasive species and overfishing are human causes."],
+ ["Over half of modern medicines originally came from compounds in wild plants and fungi.",true,"That is one of the three big benefits of biodiversity."],
+ ["In a diverse ecosystem, if one species struggles, another species may help keep it working.",true,"This is the key to resilience."],
+ ["A habitat and an ecosystem mean exactly the same thing.",false,"A habitat is one organism's home. An ecosystem is all the living things plus their environment, interacting."]
+];
+const MATCH=[
+ ["Biodiversity","A reef has hundreds of different fish, corals, sponges and sea turtles."],
+ ["Ecosystem","Mangrove trees, crabs, fish, mud, salt water and sunlight all interacting together."],
+ ["Habitat","A hollow log where a frog hides, finds insects to eat and stays cool."],
+ ["Resilience","Two years after a wildfire, grass, shrubs and birds have returned to the hillside."],
+ ["Disruption","Oil spills into a bay and kills the seagrass."]
+];
+const SORT1=[["🌀 Hurricane",0],["☀️ Drought",0],["🌋 Volcanic eruption",0],["🌊 Flood",0],["⚡ Wildfire started by lightning",0],["🧴 Plastic pollution",1],["🪓 Deforestation",1],["🎣 Overfishing",1],["🐟 Lionfish invasion",1],["🛢️ Oil spill",1]];
+const SORT2=[["🥭 Mangoes and bananas",0],["🐟 Fish from the reef",0],["🐝 Bees pollinating crops",0],["🌾 Wild genes for drought-proof crops",0],["🌿 Aloe to soothe burns",1],["🍄 Penicillin from a mould",1],["🌳 Willow bark compound for pain relief",1],["🪵 Timber for houses",2],["👕 Cotton for school uniforms",2],["🛞 Rubber for tyres",2]];
+const ORDER=[
+ "A hurricane's winds and storm surge break branches and uproot some mangroves.",
+ "Surviving mangroves and their roots hold the remaining mud in place.",
+ "Seeds from the surviving trees drop into the mud and take root.",
+ "Young fish and crabs return to shelter among the new roots.",
+ "Over the years the mangrove forest grows thick and healthy again."
+];
+const BEST=[
+ ["Question: <i>Explain why clearing a mangrove swamp to build shops could harm a coastal town.</i> Which student answer would earn full marks?",
+  ["Because mangroves are nice and people like them.","Mangroves protect the shore from storm surges and erosion, so without them the town could flood during hurricanes. They are also fish nurseries, so fishers would catch fewer fish.","It would harm the town because it is bad to cut down trees."],1,
+  "It has a claim, the science reason (storm surge, erosion, nurseries) and a real effect on the town. The others are opinions with no science."],
+ ["Question: <i>Predict what would happen to food crops if all insects vanished.</i> Which answer is strongest?",
+  ["Many crops would produce little or no fruit because insects like bees pollinate their flowers, so food would become scarce and expensive.","The crops would be fine because they get water from the rain.","There would be no more insects."],0,
+  "It predicts AND explains why (pollination). Answer C only repeats the question; answer B ignores pollination."],
+ ["Question: <i>Describe how biodiversity helps an ecosystem recover from a disease.</i> Which answer is strongest?",
+  ["Biodiversity is the variety of life.","Diseases kill things.","If a disease kills one species, other species that are not affected survive. They keep holding the soil and providing food and shelter, so the ecosystem keeps working while it recovers."],2,
+  "Answer A is only a definition and doesn't answer the question. A strong answer describes the process."]
+];
+const BUILD=[
+ ["The school wants to dig up its garden of mixed flowers and plant only grass. <b>Explain</b> how this could affect biodiversity.",
+  [["It would reduce biodiversity in the school yard.","It would increase biodiversity because grass is green.","It would not affect anything at all."],
+   ["Fewer kinds of plants means fewer habitats and less food for insects and birds.","Grass needs more water than flowers.","Flowers are prettier than grass."],
+   ["Bees and butterflies that drink nectar would leave, and birds that eat those insects might leave too.","The students would have more space to play football.","Grass grows in many countries around the world."]]],
+ ["A hurricane damages part of the Central Forest Reserve. <b>Explain</b> why a forest with many tree species would recover better.",
+  [["A forest with many tree species would recover faster.","A forest with one tree species would recover faster.","Hurricanes do not damage forests."],
+   ["Different species are affected differently, so some survive and keep the ecosystem working.","All trees are exactly the same inside.","Monkeys replant every tree overnight."],
+   ["Surviving trees still hold the soil on the slopes and shelter birds and monkeys while seedlings grow.","The forest is on a mountain.","Hurricanes happen between June and November."]]]
+];
+const MULTI=["The shoreline loses protection from storm surges.","More coastal erosion as roots stop holding the mud.","Fewer young fish, so less food for fishing communities.","Birds and crabs lose their habitat.","The shops will make it rain more often.","Mangroves will grow back under the buildings within a week.","Biodiversity will increase because of the new shops."];
+
+/* ---------- quiz builder ---------- */
+const sections=[
+ {t:"Round 1 · Real-world multiple choice",how:"Read each situation carefully. Choose the best answer.",build(el){ const items=shuffle(MCQ).map((q,i)=>{ const c=h('div','q'); c.appendChild(h('p','q-stem',`<span class="qn">${i+1}</span><span>${q[0]}</span>`)); el.appendChild(c); return choice(c,q[1],q[2],q[3]); }); return group(items); }},
+ {t:"Round 2 · True or false",how:"Some of these are sneaky. Read every word.",build(el){ const c=h('div','q'); el.appendChild(c); const items=shuffle(TF).map(([s,a,w])=>{ const r=h('div','tfrow'); r.appendChild(h('div',null,s)); c.appendChild(r); return choice(r,['True','False'],a?0:1,w,{cls:'tf'}); }); return group(items); }},
+ {t:"Round 3 · Match the word to the situation",how:"Drag each key word onto the situation it describes.",build(el){ const c=h('div','q'); el.appendChild(c); return matchActivity(c,MATCH); }},
+ {t:"Round 4 · Natural or human-caused?",how:"Drag every disruption into the right group.",build(el){ const c=h('div','q'); el.appendChild(c); return sortActivity(c,["Natural causes","Human causes"],SORT1); }},
+ {t:"Round 5 · What does nature give us?",how:"Sort each item into the benefit it belongs to.",build(el){ const c=h('div','q'); el.appendChild(c); return sortActivity(c,["Food & nutrition","Medicine & health","Useful materials"],SORT2); }},
+ {t:"Round 6 · Put the recovery in order",how:"A hurricane hits a mangrove swamp. Drag the steps into the right order, from first to last.",build(el){ const c=h('div','q'); el.appendChild(c); return orderActivity(c,ORDER); }},
+ {t:"Round 7 · Mark the answers like a teacher",how:"Three students answered each question. Pick the answer that would get full marks.",build(el){ const items=BEST.map((q,i)=>{ const c=h('div','q'); c.appendChild(h('p','q-stem',`<span class="qn">${i+1}</span><span>${q[0]}</span>`)); el.appendChild(c); return choice(c,q[1],q[2],q[3]); }); return group(items); }},
+ {t:"Round 8 · Build a full-marks answer",how:"Choose the best sentence for each part of the recipe: Say it, Science it, Show it.",build(el){ const items=[]; BUILD.forEach((q,i)=>{ const c=h('div','q'); c.appendChild(h('p','q-stem',`<span class="qn">${i+1}</span><span>${q[0]}</span>`)); el.appendChild(c);
+   const labels=[["Say it (claim)","var(--sea)"],["Science it (reason)","var(--hib)"],["Show it (example)","var(--leaf)"]];
+   q[1].forEach((opts,k)=>{ const p=h('div','part'); p.appendChild(h('span','tag',labels[k][0])).style.cssText=`background:${labels[k][1]};color:#fff`; c.appendChild(p); items.push(choice(p,opts,0,k===2?`<br><b>Full answer:</b> ${q[1][0][0]} ${q[1][1][0]} ${q[1][2][0]}`:'This part matches the recipe.')); }); }); return group(items); }},
+ {t:"Round 9 · Spot the real risks",how:"A town plans to clear a mangrove swamp for shops. Select ALL the real ecological risks. Wrong picks cost a point.",build(el){ const c=h('div','q'); el.appendChild(c); return choice(c,MULTI,[0,1,2,3],"The real risks are lost storm protection, erosion, fewer fish and lost habitat. Clearing never increases biodiversity, and mangroves take years to regrow.",{multi:true}); }},
+];
+function group(items){ return { answered:()=>items.every(i=>i.answered()), grade(){ let s=0,m=0; items.forEach(i=>{const r=i.grade(); s+=r.score; m+=r.max;}); return {score:s,max:m}; } }; }
+
+let results=[];
+function buildQuiz(){
+  const body=$('#quizBody'); body.innerHTML=''; results=sections.map(()=>null);
+  sections.forEach((s,i)=>{
+    const sec=h('div','qsec'); const head=h('div','qsec-head'); head.appendChild(h('h3',null,s.t)); const res=h('span','result'); head.appendChild(res);
+    sec.append(head, h('p','how',s.how)); const inner=h('div'); sec.appendChild(inner); body.appendChild(sec);
+    const api=s.build(inner);
+    const row=h('div','btnrow'); const btn=h('button','btn','Check this round'); btn.type='button'; const warn=h('span','warn'); row.append(btn,warn); sec.appendChild(row);
+    let warned=false;
+    btn.onclick=()=>{
+      if(!api.answered() && !warned){ warned=true; warn.textContent='Some answers are still empty. Press again to check anyway.'; btn.textContent='Check anyway'; return; }
+      warn.textContent=''; const r=api.grade(); results[i]=r; btn.disabled=true; btn.textContent='Checked';
+      res.textContent=`${r.score} / ${r.max}`; res.style.color= r.score/r.max>=.8?'var(--good)': r.score/r.max>=.5?'var(--fungi)':'var(--bad)';
+      updateBoard();
+    };
+  });
+  updateBoard();
+}
+function updateBoard(){
+  const rows=$('#rows'); rows.innerHTML=''; let s=0,m=0,done=0;
+  sections.forEach((sec,i)=>{ const r=results[i]; const pct=r?Math.round(r.score/r.max*100):0; if(r){s+=r.score;m+=r.max;done++;}
+    rows.insertAdjacentHTML('beforeend',`<div class="row"><div>${sec.t.split('·')[1].trim()}<div class="bar"><b style="width:${pct}%"></b></div></div><div style="text-align:right">${r?r.score+'/'+r.max:'–'}</div></div>`); });
+  $('#total').textContent = m? Math.round(s/m*100)+'%' : '0%';
+  if(done===sections.length){
+    const p=s/m;
+    $('#boardMsg').textContent = p>=.9?`Biodiversity champion! ${s}/${m}`: p>=.75?`Strong work! ${s}/${m}. Review the red ones.`: p>=.5?`Getting there: ${s}/${m}. Revisit stops 5–7, then retake.`:`${s}/${m}. Go back through the lesson stops and try again.`;
+    if(p>=.75) confetti();
+  } else $('#boardMsg').textContent = done? `${done} of ${sections.length} rounds checked` : 'Check each round to fill your scoreboard';
+}
+$('#retake').onclick=()=>{ buildQuiz(); $('#quiz').scrollIntoView({behavior:'smooth'}); };
+buildQuiz();
+
+function confetti(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv=$('#confetti'), b=$('#board'); cv.width=b.clientWidth; cv.height=b.clientHeight; const x=cv.getContext('2d');
+  const cs=getComputedStyle(document.documentElement); const cols=['--sun','--hib','--leaf','--sea'].map(v=>cs.getPropertyValue(v).trim()).concat('#ffffff');
+  const ps=[...Array(120)].map(()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height,vy:2+Math.random()*3,vx:-1+Math.random()*2,r:Math.random()*6,c:pick(cols),a:Math.random()*6}));
+  let f=0; (function loop(){ x.clearRect(0,0,cv.width,cv.height); ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.a+=.1; x.fillStyle=p.c; x.save(); x.translate(p.x,p.y); x.rotate(p.a); x.fillRect(-4,-2,8,4); x.restore();}); if(++f<200) requestAnimationFrame(loop); else x.clearRect(0,0,cv.width,cv.height); })();
+}
+</script>
+
+</body></html>

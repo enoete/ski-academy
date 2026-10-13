@@ -33,6 +33,20 @@
           "added": "2026-09-30"
         }
       ]
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "emoji": "🔬",
+      "color": "#1BB5A8",
+      "guides": [
+        {
+          "title": "The Wonder of Biodiversity",
+          "file": "biodiversity.html",
+          "blurb": "Food webs, disruptions, resilience, mangroves, answering like a scientist and a nine-round quiz.",
+          "added": "2026-10-13"
+        }
+      ]
     }
   ]
 }
