@@ -1,0 +1,737 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Agricultural Revolution — Adiaha's Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gluten:wght@600;800&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F1DC; --paper:#FFFDF3; --ink:#26231B; --muted:#6B6552; --line:#E2D7AE;
+  --wheat:#E3A019; --field:#3F8F3A; --sky:#2E9BD6; --clay:#C24E36; --berry:#8E3B8E; --night:#2B3A2A;
+  --ok:#23944A; --okbg:#DDF5E4; --bad:#CF3B3B; --badbg:#FBE1E1;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16190F; --paper:#22271A; --ink:#F3EEDB; --muted:#B5B09A; --line:#3B4430;
+    --wheat:#F2B84A; --field:#7CC46F; --sky:#62BDF0; --clay:#F07F64; --berry:#C77CC7; --night:#0E140C;
+    --okbg:#173A26; --badbg:#3E1C22; --ok:#5FD68A; --bad:#FF7B7B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16190F; --paper:#22271A; --ink:#F3EEDB; --muted:#B5B09A; --line:#3B4430;
+  --wheat:#F2B84A; --field:#7CC46F; --sky:#62BDF0; --clay:#F07F64; --berry:#C77CC7; --night:#0E140C;
+  --okbg:#173A26; --badbg:#3E1C22; --ok:#5FD68A; --bad:#FF7B7B;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Lexend,"Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.6}
+h1,h2{font-family:Gluten,"Lexend",cursive;font-weight:800;line-height:1.02;margin:0}
+h3{font-size:1.15rem;margin:1.4em 0 .4em}
+p{margin:.5em 0 .9em}
+button{font-family:inherit;font-size:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--wheat);outline-offset:3px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#2B3A2A;box-shadow:0 3px 0 var(--wheat)}
+nav.top .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.top a{flex:none;color:#F7F0D6;text-decoration:none;font-size:.85rem;font-weight:600;padding:6px 12px;border-radius:999px;border:1.5px solid rgba(247,240,214,.35);white-space:nowrap}
+nav.top a:hover,nav.top a:focus-visible{background:var(--wheat);color:#231c08;border-color:var(--wheat)}
+nav.top a.quizlink{background:var(--clay);border-color:var(--clay);color:#fff}
+
+/* hero */
+.hero{color:#fff;padding:34px 0 30px;transition:background .6s}
+.hero.nomad{background:linear-gradient(180deg,#5B7FB8 0%,#8C7AA8 55%,#7A5B3E 100%)}
+.hero.farmer{background:linear-gradient(180deg,#58B4E8 0%,#9ED36A 62%,#3F8F3A 100%)}
+.hero h1{font-size:clamp(2.5rem,9vw,5rem);text-shadow:0 4px 0 rgba(0,0,0,.18)}
+.hero .sub{font-size:1.1rem;max-width:40ch;margin-top:8px}
+.switch{display:inline-flex;background:rgba(0,0,0,.25);border-radius:999px;padding:5px;margin:18px 0 14px}
+.switch button{border:none;background:none;color:#fff;font-weight:700;padding:9px 18px;border-radius:999px}
+.switch button[aria-pressed="true"]{background:#fff;color:#2B3A2A}
+.scene{background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.35);border-radius:24px;padding:16px 18px;max-width:620px}
+.scene .emo{font-size:2.6rem;letter-spacing:.15em;line-height:1.2}
+.scene ul{margin:.5em 0 0;padding-left:20px}
+.scene.fade{animation:fade .45s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.scene.fade{animation:none}html{scroll-behavior:auto}}
+
+section.tab{margin:34px auto;background:var(--paper);border-radius:28px;border:3px solid var(--line);overflow:hidden}
+.tabhead{padding:22px 22px 18px;color:#fff}
+.tabhead h2{font-size:clamp(1.9rem,5.5vw,2.7rem)}
+.tabhead p{margin:.3em 0 0;opacity:.95;max-width:54ch}
+.tabbody{padding:10px 22px 26px}
+.c-wheat{background:#C98A0E}.c-field{background:#3F8F3A}.c-sky{background:#2479AD}.c-clay{background:#B9442D}.c-berry{background:#7E3380}.c-night{background:#2B3A2A}.c-teal{background:#178C83}
+
+.story{background:var(--bg);border-left:6px solid var(--wheat);border-radius:4px 18px 18px 4px;padding:14px 18px;margin:16px 0}
+.story .who{font-weight:700;color:var(--clay)}
+.heads{background:var(--badbg);border-radius:16px;padding:12px 16px;margin:14px 0;border:2px solid var(--bad)}
+.heads b{color:var(--bad)}
+.trick{background:var(--okbg);border:2px solid var(--ok);border-radius:16px;padding:12px 16px;margin:14px 0}
+.trick b{color:var(--ok)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
+.fact{border:2px solid var(--line);border-radius:18px;padding:12px 14px;background:var(--bg)}
+.fact .k{font-size:.8rem;color:var(--muted);font-weight:600}
+.fact .v{font-weight:700;font-size:1.05rem}
+.big{font-family:Gluten,cursive;font-weight:800;font-size:2.3rem;color:var(--clay);line-height:1}
+
+/* word split */
+.split{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.piece{flex:1 1 140px;border-radius:18px;padding:14px;text-align:center;color:#fff;border:none;transition:transform .15s}
+.piece:hover{transform:translateY(-3px)}
+.piece .w{font-family:Gluten,cursive;font-weight:800;font-size:1.9rem;display:block}
+.piece .m{display:block;font-weight:600;min-height:1.6em}
+.piece .m.hide{opacity:0}
+
+/* ladder */
+.ladder{display:grid;gap:8px;margin:14px 0}
+.rung{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;border-radius:16px;padding:10px 14px;color:#fff}
+.rung b{font-family:Gluten,cursive;font-size:1.3rem;font-weight:800}
+@media (max-width:520px){.rung{grid-template-columns:1fr}}
+
+/* world */
+.world{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:auto auto;gap:8px;background:#1F6E9C;border-radius:22px;padding:12px;margin:12px 0}
+.region{border:none;border-radius:16px;padding:10px 8px;color:#2a2410;font-weight:700;text-align:center;background:#EBD59A;min-height:84px;transition:transform .15s}
+.region:hover{transform:scale(1.04)}
+.region .e{display:block;font-size:1.5rem}
+.region.sel{outline:4px solid #fff;background:var(--wheat)}
+.regioninfo{border:3px dashed var(--line);border-radius:18px;padding:14px 16px;min-height:120px}
+@media (max-width:560px){.world{grid-template-columns:repeat(2,1fr)}}
+
+/* chain */
+.chain{display:grid;gap:8px;margin:12px 0}
+.link{border-radius:14px;padding:10px 14px;background:var(--bg);border:2px solid var(--line);display:flex;gap:10px;align-items:center}
+.link .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--field);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.link.hidden{display:none}
+.nextbtn{border:none;background:var(--field);color:#fff;border-radius:12px;padding:9px 16px;font-weight:700}
+
+/* catal */
+.catal{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;align-items:start}
+@media (max-width:640px){.catal{grid-template-columns:1fr}}
+.catal svg{width:100%;height:auto;display:block;border-radius:18px;background:#BFE3F2}
+.hs{cursor:pointer}
+.hs circle{transition:r .15s}
+.hs:hover circle,.hs:focus circle{r:15}
+.hs.on circle{fill:var(--clay)}
+.catinfo{border:3px dashed var(--line);border-radius:18px;padding:14px 16px;min-height:150px}
+
+/* forge */
+.forge{display:grid;grid-template-columns:160px 1fr;gap:16px;align-items:center;margin:12px 0}
+@media (max-width:520px){.forge{grid-template-columns:1fr}}
+.pot{width:150px;height:150px;border-radius:50% 50% 44% 44%;background:#444;border:6px solid #2a2a2a;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pot .melt{position:absolute;left:0;right:0;bottom:0;height:0;transition:height .5s,background .5s}
+.pot span{position:relative;color:#fff;font-weight:700;text-align:center;font-size:.9rem;padding:4px}
+.fbtns{display:flex;flex-wrap:wrap;gap:8px}
+.fbtns button{border:none;border-radius:12px;padding:9px 14px;font-weight:700;color:#fff}
+
+/* civ */
+.civ{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0}
+.civ div{border-radius:18px;padding:14px;color:#fff}
+.civ b{font-family:Gluten,cursive;font-size:1.3rem;display:block;font-weight:800}
+
+/* flips */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:12px 0}
+.flip{perspective:800px;width:100%;height:130px;border:none;background:none;padding:0}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:8px;text-align:center}
+.flip .f{background:var(--field);color:#fff;font-family:Gluten,cursive;font-weight:800;font-size:1.25rem}
+.cards .flip:nth-child(4n+2) .f{background:#C98A0E}
+.cards .flip:nth-child(4n+3) .f{background:#2479AD}
+.cards .flip:nth-child(4n) .f{background:#7E3380}
+.flip .b{background:var(--wheat);color:#231c08;transform:rotateY(180deg);font-size:.85rem;font-weight:600;line-height:1.3}
+
+/* diorama */
+.pick{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.pick button{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 16px;font-weight:700}
+.pick button[aria-pressed="true"]{background:var(--clay);color:#fff;border-color:var(--clay)}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.checks label{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--bg);cursor:pointer}
+.checks input{width:20px;height:20px;accent-color:var(--field);flex:none;margin-top:3px}
+.count{font-weight:700;color:var(--field);margin:10px 0}
+
+.tricks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.tricks > div{border-radius:18px;padding:14px;border:3px solid;background:var(--bg)}
+.tricks .t{font-family:Gluten,cursive;font-weight:800;font-size:1.35rem;line-height:1.1;display:block;margin-bottom:6px}
+
+/* QUIZ */
+.scorebar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);z-index:40;background:var(--clay);color:#fff;border-radius:16px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 14px;font-weight:700}
+.meter{flex:1;height:10px;background:rgba(255,255,255,.3);border-radius:10px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--wheat);transition:width .4s}
+.qpart{margin:26px 0 8px}
+.qpart h3{font-size:1.35rem;margin:0;color:var(--clay)}
+.qpart .how{color:var(--muted);font-size:.92rem;margin:.2em 0 0}
+.q{border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin:12px 0;background:var(--bg)}
+.q .stem{font-weight:600;margin-bottom:10px}
+.q .num{display:inline-block;background:var(--field);color:#fff;border-radius:999px;min-width:30px;text-align:center;font-size:.85rem;padding:1px 8px;margin-right:6px}
+.opts{display:grid;gap:8px}
+.opts.tf{grid-template-columns:1fr 1fr}
+.opt{border:2px solid var(--line);background:var(--paper);color:var(--ink);border-radius:14px;padding:10px 12px;text-align:left;font-weight:500;transition:transform .12s}
+.opt:hover:not(:disabled){transform:translateX(3px);border-color:var(--field)}
+.opts.tf .opt{text-align:center;font-weight:700;font-size:1.05rem}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad);text-decoration:line-through}
+.fb{margin-top:10px;font-size:.93rem;border-radius:12px;padding:8px 12px;display:none}
+.fb.show{display:block}
+.fb.good{background:var(--okbg);border-left:5px solid var(--ok)}
+.fb.oops{background:var(--badbg);border-left:5px solid var(--bad)}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:54px;padding:10px;border:2px dashed var(--line);border-radius:16px;margin-bottom:12px;background:var(--paper)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#2479AD;color:#fff;border-radius:12px;padding:8px 10px;font-weight:600;font-size:.9rem;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.chip:active{cursor:grabbing}
+.chip.dragging{opacity:.35}
+.chip .x{border:none;background:rgba(255,255,255,.25);color:#fff;border-radius:50%;width:22px;height:22px;line-height:22px;padding:0;font-size:.75rem;flex:none}
+.chip.ok{background:var(--ok)}
+.chip.no{background:var(--bad)}
+.chip .fix{font-weight:500;font-size:.78rem}
+.locked .chip{cursor:default}
+.ghost{position:fixed;z-index:999;pointer-events:none;transform:translate(-50%,-60%) rotate(-3deg);opacity:.95}
+.target{border:2.5px dashed var(--line);border-radius:14px;padding:8px;min-height:52px;background:var(--paper);transition:background .15s,border-color .15s}
+.target.over{background:rgba(227,160,25,.25);border-color:var(--wheat);border-style:solid}
+.target .lbl{font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:6px}
+.target .items{display:flex;flex-wrap:wrap;gap:6px}
+.matchgrid{display:grid;gap:8px}
+.matchrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.matchrow .def{border-radius:14px;padding:10px 12px;background:var(--paper);border:2px solid var(--line);font-size:.93rem;display:flex;align-items:center}
+.bins{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:10px}
+@media (max-width:620px){.bins{grid-template-columns:1fr}.matchrow{grid-template-columns:1fr}}
+.bins .target{min-height:150px}
+.bins .target .lbl{font-size:1rem;color:#fff;border-radius:10px;padding:4px 10px;display:inline-block}
+.slots{display:grid;gap:8px}
+.slots .target{display:flex;align-items:center;gap:10px}
+.slots .target .lbl{margin:0;min-width:96px}
+.checkbtn{margin-top:12px;border:none;background:var(--field);color:#fff;border-radius:12px;padding:10px 18px;font-weight:700}
+.checkbtn:disabled{opacity:.45;cursor:default}
+.warn{color:var(--bad);font-weight:600;font-size:.9rem;margin-left:8px}
+.sentence{display:flex;flex-wrap:wrap;gap:6px;font-size:1.05rem}
+.word{border:2px solid transparent;background:var(--paper);color:var(--ink);border-radius:10px;padding:4px 8px}
+.word:hover:not(:disabled){border-color:var(--wheat)}
+.word.right{background:var(--okbg);border-color:var(--ok)}
+.word.wrong{background:var(--badbg);border-color:var(--bad)}
+.word.reveal{background:var(--wheat);color:#231c08}
+.results{display:none;text-align:center;border-radius:24px;padding:26px 18px;margin-top:20px;background:#2B3A2A;color:#F7F0D6}
+.results.show{display:block}
+.results .big{color:var(--wheat);font-size:3.4rem}
+.results ul{text-align:left;max-width:520px;margin:12px auto}
+.again{border:none;background:var(--wheat);color:#231c08;border-radius:14px;padding:12px 20px;font-weight:700;margin-top:10px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <a href="#neolithic">Neolithic Age</a>
+    <a href="#revolution">The revolution</a>
+    <a href="#spread">Spread of farming</a>
+    <a href="#villages">Jericho &amp; Çatalhüyük</a>
+    <a href="#sedentary">Settled life</a>
+    <a href="#metals">Copper &amp; bronze</a>
+    <a href="#civ">Civilizations</a>
+    <a href="#diorama">Diorama helper</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#tricks">Memory tricks</a>
+    <a href="#quiz" class="quizlink">Quiz</a>
+  </div>
+</nav>
+
+<header class="hero nomad" id="hero">
+  <div class="wrap">
+    <h1>The Agricultural Revolution</h1>
+    <p class="sub">The moment humans stopped chasing their food and started growing it. Flip the switch to time-travel.</p>
+    <div class="switch" role="group" aria-label="Choose a way of life">
+      <button aria-pressed="true" data-life="nomad">Nomad life</button>
+      <button aria-pressed="false" data-life="farmer">Farmer life</button>
+    </div>
+    <div class="scene" id="scene" aria-live="polite"></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- NEOLITHIC -->
+<section class="tab" id="neolithic">
+  <div class="tabhead c-field"><h2>The Neolithic Age</h2><p>Tap the blocks to decode the name.</p></div>
+  <div class="tabbody">
+    <div class="split">
+      <button class="piece" style="background:#3F8F3A" data-m="new"><span class="w">Neo</span><span class="m hide">tap me</span></button>
+      <button class="piece" style="background:#2479AD" data-m="stone"><span class="w">lithic</span><span class="m hide">tap me</span></button>
+      <button class="piece" style="background:#C98A0E" data-m="New Stone Age (Greek)"><span class="w">=</span><span class="m hide">tap me</span></button>
+    </div>
+    <p>The <b>Neolithic Age</b> is the latest (last) period of the Stone Age. It began about <b>8000 B.C.</b> and lasted until around <b>4000 B.C.</b>, about <b>4,000 years</b>.</p>
+    <div class="trick"><b>Memory trick: “8 to 4.”</b> The Neolithic Age ran from 8000 to 4000 B.C., like a long school day from 8 to 4.</div>
+
+    <h3>The story of the big thaw</h3>
+    <div class="story"><span class="who">About 14,000 years ago…</span> The world was coming out of the last <b>Ice Age</b>. Giant sheets of ice melted, and Earth's temperatures rose. The earliest people were <b>nomads</b>: they moved from place to place, hunting animals and gathering wild plants, always following the food. As the climate warmed, many nomads moved into areas with a <b>mild climate</b> and <b>fertile land</b>. Then something brand new happened. Instead of moving on, people <b>stayed in one place</b> to grow grains and vegetables. Slowly, <b>farming replaced hunting and gathering</b> as the main source of food. At the same time, people began to <b>domesticate</b> (tame) animals, which carried goods and gave meat, milk and wool.</div>
+
+    <h3>Where the Neolithic fits: the age ladder</h3>
+    <div class="ladder">
+      <div class="rung" style="background:#7A5B3E"><b>Paleolithic</b><span>“Old Stone Age.” Nomads, hunting and gathering, simple stone tools. (Paleo = old, like paleontologists who dig up old bones.)</span></div>
+      <div class="rung" style="background:#3F8F3A"><b>Neolithic</b><span>“New Stone Age,” 8000–4000 B.C. Farming, villages, tamed animals, polished stone tools.</span></div>
+      <div class="rung" style="background:#C98A0E"><b>Bronze Age</b><span>3000–1200 B.C. People mix copper and tin to make bronze. Civilizations appear.</span></div>
+      <div class="rung" style="background:#55606B"><b>Iron Age</b><span>Bonus: after about 1200 B.C., iron tools take over.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVOLUTION -->
+<section class="tab" id="revolution">
+  <div class="tabhead c-wheat"><h2>Why it's called a revolution</h2><p>Not a war. A change so big it reshaped everyone's life.</p></div>
+  <div class="tabbody">
+    <p>A <b>revolution</b> is any change that has an <b>enormous effect</b> on people's way of life. Historians call the settled farming of the Neolithic Age the <b>Agricultural Revolution</b>. People turned from <b>hunting and gathering in nomadic communities</b> to <b>farming and herding in established communities</b>.</p>
+    <div class="facts">
+      <div class="fact"><div class="k">The REAL change</div><div class="v">Hunting &amp; gathering → systematic agriculture</div></div>
+      <div class="fact"><div class="k">Systematic agriculture</div><div class="v">Organized growing of food on a regular schedule</div></div>
+      <div class="fact"><div class="k">The clever trick</div><div class="v">Farmers saved some grains to plant instead of eating them all</div></div>
+      <div class="fact"><div class="k">Big claim</div><div class="v">Some historians call it the most important event in human history</div></div>
+    </div>
+    <div class="story"><span class="who">Think of it like a phone.</span> Before smartphones, you needed a camera, a map, a music player and a phone. After, everything changed at once: how we talk, travel, shop and learn. Farming was humanity's first “everything changes” invention. Once people could grow food, they could build houses, villages, then cities, governments and writing. That's why farming is called the <b>foundation of civilization</b>.</div>
+    <div class="trick"><b>Memory trick:</b> hunter-gatherers <b>ate</b> the wild seeds; farmers <b>saved</b> the seeds. Eat it all = move on. Save some = stay put.</div>
+    <h3>Ideas from the class videos</h3>
+    <div class="facts">
+      <div class="fact"><div class="k">What may have started it (about 14,000 years ago)</div><div class="v">The last Ice Age ended and the climate warmed</div></div>
+      <div class="fact"><div class="k">The Fertile Crescent's nickname</div><div class="v">The “Cradle of Civilization”</div></div>
+      <div class="fact"><div class="k">Domestication</div><div class="v">Taming plants and animals for human use</div></div>
+      <div class="fact"><div class="k">Foundation of civilization</div><div class="v">Agriculture (farming)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPREAD -->
+<section class="tab" id="spread">
+  <div class="tabhead c-sky"><h2>Farming spreads around the world</h2><p>Tap a region to see what grew there and when. These symbols are perfect for your timeline project.</p></div>
+  <div class="tabbody">
+    <div class="world" id="world"></div>
+    <div class="regioninfo" id="regionInfo" aria-live="polite"><b>Tap a region.</b> Farming started in Southwest Asia and popped up in other places too.</div>
+    <div class="trick"><b>Memory trick, the grain map:</b> <b>Wheat &amp; barley</b> in the West (SW Asia, Egypt, India, Europe). <b>Millet</b> up North in China. <b>Rice</b> down South-East. <b>Corn</b> across the ocean in the Americas. <b>Yams &amp; bananas</b> in Central Africa.</div>
+  </div>
+</section>
+
+<!-- VILLAGES -->
+<section class="tab" id="villages">
+  <div class="tabhead c-clay"><h2>Life in a Neolithic village</h2><p>Permanent homes, close to the fields and close to water.</p></div>
+  <div class="tabbody">
+    <p>People built <b>permanent homes</b> in villages. They placed villages <b>near fields</b>, so planting and harvesting was easier, and <b>near water</b>, especially rivers, for drinking, watering crops and animals, and fishing. Neolithic farming villages grew in <b>Europe, India, Egypt, China and Mexico</b>. The biggest and earliest have been found in <b>Southwest Asia</b>.</p>
+
+    <h3>Jericho: the wall-and-tower town</h3>
+    <div class="facts">
+      <div class="fact"><div class="k">Where</div><div class="v">The West Bank, between present-day Israel and Jordan</div></div>
+      <div class="fact"><div class="k">Famous for</div><div class="v">One of the oldest communities on Earth</div></div>
+      <div class="fact"><div class="k">Bonus</div><div class="v">Built beside a natural spring, an oasis in dry land</div></div>
+      <div class="fact"><div class="k">Bonus</div><div class="v">A huge stone wall and a stone tower with a staircase inside, about 8000 B.C.</div></div>
+    </div>
+
+    <h3>Çatalhüyük: the roof-door town</h3>
+    <p>Say it: <b>chah-tahl-hoo-YOOK</b>. In present-day <b>Turkey</b>. Between <b>6700 and 5700 B.C.</b> it covered <b>32 acres</b> and was home to about <b>6,000 people</b>. Tap the numbers to explore.</p>
+    <div class="catal">
+      <svg viewBox="0 0 400 300" id="catalSvg" role="img" aria-label="Drawing of Çatalhüyük houses">
+        <rect x="0" y="230" width="400" height="70" fill="#8AB85C"/>
+        <path d="M0 250 Q60 236 120 252 L120 300 L0 300Z" fill="#6FA0C9"/>
+        <g fill="#D8B27A" stroke="#9C7340" stroke-width="2">
+          <rect x="40" y="140" width="90" height="100"/>
+          <rect x="130" y="120" width="100" height="120"/>
+          <rect x="230" y="150" width="80" height="90"/>
+          <rect x="310" y="130" width="70" height="110"/>
+        </g>
+        <g fill="#C49A5E"><rect x="40" y="134" width="90" height="8"/><rect x="130" y="114" width="100" height="8"/><rect x="230" y="144" width="80" height="8"/><rect x="310" y="124" width="70" height="8"/></g>
+        <rect x="168" y="112" width="24" height="10" fill="#3a2a14"/>
+        <g stroke="#6b4a1e" stroke-width="3"><line x1="174" y1="60" x2="174" y2="118"/><line x1="186" y1="60" x2="186" y2="118"/><line x1="174" y1="72" x2="186" y2="72"/><line x1="174" y1="86" x2="186" y2="86"/><line x1="174" y1="100" x2="186" y2="100"/></g>
+        <g stroke="#9C7340" stroke-width="1" opacity=".6"><line x1="40" y1="170" x2="130" y2="170"/><line x1="40" y1="200" x2="130" y2="200"/><line x1="230" y1="180" x2="310" y2="180"/><line x1="230" y1="210" x2="310" y2="210"/></g>
+        <circle cx="270" cy="70" r="7" fill="#E07B39"/><line x1="270" y1="77" x2="270" y2="100" stroke="#3a2a14" stroke-width="3"/><line x1="270" y1="100" x2="262" y2="116" stroke="#3a2a14" stroke-width="3"/><line x1="270" y1="100" x2="280" y2="116" stroke="#3a2a14" stroke-width="3"/>
+        <text x="16" y="282" font-size="12" fill="#fff" font-family="Lexend" font-weight="700">marsh</text>
+        <g class="hs" data-k="0" tabindex="0" role="button" aria-label="Roof door"><circle cx="210" cy="96" r="12" fill="#2479AD" stroke="#fff" stroke-width="3"/><text x="210" y="101" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Lexend">1</text></g>
+        <g class="hs" data-k="1" tabindex="0" role="button" aria-label="Rooftop walkway"><circle cx="300" cy="100" r="12" fill="#2479AD" stroke="#fff" stroke-width="3"/><text x="300" y="105" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Lexend">2</text></g>
+        <g class="hs" data-k="2" tabindex="0" role="button" aria-label="Mud-brick walls"><circle cx="85" cy="185" r="12" fill="#2479AD" stroke="#fff" stroke-width="3"/><text x="85" y="190" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Lexend">3</text></g>
+        <g class="hs" data-k="3" tabindex="0" role="button" aria-label="Inside the house"><circle cx="180" cy="185" r="12" fill="#2479AD" stroke="#fff" stroke-width="3"/><text x="180" y="190" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Lexend">4</text></g>
+        <g class="hs" data-k="4" tabindex="0" role="button" aria-label="Shrine"><circle cx="345" cy="185" r="12" fill="#2479AD" stroke="#fff" stroke-width="3"/><text x="345" y="190" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Lexend">5</text></g>
+        <g class="hs" data-k="5" tabindex="0" role="button" aria-label="Marsh"><circle cx="60" cy="262" r="12" fill="#2479AD" stroke="#fff" stroke-width="3"/><text x="60" y="267" text-anchor="middle" fill="#fff" font-size="13" font-weight="700" font-family="Lexend">6</text></g>
+      </svg>
+      <div class="catinfo" id="catInfo" aria-live="polite"><b>Tap a number on the picture.</b> Imagine climbing a ladder onto your roof just to go home!</div>
+    </div>
+    <div class="trick"><b>Memory trick:</b> <b>J</b>ericho = <b>J</b>ordan border, walls &amp; tower. <b>Ç</b>atalhüyük = <b>C</b>limb through the <b>C</b>eiling (and it's in Turkey).</div>
+  </div>
+</section>
+
+<!-- SEDENTARY -->
+<section class="tab" id="sedentary">
+  <div class="tabhead c-teal"><h2>The benefits of settling down</h2><p>Sedentary life: settling in one place permanently instead of moving around.</p></div>
+  <div class="tabbody">
+    <p>Settling down set off a chain reaction. Tap to knock over the next domino.</p>
+    <div class="chain" id="chain"></div>
+    <button class="nextbtn" id="chainBtn">Next domino</button>
+    <h3>All six benefits from class</h3>
+    <div class="facts">
+      <div class="fact"><div class="k">1</div><div class="v">Greater security from weather and wild animals</div></div>
+      <div class="fact"><div class="k">2</div><div class="v">Steady food supplies → healthier, growing population</div></div>
+      <div class="fact"><div class="k">3</div><div class="v">Increased labor force</div></div>
+      <div class="fact"><div class="k">4</div><div class="v">Food surplus → trading networks</div></div>
+      <div class="fact"><div class="k">5</div><div class="v">Job specialization: weapons, jewelry, pottery, baskets, cloth</div></div>
+      <div class="fact"><div class="k">6</div><div class="v">Roles changed: men became family and community leaders; women took up domestic roles</div></div>
+    </div>
+    <div class="trick"><b>Memory trick: “Safe Food Feeds Surplus Skills &amp; Roles.”</b> Security, Food supply, Force (labor), Surplus, Specialization, Roles.</div>
+    <p><b>Surplus</b> means extra, more than you need. When one farmer can grow enough food for many people, the others are free to become potters, weavers or toolmakers. That's <b>specialization</b>: training for a particular job.</p>
+  </div>
+</section>
+
+<!-- METALS -->
+<section class="tab" id="metals">
+  <div class="tabhead c-berry"><h2>From stone to copper to bronze</h2><p>The end of the Neolithic Age.</p></div>
+  <div class="tabbody">
+    <p>In the late Neolithic Age, toolmakers created better farming tools as people needed them:</p>
+    <div class="facts">
+      <div class="fact"><div class="k">Hoe</div><div class="v">For digging soil</div></div>
+      <div class="fact"><div class="k">Sickle</div><div class="v">For cutting grain</div></div>
+      <div class="fact"><div class="k">Millstone</div><div class="v">For grinding grain into flour</div></div>
+    </div>
+    <div class="story"><span class="who">A lucky accident.</span> Workers heated certain rocks in very hot fires and discovered melted <b>copper</b> oozing out. They experimented and made copper tools and weapons, which were easier to make and use than stone ones. Later, craftspeople in <b>western Asia</b> mixed copper with <b>tin</b>. The result was <b>bronze</b>, which was <b>stronger than copper</b>. Big breakthrough!</div>
+    <h3>Try the furnace</h3>
+    <div class="forge">
+      <div class="pot"><div class="melt" id="melt"></div><span id="potTxt">Empty furnace</span></div>
+      <div>
+        <div class="fbtns">
+          <button style="background:#C2672E" id="addCu">Add copper</button>
+          <button style="background:#7D8A93" id="addSn">Add tin</button>
+          <button style="background:#B9442D" id="heat">Heat it!</button>
+          <button style="background:#55606B" id="reset">Empty</button>
+        </div>
+        <p id="forgeTxt">Add metals, then heat.</p>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="k">Bronze Age</div><div class="v"><span class="big">3000–1200</span><br>B.C.</div></div>
+      <div class="fact"><div class="k">Recipe</div><div class="v">Copper + tin = bronze</div></div>
+      <div class="fact"><div class="k">Catch</div><div class="v">Few could afford bronze, so most people still used stone tools</div></div>
+    </div>
+    <div class="trick"><b>Memory trick:</b> “Copper and tin, bronze wins!” Bronze beats copper because it's stronger.</div>
+  </div>
+</section>
+
+<!-- CIV -->
+<section class="tab" id="civ">
+  <div class="tabhead c-night"><h2>Civilizations emerge</h2><p>By the Bronze Age, communities grew into civilizations: more complex ways of life.</p></div>
+  <div class="tabbody">
+    <p>Four great <b>river valley civilizations</b> appeared around <b>3000 B.C.</b>: <b>Mesopotamia, Egypt, India and China</b>. (You already know Mesopotamia!) Every civilization shares four features:</p>
+    <div class="civ">
+      <div style="background:#2479AD"><b>Cities &amp; government</b>To protect people and their food supplies. The first governments were <b>monarchies</b>: a king or queen who inherits the throne from their parents.</div>
+      <div style="background:#7E3380"><b>Religion</b>To help explain life and the forces of nature.</div>
+      <div style="background:#C98A0E"><b>Social structure</b>People grouped by the work they did and how much wealth or power they had.</div>
+      <div style="background:#3F8F3A"><b>Writing &amp; art</b>To pass on information and keep records.</div>
+    </div>
+    <div class="trick"><b>Memory trick: “Can Royals Sing Well?”</b> Cities &amp; government, Religion, Social structure, Writing &amp; art. And the rivers: “<b>M</b>y <b>E</b>lephant <b>I</b>s <b>C</b>ute” = Mesopotamia, Egypt, India, China.</div>
+  </div>
+</section>
+
+<!-- DIORAMA -->
+<section class="tab" id="diorama">
+  <div class="tabhead c-clay"><h2>Diorama helper</h2><p>Group project due Friday, October 23. Pick your settlement and tick off features as you build.</p></div>
+  <div class="tabbody">
+    <div class="pick" role="group" aria-label="Choose settlement">
+      <button aria-pressed="true" data-s="catal">Çatalhüyük</button>
+      <button aria-pressed="false" data-s="jericho">Jericho</button>
+    </div>
+    <p>You need at least <b>five</b> correct Neolithic features (10 points), a <b>label and caption</b> (2 points), neat detailed work (10 points) and an <b>oral presentation</b> (10 points).</p>
+    <ul class="checks" id="checks"></ul>
+    <div class="count" id="count"></div>
+    <div class="story" id="caption"></div>
+  </div>
+</section>
+
+<!-- STONE AGE CLOTHES -->
+<section class="tab" id="cards">
+  <div class="tabhead c-wheat"><h2>Flashcards</h2><p>Say the meaning out loud first, then tap to check. The last row is the Stone Age wardrobe from Integrated Arts.</p></div>
+  <div class="tabbody"><div class="cards" id="flashcards"></div></div>
+</section>
+
+<!-- TRICKS -->
+<section class="tab" id="tricks">
+  <div class="tabhead c-field"><h2>Lock it in</h2><p>Every memory trick in one place for a last look.</p></div>
+  <div class="tabbody">
+    <div class="tricks">
+      <div style="border-color:var(--field)"><span class="t" style="color:var(--field)">Neo + lithic</span>New + stone = New Stone Age, the last part of the Stone Age.</div>
+      <div style="border-color:var(--wheat)"><span class="t" style="color:#B57F0C">8 to 4</span>Neolithic Age: 8000 to 4000 B.C., about 4,000 years.</div>
+      <div style="border-color:var(--sky)"><span class="t" style="color:var(--sky)">Eat it vs save it</span>Hunter-gatherers ate wild grain; farmers saved some to plant.</div>
+      <div style="border-color:var(--clay)"><span class="t" style="color:var(--clay)">Jordan &amp; walls</span>Jericho: West Bank, between Israel and Jordan.</div>
+      <div style="border-color:var(--clay)"><span class="t" style="color:var(--clay)">Climb through the ceiling</span>Çatalhüyük: Turkey, roof doors, 6,000 people, 6700–5700 B.C.</div>
+      <div style="border-color:#178C83"><span class="t" style="color:#178C83">Safe Food Feeds Surplus Skills &amp; Roles</span>The six benefits of sedentary life.</div>
+      <div style="border-color:var(--berry)"><span class="t" style="color:var(--berry)">Copper and tin, bronze wins</span>Bronze Age: 3000–1200 B.C.</div>
+      <div style="border-color:#2B3A2A"><span class="t" style="color:var(--ink)">Can Royals Sing Well?</span>Cities &amp; government, Religion, Social structure, Writing &amp; art.</div>
+      <div style="border-color:var(--sky)"><span class="t" style="color:var(--sky)">My Elephant Is Cute</span>Mesopotamia, Egypt, India, China, around 3000 B.C.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="tab" id="quiz">
+  <div class="tabhead c-clay"><h2>The big challenge</h2><p>Nine rounds, nine different ways to prove it. No scrolling up!</p></div>
+  <div class="tabbody">
+    <div class="scorebar"><span id="scoreTxt">Score 0 / 0</span><div class="meter"><i id="meter"></i></div><span id="doneTxt">0 answered</span></div>
+    <div id="quizRoot"></div>
+    <div class="results" id="results" aria-live="polite"></div>
+  </div>
+</section>
+
+</main>
+<footer>Made for Adiaha · SKI Academy</footer>
+
+<script>
+/* ---------- hero switch ---------- */
+const SCENES={
+ nomad:{emo:'🏹 🦌 🫐 ⛺ 🚶',items:['Move from place to place, following the animals','Hunt animals and gather wild plants','Eat the wild grain you find','Carry everything you own']},
+ farmer:{emo:'🌾 🐐 🏠 🏺 💧',items:['Stay in one place, in a permanent home','Grow grains and vegetables on a regular schedule','Save some grain to plant next season','Tame animals for meat, milk, wool and carrying goods']}
+};
+function setLife(k){
+  document.getElementById('hero').className='hero '+k;
+  document.querySelectorAll('.switch button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.life===k));
+  const s=document.getElementById('scene');s.classList.remove('fade');void s.offsetWidth;s.classList.add('fade');
+  s.innerHTML=`<div class="emo" aria-hidden="true">${SCENES[k].emo}</div><ul>${SCENES[k].items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+}
+document.querySelectorAll('.switch button').forEach(b=>b.addEventListener('click',()=>setLife(b.dataset.life)));
+setLife('nomad');
+
+document.querySelectorAll('.piece').forEach(p=>p.addEventListener('click',()=>{const m=p.querySelector('.m');m.textContent=p.dataset.m;m.classList.remove('hide')}));
+
+/* ---------- world ---------- */
+const REGIONS=[
+ {n:'Europe',e:'🌾',col:2,row:1,d:'Farming spread here from Southwest Asia, into southeastern Europe first. By <b>4000 B.C.</b>, farming was an established economic activity across Europe.'},
+ {n:'Southwest Asia',e:'🌾🐑',col:3,row:1,d:'<b>Where it started.</b> By <b>8000 B.C.</b>, people grew <b>wheat and barley</b> 🌾 and domesticated <b>pigs, cows, goats and sheep</b> 🐖🐄🐐🐑. Home of Jericho and Çatalhüyük.'},
+ {n:'Northern China',e:'🌾🐕',col:4,row:1,d:'By <b>6000 B.C.</b>, people grew a grain called <b>millet</b> and domesticated <b>dogs and pigs</b> 🐕🐖.'},
+ {n:'Mexico & Central America',e:'🌽🎃',col:1,row:2,d:'Between <b>7000 and 5000 B.C.</b>, people grew <b>corn, squash and potatoes</b> 🌽🎃🥔 and domesticated <b>chickens and dogs</b> 🐔🐕.'},
+ {n:'Egypt (Nile Valley)',e:'🌾',col:2,row:2,d:'Around <b>6000 B.C.</b>, people grew <b>wheat and barley</b> along the Nile. Farming spread along the river and into other parts of Africa.'},
+ {n:'Central Africa',e:'🍠🍌',col:2,row:2,d:'Different crops here! Root crops called <b>tubers</b>, like <b>yams</b> 🍠, and fruit crops like <b>bananas</b> 🍌.'},
+ {n:'India',e:'🌾',col:3,row:2,d:'<b>Wheat and barley</b> farming moved east into India between <b>8000 and 5000 B.C.</b>'},
+ {n:'Southeast Asia',e:'🍚',col:4,row:2,d:'By <b>5000 B.C.</b>, farmers grew <b>rice</b> 🍚. Rice farming then spread into southern China.'}
+];
+const W=document.getElementById('world'),RI=document.getElementById('regionInfo');
+REGIONS.forEach(r=>{const b=document.createElement('button');b.className='region';b.innerHTML=`<span class="e" aria-hidden="true">${r.e}</span>${r.n}`;
+ b.addEventListener('click',()=>{W.querySelectorAll('.region').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');RI.innerHTML=`<b style="font-size:1.15rem">${r.n}</b><p>${r.d}</p>`});W.appendChild(b)});
+
+/* ---------- catal ---------- */
+const CAT=[
+ ['Roof doors','The houses had <b>no front doors</b>. People entered through <b>holes in the rooftops</b> and climbed down a ladder. Think of it like a hatch on a submarine.'],
+ ['Rooftop sidewalks','Houses were built so close together that people could <b>walk from house to house across the roofs</b>. The roofs were the streets!'],
+ ['Mud-brick houses','Simple <b>mud-brick</b> houses, built <b>close together</b>, packed like a honeycomb.'],
+ ['Inside a home','Families kept their food in <b>storerooms inside their homes</b>, and decorated the walls with <b>paintings</b>. Wall scenes show that people also <b>hunted</b>.'],
+ ['Shrines','Special buildings that were <b>shrines</b>, or holy places, decorated with images of <b>gods and goddesses</b>.'],
+ ['Fields & marshes','Farmers grew <b>fruits, nuts and grains</b> outside town and raised <b>sheep, goats and cattle</b> for milk and meat. They ate <b>fish and bird eggs</b> from nearby <b>marshes</b> (low-lying wetlands).']
+];
+const CI=document.getElementById('catInfo');
+document.querySelectorAll('.hs').forEach(h=>{const go=()=>{document.querySelectorAll('.hs').forEach(x=>x.classList.remove('on'));h.classList.add('on');const c=CAT[+h.dataset.k];CI.innerHTML=`<b style="font-size:1.15rem">${c[0]}</b><p>${c[1]}</p>`};
+ h.addEventListener('click',go);h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
+
+/* ---------- chain ---------- */
+const CHAIN=['The last Ice Age ends and the climate warms','Nomads move to areas with mild climate and fertile land','People stay in one place to farm and tame animals','Farmers grow MORE food than they need: a surplus','Not everyone has to farm, so people specialize: potters, weavers, toolmakers','People trade their extra goods, villages grow, and civilizations begin'];
+const CH=document.getElementById('chain');let shown=1;
+CHAIN.forEach((t,i)=>{const d=document.createElement('div');d.className='link'+(i>0?' hidden':'');d.innerHTML=`<span class="n">${i+1}</span><span>${t}</span>`;CH.appendChild(d)});
+const cb=document.getElementById('chainBtn');cb.addEventListener('click',()=>{if(shown<CHAIN.length){CH.children[shown].classList.remove('hidden');shown++}if(shown===CHAIN.length){cb.textContent='Start over';cb.onclick=()=>{[...CH.children].forEach((c,i)=>c.classList.toggle('hidden',i>0));shown=1;cb.textContent='Next domino';cb.onclick=null}}});
+
+/* ---------- forge ---------- */
+let cu=false,sn=false;const melt=document.getElementById('melt'),pt=document.getElementById('potTxt'),ft=document.getElementById('forgeTxt');
+function potState(){pt.textContent=cu&&sn?'Copper + tin':cu?'Copper rocks':sn?'Tin':'Empty furnace';melt.style.height='0';}
+document.getElementById('addCu').onclick=()=>{cu=true;potState();ft.textContent='Copper added.'};
+document.getElementById('addSn').onclick=()=>{sn=true;potState();ft.textContent='Tin added.'};
+document.getElementById('reset').onclick=()=>{cu=sn=false;potState();ft.textContent='Add metals, then heat.'};
+document.getElementById('heat').onclick=()=>{
+  if(cu&&sn){melt.style.background='linear-gradient(#E0A84A,#A8702A)';melt.style.height='70%';pt.textContent='BRONZE!';ft.innerHTML='<b>Bronze!</b> Copper + tin made a metal stronger than copper. Welcome to the Bronze Age (3000–1200 B.C.).'}
+  else if(cu){melt.style.background='linear-gradient(#E8864A,#B4552A)';melt.style.height='55%';pt.textContent='Copper';ft.innerHTML='<b>Melted copper.</b> Easier to shape than stone, but soft. Try adding tin.'}
+  else if(sn){melt.style.background='#BFC6CC';melt.style.height='40%';pt.textContent='Tin';ft.textContent='Tin alone is too soft for tools. Add copper.'}
+  else ft.textContent='The furnace is empty! Add a metal first.';
+};
+
+/* ---------- diorama ---------- */
+const DIO={
+ catal:{feat:['Flat-roofed mud-brick houses packed close together','Holes in the roofs with ladders (no front doors!)','People walking across rooftops','A shrine with images of gods and goddesses','Wall paintings inside a house (a hunting scene)','Storeroom of grain inside a home','Sheep, goats and cattle (domestication)','Fields of grain, fruit and nut trees outside town (systematic agriculture)','A marsh with fish and birds\' eggs','Tools: sickle, hoe, millstone for grinding flour'],
+  cap:'<b>Caption idea:</b> “Çatalhüyük, present-day Turkey (6700–5700 B.C.). About 6,000 people lived in mud-brick houses with no front doors. They climbed in through their roofs, farmed grain, raised sheep, goats and cattle, and worshipped at shrines.”'},
+ jericho:{feat:['Permanent mud-brick homes','A large stone wall around the town','A tall stone tower with a staircase inside','A spring or water source beside the town','Fields of wheat and barley (systematic agriculture)','Domesticated animals: sheep, goats, cattle, pigs','Grain storage (food surplus)','People doing specialized jobs: pottery, weaving, toolmaking','Tools: sickle, hoe, millstone for grinding flour','Desert landscape around a green oasis'],
+  cap:'<b>Caption idea:</b> “Jericho, the West Bank between present-day Israel and Jordan. One of the oldest communities on Earth, this farming village grew beside a spring. Its people farmed wheat and barley, tamed animals and built a great stone wall and tower.”'}
+};
+let curS='catal';
+function loadSaved(){try{return JSON.parse(localStorage.getItem('dio-'+curS)||'[]')}catch(e){return[]}}
+function save(arr){try{localStorage.setItem('dio-'+curS,JSON.stringify(arr))}catch(e){}}
+function renderDio(){
+  const saved=loadSaved();const ul=document.getElementById('checks');ul.innerHTML='';
+  DIO[curS].feat.forEach((f,i)=>{const li=document.createElement('li');li.innerHTML=`<label><input type="checkbox" ${saved.includes(i)?'checked':''}> <span>${f}</span></label>`;
+    li.querySelector('input').addEventListener('change',()=>{const s=[...ul.querySelectorAll('input')].map((x,k)=>x.checked?k:-1).filter(k=>k>=0);save(s);count()});ul.appendChild(li)});
+  document.getElementById('caption').innerHTML=DIO[curS].cap;count();
+}
+function count(){const n=document.querySelectorAll('#checks input:checked').length;document.getElementById('count').textContent=n>=5?`✅ ${n} features. You've hit the five-feature target!`:`${n} of 5 features so far`}
+document.querySelectorAll('.pick button').forEach(b=>b.addEventListener('click',()=>{curS=b.dataset.s;document.querySelectorAll('.pick button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderDio()}));
+renderDio();
+
+/* ---------- flashcards ---------- */
+function flipCard(front,back){const b=document.createElement('button');b.className='flip';b.innerHTML=`<div class="in"><div class="f">${front}</div><div class="b">${back}</div></div>`;b.addEventListener('click',()=>b.classList.toggle('on'));return b}
+const FC=[['Neolithic Age','The latest (last) period of the Stone Age; “new stone”'],['Domesticate','To adapt an animal to living with humans, for the advantage of humans'],['Systematic agriculture','The organized growing of food on a regular schedule'],['Shrine','A place where people worship; a holy place'],['Specialization','Training for a particular job'],['Bronze Age','When people began to make and use bronze (3000–1200 B.C.)'],['Monarchy','Government by a king or queen who inherits the position from their parents'],['Sedentary','Settling in one place permanently'],['Nomad','A person who moves from place to place to find food'],['Revolution','A change with an enormous effect on people\'s way of life'],['Surplus','Extra; more than is needed'],['Marsh','Low-lying wetland'],['Civilization','A complex culture with cities, government, religion, social structure and writing'],['Fertile','Good for growing crops'],
+ ['Leather tunic','Made from softened deer skin; tough and warm'],['Flax tunic','Woven from plant fibers; cool for summer work'],['Bone needle','Late Stone Age invention for sewing fitted clothes'],['Flint spearhead','Sharp stone tip; others were bone, antler or ivory'],['Digging stick','Burnt at the ends to harden it; dug up roots'],['Bark container','A carrying pot made from tree bark']];
+const fcEl=document.getElementById('flashcards');FC.forEach(([a,b])=>fcEl.appendChild(flipCard(a,b)));
+
+/* =================== QUIZ =================== */
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const QUIZ=[
+ {part:'Round 1: Multiple choice',how:'Your first tap counts!',type:'mc',items:[
+  {q:'The word “neolithic” is Greek for…',o:['New stone','Old stone','Farming time','Bronze stone'],a:0,t:'Neolithic Age',e:'Neo = new, lithic = stone.'},
+  {q:'What was the REAL change in the Neolithic Age?',o:['People learned to make fire','The shift from hunting and gathering to systematic agriculture','People invented writing','People started using iron'],a:1,t:'Agricultural Revolution',e:'Growing food on a regular basis changed everything.'},
+  {q:'Why did people settle near rivers?',o:['Rivers kept enemies away completely','To water crops and animals, drink, and fish','Rivers were the only place with shade','The law required it'],a:1,t:'Village life',e:'Water was needed for crops, animals and people.'},
+  {q:'Hunter-gatherers ate wild grains. What did early farmers do differently?',o:['Threw grain away','Saved some grain to plant','Only ate meat','Traded all their grain away'],a:1,t:'Agricultural Revolution',e:'Saving seed to plant is what made farming possible.'},
+  {q:'What does “sedentary” mean?',o:['Moving from place to place','Settling in one place permanently','Hunting in groups','Trading with other villages'],a:1,t:'Sedentary life',e:'Sedentary = staying put.'},
+  {q:'Why was a food surplus so important?',o:['It meant people could stop working entirely','It freed some people to do other jobs and to trade','It made the Ice Age end','It made nomads move faster'],a:1,t:'Sedentary life',e:'Extra food → specialization and trade → civilization.'},
+  {q:'Why was bronze a technological breakthrough?',o:['It was cheaper than stone','It was stronger than copper','It glowed in the dark','It could be found lying on the ground'],a:1,t:'Copper & bronze',e:'Copper + tin = bronze, which is stronger than copper.'},
+  {q:'Which tool was used to grind grain into flour?',o:['Hoe','Sickle','Millstone','Spear'],a:2,t:'Copper & bronze',e:'Hoe = dig soil, sickle = cut grain, millstone = grind flour.'},
+  {q:'Which crops did people grow in Central Africa?',o:['Rice and millet','Corn and squash','Yams and bananas','Wheat and barley'],a:2,t:'Spread of farming',e:'Tubers like yams, and fruit crops like bananas.'},
+  {q:'The first governments were…',o:['Democracies','Monarchies','Republics','Councils of farmers'],a:1,t:'Civilizations',e:'A king or queen who inherits the position from their parents.'},
+  {q:'Which is NOT one of the four great river valley civilizations?',o:['Egypt','China','Greece','India'],a:2,t:'Civilizations',e:'Mesopotamia, Egypt, India and China. My Elephant Is Cute!'},
+  {q:'Where did the people of Çatalhüyük get fish and bird eggs?',o:['The ocean','Marshes','Mountain lakes','Trading with Egypt'],a:1,t:'Jericho & Çatalhüyük',e:'Marshes are low-lying wetlands near the town.'}
+ ]},
+ {part:'Round 2: True or false',how:'Read every word. Some are sneaky.',type:'tf',items:[
+  {q:'After the last Ice Age ended, Earth’s temperatures rose.',a:true,t:'Neolithic Age',e:'The warming climate set the stage for farming.'},
+  {q:'Çatalhüyük was home to about 60,000 people.',a:false,t:'Jericho & Çatalhüyük',e:'About 6,000 people, on 32 acres.'},
+  {q:'Most people in the Bronze Age could easily afford bronze tools.',a:false,t:'Copper & bronze',e:'Few could afford bronze, so many kept using stone.'},
+  {q:'Domesticated animals provided meat, milk and wool, and carried goods.',a:true,t:'Domestication',e:'Exactly what the slides say.'},
+  {q:'Some historians consider the Agricultural Revolution the most important event in human history.',a:true,t:'Agricultural Revolution',e:'It led to villages, cities and civilizations.'},
+  {q:'Nomads stayed in one place all year round.',a:false,t:'Neolithic Age',e:'Nomads moved from place to place.'},
+  {q:'Specialization means everyone in the village did the same job.',a:false,t:'Sedentary life',e:'It means training for a particular job.'},
+  {q:'The four river valley civilizations emerged around 3000 B.C.',a:true,t:'Civilizations',e:'At the start of the Bronze Age.'},
+  {q:'A revolution is a small change that hardly affects anyone.',a:false,t:'Agricultural Revolution',e:'A revolution has an enormous effect on people’s way of life.'},
+  {q:'Wall scenes show that the people of Çatalhüyük also hunted.',a:true,t:'Jericho & Çatalhüyük',e:'Farming didn’t stop hunting completely.'},
+  {q:'The Neolithic Age lasted about 400 years.',a:false,t:'Neolithic Age',e:'About 4,000 years: 8000 to 4000 B.C.'}
+ ]},
+ {part:'Round 3: Key terms match',how:'Drag each term onto its meaning. Tap ✕ to send it back.',type:'match',id:'m1',t:'Key terms',pairs:[
+  ['Neolithic Age','The latest period of the Stone Age'],['Domesticate','To adapt an animal to living with humans for the advantage of humans'],['Systematic agriculture','The organized growing of food on a regular schedule'],['Shrine','A place where people worship'],['Specialization','The act of training for a particular job'],['Bronze Age','The period when people began to make and use bronze'],['Monarchy','A government whose ruler inherits the position from their parents']]},
+ {part:'Round 4: Which settlement?',how:'Drag each fact into Jericho, Çatalhüyük, or Both.',type:'bins',id:'b1',t:'Jericho & Çatalhüyük',
+  bins:[['jer','Jericho','#2479AD'],['cat','Çatalhüyük','#B9442D'],['both','Both','#3F8F3A']],
+  chips:[['West Bank','jer'],['Between Israel and Jordan','jer'],['Stone wall and tower','jer'],['Present-day Turkey','cat'],['Entered homes through the roof','cat'],['Walked across rooftops','cat'],['About 6,000 people','cat'],['6700–5700 B.C.','cat'],['Shrines to gods and goddesses','cat'],['Fish and eggs from marshes','cat'],['Neolithic farming settlement','both'],['Permanent homes','both'],['In Southwest Asia','both']]},
+ {part:'Round 5: Crop detective',how:'Drag each set of crops and animals to the region where it was farmed.',type:'match',id:'m2',t:'Spread of farming',pairs:[
+  ['Wheat, barley, pigs, cows, goats, sheep','Southwest Asia, by 8000 B.C.'],['Millet, dogs and pigs','Northern China, by 6000 B.C.'],['Rice','Southeast Asia, by 5000 B.C.'],['Corn, squash, potatoes, chickens','Mexico & Central America, 7000–5000 B.C.'],['Yams and bananas','Central Africa'],['Wheat and barley along a great river','Egypt’s Nile Valley, about 6000 B.C.']]},
+ {part:'Round 6: Timeline scramble',how:'Oldest at the top. No dates to help you!',type:'slots',id:'s1',t:'Timeline & dates',
+  slots:[['1st (oldest)','The last Ice Age ends'],['2nd','Wheat and barley farming begins in Southwest Asia'],['3rd','Çatalhüyük is founded'],['4th','Rice is grown in Southeast Asia'],['5th','Farming is established across Europe; Neolithic Age ends'],['6th','Bronze becomes widely used'],['7th (newest)','The Bronze Age ends']]},
+ {part:'Round 7: Domino chain',how:'Put the cause-and-effect chain in order, from the first cause to the final result.',type:'slots',id:'s2',t:'Cause & effect',
+  slots:[['Step 1','The climate warms after the Ice Age'],['Step 2','Nomads move to fertile land'],['Step 3','People settle and start farming'],['Step 4','Farmers grow a food surplus'],['Step 5','People specialize in other jobs'],['Step 6','Trade grows and civilizations begin']]},
+ {part:'Round 8: Features of a civilization',how:'Drag each example into the feature it shows.',type:'bins',id:'b2',t:'Civilizations',cols:2,
+  bins:[['gov','Cities & government','#2479AD'],['rel','Religion','#7E3380'],['soc','Social structure','#C98A0E'],['wri','Writing & art','#3F8F3A']],
+  chips:[['A queen inherits the throne','gov'],['Walls to protect the food supply','gov'],['Explaining the forces of nature','rel'],['Shrines to gods and goddesses','rel'],['Groups ranked by wealth and power','soc'],['People grouped by the work they do','soc'],['Keeping records of grain','wri'],['Wall paintings of a hunt','wri']]},
+ {part:'Round 9: Spot the mistake',how:'Each sentence has ONE wrong word. Tap it.',type:'spot',items:[
+  {s:'The Neolithic Age began about 8000 B.C. and lasted until around 1200 B.C.',w:'1200',fix:'4000',t:'Timeline & dates'},
+  {s:'The word neolithic is Greek for “old stone.”',w:'old',fix:'new',t:'Neolithic Age'},
+  {s:'Bronze is made by mixing copper and iron.',w:'iron',fix:'tin',t:'Copper & bronze'},
+  {s:'In Çatalhüyük, people entered their homes through holes in the floors.',w:'floors',fix:'rooftops',t:'Jericho & Çatalhüyük'},
+  {s:'By 5000 B.C., farmers in Southeast Asia were growing millet.',w:'millet',fix:'rice',t:'Spread of farming'},
+  {s:'Jericho grew in an area between Israel and Egypt called the West Bank.',w:'Egypt',fix:'Jordan',t:'Jericho & Çatalhüyük'}
+ ]}
+];
+
+let SCORES={};
+function totalMax(){let m=0;QUIZ.forEach(p=>{if(['mc','tf','spot'].includes(p.type))m+=p.items.length;else if(p.type==='match')m+=p.pairs.length;else if(p.type==='bins')m+=p.chips.length;else if(p.type==='slots')m+=p.slots.length});return m}
+const MAX=totalMax();
+function record(key,got,max,topic){SCORES[key]={got,max,topic};updateBar()}
+function updateBar(){const v=Object.values(SCORES);const got=v.reduce((a,b)=>a+b.got,0),done=v.reduce((a,b)=>a+b.max,0);
+ document.getElementById('scoreTxt').textContent=`Score ${got} / ${MAX}`;document.getElementById('meter').style.width=(done/MAX*100)+'%';document.getElementById('doneTxt').textContent=`${done} of ${MAX} answered`;
+ if(done===MAX)showResults(got)}
+function fb(el,ok,msg){el.className='fb show '+(ok?'good':'oops');el.innerHTML=(ok?'<b>Yes!</b> ':'<b>Not quite.</b> ')+msg}
+const clean=s=>s.replace(/[^\p{L}\p{N}]/gu,'');
+
+function renderQuiz(){
+  SCORES={};const root=document.getElementById('quizRoot');root.innerHTML='';document.getElementById('results').className='results';
+  let n=0;
+  QUIZ.forEach((p,pi)=>{
+    const head=document.createElement('div');head.className='qpart';head.innerHTML=`<h3>${p.part}</h3><p class="how">${p.how}</p>`;root.appendChild(head);
+    if(p.type==='mc'||p.type==='tf'){
+      p.items.forEach((it,ii)=>{n++;const key=`${pi}-${ii}`;const q=document.createElement('div');q.className='q';
+        q.innerHTML=`<div class="stem"><span class="num">${n}</span>${it.q}</div><div class="opts ${p.type==='tf'?'tf':''}"></div><div class="fb"></div>`;
+        const o=q.querySelector('.opts'),f=q.querySelector('.fb');
+        const opts=p.type==='tf'?[['True',it.a===true],['False',it.a===false]]:shuffle(it.o.map((t,i)=>[t,i===it.a]));
+        opts.forEach(([t,right])=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.dataset.r=right?1:0;
+          b.addEventListener('click',()=>{o.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.r==='1')x.classList.add('right')});if(!right)b.classList.add('wrong');fb(f,right,it.e);record(key,right?1:0,1,it.t)});o.appendChild(b)});
+        root.appendChild(q)});
+    } else if(p.type==='spot'){
+      p.items.forEach((it,ii)=>{n++;const key=`${pi}-${ii}`;const q=document.createElement('div');q.className='q';
+        q.innerHTML=`<div class="stem"><span class="num">${n}</span>Tap the wrong word:</div><div class="sentence"></div><div class="fb"></div>`;
+        const s=q.querySelector('.sentence'),f=q.querySelector('.fb');
+        it.s.split(' ').forEach(tok=>{const b=document.createElement('button');b.className='word';b.textContent=tok;
+          b.addEventListener('click',()=>{const right=clean(tok)===it.w;s.querySelectorAll('.word').forEach(x=>{x.disabled=true;if(clean(x.textContent)===it.w)x.classList.add(right?'right':'reveal')});if(!right)b.classList.add('wrong');
+            fb(f,right,`“${it.w}” should be “${it.fix}.”`);record(key,right?1:0,1,it.t)});s.appendChild(b)});
+        root.appendChild(q)});
+    } else { n++; root.appendChild(renderDragQ(p,n)); }
+  });
+  updateBar();
+}
+
+function chipEl(label,ans){const c=document.createElement('div');c.className='chip';c.draggable=true;c.dataset.ans=ans;c.innerHTML=`<span class="label">${label}</span>`;bindChip(c);return c}
+function targetEl(key,lbl,style){const t=document.createElement('div');t.className='target';t.dataset.key=key;t.innerHTML=`${lbl!==null?`<div class="lbl"${style||''}>${lbl}</div>`:''}<div class="items"></div>`;bindTarget(t);return t}
+function renderDragQ(p,n){
+  const q=document.createElement('div');q.className='q';
+  q.innerHTML=`<div class="stem"><span class="num">${n}</span>${p.type==='bins'?'Sort every chip.':p.type==='match'?'Match every chip.':'Fill every slot.'}</div><div class="pool"></div><div class="area"></div><button class="checkbtn">Check my answers</button><span class="warn"></span><div class="fb"></div>`;
+  const pool=q.querySelector('.pool'),area=q.querySelector('.area');let chips=[];
+  if(p.type==='match'){const g=document.createElement('div');g.className='matchgrid';
+    shuffle(p.pairs.map((x,i)=>[x,i])).forEach(([[w,d],i])=>{const row=document.createElement('div');row.className='matchrow';const t=targetEl('m'+i,null);t.dataset.cap=1;t.dataset.name=w;row.appendChild(t);const def=document.createElement('div');def.className='def';def.textContent=d;row.appendChild(def);g.appendChild(row)});
+    area.appendChild(g);chips=p.pairs.map(([w],i)=>chipEl(w,'m'+i));}
+  else if(p.type==='bins'){const g=document.createElement('div');g.className='bins';if(p.cols)g.style.setProperty('--cols',p.cols);p.bins.forEach(([k,l,c])=>{const t=targetEl(k,l,` style="background:${c}"`);t.dataset.name=l;g.appendChild(t)});area.appendChild(g);chips=p.chips.map(([l,k])=>chipEl(l,k));}
+  else {const g=document.createElement('div');g.className='slots';p.slots.forEach(([l],i)=>{const t=targetEl('s'+i,l);t.dataset.cap=1;t.dataset.name=l;g.appendChild(t)});area.appendChild(g);chips=p.slots.map(([l,v],i)=>chipEl(v,'s'+i));}
+  shuffle(chips).forEach(c=>pool.appendChild(c));
+  const btn=q.querySelector('.checkbtn'),warn=q.querySelector('.warn'),f=q.querySelector('.fb');
+  btn.addEventListener('click',()=>{
+    if(pool.querySelector('.chip')){warn.textContent='Place every chip first.';return}
+    warn.textContent='';let got=0;const names={};q.querySelectorAll('.target').forEach(t=>names[t.dataset.key]=t.dataset.name);
+    q.querySelectorAll('.target').forEach(t=>t.querySelectorAll('.chip').forEach(c=>{c.querySelector('.x')?.remove();c.draggable=false;
+      if(c.dataset.ans===t.dataset.key){c.classList.add('ok');got++}else{c.classList.add('no');const s=document.createElement('span');s.className='fix';
+        s.textContent=p.type==='match'?`→ answer here: ${t.dataset.name}`:`→ ${names[c.dataset.ans]}`;c.appendChild(s)}}));
+    q.classList.add('locked');btn.disabled=true;const max=chips.length;
+    fb(f,got===max,got===max?`All ${max} correct. Brilliant!`:`You got ${got} of ${max}. Red chips show the right answer.`);record(p.id,got,max,p.t);
+  });
+  return q;
+}
+
+/* drag engine: HTML5 drag (mouse) + touch events (phones/tablets) */
+let dragChip=null,ghost=null,tChip=null,lastOver=null;
+function bindTarget(t){
+  t.addEventListener('dragover',e=>{if(!dragChip||dragChip.closest('.q')!==t.closest('.q'))return;e.preventDefault();t.classList.add('over')});
+  t.addEventListener('dragleave',()=>t.classList.remove('over'));
+  t.addEventListener('drop',e=>{e.preventDefault();t.classList.remove('over');if(dragChip&&dragChip.closest('.q')===t.closest('.q'))place(dragChip,t)});
+}
+function bindChip(c){
+  c.addEventListener('dragstart',e=>{if(c.closest('.locked')){e.preventDefault();return}dragChip=c;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','chip');setTimeout(()=>c.classList.add('dragging'),0)});
+  c.addEventListener('dragend',()=>{c.classList.remove('dragging');dragChip=null});
+  c.addEventListener('touchstart',touchStart,{passive:false});
+}
+function touchStart(e){
+  const c=e.currentTarget;if(c.closest('.locked'))return;if(e.target.closest('.x'))return;
+  e.preventDefault();tChip=c;ghost=c.cloneNode(true);ghost.classList.add('ghost');ghost.querySelector('.x')?.remove();document.body.appendChild(ghost);
+  moveGhost(e.touches[0]);c.classList.add('dragging');
+  document.addEventListener('touchmove',touchMove,{passive:false});document.addEventListener('touchend',touchEnd);document.addEventListener('touchcancel',touchEnd);
+}
+function moveGhost(t){ghost.style.left=t.clientX+'px';ghost.style.top=t.clientY+'px'}
+function touchMove(e){e.preventDefault();const t=e.touches[0];moveGhost(t);
+  const el=document.elementFromPoint(t.clientX,t.clientY);const tg=el&&el.closest('.target');
+  if(lastOver&&lastOver!==tg)lastOver.classList.remove('over');
+  if(tg&&tg.closest('.q')===tChip.closest('.q')){tg.classList.add('over');lastOver=tg}else lastOver=null;}
+function touchEnd(){
+  if(lastOver){place(tChip,lastOver);lastOver.classList.remove('over')}
+  ghost&&ghost.remove();ghost=null;tChip&&tChip.classList.remove('dragging');tChip=null;lastOver=null;
+  document.removeEventListener('touchmove',touchMove);document.removeEventListener('touchend',touchEnd);document.removeEventListener('touchcancel',touchEnd);
+}
+function place(chip,target){
+  const q=target.closest('.q');if(q.classList.contains('locked'))return;
+  const items=target.querySelector('.items');
+  if(target.dataset.cap==='1'){const ex=items.querySelector('.chip');if(ex&&ex!==chip)returnToPool(ex)}
+  items.appendChild(chip);
+  if(!chip.querySelector('.x')){const x=document.createElement('button');x.type='button';x.className='x';x.setAttribute('aria-label','Send back to the word pool');x.textContent='✕';
+    x.addEventListener('click',ev=>{ev.stopPropagation();returnToPool(chip)});x.addEventListener('touchstart',ev=>ev.stopPropagation(),{passive:true});chip.appendChild(x)}
+  q.querySelector('.warn').textContent='';
+}
+function returnToPool(chip){const q=chip.closest('.q');if(q.classList.contains('locked'))return;chip.querySelector('.x')?.remove();q.querySelector('.pool').appendChild(chip)}
+
+function showResults(got){
+  const pct=Math.round(got/MAX*100);const topics={};
+  Object.values(SCORES).forEach(s=>{if(s.got<s.max)topics[s.topic]=(topics[s.topic]||0)+(s.max-s.got)});
+  const msg=pct>=90?'Harvest champion! You could teach this lesson yourself.':pct>=75?'Strong work! A quick look at the topics below and you’re ready.':pct>=55?'Good start. Reread the sections below, then try again.':'Time to replant those seeds. Reread the sections and try again, you’ve got this.';
+  const list=Object.keys(topics).length?`<p><b>Review these:</b></p><ul>${Object.entries(topics).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<li>${k} (${v} missed)</li>`).join('')}</ul>`:'<p>Nothing to review. Perfect!</p>';
+  const r=document.getElementById('results');r.innerHTML=`<div class="big">${got} / ${MAX}</div><p style="font-size:1.2rem;font-weight:700">${pct}%</p><p>${msg}</p>${list}<button class="again" id="again">Shuffle and try again</button>`;r.className='results show';
+  document.getElementById('again').addEventListener('click',()=>{renderQuiz();document.getElementById('quiz').scrollIntoView()});
+}
+renderQuiz();
+</script>
+</body>
+</html>
+
+</body></html>
