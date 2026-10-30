@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Great Word Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFF9F0; --card:#FFFFFF; --ink:#2A1F3D; --muted:#6C6283; --line:#EADFCF;
+  --c7:#F08A12; --c8:#0FA392; --c9:#1C7FE0; --c10:#E0357A; --cp:#8B3FD1; --cg:#2A1F3D;
+  --ok:#159A5B; --okbg:#DFF6EA; --bad:#DB3A40; --badbg:#FDE6E7; --gold:#FFC93C;
+  --felt:#16805F; --felt2:#0F6B4E;
+  --stick:0 3px 0 rgba(42,31,61,.2);
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#17122A; --card:#231C3C; --ink:#F6F1FF; --muted:#B6ACD2; --line:#3A305E;
+    --c7:#FFA23E; --c8:#2CC7B4; --c9:#4FA6FF; --c10:#FF5E97; --cp:#B67BFF; --cg:#F6F1FF;
+    --ok:#3DD68C; --okbg:#123A29; --bad:#FF6B70; --badbg:#431C25;
+    --felt:#0F5A43; --felt2:#0B4635;
+    --stick:0 3px 0 rgba(0,0,0,.45); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17122A; --card:#231C3C; --ink:#F6F1FF; --muted:#B6ACD2; --line:#3A305E;
+  --c7:#FFA23E; --c8:#2CC7B4; --c9:#4FA6FF; --c10:#FF5E97; --cp:#B67BFF; --cg:#F6F1FF;
+  --ok:#3DD68C; --okbg:#123A29; --bad:#FF6B70; --badbg:#431C25;
+  --felt:#0F5A43; --felt2:#0B4635;
+  --stick:0 3px 0 rgba(0,0,0,.45); color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--c9);outline-offset:3px;border-radius:8px}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;padding:34px 0 0}
+.hero h1{font-size:clamp(2.5rem,8vw,4.6rem);font-weight:700;letter-spacing:-.01em;max-width:11ch}
+.hero p.sub{font-size:1.12rem;max-width:46ch;color:var(--muted);margin:10px 0 0}
+.hero svg{display:block;width:100%;height:auto;margin-top:6px}
+.die3d{cursor:pointer}
+.themebtn{position:absolute;top:14px;right:14px;z-index:5}
+
+/* NAV */
+nav.tabs{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+nav.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-family:var(--display);font-weight:600;font-size:.98rem;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.tab .dot{width:12px;height:12px;border-radius:50%;background:var(--tc)}
+.tab[aria-current="page"]{background:var(--tc);border-color:var(--tc);color:var(--paper);box-shadow:var(--stick)}
+.tab[aria-current="page"] .dot{background:var(--paper)}
+main{padding:26px 0 60px}
+
+/* GENERIC */
+.btn{border:0;cursor:pointer;background:var(--lc,var(--c9));color:#fff;font-family:var(--display);font-weight:600;font-size:1.02rem;padding:11px 20px;border-radius:14px;box-shadow:var(--stick);transition:transform .1s}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn.light{background:var(--paper);color:var(--ink)}
+.btn.big{font-size:1.15rem;padding:14px 26px}
+.icon{border:0;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;display:inline-grid;place-items:center;flex:0 0 38px}
+.lhead{display:flex;gap:16px;align-items:center;margin-bottom:14px}
+.lnum{flex:0 0 72px;height:72px;border-radius:50% 50% 50% 14%;background:var(--lc);color:#fff;font-family:var(--display);font-weight:700;font-size:2.2rem;display:grid;place-items:center;box-shadow:var(--stick)}
+.lhead h2{font-size:clamp(1.6rem,4vw,2.3rem)}
+.lhead p{margin:4px 0 0;color:var(--muted);max-width:62ch}
+h3.sec{font-size:1.5rem;margin:34px 0 6px}
+p.hint{color:var(--muted);margin:0 0 14px}
+.panel{background:var(--card);border-radius:22px;padding:18px;box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.who{font-weight:700;color:var(--lc,var(--c9))}
+.tw{font-weight:700;background:color-mix(in srgb,var(--lc,var(--c9)) 18%,transparent);padding:0 4px;border-radius:6px}
+
+/* HOME */
+.zones{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:18px}
+.zone{border:0;text-align:left;cursor:pointer;background:var(--card);border-radius:22px 22px 22px 6px;padding:16px;box-shadow:inset 0 0 0 2px var(--line),var(--stick);position:relative;overflow:hidden;transition:transform .15s;min-height:150px}
+.zone:hover{transform:translateY(-3px)}
+.zone::before{content:"";position:absolute;right:-28px;top:-28px;width:100px;height:100px;border-radius:50%;background:var(--tc)}
+.zone .n{font-family:var(--display);font-weight:700;font-size:1.8rem;color:#fff;position:absolute;right:14px;top:6px}
+.zone h3{font-size:1.2rem;margin:34px 0 4px;max-width:14ch}
+.zone small{color:var(--muted);display:block}
+.zone .pips{display:flex;gap:5px;margin-top:10px}
+.zone .pips i{width:16px;height:8px;border-radius:9px;background:var(--line)}
+.zone .pips i.on{background:var(--tc)}
+.zone.wide{grid-column:1/-1;background:var(--ink);color:var(--paper);box-shadow:var(--stick);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;min-height:0;border-radius:22px}
+.zone.wide::before{display:none}
+.zone.wide h3{margin:0;font-size:1.5rem;max-width:none}
+.zone.wide small{color:inherit;opacity:.8;max-width:56ch}
+.roster{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.kid{border:0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;background:var(--card);border-radius:999px;padding:5px 14px 5px 5px;box-shadow:inset 0 0 0 2px var(--line);font-weight:700}
+.kid .av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:var(--display);font-size:.95rem;background:var(--kc)}
+.kid[aria-pressed="true"]{box-shadow:inset 0 0 0 3px var(--kc);background:color-mix(in srgb,var(--kc) 14%,var(--card))}
+.starring{margin-top:14px}
+.starring li{margin-bottom:8px}
+.starring .lab{font-size:.85rem;font-weight:700;padding:1px 8px;border-radius:9px;color:#fff;margin-right:6px;font-family:var(--display)}
+
+/* LESSON STAGES */
+.stagebar{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px}
+.sbtn{border:0;cursor:pointer;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);border-radius:14px;padding:9px 13px;font-family:var(--display);font-weight:600;display:flex;gap:6px;align-items:center}
+.sbtn .st{font-size:.8rem}
+.sbtn[aria-current="true"]{background:var(--lc);color:#fff;box-shadow:var(--stick)}
+.sbtn.done:not([aria-current="true"]){box-shadow:inset 0 0 0 2px var(--lc)}
+details.shelf{margin-top:34px}
+details.shelf summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:1.15rem}
+.shelfgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:12px}
+.shelfgrid div{background:var(--card);border-radius:14px;padding:10px 12px;box-shadow:inset 0 0 0 2px var(--line);border-left:6px solid var(--lc);font-size:.95rem}
+.shelfgrid b{font-family:var(--display);font-size:1.1rem}
+
+/* MEET */
+.meet{max-width:640px;margin:0 auto}
+.mcard{background:var(--card);border-radius:28px;padding:22px;box-shadow:inset 0 0 0 3px var(--lc),var(--stick);text-align:center;position:relative}
+.mcard .emo{font-size:4rem;line-height:1;display:block;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
+.mcard .word{font-family:var(--display);font-weight:700;font-size:2.4rem;margin-top:8px}
+.mcard .pos{color:var(--muted);font-style:italic}
+.mcard .msent{font-size:1.15rem;margin:16px auto 6px;max-width:44ch}
+.mcard .ask{font-family:var(--display);font-weight:600;margin:16px 0 10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mcard .say{position:absolute;top:14px;right:14px}
+.reveal{text-align:left;margin-top:14px;padding:14px;border-radius:16px;background:color-mix(in srgb,var(--lc) 10%,var(--card))}
+.reveal ol{margin:0 0 8px;padding-left:22px}
+.reveal .forms{font-size:.92rem;color:var(--muted);margin:0 0 8px}
+.reveal .hook{margin:0;padding:8px 12px;border-radius:12px;background:var(--card)}
+.dots{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.ok{background:var(--ok)}.dots i.no{background:var(--bad)}.dots i.now{background:var(--ink)}
+.navrow{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+
+/* DRAG & DROP */
+.dnd{position:relative;user-select:none;-webkit-user-select:none}
+.pool{display:flex;flex-wrap:wrap;gap:10px;padding:14px;border-radius:18px;background:color-mix(in srgb,var(--lc,var(--c9)) 8%,var(--card));min-height:62px;border:2px dashed color-mix(in srgb,var(--lc,var(--c9)) 45%,var(--line))}
+.pool:empty::after{content:"All placed ✨";color:var(--muted);font-family:var(--display);padding:6px}
+.pool.sticky{position:sticky;top:calc(var(--navh,62px) + 6px);z-index:12;box-shadow:0 8px 18px -10px rgba(0,0,0,.35)}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:7px 14px;font-weight:700;cursor:grab;user-select:none;-webkit-user-select:none;box-shadow:var(--stick);touch-action:none;max-width:100%;line-height:1.3}
+.chip.long{border-radius:14px;font-weight:400;padding:9px 12px}
+.chip:active{cursor:grabbing}
+.chip.dragging{opacity:.35}
+.chip .x{display:none;border:0;background:var(--ink);color:var(--paper);width:22px;height:22px;border-radius:50%;font-size:.72rem;cursor:pointer;flex:0 0 22px;padding:0}
+.drop .chip .x{display:inline-grid;place-items:center}
+.locked .chip .x{display:none!important}
+.locked .chip{cursor:default}
+.chip.ghost{position:fixed;z-index:1000;pointer-events:none;opacity:.95;transform:rotate(-3deg) scale(1.06);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.chip.right{border-color:var(--ok);background:var(--okbg)}
+.chip.wrong{border-color:var(--bad);background:var(--badbg)}
+.pop{animation:pop .28s ease-out}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+.drop.hi{outline:3px solid var(--lc,var(--c9));outline-offset:2px;background:color-mix(in srgb,var(--lc,var(--c9)) 16%,var(--card))!important}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:14px}
+.bin{border-radius:22px;padding:12px;min-height:170px;background:var(--card);box-shadow:inset 0 0 0 3px var(--bc,var(--line));transition:background .15s}
+.binlabel{font-family:var(--display);font-weight:600;font-size:1.2rem;margin:2px 4px 10px;color:var(--bc)}
+.binbody{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.rows{display:grid;gap:10px;margin-top:14px}
+.mrow{display:grid;grid-template-columns:minmax(150px,210px) 1fr;gap:12px;align-items:center;background:var(--card);border-radius:16px;padding:8px;box-shadow:inset 0 0 0 2px var(--line)}
+.slot{min-height:46px;border-radius:999px;border:2px dashed var(--muted);display:flex;align-items:center;justify-content:center;padding:3px}
+.slot.filled{border-style:solid;border-color:transparent}
+.mdef{padding-right:6px}
+.fix{display:block;font-size:.88rem;color:var(--ok);font-weight:700;margin-top:2px}
+.blank{display:inline-flex;min-width:120px;min-height:40px;vertical-align:middle;border-bottom:3px solid var(--lc,var(--c9));border-radius:10px 10px 0 0;margin:3px 2px;padding:2px;justify-content:center;align-items:center;background:color-mix(in srgb,var(--lc,var(--c9)) 7%,transparent)}
+.storytext{background:var(--card);border-radius:20px;padding:20px;box-shadow:inset 0 0 0 2px var(--line);line-height:2.3;font-size:1.05rem}
+.sentlist{display:grid;gap:10px;margin-top:14px}
+.sentlist .s{background:var(--card);border-radius:16px;padding:10px 14px;box-shadow:inset 0 0 0 2px var(--line);line-height:2.2}
+
+/* MC / TF */
+.q{background:var(--card);border-radius:20px;padding:16px 18px;margin-bottom:14px;box-shadow:inset 0 0 0 2px var(--line)}
+.q .qt{font-weight:700;margin:0 0 10px;font-size:1.05rem}
+.q .qt .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--lc,var(--c9));color:#fff;font-family:var(--display);margin-right:8px;font-size:.9rem}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.opts.one{grid-template-columns:1fr}
+.opt{text-align:left;border:0;cursor:pointer;background:var(--paper);border-radius:14px;padding:10px 14px;box-shadow:inset 0 0 0 2px var(--line);transition:transform .1s}
+.opt:hover:not(:disabled){transform:translateY(-2px);box-shadow:inset 0 0 0 2px var(--lc,var(--c9))}
+.opt:disabled{cursor:default}
+.opt.sel{box-shadow:inset 0 0 0 3px var(--lc,var(--c9));background:color-mix(in srgb,var(--lc,var(--c9)) 12%,var(--card))}
+.opt.right{background:var(--okbg);box-shadow:inset 0 0 0 3px var(--ok)}
+.opt.wrong{background:var(--badbg);box-shadow:inset 0 0 0 3px var(--bad)}
+.opt.missed{box-shadow:inset 0 0 0 3px var(--ok)}
+.opt.wordopt{font-family:var(--display);font-weight:600;font-size:1.15rem;text-align:center}
+.tf{display:flex;gap:10px}
+.stamp{flex:1;border:0;cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.2rem;padding:12px;border-radius:16px;background:var(--paper);box-shadow:inset 0 0 0 3px var(--line);transform:rotate(-1deg)}
+.stamp.f{transform:rotate(1deg)}
+.stamp:hover:not(:disabled){box-shadow:inset 0 0 0 3px var(--ink)}
+.stamp.right{background:var(--okbg);box-shadow:inset 0 0 0 3px var(--ok)}
+.stamp.wrong{background:var(--badbg);box-shadow:inset 0 0 0 3px var(--bad)}
+.why{margin:10px 0 0;padding:10px 12px;border-radius:12px;font-size:.95rem}
+.why.good{background:var(--okbg)}
+.why.bad{background:var(--badbg)}
+.bold{font-weight:700;color:var(--lc,var(--c9))}
+.analogy{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:.02em}
+.pfoot{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.pfoot .msg{font-family:var(--display);font-weight:600;font-size:1.15rem}
+
+/* LIGHTNING */
+.bolt{max-width:640px;margin:0 auto;text-align:center}
+.timer{height:14px;border-radius:9px;background:var(--line);overflow:hidden;margin:10px 0}
+.timer i{display:block;height:100%;background:var(--lc);width:100%;transition:width .25s linear}
+.bstats{display:flex;justify-content:space-between;font-family:var(--display);font-weight:700;font-size:1.2rem}
+.bq{font-size:1.25rem;font-weight:700;margin:18px 0 12px;min-height:3.2em}
+.flash-ok{animation:fok .35s}
+.flash-no{animation:fno .35s}
+@keyframes fok{0%{box-shadow:inset 0 0 0 6px var(--ok)}}
+@keyframes fno{0%{box-shadow:inset 0 0 0 6px var(--bad)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* PASSAGE */
+.scenes{display:grid;gap:16px;margin-top:16px}
+.scene{display:grid;grid-template-columns:84px 1fr;gap:16px;background:var(--card);border-radius:24px;padding:18px;box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.scene .art{font-size:2.8rem;text-align:center;line-height:1.1}
+.scene h3{font-size:1.3rem;margin-bottom:6px}
+.scene p{margin:0;max-width:66ch}
+.vw{border:0;background:color-mix(in srgb,var(--c10) 16%,transparent);color:inherit;font-weight:700;padding:0 5px;border-radius:7px;cursor:pointer;border-bottom:3px solid var(--c10)}
+.vw.found{background:var(--c10);color:#fff}
+.vw.bonus{background:color-mix(in srgb,var(--gold) 30%,transparent);border-bottom-color:var(--gold)}
+.vw.bonus.found{background:var(--gold);color:#2A1F3D}
+.hunt{position:sticky;top:calc(var(--navh,62px) + 6px);z-index:10;display:flex;gap:12px;align-items:center;background:var(--ink);color:var(--paper);border-radius:16px;padding:10px 16px;font-family:var(--display);font-weight:600;flex-wrap:wrap}
+.hunt .meter{flex:1;min-width:120px;height:10px;background:rgba(127,127,127,.35);border-radius:9px;overflow:hidden}
+.hunt .meter i{display:block;height:100%;width:0;background:var(--c10);transition:width .3s}
+#pop{position:absolute;z-index:50;max-width:300px;background:var(--ink);color:var(--paper);padding:12px 14px;border-radius:14px;font-size:.95rem;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#pop b{font-family:var(--display);font-size:1.1rem;color:var(--gold);display:block}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:14px}
+.fact{background:var(--card);border-radius:18px;padding:14px;box-shadow:inset 0 0 0 2px var(--line)}
+.fact b{font-family:var(--display);font-size:1.8rem;color:var(--c10);display:block;line-height:1.05}
+
+/* TYCOON */
+.tycoon{background:linear-gradient(160deg,color-mix(in srgb,var(--cp) 22%,var(--card)),var(--card));border-radius:26px;padding:20px;box-shadow:inset 0 0 0 3px var(--cp),var(--stick)}
+.cash{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.cash .money{font-family:var(--display);font-weight:700;font-size:2.4rem;line-height:1}
+.cash .money.up{color:var(--ok)}.cash .money.down{color:var(--bad)}
+.cash .bar{flex:1;min-width:140px;height:14px;border-radius:9px;background:var(--line);overflow:hidden}
+.cash .bar i{display:block;height:100%;background:var(--cp);transition:width .6s}
+.tyq{font-size:1.15rem;font-weight:700;margin:6px 0 12px}
+.tyq small{display:block;font-weight:400;color:var(--muted);margin-top:4px}
+
+/* BOARD */
+.setup{display:grid;gap:14px}
+#view-board .btop,#view-board .board,#view-board .blog{max-width:620px;margin-left:auto;margin-right:auto}
+.board{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;background:var(--felt);padding:10px;border-radius:24px;box-shadow:inset 0 0 0 6px var(--felt2),var(--stick)}
+.sq{aspect-ratio:1;border-radius:14px;background:var(--sc,#fff);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;text-align:center;line-height:1.05;font-size:.72rem;padding:3px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.sq .ic{font-size:1.35rem}
+.sq.special{background:var(--gold);color:#2A1F3D}
+.sq.start,.sq.finish{background:#fff;color:#2A1F3D}
+.sq .num{position:absolute;top:3px;left:6px;font-size:.62rem;opacity:.75}
+.tokens{position:absolute;inset:auto 2px 2px 2px;display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
+.tok{width:22px;height:22px;border-radius:50%;background:var(--kc);color:#fff;border:2px solid #fff;display:inline-grid;place-items:center;font-size:.66rem;font-family:var(--display);box-shadow:0 2px 4px rgba(0,0,0,.35)}
+.tok.hop{animation:hop .28s ease-out}
+@keyframes hop{50%{transform:translateY(-14px) scale(1.15)}}
+.btop{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.turn{font-family:var(--display);font-weight:700;font-size:1.3rem;display:flex;align-items:center;gap:8px}
+.die{width:74px;height:74px;border-radius:18px;background:var(--card);box-shadow:inset 0 0 0 3px var(--ink),var(--stick);font-size:3.4rem;line-height:1;display:grid;place-items:center;cursor:pointer;border:0;color:var(--ink)}
+.die.roll{animation:roll .6s ease-out}
+@keyframes roll{0%{transform:rotate(0) scale(1)}50%{transform:rotate(200deg) scale(1.2)}100%{transform:rotate(360deg) scale(1)}}
+.scores{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.scores span{display:inline-flex;gap:6px;align-items:center;padding:4px 10px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);font-weight:700;font-size:.92rem}
+.scores span.now{box-shadow:inset 0 0 0 3px var(--kc)}
+.blog{margin-top:12px;font-weight:700;min-height:1.6em}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(20,14,35,.6);display:grid;place-items:center;padding:16px}
+.modal .box{background:var(--card);border-radius:24px;padding:20px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 20px 50px rgba(0,0,0,.4);border-top:10px solid var(--lc,var(--c9))}
+.modal h3{font-size:1.3rem;margin-bottom:6px}
+
+/* QUIZ */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.qtrack{display:flex;gap:6px;flex-wrap:wrap}
+.qtrack span{width:24px;height:10px;border-radius:9px;background:var(--line)}
+.qtrack span.now{background:var(--ink)}.qtrack span.good{background:var(--ok)}.qtrack span.meh{background:var(--c7)}.qtrack span.low{background:var(--bad)}
+.total{font-family:var(--display);font-weight:700;font-size:1.2rem}
+.phead{display:flex;gap:14px;align-items:center;background:var(--ink);color:var(--paper);border-radius:22px;padding:16px 18px;margin-bottom:16px}
+.phead .pemo{font-size:2.4rem}
+.phead h3{font-size:1.4rem}
+.phead p{margin:2px 0 0;opacity:.85}
+.results{text-align:center;padding:10px 0}
+.results .pct{font-family:var(--display);font-weight:700;font-size:clamp(3.5rem,14vw,6rem);line-height:1}
+.results .stars{font-size:2.4rem;margin:6px 0}
+.breakdown{display:grid;gap:6px;max-width:560px;margin:22px auto;text-align:left}
+.breakdown div{display:flex;justify-content:space-between;gap:10px;background:var(--card);padding:8px 14px;border-radius:12px;box-shadow:inset 0 0 0 2px var(--line)}
+.review{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;text-align:left;margin:14px 0 24px}
+.review div{background:var(--card);border-radius:14px;padding:10px 12px;box-shadow:inset 0 0 0 2px var(--line);border-left:6px solid var(--tc)}
+.review b{font-family:var(--display);font-size:1.1rem}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:999}
+footer{color:var(--muted);text-align:center;font-size:.9rem;padding:20px 0 40px}
+
+@media (max-width:720px){
+  .mrow{grid-template-columns:1fr}
+  .scene{grid-template-columns:1fr}
+  .scene .art{text-align:left}
+  body{font-size:16px}
+  .two{grid-template-columns:1fr}
+  .sq{font-size:.56rem;border-radius:10px}
+  .sq .ic{font-size:1.05rem}
+  .tok{width:18px;height:18px;font-size:.55rem}
+  .board{gap:4px;padding:7px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <button class="icon themebtn" id="themeBtn" aria-label="Switch light or dark">🌓</button>
+  <div class="wrap">
+    <h1>The Great Word Game</h1>
+    <p class="sub">Wordly Wise Book 6, Lessons 7 to 10: sixty words, seventeen classmates, a board game, and the Lesson 10 passage, "Fun and Games." Tap the die to move.</p>
+  </div>
+  <svg id="heroSvg" viewBox="0 0 1200 250" aria-hidden="true">
+    <path id="hpath" d="M40 200 C 220 40, 380 240, 560 140 S 860 40, 990 165" fill="none" stroke="var(--line)" stroke-width="58" stroke-linecap="round"/>
+    <g id="squares"></g>
+    <g id="pawn"><ellipse cx="0" cy="8" rx="16" ry="6" fill="rgba(0,0,0,.25)"/><path d="M-13 6 L13 6 L7 -12 L-7 -12 Z" fill="var(--ink)"/><circle cx="0" cy="-20" r="11" fill="var(--ink)"/></g>
+    <g class="die3d" id="heroDie" transform="translate(1110 90)">
+      <rect x="-48" y="-48" width="96" height="96" rx="22" fill="var(--card)" stroke="var(--ink)" stroke-width="5"/>
+      <g id="pips" fill="var(--ink)"></g>
+    </g>
+  </svg>
+</header>
+
+<nav class="tabs" aria-label="Sections"><div class="wrap" id="tabs"></div></nav>
+
+<main class="wrap">
+  <section id="view-home"></section>
+  <section id="view-l7" hidden></section>
+  <section id="view-l8" hidden></section>
+  <section id="view-l9" hidden></section>
+  <section id="view-l10" hidden></section>
+  <section id="view-story" hidden></section>
+  <section id="view-board" hidden></section>
+  <section id="view-quiz" hidden></section>
+</main>
+<footer>Made for Adiaha and her class. Play a round every day and the words will stick. 🎲</footer>
+<div id="pop" hidden></div>
+<div class="modal" id="modal" hidden><div class="box" id="mbox" role="dialog" aria-modal="true"></div></div>
+<canvas id="confetti"></canvas>
+
+<script>
+/* ============================ CLASS ============================ */
+const CLASS=["Adiaha","Anna","Shiloh","Andre","Coryn","Amar'J","Zamari","Leila","Aeva","Jordan","Deacon","Jessie","Vihan","Markisio","Kosisochukuw","Luke","Miquea"];
+const KC=["#E0357A","#F08A12","#0FA392","#1C7FE0","#8B3FD1","#D9480F","#2F9E44","#C2255C","#1098AD","#5F3DC4","#E67700","#0B7285","#9C36B5","#2B8A3E","#C92A2A","#364FC7","#A61E4D"];
+const kidColor=n=>KC[CLASS.indexOf(n)%KC.length];
+const initials=n=>n.replace("'","").slice(0,2);
+const NAME_RE=/\b(Adiaha|Anna|Shiloh|Andre|Coryn|Amar'J|Zamari|Leila|Aeva|Jordan|Deacon|Jessie|Vihan|Markisio|Kosisochukuw|Luke|Miquea)\b/g;
+const nameSpan=s=>s.replace(NAME_RE,'<span class="who">$1</span>');
+
+/* ============================ WORDS ============================ */
+/* ex = classmate sentence; [brackets] mark the word as it's used */
+const LESSONS=[
+ {n:7,title:"Home on the Range",color:"var(--c7)",blurb:"Cowboy words: tough ponies, hungry trail hands, and long, monotonous days on the range.",
+  words:[
+   {w:"brawl",e:"🥊",pos:"noun / verb",d:["n. A rough, noisy fight.","v. To fight noisily."],ex:"Two seagulls had a [brawl] over Luke's dropped french fry at Frigate Bay.",h:"A brawl is loud and rough, like a fight in a cowboy movie.",m:"a rough, noisy fight"},
+   {w:"casual",e:"👕",pos:"adjective",d:["Not planned.","Not regular; occasional.","Suitable for everyday use; comfortable."],ex:"On dress-down Friday, Aeva wore [casual] clothes: shorts and sneakers.",h:"Casual = relaxed: no plan, nothing fancy.",m:"not planned; occasional; comfortable for everyday use"},
+   {w:"constant",e:"🔁",pos:"adjective",d:["Not changing.","Loyal; faithful.","Without a pause; unending."],ex:"Coryn's dog is her [constant] companion; he follows her everywhere.",h:"Constant = never stops, never changes, like the waves at the beach.",m:"not changing; loyal; without a pause"},
+   {w:"excel",e:"🏅",pos:"verb",d:["To do well; to be better or greater than others."],ex:"Jordan [excels] at football and scores in almost every match.",h:"Excel sounds like EXCELlent.",m:"to do well; to be better than others"},
+   {w:"exhaust",e:"😮‍💨",pos:"verb / noun",d:["v. To use up.","v. To tire out.","n. The waste gases from an engine; the system that pumps them out."],ex:"Running laps in the midday sun [exhausted] Andre.",h:"Exhaust = all used up. Even a car's exhaust is used-up gas.",m:"to use up; to tire out"},
+   {w:"hardy",e:"🌵",pos:"adjective",d:["Able to survive under bad conditions; tough."],ex:"Zamari's [hardy] aloe plant survived the whole dry season.",h:"Hardy sounds like HARD: tough enough to survive.",m:"able to survive under bad conditions; tough"},
+   {w:"mediocre",e:"😐",pos:"adjective",d:["Of low to medium quality; barely passable."],ex:"Vihan said the movie was [mediocre]: not terrible, but not good either.",h:"Mediocre = medium. Not bad, not great: just meh.",m:"of low to medium quality; barely passable"},
+   {w:"monotonous",e:"🥱",pos:"adjective",d:["Always the same; not varying; boring."],f:"monotony (n.): lack of variety that leads to boredom",ex:"Copying lines is [monotonous], so Leila hums a tune while she works.",h:"MONO = one. One tone, over and over: boring!",m:"always the same; boring"},
+   {w:"originate",e:"🌱",pos:"verb",d:["To bring or come into being."],f:"origin (n.): a beginning",ex:"Markisio learned that the steel pan [originated] in Trinidad.",h:"ORIGIN-ate: where something began.",m:"to bring or come into being; to begin"},
+   {w:"punctuate",e:"❗",pos:"verb",d:["To add marks such as commas and periods to writing.","To interrupt from time to time."],f:"punctuation (n.): the use of marks such as commas and periods",ex:"Bangs of fireworks [punctuated] the Sugar Mas parade, and Shiloh cheered at every one.",h:"Punctuation marks break up a sentence. Fireworks can break up the night.",m:"to add commas and periods; to interrupt from time to time"},
+   {w:"ravenous",e:"🍔",pos:"adjective",d:["Very hungry.","Eager for whatever satisfies one's needs or wants."],ex:"After swim practice, Deacon was so [ravenous] he ate three johnny cakes.",h:"Ravenous = hungry as a raven that hasn't eaten all day.",m:"very hungry"},
+   {w:"realistic",e:"🎯",pos:"adjective",d:["Closely resembling real life.","Aware of things as they are; practical."],ex:"Jessie's drawing of a vervet monkey is so [realistic] it looks like a photo.",h:"Realistic = looks REAL, or is really possible.",m:"closely resembling real life; practical"},
+   {w:"soothe",e:"🧴",pos:"verb",d:["To make calm and relaxed.","To relieve soreness; to make less painful."],ex:"Miquea sang a lullaby to [soothe] her crying baby cousin.",h:"Soothe = smooth things over: calm the person, calm the pain.",m:"to calm; to make less painful"},
+   {w:"stampede",e:"🐃",pos:"noun / verb",d:["n. A sudden rush of animals or people, usually caused by fear.","v. To take part in a stampede."],ex:"When the lunch bell rang, there was a [stampede] to the canteen, and Amar'J was at the front.",h:"A stampede is a STAMPing, panicked rush.",m:"a sudden rush of frightened animals or people"},
+   {w:"veteran",e:"🎖️",pos:"noun / adjective",d:["n. A person who has served in the armed forces.","n. A person with much experience.","adj. Experienced."],ex:"Kosisochukuw is a [veteran] of the school choir; she has sung in it for five years.",h:"A veteran has been there and done that, for years.",m:"a person who served in the armed forces; a person with much experience"}
+  ],
+  sort:[["Jordan excels at cricket and was named player of the match.",1],["Andre was ravenous after skipping lunch, so he ate two sandwiches.",1],["Anna's hardy cactus survived a whole month without water.",1],["Leila found the roller coaster so monotonous that she screamed with excitement the whole time.",0],["Vihan's mediocre score was the best perfect score in the whole school.",0],["The cows stampeded calmly, one slow step at a time.",0]]},
+ {n:8,title:"Explorers & Treasures",color:"var(--c8)",blurb:"Words for expeditions, wide-open spaces, and things worth retrieving.",
+  words:[
+   {w:"accompany",e:"🎺",pos:"verb",d:["To go along with; to be together.","To play a musical instrument for or with."],ex:"Adiaha's dad [accompanied] her on trumpet while she sang.",h:"ac-COMPANY: keep someone company. Musicians accompany singers.",m:"to go along with; to play music with"},
+   {w:"beneficial",e:"💪",pos:"adjective",d:["Being of use; helpful; favorable."],ex:"Eating fruit is [beneficial] to your health, so Anna packs a mango every day.",h:"BENE = good (like benefit). Beneficial is good for you.",m:"helpful; favorable"},
+   {w:"captive",e:"⛓️",pos:"noun / adjective",d:["n. One that is held prisoner.","adj. Unable to escape or get away."],f:"captivity (n.): being held against one's will",ex:"The bus was stuck in traffic, so Luke's jokes had a [captive] audience.",h:"A captive is captured. A captive audience can't leave!",m:"one held prisoner; unable to escape"},
+   {w:"convenient",e:"🏪",pos:"adjective",d:["Suitable for one's needs; making life easier or more comfortable."],f:"convenience (n.): anything that makes life easier",ex:"The shop next to school is [convenient] when Jessie forgets her pencil.",h:"Convenient = easy and handy, like a shop right next door.",m:"suitable for one's needs; making life easier"},
+   {w:"ecstasy",e:"🤩",pos:"noun",d:["A strong feeling of emotion, especially joy."],f:"ecstatic (adj.): full of or causing ecstasy",ex:"Zamari jumped in [ecstasy] when his team won the final.",h:"Ecstasy is joy times ten. Ecstatic = jumping-up-and-down happy.",m:"a strong feeling of joy"},
+   {w:"expanse",e:"🌊",pos:"noun",d:["A wide, open area or surface; a stretch."],ex:"From Brimstone Hill, Miquea could see a huge [expanse] of blue sea.",h:"An expanse EXPANDS out wide: sea, sky, desert.",m:"a wide, open area"},
+   {w:"expedition",e:"🧭",pos:"noun",d:["A long journey by a group to explore or do battle.","A group that makes such a journey."],ex:"Deacon led an [expedition] up the hill to find the biggest mango tree.",h:"An expedition is an exploring journey with a team.",m:"a long journey by a group to explore; the group itself"},
+   {w:"inept",e:"🤦",pos:"adjective",d:["Clumsily or awkwardly expressed; not suitable for the occasion.","Lacking in skill or ability."],ex:"Coryn's toy robot was so [inept] that it tried to put the milk in the oven.",h:"Inept = NOT adept: clumsy, no skill.",m:"clumsy or awkward; lacking skill"},
+   {w:"interpret",e:"🗣️",pos:"verb",d:["To translate into another language.","To explain the meaning of.","To understand in one's own way."],ex:"Kosisochukuw [interpreted] the Spanish song for the class.",h:"Interpreters translate. To interpret is to figure out the meaning.",m:"to translate; to explain the meaning of"},
+   {w:"invaluable",e:"💎",pos:"adjective",d:["Too valuable to measure; priceless."],ex:"Vihan's help with the science project was [invaluable].",h:"Careful! IN-valuable means MORE than valuable: priceless.",m:"too valuable to measure; priceless"},
+   {w:"linger",e:"🐌",pos:"verb",d:["To be slow in leaving or going away."],ex:"Shiloh [lingered] at the beach, not wanting the day to end.",h:"Linger like the smell of cake after it's all eaten: slow to leave.",m:"to be slow in leaving"},
+   {w:"retrieve",e:"🐕",pos:"verb",d:["To get back; to recover.","To find and bring back."],ex:"Markisio's dog swam out to [retrieve] the ball.",h:"A golden retriever retrieves: it goes and brings it back.",m:"to get back; to find and bring back"},
+   {w:"skirmish",e:"🎈",pos:"noun / verb",d:["n. A minor fight or battle.","v. To take part in such a fight."],ex:"Amar'J and Andre had a quick water-balloon [skirmish] after sports day.",h:"A skirmish is a SMALL fight. A brawl is a big noisy one.",m:"a minor fight or battle"},
+   {w:"supplement",e:"➕",pos:"noun / verb",d:["n. Something added to make up for something missing.","v. To add to."],ex:"Aeva [supplements] her lunch with an extra banana.",h:"A supplement is an add-on, like a vitamin.",m:"something added; to add to"},
+   {w:"territory",e:"🗺️",pos:"noun",d:["A particular area of land.","A land area under control of a particular group or government."],ex:"Leila's cat guards its [territory] from the neighbor's cat.",h:"Territory: TERRa means land.",m:"an area of land; land controlled by a group or government"}
+  ],
+  sort:[["Luke lingered after the party to help clean up.",1],["Jessie was ecstatic when she got a puppy for her birthday.",1],["A good night's sleep is beneficial before a big test.",1],["Coryn's expedition lasted two seconds and went from her bed to her door.",0],["Deacon retrieved the ball by kicking it far out to sea.",0],["The invaluable old pencil was worth nothing at all.",0]]},
+ {n:9,title:"Water, Water, Everywhere",color:"var(--c9)",blurb:"Words about saving water and resources, and what happens when we don't.",
+  words:[
+   {w:"accumulate",e:"🐚",pos:"verb",d:["To increase in number or amount; to pile up, collect, or gather."],ex:"Anna [accumulated] a huge pile of seashells over the summer.",h:"Accumulate = it keeps adding up, like a snowball rolling.",m:"to pile up; to gather"},
+   {w:"aggravate",e:"😠",pos:"verb",d:["To make worse.","To anger or annoy."],f:"aggravation (n.): annoyance; a source of annoyance",ex:"Miquea learned that scratching a mosquito bite only [aggravates] it.",h:"Aggravate makes things worse AND annoys you.",m:"to make worse; to annoy"},
+   {w:"conserve",e:"🚰",pos:"verb",d:["To save by using carefully."],f:"conservation (n.): saving or protecting something through careful use",ex:"Deacon turns off the tap while brushing his teeth to [conserve] water.",h:"Conserve = save it, don't waste it.",m:"to save by using carefully"},
+   {w:"contaminate",e:"☣️",pos:"verb",d:["To harm by contact with something undesirable."],f:"contamination (n.): the act or result of contaminating",ex:"Oil leaking from a boat [contaminated] the water near Coryn's favorite beach.",h:"Contaminate = dirty it with something harmful.",m:"to harm by contact with something undesirable"},
+   {w:"diminish",e:"📉",pos:"verb",d:["To make or become smaller or less; to reduce."],ex:"Shiloh's after-school snack [diminished] her hunger until dinner.",h:"Diminish = make it mini.",m:"to make or become smaller; to reduce"},
+   {w:"drastic",e:"⚡",pos:"adjective",d:["Severe; extreme."],ex:"Cancelling sports day was a [drastic] decision, and Jordan was not happy.",h:"Drastic = extreme. No small steps!",m:"severe; extreme"},
+   {w:"extravagant",e:"💸",pos:"adjective",d:["Spending, costing, or using more than is required."],f:"extravagance (n.): wastefulness; a thing that costs more than one can afford",ex:"Markisio thought a gold-plated pencil case was [extravagant].",h:"EXTRA-vagant: spending EXTRA. Opposite of frugal.",m:"spending or using more than is needed"},
+   {w:"frugal",e:"🐷",pos:"adjective",d:["Careful in spending or using something."],ex:"Coryn is [frugal]; she saves most of her allowance in a piggy bank.",h:"Frugal people are careful with every dollar.",m:"careful in spending or using something"},
+   {w:"impurity",e:"🧪",pos:"noun",d:["Something that is harmful or dirty."],ex:"Vihan's water filter removes [impurities] from the water.",h:"Im-PURE-ity: something that isn't pure.",m:"something that is harmful or dirty"},
+   {w:"peril",e:"⚠️",pos:"noun",d:["Danger; something that is dangerous."],f:"imperil (v.): to place in danger; perilous (adj.): dangerous",ex:"In Luke's story, the pirates sailed into great [peril] during a hurricane.",h:"Peril = danger. Perilous = dangerous.",m:"danger"},
+   {w:"perpetual",e:"♾️",pos:"adjective",d:["Lasting or seeming to last forever; continuous."],ex:"Amar'J's little brother asks a [perpetual] stream of questions.",h:"Perpetual = forever and ever and ever...",m:"lasting forever; continuous"},
+   {w:"resource",e:"🌳",pos:"noun",d:["A supply that can be used when there is a need.","Skill in dealing with difficult situations."],f:"resourceful (adj.): able to deal with difficult problems",ex:"The library is a great [resource], so Leila goes there for research.",h:"A resource is a supply you can use. Resourceful people use what they've got.",m:"a supply that can be used when needed"},
+   {w:"substitute",e:"🔄",pos:"verb / noun / adjective",d:["v. To replace one thing or person for another.","n. Something or someone that replaces another.","adj. Acting in place of someone or something else."],ex:"Jessie helped the [substitute] teacher find the markers.",h:"A substitute takes someone's place, like a sub in a football match.",m:"to replace; someone or something that replaces another"},
+   {w:"sustain",e:"🏋️",pos:"verb",d:["To keep up; to support.","To suffer; to undergo."],ex:"A big breakfast [sustained] Andre until lunchtime.",h:"Sustain = keep it going, OR go through something hard.",m:"to keep up; to support; to suffer"},
+   {w:"vital",e:"❤️",pos:"adjective",d:["Necessary for continued life or prosperity.","Full of lively spirit.","Of the greatest importance."],ex:"\"Water is [vital] for every living thing,\" Zamari said in his presentation.",h:"VITal = life (like VITamins). Vital things are must-haves.",m:"necessary for life; of the greatest importance"}
+  ],
+  sort:[["Coryn conserves paper by writing on both sides.",1],["The loud drilling next door aggravated Markisio's headache.",1],["Dirty runoff from the road can contaminate the drinking water.",1],["Vihan was so frugal that he spent all his money on the first day.",0],["The pile of laundry diminished as Anna kept adding more clothes to it.",0],["Water is vital, so you never really need it.",0]]},
+ {n:10,title:"Fun and Games",color:"var(--c10)",blurb:"Words from the business of inventing toys and games. The 10E passage is on the test!",
+  words:[
+   {w:"anticipate",e:"🔮",pos:"verb",d:["To look forward to; to expect.","To be aware of and to provide for beforehand."],ex:"Adiaha [anticipated] a fun weekend, so she finished her homework on Friday.",h:"Anticipate = see it coming and get ready.",m:"to expect; to look forward to"},
+   {w:"bankrupt",e:"💥",pos:"adjective / verb",d:["adj. Unable to pay one's debts and freed by law from doing so.","adj. Left without any worth or value.","v. To leave without worth or value."],ex:"In Monopoly, Andre went [bankrupt] after landing on every hotel.",h:"BANK + RUPT (broken): the bank account is broken.",m:"unable to pay one's debts"},
+   {w:"brief",e:"⏱️",pos:"adjective / verb / noun",d:["adj. Short; not long-lasting.","v. To give a short explanation or set of instructions to.","n. A statement giving the main points in a case, for use in a court of law."],ex:"The rain shower was [brief], so Miquea's picnic went ahead.",h:"Brief = short. Even a lawyer's brief is a short summary.",m:"short; not long-lasting"},
+   {w:"brisk",e:"🏃",pos:"adjective",d:["Quick; active.","Stimulating; refreshing."],ex:"Jessie took a [brisk] walk along the beach in the cool morning breeze.",h:"Brisk = quick and fresh, like a morning walk in a cool breeze.",m:"quick; active; refreshing"},
+   {w:"budget",e:"💰",pos:"noun / verb",d:["n. A plan for spending money during a certain period.","v. To plan the use of carefully."],ex:"Zamari made a [budget] so his allowance would last the whole month.",h:"A budget is a money plan: where every dollar goes.",m:"a plan for spending money"},
+   {w:"compete",e:"🏁",pos:"verb",d:["To try to win against others."],f:"competition (n.): a contest; competitor (n.): one who competes",ex:"Sixteen students [competed] in the class spelling bee, and Leila won.",h:"Compete = try to win. Competitors are in a competition.",m:"to try to win against others"},
+   {w:"complicate",e:"🧶",pos:"verb",d:["To make difficult."],f:"complicated (adj.): not easy or simple; having many different parts",ex:"Adding a third team [complicated] Shiloh's tournament plan.",h:"Complicate = add more pieces until it's hard.",m:"to make difficult"},
+   {w:"effect",e:"✨",pos:"verb / noun",d:["v. To make happen.","n. A result."],f:"effective (adj.): bringing about the desired result; in operation; making a strong impression",ex:"The new reading corner had a big [effect]: Aeva read five books in one week.",h:"Effect = the result. Effective = it works!",m:"a result; to make happen"},
+   {w:"err",e:"❌",pos:"verb",d:["To be wrong or to do wrong."],f:"error (n.): a mistake; erroneous (adj.): mistaken; wrong",ex:"Deacon [erred] when he added instead of subtracting.",h:"Err rhymes with 'her'. To err is to make an error.",m:"to be wrong or do wrong"},
+   {w:"factor",e:"🧩",pos:"noun",d:["Something that contributes to a result."],ex:"Daily practice was a big [factor] in Vihan's win at the science fair.",h:"A factor is one of the reasons something happened.",m:"something that contributes to a result"},
+   {w:"fad",e:"🌀",pos:"noun",d:["Something that is very popular for a short time, then forgotten."],ex:"Fidget spinners were a [fad]; now Markisio's sits forgotten in a drawer.",h:"A fad fades fast.",m:"something popular for a short time, then forgotten"},
+   {w:"gripe",e:"😤",pos:"verb / noun",d:["v. To complain.","v. To annoy or irritate.","n. A complaint."],ex:"Jordan's only [gripe] about the trip was the long bus ride.",h:"Gripe = grumble and complain.",m:"to complain; a complaint"},
+   {w:"knack",e:"🎨",pos:"noun",d:["A special talent or skill; ability to do something easily."],ex:"Kosisochukuw has a [knack] for drawing faces.",h:"A knack is a natural talent, like knowing the secret trick.",m:"a special talent or skill"},
+   {w:"leisure",e:"🏖️",pos:"noun",d:["Free time not taken up with work."],f:"leisurely (adj.): slow; relaxed",ex:"In his [leisure] time, Amar'J likes to play chess with his grandpa.",h:"Leisure = free time, chill time.",m:"free time not taken up with work"},
+   {w:"unique",e:"🦄",pos:"adjective",d:["The only one of its kind."],ex:"Anna's hand-painted bag is [unique]; there's no other bag like it.",h:"UNI = one. Unique = one of a kind, like a unicorn.",m:"the only one of its kind"}
+  ],
+  sort:[["Jessie has a knack for solving puzzles quickly.",1],["Yo-yos were a fad that faded fast.",1],["Toy stores do a brisk business in December.",1],["Every one of the 100 identical paper cups was unique.",0],["Coryn took a leisurely sprint at top speed.",0],["Andre erred by getting every single answer right.",0]]}
+];
+const ALL=LESSONS.flatMap(L=>L.words.map(w=>({...w,lesson:L.n,color:L.color})));
+const WORD=Object.fromEntries(ALL.map(w=>[w.w,w]));
+const LBY=Object.fromEntries(LESSONS.map(L=>[L.n,L]));
+
+/* ============================ HELPERS ============================ */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let uidN=0; const uid=()=>"g"+(++uidN);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+const reduced=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+function say(t){try{const u=new SpeechSynthesisUtterance(t);u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const form=w=>(w.ex.match(/\[([^\]]+)\]/)||[0,w.w])[1];
+const exHTML=w=>nameSpan(w.ex.replace(/\[([^\]]+)\]/,'<span class="tw">$1</span>'));
+const exBlank=w=>nameSpan(w.ex.replace(/\[([^\]]+)\]/,"_______"));
+let prog=store.get("ww710-prog",{});
+const setProg=(k,v)=>{prog[k]=Math.max(prog[k]||0,v);store.set("ww710-prog",prog)};
+
+/* ============================ HERO ============================ */
+const PIPS={1:[[0,0]],2:[[-1,-1],[1,1]],3:[[-1,-1],[0,0],[1,1]],4:[[-1,-1],[1,-1],[-1,1],[1,1]],5:[[-1,-1],[1,-1],[0,0],[-1,1],[1,1]],6:[[-1,-1],[1,-1],[-1,0],[1,0],[-1,1],[1,1]]};
+function drawPips(n){$("#pips").innerHTML=PIPS[n].map(([x,y])=>`<circle cx="${x*24}" cy="${y*24}" r="9"/>`).join("")}
+const heroPts=[];let heroAt=0,heroBusy=false;
+function placePawn(x,y){$("#pawn").setAttribute("transform",`translate(${x} ${y-6})`)}
+function heroHop(n){
+  heroBusy=true;let k=0;
+  const step=()=>{
+    if(k++>=n||heroAt>=heroPts.length-1){heroBusy=false;if(heroAt>=heroPts.length-1){confetti(.6);setTimeout(()=>{heroAt=0;placePawn(heroPts[0].x,heroPts[0].y)},1400)}return}
+    const a=heroPts[heroAt],b=heroPts[heroAt+1];heroAt++;
+    if(reduced()){placePawn(b.x,b.y);setTimeout(step,60);return}
+    const t0=performance.now();const f=now=>{const t=Math.min(1,(now-t0)/240);placePawn(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t-Math.sin(t*Math.PI)*34);if(t<1)requestAnimationFrame(f);else setTimeout(step,40)};requestAnimationFrame(f);
+  };step();
+}
+(function(){
+  const p=$("#hpath"),L=p.getTotalLength(),N=16,cols=["var(--c7)","var(--c8)","var(--c9)","var(--c10)","var(--cp)"];
+  let h="";for(let i=0;i<N;i++){const pt=p.getPointAtLength(18+i*(L-36)/(N-1));heroPts.push({x:pt.x,y:pt.y});h+=`<rect x="${pt.x-22}" y="${pt.y-22}" width="44" height="44" rx="11" fill="${i===N-1?'var(--gold)':cols[i%5]}" transform="rotate(${(i%3-1)*8} ${pt.x} ${pt.y})"/>`}
+  $("#squares").innerHTML=h;placePawn(heroPts[0].x,heroPts[0].y);drawPips(5);
+  if(!reduced())setTimeout(()=>heroHop(5),700);
+  $("#heroDie").addEventListener("click",()=>{if(heroBusy)return;const n=1+Math.floor(Math.random()*6);drawPips(n);heroHop(n)});
+})();
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store.set("ww710-theme",r.dataset.theme)};
+{const t=store.get("ww710-theme",null);if(t)document.documentElement.dataset.theme=t;}
+
+/* ============================ NAV ============================ */
+const VIEWS=[["home","Start","var(--cg)"],...LESSONS.map(L=>["l"+L.n,`${L.n}. ${L.title}`,L.color]),["story","🧸 10E Passage","var(--cp)"],["board","🎲 Board Game","var(--felt)"],["quiz","🏆 Big Quiz","var(--cg)"]];
+$("#tabs").innerHTML=VIEWS.map(([id,label,c])=>`<button class="tab" data-view="${id}" style="--tc:${c}"><span class="dot"></span>${label}</button>`).join("");
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)show(b.dataset.view)});
+const built={};
+function show(id){
+  $$("main > section").forEach(s=>s.hidden=s.id!=="view-"+id);
+  $$(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.view===id?"page":"false"));
+  const tab=$(`.tab[data-view="${id}"]`);tab&&tab.scrollIntoView({inline:"center",block:"nearest"});
+  stopBolt();
+  if(!built[id]){built[id]=true;
+    if(id[0]==="l")renderLesson(LBY[+id.slice(1)]);
+    if(id==="story")renderStory();
+    if(id==="board")renderBoardSetup();
+    if(id==="quiz")renderQuizIntro();
+  }
+  if(id==="home")renderHome();
+  hidePop();
+  if(show.ready)window.scrollTo({top:$("nav.tabs").offsetTop,behavior:"smooth"});
+  show.ready=true;
+}
+
+/* ============================ HOME ============================ */
+const STAGES=[["👋","Meet"],["🧩","Match-up"],["🎭","Sense or silly"],["✏️","Fill it in"],["⚡","Lightning"]];
+function renderHome(){
+  const zone=L=>`<button class="zone" data-go="l${L.n}" style="--tc:${L.color}"><span class="n">${L.n}</span><h3>${L.title}</h3><small>15 words, 5 mini-games</small><span class="pips">${STAGES.map((s,i)=>`<i class="${prog[L.n+"-"+i]?"on":""}"></i>`).join("")}</span></button>`;
+  $("#view-home").innerHTML=`
+  <h2 style="font-size:1.9rem">Pick a zone and play</h2>
+  <p class="hint">Each lesson has five quick games. Play them in order the first time, then jump to whichever one you need. The test checks two things: what each word <b>means</b>, and how to <b>use it in a sentence</b>.</p>
+  <div class="zones">
+    ${LESSONS.map(zone).join("")}
+    <button class="zone" data-go="story" style="--tc:var(--cp)"><span class="n">🧸</span><h3>Fun and Games (10E)</h3><small>Read the passage, then run your own toy company</small><span class="pips"><i class="${prog["p-hunt"]?"on":""}"></i><i class="${prog["p-tycoon"]?"on":""}"></i></span></button>
+    <button class="zone" data-go="board" style="--tc:var(--felt)"><span class="n">🎲</span><h3>The Board Game</h3><small>1 to 4 players. Every space is a word challenge.</small></button>
+    <div class="zone wide"><div><h3>🏆 The Big Quiz</h3><small>Fourteen rounds on all 60 words and the 10E passage. Best score so far: <b>${store.get("ww710-best",null)!==null?store.get("ww710-best")+"%":"not yet"}</b></small></div><button class="btn light big" data-go="quiz">Start the quiz</button></div>
+  </div>
+  <h3 class="sec">Starring…</h3>
+  <p class="hint">Every example sentence stars someone from class. Tap a name to see their sentences.</p>
+  <div class="roster" id="roster">${CLASS.map(n=>`<button class="kid" data-kid="${esc(n)}" aria-pressed="false" style="--kc:${kidColor(n)}"><span class="av">${initials(n)}</span>${n}</button>`).join("")}</div>
+  <div id="starring" class="panel starring" hidden></div>`;
+  $$("#view-home [data-go]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.go)));
+  $("#roster").onclick=e=>{const k=e.target.closest(".kid");if(!k)return;const n=k.dataset.kid;$$("#roster .kid").forEach(x=>x.setAttribute("aria-pressed",x===k));
+    const hits=ALL.filter(w=>new RegExp("\\b"+n+"\\b").test(w.ex));
+    const box=$("#starring");box.hidden=false;box.style.setProperty("--lc",kidColor(n));
+    box.innerHTML=`<h3 style="font-size:1.3rem;margin-bottom:8px">${n} stars in ${hits.length} sentence${hits.length===1?"":"s"}</h3><ul style="margin:0;padding-left:20px">${hits.map(w=>`<li><span class="lab" style="background:${w.color}">L${w.lesson}</span>${exHTML(w)} <small style="color:var(--muted)">(${w.w}: ${w.m})</small></li>`).join("")}</ul>`;
+    box.scrollIntoView({behavior:"smooth",block:"nearest"})};
+}
+
+/* ============================ LESSON ============================ */
+function renderLesson(L){
+  const v=$("#view-l"+L.n);v.style.setProperty("--lc",L.color);
+  v.innerHTML=`<div class="lhead"><div class="lnum">${L.n}</div><div><h2>${L.title}</h2><p>${L.blurb}</p></div></div>
+  <div class="stagebar" id="sb${L.n}">${STAGES.map(([e,t],i)=>`<button class="sbtn ${prog[L.n+"-"+i]?"done":""}" data-st="${i}">${e} ${t}${prog[L.n+"-"+i]?' <span class="st">✓</span>':""}</button>`).join("")}</div>
+  <div id="st${L.n}"></div>
+  <details class="shelf"><summary>📚 Word shelf: all 15 definitions</summary><div class="shelfgrid">${L.words.map(w=>`<div><b>${w.e} ${w.w}</b> <small style="color:var(--muted)"><i>${w.pos}</i></small><br>${w.d.join("<br>")}${w.f?`<br><small style="color:var(--muted)">${w.f}</small>`:""}</div>`).join("")}</div></details>`;
+  $("#sb"+L.n).onclick=e=>{const b=e.target.closest(".sbtn");if(b)stage(L,+b.dataset.st)};
+  stage(L,0);
+}
+function stage(L,i){
+  stopBolt();
+  $$("#sb"+L.n+" .sbtn").forEach(b=>b.setAttribute("aria-current",+b.dataset.st===i));
+  const host=$("#st"+L.n);host.innerHTML="";
+  const finish=()=>{setProg(L.n+"-"+i,1);const b=$(`#sb${L.n} .sbtn[data-st="${i}"]`);if(b&&!b.classList.contains("done")){b.classList.add("done");b.insertAdjacentHTML("beforeend",' <span class="st">✓</span>')}};
+  const next=()=>{if($(".nextstage",host))return;const nb=document.createElement("div");nb.className="navrow nextstage";nb.style.justifyContent="flex-end";
+    nb.innerHTML=i<4?`<button class="btn">Next game: ${STAGES[i+1][0]} ${STAGES[i+1][1]}</button>`:(L.n<10?`<button class="btn">On to Lesson ${L.n+1}</button>`:`<button class="btn">On to the 10E passage</button>`);
+    host.appendChild(nb);$(".btn",nb).onclick=()=>{if(i<4)stage(L,i+1);else show(L.n<10?"l"+(L.n+1):"story")}};
+  [meetGame,matchGame,senseGame,fillGame,boltGame][i](host,L,()=>{finish();next()});
+  const top=host.getBoundingClientRect().top+scrollY-110;if(scrollY>top)window.scrollTo({top,behavior:"smooth"});
+}
+
+/* --- 1. Meet --- */
+function meetGame(host,L,done){
+  const order=shuffle(L.words);let i=0;const res=[];
+  const draw=()=>{
+    const w=order[i];const other=pick(L.words.filter(x=>x!==w));const opts=shuffle([w.m,other.m]);
+    host.innerHTML=`<div class="meet"><p class="hint" style="text-align:center">Read the sentence and guess what the word means. Then learn the real meaning.</p>
+    <div class="mcard" id="mc"><button class="icon say" aria-label="Say ${w.w}">🔊</button><span class="emo">${w.e}</span><div class="word">${w.w}</div><div class="pos">${w.pos}</div>
+      <p class="msent">“${exHTML(w)}”</p><p class="ask">What does <b>${w.w}</b> mean?</p>
+      <div class="two">${opts.map(o=>`<button class="opt" data-ok="${o===w.m?1:0}">${o}</button>`).join("")}</div><div id="rv"></div></div>
+    <div class="dots">${order.map((x,k)=>`<i class="${k===i?"now":res[k]===1?"ok":res[k]===0?"no":""}"></i>`).join("")}</div></div>`;
+    $(".say",host).onclick=()=>say(w.w);
+    $(".two",host).onclick=e=>{const b=e.target.closest(".opt");if(!b||b.disabled)return;const ok=b.dataset.ok==="1";res[i]=ok?1:0;
+      $$(".two .opt",host).forEach(o=>{o.disabled=true;if(o.dataset.ok==="1")o.classList.add("right")});if(!ok)b.classList.add("wrong");
+      $("#mc").classList.add(ok?"flash-ok":"flash-no");
+      $("#rv").innerHTML=`<div class="reveal"><b>${ok?"✅ You got it!":"❌ Not this time. Here's the real meaning:"}</b><ol>${w.d.map(x=>`<li>${x}</li>`).join("")}</ol>${w.f?`<p class="forms">Word family: ${w.f}</p>`:""}<p class="hook">💡 ${w.h}</p>
+      <div class="navrow" style="justify-content:flex-end"><button class="btn" id="mn">${i<order.length-1?"Next word":"Finish"}</button></div></div>`;
+      $("#mn").onclick=()=>{i++;if(i<order.length)draw();else{const s=res.filter(x=>x).length;host.innerHTML=`<div class="panel" style="text-align:center"><h3 style="font-size:1.6rem">You met all 15 words! 🎉</h3><p>You guessed <b>${s} of 15</b> right on the first try. Now let's lock them in.</p></div>`;if(s>=12)confetti(.8);done(s,15)}};
+      $("#mn").focus({preventScroll:true});
+    };
+  };draw();
+}
+/* --- 2. Match-up --- */
+function matchGame(host,L,done){
+  const ws=shuffle(L.words);const a=ws.slice(0,8),b=ws.slice(8);let round=0,tot=0;
+  const go=()=>{const words=round===0?a:b;host.innerHTML=`<p class="hint">Round ${round+1} of 2. Drag each word onto its meaning.</p><div id="mg${L.n}"></div>`;const mg=$("#mg"+L.n);
+    matchPart(mg,(s,m)=>{tot+=s;const f=document.createElement("div");f.className="pfoot";
+      f.innerHTML=`<span class="msg">${s} / ${m}${s===m?" 🌟":""}</span><button class="btn">${round===0?"Round 2":"See my score"}</button>`;mg.appendChild(f);
+      $(".btn",f).onclick=()=>{if(round===0){round=1;go()}else{host.innerHTML=`<div class="panel" style="text-align:center"><h3 style="font-size:1.6rem">Match-up score: ${tot} / 15</h3><p>${tot===15?"Perfect matching! 🎉":"Replay anytime from the bar above."}</p></div>`;if(tot===15)confetti(.8);done(tot,15)}}},words)};
+  go();
+}
+/* --- 3. Sense or silly --- */
+function boldWords(t,L){for(const w of L.words){const re=new RegExp("\\b("+w.w.slice(0,Math.max(4,w.w.length-2))+"[a-z]*)\\b","i");if(re.test(t))return nameSpan(t).replace(re,"<b>$1</b>")}return nameSpan(t)}
+function senseGame(host,L,done){
+  host.innerHTML=`<p class="hint">Is the word used correctly? Drag each sentence into a jar.</p>`+sortHTML(shuffle(L.sort).map(([t,ok])=>({text:boldWords(t,L),bin:ok?"ok":"no"})),[{key:"ok",label:"Makes sense ✓",c:"var(--ok)"},{key:"no",label:"Silly! ✗",c:"var(--bad)"}]);
+  checkBtn(host,"Check my jars",()=>{const r=gradeSort($(".dnd",host));const f=document.createElement("div");f.className="pfoot";f.innerHTML=`<span class="msg">${r.score} / ${r.max}${r.score===r.max?": perfect! 🎉":". Red ones are in the wrong jar."}</span><button class="btn ghost">Play again</button>`;host.appendChild(f);$(".btn",f).onclick=()=>senseGame(host,L,done);if(r.score===r.max)confetti(.8);done(r.score,r.max)});
+}
+/* --- 4. Fill it in --- */
+function fillGame(host,L,done){
+  const ws=shuffle(L.words);const use=ws.slice(0,8),decoy=ws.slice(8,10);const id=uid();
+  host.innerHTML=`<p class="hint">Finish your classmates' sentences. Drag the right word into each blank. Two of the words are extras!</p>
+  <div class="dnd" id="${id}"><div class="pool sticky" id="${id}-pool">${shuffle([...use,...decoy]).map(w=>chipHTML(form(w),{val:form(w)},id+"-pool")).join("")}</div>
+  <div class="sentlist">${shuffle(use).map(w=>`<div class="s">${nameSpan(w.ex.replace(/\[([^\]]+)\]/,"@@"+"BLANK@@")).replace("@@BLANK@@",`<span class="drop one blank" data-ans="${esc(form(w))}"></span>`)}</div>`).join("")}</div></div>`;
+  checkBtn(host,"Check my sentences",()=>{const g=$("#"+id);g.classList.add("locked");let s=0;
+    $$(".blank",g).forEach(bl=>{const c=bl.querySelector(".chip");const ok=c&&c.dataset.val===bl.dataset.ans;if(c)c.classList.add(ok?"right":"wrong");if(ok)s++;else bl.insertAdjacentHTML("afterend",`<span class="fix" style="display:inline;margin-left:4px">(${bl.dataset.ans})</span>`)});
+    $$(`#${id}-pool .chip`).forEach(c=>c.style.opacity=".5");
+    const f=document.createElement("div");f.className="pfoot";f.innerHTML=`<span class="msg">${s} / 8${s===8?": nailed it! 🎉":""}</span><button class="btn ghost">New sentences</button>`;host.appendChild(f);$(".btn",f).onclick=()=>fillGame(host,L,done);if(s===8)confetti(.8);done(s,8)});
+}
+/* --- 5. Lightning --- */
+let boltTimer=null;function stopBolt(){if(boltTimer){clearInterval(boltTimer);boltTimer=null}}
+function makeQ(L){
+  const w=pick(L.words);const dis=shuffle(L.words.filter(x=>x!==w)).slice(0,3);
+  if(Math.random()<.5)return {q:`Which word means <b>“${w.m}”</b>?`,opts:shuffle([w,...dis]).map(x=>x.w),ans:w.w,w:w.w};
+  return {q:`“${exBlank(w)}”`,opts:shuffle([w,...dis]).map(form),ans:form(w),w:w.w};
+}
+function boltGame(host,L,done){
+  const best=store.get("ww710-bolt"+L.n,0);
+  host.innerHTML=`<div class="bolt panel"><h3 style="font-size:1.6rem">⚡ Lightning Round</h3><p>60 seconds. Answer as many as you can. Get 3 in a row for double points and 5 in a row for triple!</p><p>Your best: <b>${best}</b> points</p><button class="btn big" id="bgo${L.n}">Start!</button></div>`;
+  $("#bgo"+L.n).onclick=()=>{
+    let t=60,score=0,streak=0,right=0,wrong=0;const missed=new Set();
+    host.innerHTML=`<div class="bolt panel" id="bp"><div class="bstats"><span>⏱️ <span id="bt">60</span>s</span><span>🔥 <span id="bs">0</span></span><span>⭐ <span id="bsc">0</span></span></div><div class="timer"><i id="bbar"></i></div><div class="bq" id="bq"></div><div class="opts" id="bo"></div></div>`;
+    let cur;const nextQ=()=>{let q;do{q=makeQ(L)}while(cur&&q.q===cur.q);cur=q;$("#bq").innerHTML=cur.q;$("#bo").innerHTML=cur.opts.map(o=>`<button class="opt wordopt">${o}</button>`).join("")};
+    $("#bo").onclick=e=>{const b=e.target.closest(".opt");if(!b||!boltTimer)return;const ok=b.textContent===cur.ans;const bp=$("#bp");bp.classList.remove("flash-ok","flash-no");void bp.offsetWidth;
+      if(ok){streak++;right++;score+=streak>=5?3:streak>=3?2:1;bp.classList.add("flash-ok")}else{streak=0;wrong++;missed.add(cur.w);bp.classList.add("flash-no")}
+      $("#bs").textContent=streak+(streak>=5?" ×3":streak>=3?" ×2":"");$("#bsc").textContent=score;nextQ()};
+    nextQ();
+    boltTimer=setInterval(()=>{t--;$("#bt").textContent=t;$("#bbar").style.width=(t/60*100)+"%";if(t<=0){stopBolt();
+      const nb=score>best;if(nb)store.set("ww710-bolt"+L.n,score);
+      host.innerHTML=`<div class="bolt panel"><h3 style="font-size:1.8rem">${nb?"🏆 New best!":"⏰ Time!"}</h3><p style="font-size:1.3rem"><b>${score}</b> points: ${right} right, ${wrong} wrong</p>
+      ${missed.size?`<p>Words to practice:</p><div class="review">${[...missed].map(x=>{const w=WORD[x];return `<div style="--tc:${w.color}"><b>${w.e} ${w.w}</b><br>${w.m}</div>`}).join("")}</div>`:"<p>No mistakes! ⚡</p>"}
+      <button class="btn big" id="bagain${L.n}">Play again</button></div>`;
+      $("#bagain"+L.n).onclick=()=>boltGame(host,L,done);if(nb||(!wrong&&right))confetti(1);done(right,right+wrong)}},1000);
+  };
+}
+
+/* ============================ DRAG & DROP ENGINE ============================ */
+function chipHTML(text,data,poolId,long){const attrs=Object.entries(data).map(([k,v])=>`data-${k}="${esc(v)}"`).join(" ");return `<div class="chip${long?" long":""}" draggable="true" data-pool="${poolId}" ${attrs}><span>${text}</span><button class="x" aria-label="Send back">✕</button></div>`}
+function sortHTML(items,bins){const id=uid();return `<div class="dnd" id="${id}"><div class="pool" id="${id}-pool">${items.map(it=>chipHTML(it.text,{bin:it.bin,w:it.w||""},id+"-pool",true)).join("")}</div><div class="bins">${bins.map(b=>`<div class="drop many bin" data-bin="${b.key}" style="--bc:${b.c}"><div class="binlabel">${b.label}</div><div class="binbody"></div></div>`).join("")}</div></div>`}
+function gradeSort(game){game.classList.add("locked");let score=0;const chips=$$(".chip",game);const missed=[];chips.forEach(c=>{const bin=c.closest(".bin");const ok=bin&&bin.dataset.bin===c.dataset.bin;c.classList.add(ok?"right":"wrong");if(ok)score++;else if(c.dataset.w)missed.push(...c.dataset.w.split(","))});return {score,max:chips.length,missed}}
+let drag=null,ghost=null,hiEl=null;
+function setHi(d){if(hiEl&&hiEl!==d)hiEl.classList.remove("hi");hiEl=d;if(d)d.classList.add("hi")}
+function dropFor(el,chip){if(!el||!el.closest||!chip)return null;const d=el.closest(".drop");if(!d)return null;if(d.closest(".dnd")!==chip.closest(".dnd"))return null;if(d.closest(".locked"))return null;return d}
+function refresh(game){if(game)$$(".drop.one",game).forEach(d=>d.classList.toggle("filled",!!d.querySelector(".chip")))}
+function sendBack(chip){const p=document.getElementById(chip.dataset.pool);if(p){p.appendChild(chip);pop(chip);refresh(chip.closest(".dnd"))}}
+function pop(el){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop")}
+function place(chip,d){const body=d.querySelector(".binbody")||d;if(d.classList.contains("one")){const ex=body.querySelector(".chip");if(ex&&ex!==chip)sendBack(ex)}body.appendChild(chip);pop(chip);refresh(d.closest(".dnd"))}
+document.addEventListener("dragstart",e=>{const c=e.target.closest&&e.target.closest(".chip");if(!c)return;if(ghost||c.closest(".locked")){e.preventDefault();return}drag=c;c.classList.add("dragging");try{e.dataTransfer.setData("text/plain",c.textContent);e.dataTransfer.effectAllowed="move"}catch(_){}});
+document.addEventListener("dragend",()=>{if(drag&&!ghost){drag.classList.remove("dragging");drag=null}setHi(null)});
+document.addEventListener("dragover",e=>{if(!drag||ghost)return;const d=dropFor(e.target,drag);if(d){e.preventDefault();setHi(d)}else setHi(null)});
+document.addEventListener("drop",e=>{if(!drag||ghost)return;const d=dropFor(e.target,drag);if(d){e.preventDefault();place(drag,d)}setHi(null)});
+function moveGhost(t){ghost.style.left=(t.clientX-ghost._dx)+"px";ghost.style.top=(t.clientY-ghost._dy)+"px"}
+document.addEventListener("touchstart",e=>{const c=e.target.closest&&e.target.closest(".chip");if(!c||e.target.closest(".x")||c.closest(".locked")||e.touches.length>1)return;const t=e.touches[0],r=c.getBoundingClientRect();drag=c;ghost=c.cloneNode(true);ghost.classList.add("ghost");ghost.classList.remove("pop");ghost.style.width=r.width+"px";ghost._dx=t.clientX-r.left;ghost._dy=t.clientY-r.top;document.body.appendChild(ghost);moveGhost(t);c.classList.add("dragging")},{passive:true});
+document.addEventListener("touchmove",e=>{if(!ghost)return;e.preventDefault();const t=e.touches[0];moveGhost(t);setHi(dropFor(document.elementFromPoint(t.clientX,t.clientY),drag));if(t.clientY<90)window.scrollBy(0,-14);else if(t.clientY>innerHeight-90)window.scrollBy(0,14)},{passive:false});
+function endTouch(e,cancel){if(!ghost)return;const t=e.changedTouches[0];const d=cancel?null:dropFor(document.elementFromPoint(t.clientX,t.clientY),drag);ghost.remove();ghost=null;drag.classList.remove("dragging");if(d)place(drag,d);drag=null;setHi(null)}
+document.addEventListener("touchend",e=>endTouch(e,false));
+document.addEventListener("touchcancel",e=>endTouch(e,true));
+document.addEventListener("click",e=>{const x=e.target.closest(".x");if(!x)return;const c=x.closest(".chip");if(c&&!c.closest(".locked")){e.stopPropagation();sendBack(c)}});
+
+/* ============================ PASSAGE 10E ============================ */
+const SCENES=[
+ {art:"🧸",t:"Not all fun and games",p:`Have you ever invented a new game or toy? Lots of people have, and most of them would tell you that inventing and producing games is a very serious business. Many people who try to interest a company in their inventions share a common {gripe|gripe|complaint}: most companies will not consider an idea from someone unknown to them.`},
+ {art:"🧠",t:"The veteran inventors",p:`Companies prefer to deal with established inventors they have worked with for a long time. These <<veteran|veteran|experienced (a Lesson 7 word!)>> inventors have a {knack|knack|special talent or skill} for thinking up ideas, lots of them, for new toys and games. Just as important, they are willing to spend the time to develop their ideas. Only then do they take a new game or toy to a company and try to sell it.`},
+ {art:"💵",t:"Big business",p:`People may complain that they have less {leisure|leisure|free time not taken up with work} time than they used to, but they spend far more money on ways to fill it: billions of dollars a year in the United States alone. Toy stores do a {brisk|brisk|quick, active, busy} business between Thanksgiving and the end of the year. They can {anticipate|anticipate|expect} selling more toys and games in that one period than in the entire rest of the year!`},
+ {art:"🔍",t:"The hunt for something new",p:`Companies {compete|compete|try to win against others} to meet the huge demand by keeping up a <<perpetual|perpetual|never-ending (a Lesson 9 word!)>> search for new products. They aren't interested in warmed-over ideas from previous years. They are looking for something {unique|unique|the only one of its kind}.`},
+ {art:"🧮",t:"What else matters",p:`Originality may be the main thing, but companies must keep other {factors|factor|things that contribute to a result} in mind. First, cost: the less {complicated|complicate|not simple; having many parts} a toy is, the cheaper it is to make. Second, age: if a game is easy to understand, younger children can play it too, so more people are likely to buy it. Third, advertising: big companies with big advertising {budgets|budget|plans for spending money} must ask whether they can make an {effective|effect|bringing about the desired result} TV commercial for the product.`},
+ {art:"🎢",t:"Risky, but rewarding",p:`If a company {errs|err|makes a mistake} by putting a lot of money into a toy that doesn't sell, it can go {bankrupt|bankrupt|unable to pay its debts}. If the toy is a hit, everyone is <<ecstatic|ecstasy|full of joy (a Lesson 8 word!)>>. Even success has risks. If a toy suddenly catches on, the factory may not be able to keep up. By the time it can, the {fad|fad|something popular for a short time} may have died down, and the company is stuck with tens of thousands of toys it can't sell.`},
+ {art:"🎩",t:"The exceptions",p:`Most toys and games have {brief|brief|short; not long-lasting} lives, but there are exceptions. Monopoly has been popular for more than seventy years, and over 200 million copies have been sold. Only a handful of lucky inventors become millionaires. But inventors are natural optimists, so there are always newcomers eager to break into this high-stakes business.`}
+];
+const TYCOON=[
+ {q:"Your class starts a toy company! Markisio sends his idea to a big company, but nobody there knows him. What usually happens?",o:[["Most companies won't consider ideas from someone they don't know. That's the inventors' common gripe.",1],["The company buys it the same day.",0],["Companies only buy ideas from children.",0]]},
+ {q:"Who should your company work with to get great ideas?",o:[["Veteran inventors with a knack for ideas, who take the time to develop them",1],["Anyone who sends a quick email",0],["Nobody. Just guess what kids want.",0]]},
+ {q:"When should you anticipate selling the most toys?",o:[["Between Thanksgiving and the end of the year",1],["In June, when school ends",0],["Sales are the same all year",0]]},
+ {q:"Coryn says, \"Let's copy last year's best-seller!\" Good plan?",o:[["No. Companies look for something unique, not warmed-over ideas.",1],["Yes. Old ideas always sell best.",0],["Yes, as long as we make it more expensive.",0]],s:"Hint: what do companies want most?"},
+ {q:"Vihan's design has 500 tiny parts and a 40-page rule book. Which factors could hurt it?",o:[["It's complicated, so it costs more to make, and younger kids can't play it, so there are fewer buyers.",1],["Nothing. More parts means more fun.",0],["The only problem is the color.",0]]},
+ {q:"You have a big advertising budget. What must you ask before spending it?",o:[["Can we make an effective TV commercial for this toy?",1],["Can we hide the toy from the stores?",0],["Can we spend it all on pizza?",0]]},
+ {q:"Your toy is suddenly a craze! The factory can't make them fast enough. What's the danger?",o:[["By the time the factory catches up, the fad may be over, and you're stuck with toys nobody wants.",1],["There's no danger. Crazes last forever.",0],["The toy will get too cheap.",0]]},
+ {q:"Last question! Why is Monopoly NOT a fad?",o:[["It has been popular for more than 70 years. Most toys have brief lives, but Monopoly is an exception.",1],["It was popular for one summer only.",0],["Nobody has ever bought it.",0]]}
+];
+function renderStory(){
+  const v=$("#view-story");v.style.setProperty("--lc","var(--cp)");
+  const found=store.get("ww710-found",{});
+  const render=t=>t.replace(/\{([^|]+)\|([^|]+)\|([^}]+)\}/g,(m,s,b,me)=>`<button class="vw ${found[b]?"found":""}" data-base="${b}" data-mean="${esc(me)}">${s}</button>`).replace(/<<([^|]+)\|([^|]+)\|([^>]+)>>/g,(m,s,b,me)=>`<button class="vw bonus ${found["*"+b]?"found":""}" data-base="*${b}" data-mean="${esc(me)}">${s}</button>`);
+  v.innerHTML=`<div class="lhead"><div class="lnum" style="background:var(--cp)">10E</div><div><h2>Fun and Games</h2><p>This retells the passage from your book. All 15 Lesson 10 words are hiding in it (pink), plus three bonus words from earlier lessons (gold). Tap each one to see what it means <em>in this passage</em>.</p></div></div>
+  <div class="hunt"><span>🔎 Word hunt</span><span class="meter"><i id="huntbar"></i></span><span id="huntn">0 / 15</span></div>
+  <div class="scenes">${SCENES.map(s=>`<article class="scene"><div class="art">${s.art}</div><div><h3>${s.t}</h3><p>${render(s.p)}</p></div></article>`).join("")}</div>
+  <h3 class="sec">The passage by the numbers</h3>
+  <div class="facts"><div class="fact"><b>Billions</b>of dollars spent on toys and games in the US each year</div><div class="fact"><b>1 season</b>Thanksgiving to New Year outsells the rest of the year</div><div class="fact"><b>3</b>other factors besides originality: cost, the children's age, and advertising</div><div class="fact"><b>70+</b>years Monopoly has been popular</div><div class="fact"><b>200 million</b>Monopoly games sold</div></div>
+  <h3 class="sec">🏭 Toy Tycoon</h3>
+  <p class="hint">Run your own toy company with the class. Every choice comes from the passage. Choose well and your company grows. Err too often and you go bankrupt!</p>
+  <div class="tycoon" id="ty"></div>
+  <div style="margin-top:28px;display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap"><button class="btn ghost" data-go="board">🎲 Play the board game</button><button class="btn big" data-go="quiz">🏆 Big Quiz</button></div>`;
+  $$("[data-go]",v).forEach(b=>b.onclick=()=>show(b.dataset.go));
+  const cnt=()=>Object.keys(found).filter(k=>k[0]!=="*").length;
+  const upd=()=>{const n=cnt();$("#huntbar").style.width=n/15*100+"%";$("#huntn").textContent=`${n} / 15${n===15?" 🎉":""}`;if(n===15)setProg("p-hunt",1)};upd();
+  v.addEventListener("click",e=>{const b=e.target.closest(".vw");if(!b)return;e.stopPropagation();const base=b.dataset.base;const first=!found[base];found[base]=1;store.set("ww710-found",found);
+    $$(`.vw[data-base="${base}"]`,v).forEach(x=>x.classList.add("found"));upd();
+    showPop(b,`<b>${b.textContent}</b>${b.dataset.mean}<br><small style="opacity:.75">Word: ${base.replace("*","")}</small>`);
+    if(first&&base[0]!=="*"&&cnt()===15)confetti(1.5)});
+  tycoon();
+}
+function tycoon(){
+  const box=$("#ty");const START=5000;let cash=START,i=0;
+  const pct=c=>Math.max(0,Math.min(100,c/29000*100));
+  const head=()=>`<div class="cash"><span style="font-size:2rem">🏭</span><span class="money" id="money">$${cash.toLocaleString()}</span><span class="bar"><i style="width:${pct(cash)}%"></i></span></div>`;
+  const animMoney=(a,b)=>{const m=$("#money");if(!m)return;m.className="money "+(b>a?"up":"down");const t0=performance.now();const f=now=>{const k=Math.min(1,(now-t0)/600);m.textContent="$"+Math.round(a+(b-a)*k).toLocaleString();if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f);const bar=$(".cash .bar i",box);if(bar)bar.style.width=pct(b)+"%"};
+  const end=()=>{const broke=cash<=0;setProg("p-tycoon",1);const perfect=cash>=29000;
+    box.innerHTML=head()+`<div style="text-align:center"><div style="font-size:4rem">${broke?"💥":perfect?"🤩":"😊"}</div><h3 style="font-size:1.8rem">${broke?"Bankrupt!":perfect?"Your whole team is ecstatic!":"Your company survived!"}</h3>
+    <p>${broke?"Your company ran out of money and couldn't pay its debts. That's what <b>bankrupt</b> means. Reread the passage and try again!":perfect?"You made every smart choice from the passage. You're a Toy Tycoon!":"A few mistakes, but you're still in business. Can you get a perfect run?"}</p>
+    <button class="btn big" style="--lc:var(--cp)" id="tyagain">Play again</button></div>`;
+    $("#tyagain").onclick=()=>{i=0;cash=START;step()};if(perfect)confetti(1.5)};
+  const step=()=>{
+    if(cash<=0||i>=TYCOON.length)return end();
+    const d=TYCOON[i];
+    box.innerHTML=head()+`<p class="tyq">Decision ${i+1} of ${TYCOON.length}: ${nameSpan(d.q)}${d.s?`<small>${d.s}</small>`:""}</p><div class="opts one">${shuffle(d.o).map(([t,ok])=>`<button class="opt" data-ok="${ok}">${t}</button>`).join("")}</div><div id="tyr"></div>`;
+    $(".opts",box).onclick=e=>{const b=e.target.closest(".opt");if(!b||b.disabled)return;const ok=b.dataset.ok==="1";
+      $$(".opts .opt",box).forEach(o=>{o.disabled=true;if(o.dataset.ok==="1")o.classList.add("right")});if(!ok)b.classList.add("wrong");
+      const before=cash;cash+=ok?3000:-3500;animMoney(before,cash);
+      $("#tyr").innerHTML=`<p class="why ${ok?"good":"bad"}">${ok?"✅ Smart move! +$3,000":"❌ You erred! −$3,500"}</p><div class="navrow" style="justify-content:flex-end"><button class="btn" style="--lc:var(--cp)" id="tyn">${cash<=0?"Uh oh…":i<TYCOON.length-1?"Next decision":"See how you did"}</button></div>`;
+      $("#tyn").onclick=()=>{i++;step()}};
+  };
+  box.innerHTML=head()+`<p class="tyq">Your company starts with $5,000 and faces ${TYCOON.length} big decisions. Ready?<small>Each smart choice earns $3,000. Each mistake costs $3,500.</small></p><button class="btn big" style="--lc:var(--cp)" id="tygo">Open the factory</button>`;
+  $("#tygo").onclick=step;
+}
+function showPop(anchor,html){const p=$("#pop");p.innerHTML=html;p.hidden=false;const r=anchor.getBoundingClientRect();const w=Math.min(300,innerWidth-24);p.style.maxWidth=w+"px";let left=r.left+scrollX;left=Math.min(left,scrollX+innerWidth-w-12);p.style.left=Math.max(12,left)+"px";p.style.top=(r.bottom+scrollY+8)+"px"}
+function hidePop(){$("#pop").hidden=true}
+document.addEventListener("click",e=>{if(!e.target.closest("#pop")&&!e.target.closest(".vw"))hidePop()});
+
+/* ============================ BOARD GAME ============================ */
+const SPECIAL={4:{ic:"🌬️",t:"Brisk breeze",d:"A brisk wind pushes you along. Roll again!",fx:"again"},9:{ic:"🐃",t:"Stampede!",d:"You get swept up in a stampede. Zoom ahead 3!",fx:3},14:{ic:"🐌",t:"Linger",d:"You lingered too long. Miss your next turn.",fx:"skip"},19:{ic:"❌",t:"You erred",d:"Oops, you erred! Slide back 3.",fx:-3},24:{ic:"🎨",t:"Knack!",d:"You have a knack for this. Roll again!",fx:"again"}};
+const SPACE_TYPES=[7,8,9,10,"P"];
+const PTF=[["In 'Fun and Games', most companies happily consider ideas from inventors they don't know.",false,"That's the inventors' common gripe: companies usually won't."],["Toy stores do a brisk business between Thanksgiving and the end of the year.",true,"They anticipate selling more then than in the rest of the year."],["The more complicated a toy is, the cheaper it is to make.",false,"The LESS complicated, the cheaper."],["A company that errs by spending a lot on a toy that doesn't sell can go bankrupt.",true,"That's the big risk in the passage."],["Monopoly is a fad.",false,"It has been popular for more than 70 years. A fad is popular for only a short time."],["Most toys and games have brief lives.",true,"Monopoly is an exception."],["Toy companies want warmed-over ideas from previous years.",false,"They want something unique."],["If a game is easy to understand, younger children can play it, so more people might buy it.",true,"That's one of the factors companies consider."]];
+const BG={players:[],turn:0,busy:false};
+function spaceInfo(i){if(i===0)return {cls:"start",ic:"🚩",t:"Start"};if(i===29)return {cls:"finish",ic:"🏆",t:"Finish"};if(SPECIAL[i])return {cls:"special",ic:SPECIAL[i].ic,t:SPECIAL[i].t};const ty=SPACE_TYPES[(i-1)%5];
+  if(ty==="P")return {ty,ic:"🧸",t:"10E",c:"var(--cp)"};return {ty,ic:LBY[ty].words[i%15].e,t:"Lesson "+ty,c:LBY[ty].color}}
+function renderBoardSetup(){
+  const v=$("#view-board");v.style.setProperty("--lc","var(--felt)");
+  const sel=new Set(store.get("ww710-players",["Adiaha"]).filter(n=>CLASS.includes(n)));
+  v.innerHTML=`<div class="lhead"><div class="lnum" style="background:var(--felt)">🎲</div><div><h2>The Great Word Game</h2><p>Roll the die and race to the finish. Every colored space is a word challenge: answer right and you stay put with a ⭐, answer wrong and you slide back 2. Gold spaces are word surprises!</p></div></div>
+  <div class="panel setup"><h3 style="font-size:1.3rem">Who's playing? <small style="font-weight:400;color:var(--muted)">(pick 1 to 4 players and take turns on one device)</small></h3>
+  <div class="roster" id="pick">${CLASS.map(n=>`<button class="kid" data-kid="${esc(n)}" aria-pressed="${sel.has(n)}" style="--kc:${kidColor(n)}"><span class="av">${initials(n)}</span>${n}</button>`).join("")}</div>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="btn big" style="--lc:var(--felt)" id="bstart">Start the game</button><span id="pmsg" style="color:var(--muted)"></span></div></div>`;
+  const upd=()=>{$("#pmsg").textContent=sel.size?"Players: "+[...sel].join(", "):"Pick at least one player";$("#bstart").disabled=!sel.size};upd();
+  $("#pick").onclick=e=>{const k=e.target.closest(".kid");if(!k)return;const n=k.dataset.kid;if(sel.has(n))sel.delete(n);else{if(sel.size>=4){$("#pmsg").textContent="Four players max! Tap a name to remove it first.";return}sel.add(n)}k.setAttribute("aria-pressed",sel.has(n));upd()};
+  $("#bstart").onclick=()=>{store.set("ww710-players",[...sel]);BG.players=[...sel].map(n=>({n,pos:0,stars:0,skip:false}));BG.turn=0;BG.busy=false;renderBoard()};
+}
+function renderBoard(){
+  const v=$("#view-board");
+  let sq="";for(let i=0;i<30;i++){const r=Math.floor(i/6),c=r%2?5-i%6:i%6;const s=spaceInfo(i);sq+=`<div class="sq ${s.cls||""}" id="sq${i}" style="grid-row:${r+1};grid-column:${c+1};${s.c?`--sc:${s.c}`:""}"><span class="num">${i||""}</span><span class="ic">${s.ic}</span><span>${s.t}</span><div class="tokens"></div></div>`}
+  v.innerHTML=`<div class="btop"><button class="die" id="die" aria-label="Roll the die">🎲</button><div><div class="turn" id="turn"></div><div class="scores" id="scores"></div></div><button class="btn ghost" id="bnew" style="margin-left:auto">New game</button></div>
+  <div class="board">${sq}</div><div class="blog" id="blog">Tap the die to roll.</div>`;
+  $("#die").onclick=roll;$("#bnew").onclick=renderBoardSetup;drawTokens();drawTurn();
+}
+function drawTokens(hopName){$$(".board .tokens").forEach(t=>t.innerHTML="");BG.players.forEach(p=>{$(`#sq${p.pos} .tokens`).insertAdjacentHTML("beforeend",`<span class="tok ${p.n===hopName?"hop":""}" style="--kc:${kidColor(p.n)}" title="${esc(p.n)}">${initials(p.n)}</span>`)})}
+function drawTurn(){if(!$("#turn"))return;const p=BG.players[BG.turn];$("#turn").innerHTML=`<span class="tok" style="--kc:${kidColor(p.n)};width:30px;height:30px;font-size:.8rem">${initials(p.n)}</span> ${p.n}'s turn`;
+  $("#scores").innerHTML=BG.players.map((q,i)=>`<span class="${i===BG.turn?"now":""}" style="--kc:${kidColor(q.n)}">${q.n}: space ${q.pos}, ⭐${q.stars}</span>`).join("")}
+const blog=t=>{const b=$("#blog");if(b)b.innerHTML=t};
+function roll(){
+  if(BG.busy)return;const p=BG.players[BG.turn];
+  if(p.skip){p.skip=false;blog(`🐌 ${p.n} is still lingering and misses this turn.`);nextTurn();return}
+  BG.busy=true;const d=$("#die");d.classList.remove("roll");void d.offsetWidth;d.classList.add("roll");
+  const n=1+Math.floor(Math.random()*6);const faces=["⚀","⚁","⚂","⚃","⚄","⚅"];
+  setTimeout(()=>{d.textContent=faces[n-1];blog(`${p.n} rolled a <b>${n}</b>!`);moveBy(p,n,()=>land(p))},reduced()?50:500);
+}
+function moveBy(p,n,cb){const dir=n>0?1:-1;let k=Math.abs(n);const st=()=>{if(k--<=0||(dir>0&&p.pos>=29)||(dir<0&&p.pos<=0)){drawTurn();cb();return}p.pos+=dir;drawTokens(p.n);setTimeout(st,reduced()?40:300)};st()}
+function land(p){
+  if(p.pos>=29){BG.busy=false;win(p);return}
+  const sp=SPECIAL[p.pos];
+  if(sp){modal(`<h3>${sp.ic} ${sp.t}</h3><p>${sp.d}</p><div class="navrow" style="justify-content:flex-end"><button class="btn" id="mok">OK</button></div>`,"var(--gold)",()=>{
+      if(sp.fx==="again"){BG.busy=false;blog(`${sp.ic} ${p.n} rolls again!`);return}
+      if(sp.fx==="skip"){p.skip=true;BG.busy=false;nextTurn();return}
+      moveBy(p,sp.fx,()=>{BG.busy=false;if(p.pos>=29){win(p);return}nextTurn()})});return}
+  askBoard(p,spaceInfo(p.pos));
+}
+function askBoard(p,info){
+  let html,check;
+  if(info.ty==="P"){
+    if(Math.random()<.5){const [s,ans,why]=pick(PTF);html=`<h3>🧸 Passage challenge for ${p.n}</h3><p style="font-weight:700">True or false? ${s}</p><div class="tf"><button class="stamp" data-v="1" data-ok="${ans?1:0}">👍 True</button><button class="stamp f" data-v="0" data-ok="${ans?0:1}">👎 False</button></div>`;check=b=>({ok:(b.dataset.v==="1")===ans,why})}
+    else{const [q,o]=pick(PASSAGE);html=`<h3>🧸 Passage challenge for ${p.n}</h3><p style="font-weight:700">${q}</p><div class="opts one">${shuffle(o).map(x=>`<button class="opt" data-ok="${x===o[0]?1:0}">${x}</button>`).join("")}</div>`;check=b=>({ok:b.dataset.ok==="1",why:`The answer: ${o[0]}.`})}
+  }else{
+    const L=LBY[info.ty];
+    if(Math.random()<.3){const [s,ok]=pick(L.sort);html=`<h3>Lesson ${L.n} challenge for ${p.n}</h3><p style="font-weight:700">Sense or silly? “${boldWords(s,L)}”</p><div class="tf"><button class="stamp" data-v="1" data-ok="${ok?1:0}">✓ Makes sense</button><button class="stamp f" data-v="0" data-ok="${ok?0:1}">✗ Silly</button></div>`;check=b=>({ok:(b.dataset.v==="1")===!!ok,why:ok?"That sentence uses the word correctly.":"That word doesn't make sense in that sentence."})}
+    else{const q=makeQ(L);const w=WORD[q.w];html=`<h3>Lesson ${L.n} challenge for ${p.n}</h3><p style="font-weight:700">${q.q}</p><div class="opts">${q.opts.map(o=>`<button class="opt wordopt" data-ok="${o===q.ans?1:0}">${o}</button>`).join("")}</div>`;check=b=>({ok:b.dataset.ok==="1",why:`<b>${w.w}</b> means ${w.m}.`})}
+  }
+  modal(html+`<div id="mres"></div>`,info.c,null,box=>{
+    box.onclick=e=>{const b=e.target.closest(".opt,.stamp");if(!b||b.disabled)return;const r=check(b);
+      $$(".opt,.stamp",box).forEach(x=>{x.disabled=true;if(x.dataset.ok==="1")x.classList.add("right")});if(!r.ok)b.classList.add("wrong");
+      if(r.ok)p.stars++;
+      $("#mres").innerHTML=`<p class="why ${r.ok?"good":"bad"}">${r.ok?"✅ Correct! You stay here and earn a ⭐.":"❌ Not quite. Slide back 2."} ${r.why}</p><div class="navrow" style="justify-content:flex-end"><button class="btn" id="mok">Continue</button></div>`;
+      $("#mok").focus({preventScroll:true});
+      $("#mok").onclick=e2=>{e2.stopPropagation();closeModal();if(r.ok){BG.busy=false;nextTurn()}else moveBy(p,-2,()=>{BG.busy=false;nextTurn()})}};
+  });
+}
+function nextTurn(){BG.turn=(BG.turn+1)%BG.players.length;drawTurn()}
+function win(p){confetti(2.2);const rank=[...BG.players].sort((a,b)=>b.pos-a.pos||b.stars-a.stars);
+  modal(`<div style="text-align:center"><div style="font-size:4rem">🏆</div><h3 style="font-size:1.8rem">${p.n} wins!</h3><p>${p.n} reached the finish with ⭐${p.stars}. Time to be ecstatic!</p>
+  <div class="breakdown">${rank.map(q=>`<div><span>${q.n}</span><b>space ${q.pos}, ⭐${q.stars}</b></div>`).join("")}</div>
+  <button class="btn big" style="--lc:var(--felt)" id="mok">Play again</button></div>`,"var(--gold)",()=>renderBoardSetup())}
+function modal(html,color,onOk,wire){const m=$("#modal"),b=$("#mbox");b.style.setProperty("--lc",color||"var(--c9)");b.onclick=null;b.innerHTML=html;m.hidden=false;
+  if(onOk){$("#mok",b).onclick=()=>{closeModal();onOk()};$("#mok",b).focus({preventScroll:true})}if(wire)wire(b)}
+function closeModal(){$("#modal").hidden=true}
+
+/* ============================ QUIZ CONTENT ============================ */
+const SYNANT=[["hardy","tough","S"],["ravenous","starving","S"],["monotonous","boring","S"],["invaluable","priceless","S"],["peril","danger","S"],["perpetual","endless","S"],["unique","one-of-a-kind","S"],["err","make a mistake","S"],["frugal","extravagant","A"],["accumulate","diminish","A"],["brisk","sluggish","A"],["soothe","aggravate","A"],["captive","free","A"],["conserve","waste","A"],["brief","lengthy","A"],["inept","skillful","A"]];
+const TF=[
+ ["A monotonous song changes in exciting ways every few seconds.",false,"Monotonous means always the same; boring.","monotonous"],
+ ["A hardy plant can survive bad conditions.",true,"Hardy means tough.","hardy"],
+ ["If you exhaust your water supply, you still have plenty left.",false,"Exhaust means to use up.","exhaust"],
+ ["A veteran can be someone who served in the armed forces OR someone with lots of experience.",true,"Both are meanings of veteran.","veteran"],
+ ["Lingering means leaving in a big hurry.",false,"Linger means to be slow in leaving.","linger"],
+ ["An expedition can be the journey OR the group making it.",true,"Both are meanings of expedition.","expedition"],
+ ["If you interpret a dream, you explain what it means.",true,"Interpret can mean to explain the meaning of.","interpret"],
+ ["A frugal person spends money carelessly.",false,"Frugal means careful in spending. Extravagant is the careless one.","frugal"],
+ ["To diminish something is to make it bigger.",false,"Diminish means to make smaller.","diminish"],
+ ["Contaminated water is clean and safe to drink.",false,"Contaminated means harmed by something dirty or harmful.","contaminate"],
+ ["Clean water is vital: we need it to live.",true,"Vital means necessary for life.","vital"],
+ ["A fad stays popular for hundreds of years.",false,"A fad is popular for a short time, then forgotten.","fad"],
+ ["If you have a knack for something, it comes easily to you.",true,"A knack is a special talent.","knack"],
+ ["Erroneous means mistaken or wrong.",true,"It's from the same family as err and error.","err"],
+ ["In 'Fun and Games', most companies happily consider ideas from inventors they don't know.",false,"That's the inventors' common gripe: most companies won't.","gripe"],
+ ["In 'Fun and Games', the less complicated a toy is, the more expensive it is to make.",false,"The less complicated, the CHEAPER.","complicate"],
+ ["In 'Fun and Games', Monopoly is an exception because most toys and games have brief lives.",true,"Monopoly has been popular for 70+ years.","brief"]
+];
+const FIT=[
+ ["Leila's grandmother hummed softly to ____ the crying baby.",["soothe","exhaust","punctuate","retrieve"],"soothe"],
+ ["After hiking all morning, Andre was ____ and ate two plates of rice and peas.",["ravenous","frugal","unique","brief"],"ravenous"],
+ ["Shiloh's puppy splashed into the waves to ____ the stick.",["retrieve","linger","conserve","compete"],"retrieve"],
+ ["\"Switch off the fan when you leave to ____ electricity,\" Coryn reminded us.",["conserve","contaminate","accumulate","aggravate"],"conserve"],
+ ["Kosisochukuw has a ____ for languages; she already speaks three.",["knack","fad","budget","brawl"],"knack"],
+ ["Deacon made a ____ so he could save up for new football boots.",["budget","peril","territory","stampede"],"budget"],
+ ["The cliff path was slippery, so Jordan knew the climb was ____.",["perilous","convenient","casual","beneficial"],"peril"],
+ ["Zamari ____ at singing; he has the best voice in the choir.",["excels","gripes","errs","lingers"],"excel"],
+ ["Aeva wore ____ clothes to the beach: shorts, a T-shirt, and flip-flops.",["casual","realistic","drastic","vital"],"casual"],
+ ["Vihan's model volcano looked so ____ that people jumped back when it erupted.",["realistic","mediocre","inept","brief"],"realistic"],
+ ["The bus stop is so ____ that Jessie gets to school in five minutes.",["convenient","extravagant","hardy","monotonous"],"convenient"],
+ ["Markisio's grandpa, a ____ fisherman, has sailed these waters for forty years.",["veteran","captive","substitute","fad"],"veteran"],
+ ["In her ____ time, Miquea reads and plays the steel pan.",["leisure","peril","impurity","expanse"],"leisure"],
+ ["Our teacher was sick, so a ____ teacher taught us today.",["substitute","unique","frugal","brisk"],"substitute"],
+ ["Luke ____ a big crowd at the match, so he arrived early to get a seat.",["anticipated","interpreted","diminished","sustained"],"anticipate"],
+ ["Black ____ puffed out of the old truck's tailpipe.",["exhaust","expanse","supplement","knack"],"exhaust"]
+];
+const MEAN=[
+ ["Aeva has a <b>casual</b> job walking her neighbor's dog on some weekends.",["not regular; occasional","not planned","comfortable for everyday wear","very serious"],"casual"],
+ ["Coryn's dog is her <b>constant</b> companion.",["loyal; faithful","not changing","without a pause","very loud"],"constant"],
+ ["The long hike <b>exhausted</b> Deacon.",["tired out","used up","waste gas from an engine","excited"],"exhaust"],
+ ["Bursts of laughter <b>punctuated</b> Luke's funny speech.",["interrupted from time to time","added commas and periods","made it shorter","made it calm"],"punctuate"],
+ ["The lonely puppy was <b>ravenous</b> for attention.",["eager for what it wanted","very hungry","afraid of","bored with"],"ravenous"],
+ ["Saving coins in a jar is a <b>realistic</b> way to buy a new cricket bat.",["practical; makes sense","looks like real life","impossible","very expensive"],"realistic"],
+ ["Kosisochukuw <b>interpreted</b> the French poem into English for the class.",["translated into another language","explained the meaning of","understood in her own way","read very fast"],"interpret"],
+ ["Andre <b>interpreted</b> my silence as anger, but I was just tired.",["understood in his own way","translated into another language","wrote down","shouted"],"interpret"],
+ ["The goalkeeper <b>sustained</b> a sprained ankle in the match.",["suffered; underwent","kept up; supported","escaped","healed"],"sustain"],
+ ["Jordan's <b>vital</b> personality lights up the whole room.",["full of lively spirit","necessary for life","of the greatest importance","very quiet"],"vital"],
+ ["Before the debate, the coach <b>briefed</b> Shiloh on the rules.",["gave a short explanation to","short; not long-lasting","a statement for a court","complained to"],"brief"],
+ ["The cool, <b>brisk</b> breeze felt great after the hot day.",["refreshing","quick; active","slow","dangerous"],"brisk"],
+ ["The grumpy villain in the story was <b>bankrupt</b> of kindness.",["left without any","unable to pay debts","full of","angry at"],"bankrupt"],
+ ["The long lines at the airport <b>griped</b> the tired travelers.",["annoyed; irritated","complained","delighted","carried"],"gripe"]
+];
+const SENT=[
+ ["linger",["Anna lingered at the fair, not wanting to go home.","Anna lingered out the door as fast as she could.","Anna lingered her books into her bag."]],
+ ["excel",["Jordan excels at football and scores almost every match.","Jordan excels at football because he never plays.","Jordan excelled the ball across the field."]],
+ ["frugal",["Coryn is frugal, so she saves most of her allowance.","Coryn is frugal, so she spends all her money on candy.","Coryn frugaled her lunch."]],
+ ["contaminate",["Oil leaking from the boat contaminated the bay.","Markisio contaminated the water by cleaning it with a filter.","The fresh spring water was contaminated and safe to drink."]],
+ ["accompany",["Adiaha's dad accompanied her on trumpet at the concert.","Adiaha accompanied the cake into tiny slices.","Adiaha accompanied alone, with nobody else at all."]],
+ ["unique",["Kosisochukuw's hand-painted shoes are unique; no one else has a pair like them.","All the unique cups in the box were exactly the same.","The shop sold a million unique copies of the same poster."]],
+ ["brief",["The rain was brief, so the cricket match restarted quickly.","The brief movie lasted five long hours.","Zamari briefed butter onto his sandwich."]],
+ ["diminish",["The crowd diminished as people went home.","The crowd diminished as more and more people arrived.","Leila diminished her cake by adding another layer."]],
+ ["convenient",["The shop next door is convenient for buying milk.","The shop is convenient because it's a two-hour drive away.","Vihan convenient his bike to school."]],
+ ["retrieve",["Shiloh retrieved her hat from the lost and found.","Shiloh retrieved her hat by throwing it into the sea.","Shiloh retrieved for a nap."]],
+ ["knack",["Aeva has a knack for making people laugh.","Aeva has a knack for things she can never do.","Aeva knacked on the door."]],
+ ["stampede",["When the bell rang, there was a stampede to the canteen.","The stampede tiptoed slowly and quietly.","Luke stampeded a letter to his aunt."]],
+ ["invaluable",["Miquea's help on the project was invaluable.","The invaluable gift was totally worthless.","Invaluable means it costs ten cents."]],
+ ["budget",["Deacon's budget showed how he'd spend his allowance each week.","Deacon budgeted the door shut.","Deacon's budget was a kind of sandwich."]]
+];
+const SELECT=[
+ ["Which of these could you <b>conserve</b>?",[["water",1],["electricity",1],["paper",1],["yesterday",0]],"conserve"],
+ ["Which of these could <b>accumulate</b>?",[["snow on a mountain",1],["seashells in Anna's collection",1],["dust on a shelf",1],["a single raindrop that dried up",0]],"accumulate"],
+ ["Which of these are <b>hardy</b>?",[["a cactus in the desert",1],["goats on a dry hillside",1],["a melting ice cube",0],["a flower that wilts when you touch it",0]],"hardy"],
+ ["Which of these would be <b>monotonous</b>?",[["counting to 1,000 out loud",1],["copying the same line 100 times",1],["a surprise birthday party",0],["a brand-new roller coaster",0]],"monotonous"],
+ ["Which of these could be a <b>fad</b>?",[["a toy everyone wants for one summer",1],["a dance that's popular for a month",1],["eating food",0],["Monopoly, popular for 70+ years",0]],"fad"],
+ ["In 'Fun and Games', which are <b>factors</b> companies think about?",[["the cost of making it",1],["the age of the children it's for",1],["whether they can make an effective TV commercial",1],["the inventor's favorite color",0]],"factor"],
+ ["Which of these could you <b>retrieve</b>?",[["a ball from under the bed",1],["a jacket from the lost and found",1],["a stick thrown into the sea",1],["yesterday's sunset",0]],"retrieve"]
+];
+const STORIES=[
+ {title:"The Class Toy Fair",color:"var(--c10)",text:"Our class held a toy fair, and every team had to [compete] for the top prize. Adiaha has a [knack] for clever ideas, so her team [anticipated] a good result. Andre's robot was too [complicated]: it had 300 parts and fell apart. Leila's team invented a [unique] board game that nobody had ever seen before. Jordan made a careful [budget] so they wouldn't spend too much. The judges' speech was [brief], just two sentences! When Leila's team won, they were [ecstatic].",decoys:["fad","linger"]},
+ {title:"Expedition to Brimstone Hill",color:"var(--c8)",text:"Deacon led an [expedition] up Brimstone Hill. Markisio, a [veteran] hiker, carried the map. The path was steep and [perilous], so everyone walked slowly. By noon the whole group was [ravenous], and Aeva's mangoes were an [invaluable] treat. They had to [conserve] their water because the sun was so hot. From the top, they saw a huge [expanse] of blue sea. Nobody wanted to leave, so they [lingered] until sunset.",decoys:["punctuate","frugal"]}
+];
+const BASE={anticipated:"anticipate",complicated:"complicate",ecstatic:"ecstasy",perilous:"peril",lingered:"linger"};
+const PSORT=[["Veteran inventors with a knack for ideas","help"],["An idea that is unique","help"],["A simple toy that is cheap to make","help"],["A game easy enough for younger children","help"],["An effective TV commercial","help"],["Spending a lot on a toy that doesn't sell","sink"],["A fad that dies down before the factory catches up","sink"],["Warmed-over ideas from previous years","sink"],["A very complicated, costly toy","sink"]];
+const PASSAGE=[
+ ["What is the common gripe of new inventors?",["Most companies won't consider ideas from someone unknown to them","Toys are too cheap","Nobody likes games anymore","Factories are too far away"],"gripe"],
+ ["Why do companies like working with veteran inventors?",["They have a knack for lots of ideas and take time to develop them","They work for free","They are all millionaires","They only invent one toy"],"knack"],
+ ["When do toy stores do a brisk business?",["Between Thanksgiving and the end of the year","In early summer","During the first week of school","The same all year"],"brisk"],
+ ["In the passage, <b>brisk</b> business means business that is…",["quick, active, and busy","cold and refreshing","slow and quiet","short and brief"],"brisk"],
+ ["In the passage, stores <b>anticipate</b> selling more toys. Anticipate means…",["expect","forget about","complain about","prepare a meal"],"anticipate"],
+ ["What do companies look for most of all?",["Something unique and original","Last year's ideas","The most expensive toy","A toy with the most parts"],"unique"],
+ ["Why does a less complicated toy help a company?",["It's cheaper to make, and younger children can play it, so there are more buyers","It looks more boring","It takes longer to make","Only adults can play it"],"complicate"],
+ ["In the passage, an <b>effective</b> commercial is one that…",["brings about the desired result","is in operation","costs a lot","is very short"],"effect"],
+ ["What can happen if a company errs and spends a lot on a toy that fails?",["It can go bankrupt","Everyone becomes ecstatic","It wins a prize","Nothing at all"],"bankrupt"],
+ ["In the passage, <b>bankrupt</b> means…",["unable to pay its debts","full of new ideas","very successful","closed for the holidays"],"bankrupt"],
+ ["Why would it be wrong to call Monopoly a fad?",["It has been popular for more than 70 years","It was popular for only one summer","It isn't a game","It has never been sold"],"fad"],
+ ["Why can even a hit toy be risky?",["The factory may not keep up, and the fad may die down before the toys are ready","Hit toys never sell","Kids always return them","They become too cheap"],"fad"],
+ ["People may say they have less ____ time, but they spend more money filling it.",["leisure","budget","brisk","factor"],"leisure"],
+ ["Why is there never a shortage of newcomers to the toy business?",["Inventors are natural optimists","Inventing toys is easy","Companies pay everyone","There is no competition"],"compete"]
+];
+const ANALOG=[
+ ["FRUGAL : EXTRAVAGANT ::",["brief : lengthy","hungry : ravenous","tough : hardy","error : mistake"],"frugal","Frugal and extravagant are opposites, like brief and lengthy."],
+ ["RAVENOUS : HUNGRY ::",["ecstatic : happy","tired : awake","cold : hot","fast : slow"],"ravenous","Ravenous is VERY hungry, and ecstatic is VERY happy."],
+ ["CONSERVE : WASTE ::",["accumulate : diminish","soothe : calm","retrieve : fetch","excel : succeed"],"conserve","Opposites: conserve vs. waste, accumulate (grow) vs. diminish (shrink)."],
+ ["COMPETE : COMPETITOR ::",["invent : inventor","run : race","win : lose","play : game"],"compete","An action and the person who does it."],
+ ["GRIPE : COMPLAINT ::",["knack : talent","fad : forever","leisure : work","brisk : slow"],"gripe","Synonyms: a gripe is a complaint, and a knack is a talent."],
+ ["ERR : ERROR ::",["punctuate : punctuation","run : walk","happy : sad","big : small"],"err","A verb and its noun form."],
+ ["EXPEDITION : EXPLORE ::",["budget : plan spending","fad : last forever","peril : stay safe","leisure : work hard"],"expedition","An expedition is FOR exploring, and a budget is FOR planning spending."]
+];
+
+/* ============================ QUIZ ENGINE ============================ */
+const Q={parts:[],i:0,res:[]};
+function mcHTML(items,one){return items.map((it,qi)=>`<div class="q" data-qi="${qi}"><p class="qt"><span class="num">${qi+1}</span>${it.q}</p><div class="opts${one?" one":""}">${it.shuffled.map(o=>`<button class="opt" data-ok="${o===it.correct?1:0}">${nameSpan(o)}</button>`).join("")}</div></div>`).join("")}
+function wireMC(body,items,done,whyFn){let answered=0,score=0;const missed=[];
+  body.addEventListener("click",e=>{const b=e.target.closest(".opt");if(!b||b.disabled)return;const q=b.closest(".q");if(!q||q.dataset.qi===undefined)return;const it=items[+q.dataset.qi];
+    $$(".opt",q).forEach(o=>{o.disabled=true;if(o.dataset.ok==="1")o.classList.add(o===b?"right":"missed")});
+    const ok=b.dataset.ok==="1";if(!ok){b.classList.add("wrong");missed.push(it.w)}else score++;
+    const why=whyFn?whyFn(it,ok):(ok?"Yes!":`The answer is “${it.correct}”.`);
+    q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅ ":"❌ "}${why}</p>`);
+    if(++answered===items.length)done(score,items.length,missed)})}
+function buildParts(){
+  const pk=shuffle(LESSONS.flatMap(L=>shuffle(L.words).slice(0,6))).slice(0,24);
+  const parts=[];
+  [0,1,2].forEach(r=>{const words=pk.slice(r*8,r*8+8);parts.push({emoji:"🧩",title:`Match Madness, round ${r+1}`,intro:"Drag each word onto its meaning.",render:(b,d)=>matchPart(b,d,words)})});
+  parts.push({emoji:"⚖️",title:"Twins or opposites?",intro:"Synonyms mean the same. Antonyms mean the opposite. Sort each pair.",render:synAntPart});
+  parts.push({emoji:"✅",title:"True or false",intro:"Stamp each statement. Watch for sneaky ones!",render:tfPart});
+  parts.push({emoji:"🔤",title:"Which word fits?",intro:"Pick the word that makes the sentence make sense.",render:fitPart});
+  parts.push({emoji:"🗣️",title:"Which sentence is right?",intro:"Only ONE sentence uses the word correctly. Find it!",render:sentPart});
+  parts.push({emoji:"🎭",title:"Same word, different meaning",intro:"These words have more than one meaning. Which one is used here?",render:meanPart});
+  parts.push({emoji:"☑️",title:"Pick ALL that apply",intro:"There may be more than one right answer. Choose every one, then check.",render:selectPart});
+  STORIES.forEach(s=>parts.push({emoji:"📖",title:`Story fill: ${s.title}`,intro:"Drag the words into the blanks. Two extra words don't belong anywhere!",render:(b,d)=>storyPart(b,d,s)}));
+  parts.push({emoji:"🏭",title:"Toy company sort",intro:"From 'Fun and Games': what helps a new toy succeed, and what can sink a toy company?",render:psortPart});
+  parts.push({emoji:"🧸",title:"Questions about Fun and Games",intro:"All about passage 10E.",render:passagePart});
+  parts.push({emoji:"🔗",title:"Analogy puzzles",intro:"Find the pair with the same relationship as the capital-letter pair.",render:analogyPart});
+  return parts;
+}
+function renderQuizIntro(){
+  const v=$("#view-quiz");v.style.setProperty("--lc","var(--c9)");
+  v.innerHTML=`<div class="lhead"><div class="lnum" style="background:var(--ink);color:var(--paper)">🏆</div><div><h2>The Big Quiz</h2><p>Fourteen rounds on all 60 words and passage 10E, with feedback as you go. Aim for 90% or higher!</p></div></div>
+  <div class="qtop"><div class="qtrack" id="qtrack"></div><div class="total" id="qtotal"></div></div><div id="stage"></div>`;
+  startQuiz();
+}
+function startQuiz(){Q.parts=buildParts();Q.i=0;Q.res=[];renderPart()}
+function totals(){let s=0,m=0;Q.res.forEach(r=>{if(r){s+=r.score;m+=r.max}});return {s,m}}
+function drawTrack(){$("#qtrack").innerHTML=Q.parts.map((p,i)=>{const r=Q.res[i];let c="";if(r){const pc=r.score/r.max;c=pc>=.85?"good":pc>=.6?"meh":"low"}else if(i===Q.i)c="now";return `<span class="${c}" title="${esc(p.title)}"></span>`}).join("");const t=totals();$("#qtotal").textContent=`Score: ${t.s} / ${t.m}`}
+function renderPart(){
+  const p=Q.parts[Q.i];const st=$("#stage");
+  st.innerHTML=`<div class="phead"><span class="pemo">${p.emoji}</span><div><h3>Round ${Q.i+1} of ${Q.parts.length}: ${p.title}</h3><p>${p.intro}</p></div></div><div id="pbody"></div><div class="pfoot"><span class="msg" id="pmsg"></span><button class="btn big" id="nextBtn" disabled>${Q.i===Q.parts.length-1?"See my results":"Next round"}</button></div>`;
+  drawTrack();
+  p.render($("#pbody"),(score,max,missed)=>{Q.res[Q.i]={title:p.title,score,max,missed:missed||[]};drawTrack();
+    const pc=score/max;$("#pmsg").textContent=`${score} / ${max}: ${pc===1?"Flawless! 🌟":pc>=.8?"Great work! 💪":pc>=.6?"Not bad, keep going!":"Review these words later 💡"}`;
+    const nb=$("#nextBtn");nb.disabled=false;nb.focus({preventScroll:true});if(pc===1)confetti(.6)});
+  $("#nextBtn").onclick=()=>{Q.i++;if(Q.i>=Q.parts.length)showResults();else{renderPart();$("#view-quiz").scrollIntoView({behavior:"smooth"})}};
+}
+function checkBtn(body,label,fn){const w=document.createElement("div");w.style.cssText="margin-top:14px;display:flex;justify-content:flex-end";w.innerHTML=`<button class="btn">${label}</button>`;body.appendChild(w);$(".btn",w).onclick=()=>{w.remove();fn()}}
+function matchPart(body,done,words){const id=uid();
+  body.innerHTML=`<div class="dnd" id="${id}"><div class="pool sticky" id="${id}-pool">${shuffle(words).map(w=>chipHTML(w.w,{val:w.w},id+"-pool")).join("")}</div><div class="rows">${shuffle(words).map(w=>`<div class="mrow"><div class="drop one slot" data-ans="${w.w}"></div><div class="mdef">${w.m}</div></div>`).join("")}</div></div>`;
+  checkBtn(body,"Check my matches",()=>{const g=$("#"+id);g.classList.add("locked");let s=0;const missed=[];
+    $$(".slot",g).forEach(sl=>{const c=sl.querySelector(".chip");const ok=c&&c.dataset.val===sl.dataset.ans;if(c)c.classList.add(ok?"right":"wrong");if(ok)s++;else{missed.push(sl.dataset.ans);sl.nextElementSibling.insertAdjacentHTML("beforeend",`<span class="fix">✓ ${sl.dataset.ans}</span>`)}});
+    $$(`#${id}-pool .chip`).forEach(c=>c.classList.add("wrong"));done(s,words.length,missed)})}
+function synAntPart(body,done){const items=shuffle(SYNANT).map(([a,b,k])=>({text:`${a} ↔ ${b}`,bin:k,w:WORD[a]?a:b}));
+  body.innerHTML=sortHTML(items,[{key:"S",label:"👯 Synonyms (same)",c:"var(--c8)"},{key:"A",label:"🙃 Antonyms (opposite)",c:"var(--c10)"}]);
+  checkBtn(body,"Check my sorting",()=>{const r=gradeSort($(".dnd",body));done(r.score,r.max,r.missed)})}
+function tfPart(body,done){const items=shuffle(TF);let answered=0,score=0;const missed=[];
+  body.innerHTML=items.map(([s],i)=>`<div class="q" data-i="${i}"><p class="qt"><span class="num">${i+1}</span>${s}</p><div class="tf"><button class="stamp" data-v="1">👍 True</button><button class="stamp f" data-v="0">👎 False</button></div></div>`).join("");
+  body.addEventListener("click",e=>{const b=e.target.closest(".stamp");if(!b||b.disabled)return;const q=b.closest(".q");const [,ans,why,w]=items[+q.dataset.i];
+    $$(".stamp",q).forEach(x=>x.disabled=true);const ok=(b.dataset.v==="1")===ans;b.classList.add(ok?"right":"wrong");if(ok)score++;else missed.push(w);
+    q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅ Right!":"❌ It's "+(ans?"TRUE":"FALSE")+"."} ${why}</p>`);if(++answered===items.length)done(score,items.length,missed)})}
+function fitPart(body,done){const items=shuffle(FIT).map(([s,o,w])=>({q:nameSpan(s.replace("____",'<span class="bold">_______</span>')),correct:o[0],shuffled:shuffle(o),w,raw:s}));
+  body.innerHTML=mcHTML(items);wireMC(body,items,done,it=>`“${nameSpan(it.raw.replace("____","<b>"+it.correct+"</b>"))}”`)}
+function sentPart(body,done){const items=shuffle(SENT).slice(0,10).map(([w,o])=>({q:`Which sentence uses <span class="bold">${w}</span> correctly?`,correct:o[0],shuffled:shuffle(o),w}));
+  body.innerHTML=mcHTML(items,true);
+  wireMC(body,items,done,(it,ok)=>ok?`Yes! <b>${it.w}</b> means ${WORD[it.w].m}.`:`<b>${it.w}</b> means ${WORD[it.w].m}, so the right sentence is: “${nameSpan(it.correct)}”`)}
+function meanPart(body,done){const items=shuffle(MEAN).slice(0,12).map(([s,o,w])=>({q:nameSpan(s),correct:o[0],shuffled:shuffle(o),w}));body.innerHTML=mcHTML(items);wireMC(body,items,done,(it,ok)=>ok?`Yes, here it means “${it.correct}.”`:`Here it means “${it.correct}.”`)}
+function selectPart(body,done){const items=shuffle(SELECT);let checked=0,score=0;const missed=[];
+  body.innerHTML=items.map(([q,o],i)=>`<div class="q" data-i="${i}"><p class="qt"><span class="num">${i+1}</span>${q}</p><div class="opts">${shuffle(o).map(([t,ok])=>`<button class="opt" data-ok="${ok}" aria-pressed="false">${nameSpan(t)}</button>`).join("")}</div><div style="margin-top:10px"><button class="btn ghost chk">Check</button></div></div>`).join("");
+  body.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o&&!o.disabled){o.classList.toggle("sel");o.setAttribute("aria-pressed",o.classList.contains("sel"));return}
+    const c=e.target.closest(".chk");if(!c)return;const q=c.closest(".q");c.remove();let ok=true;
+    $$(".opt",q).forEach(x=>{x.disabled=true;const want=x.dataset.ok==="1",got=x.classList.contains("sel");x.classList.remove("sel");if(want&&got)x.classList.add("right");else if(!want&&got){x.classList.add("wrong");ok=false}else if(want&&!got){x.classList.add("missed");ok=false}});
+    if(ok)score++;else missed.push(items[+q.dataset.i][2]);q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅ You got every one!":"❌ Not quite. Green outlines show every right answer."}</p>`);if(++checked===items.length)done(score,items.length,missed)})}
+function storyPart(body,done,s){const id=uid();const answers=[...s.text.matchAll(/\[([^\]]+)\]/g)].map(m=>m[1]);const chips=shuffle([...answers,...s.decoys]);
+  body.style.setProperty("--lc",s.color);
+  body.innerHTML=`<div class="dnd" id="${id}"><div class="pool sticky" id="${id}-pool">${chips.map(c=>chipHTML(c,{val:c},id+"-pool")).join("")}</div><div class="storytext" style="margin-top:14px"><h4 style="font-size:1.3rem;margin-bottom:6px">${s.title}</h4>${nameSpan(s.text).replace(/\[([^\]]+)\]/g,(m,a)=>`<span class="drop one blank" data-ans="${a}"></span>`)}</div></div>`;
+  checkBtn(body,"Check my story",()=>{const g=$("#"+id);g.classList.add("locked");let sc=0;const missed=[];
+    $$(".blank",g).forEach(bl=>{const c=bl.querySelector(".chip");const ok=c&&c.dataset.val===bl.dataset.ans;if(c)c.classList.add(ok?"right":"wrong");if(ok)sc++;else{missed.push(BASE[bl.dataset.ans]||bl.dataset.ans);bl.insertAdjacentHTML("afterend",`<span class="fix" style="display:inline;margin-left:4px">(${bl.dataset.ans})</span>`)}});done(sc,answers.length,missed)})}
+function psortPart(body,done){body.style.setProperty("--lc","var(--cp)");const items=shuffle(PSORT).map(([t,k])=>({text:t,bin:k}));
+  body.innerHTML=sortHTML(items,[{key:"help",label:"🚀 Helps a toy succeed",c:"var(--ok)"},{key:"sink",label:"💥 Can sink the company",c:"var(--bad)"}]);
+  checkBtn(body,"Check my sorting",()=>{const r=gradeSort($(".dnd",body));done(r.score,r.max,r.score<r.max?["unique","fad"]:[])})}
+function passagePart(body,done){body.style.setProperty("--lc","var(--cp)");const items=shuffle(PASSAGE).slice(0,12).map(([q,o,w])=>({q,correct:o[0],shuffled:shuffle(o),w}));body.innerHTML=mcHTML(items);wireMC(body,items,done)}
+function analogyPart(body,done){const items=shuffle(ANALOG).map(([q,o,w,why])=>({q:`<span class="analogy">${q}</span>`,correct:o[0],shuffled:shuffle(o),w,why}));body.innerHTML=mcHTML(items);wireMC(body,items,done,it=>it.why)}
+function showResults(){
+  const t=totals();const pc=Math.round(t.s/t.m*100);const best=store.get("ww710-best",null);if(best===null||pc>best)store.set("ww710-best",pc);
+  const stars=pc>=95?"⭐⭐⭐⭐⭐":pc>=85?"⭐⭐⭐⭐":pc>=70?"⭐⭐⭐":pc>=55?"⭐⭐":"⭐";
+  const msg=pc>=95?"Word champion! You're ready for the test.":pc>=85?"Superb! Just polish the few words below.":pc>=70?"Good progress. Play the games for the words below, then retake.":"Keep going: replay the lesson games for the words below, then try again.";
+  const missed=[...new Set(Q.res.flatMap(r=>r.missed))].filter(w=>WORD[w]);drawTrack();
+  $("#stage").innerHTML=`<div class="results"><div class="pct">${pc}%</div><div class="stars">${stars}</div><h3 style="font-size:1.6rem">${msg}</h3><p style="color:var(--muted)">${t.s} out of ${t.m} points${best!==null?`. Best before: ${best}%`:""}</p>
+  <div class="breakdown">${Q.res.map(r=>`<div><span>${r.title}</span><b>${r.score} / ${r.max}</b></div>`).join("")}</div>
+  ${missed.length?`<h3 style="font-size:1.4rem;margin-top:10px">Words to review (${missed.length})</h3><div class="review">${missed.map(w=>{const x=WORD[w];return `<div style="--tc:${x.color}"><b>${x.e} ${x.w}</b> <small style="color:var(--muted)">Lesson ${x.lesson}</small><br>${x.m}</div>`}).join("")}</div>`:`<p style="font-size:1.2rem">No words to review. Every single one is yours! 🎉</p>`}
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="btn big" id="retake">🔁 Retake with new words</button><button class="btn ghost big" id="qhome">Back to start</button></div></div>`;
+  $("#retake").onclick=()=>{startQuiz();$("#view-quiz").scrollIntoView({behavior:"smooth"})};$("#qhome").onclick=()=>show("home");
+  confetti(pc>=85?2.2:pc>=70?1:0);
+}
+
+/* ============================ CONFETTI ============================ */
+function confetti(sec){
+  if(!sec||reduced())return;
+  const cv=$("#confetti"),ctx=cv.getContext("2d");cv.width=innerWidth;cv.height=innerHeight;
+  const cols=["#F08A12","#0FA392","#1C7FE0","#E0357A","#8B3FD1","#FFC93C"];
+  const ps=Array.from({length:Math.round(120*Math.min(sec,1.5))},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.4,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[Math.random()*cols.length|0]}));
+  const end=performance.now()+sec*1000+1800;
+  (function f(now){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);ctx.restore()});if(now<end)requestAnimationFrame(f);else ctx.clearRect(0,0,cv.width,cv.height)})(performance.now());
+}
+
+const setNavH=()=>document.documentElement.style.setProperty("--navh",$("nav.tabs").offsetHeight+"px");setNavH();addEventListener("resize",setNavH);
+show("home");
+</script>
+</body>
+</html>
