@@ -1,0 +1,748 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decimal Frog Hop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff8e7; --ink:#2a1b4a; --muted:#6b5b8a; --card:#ffffff;
+  --green:#22c55e; --green-d:#15803d; --purple:#8b5cf6; --pink:#ec4899; --orange:#f97316;
+  --blue:#0ea5e9; --yellow:#facc15; --teal:#14b8a6; --red:#ef4444;
+  --cw:44px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:'Fredoka',system-ui,sans-serif; color:var(--ink); background:var(--bg);
+  background-image:radial-gradient(#ffd6e8 2px,transparent 2px),radial-gradient(#c7f0ff 2px,transparent 2px);
+  background-size:38px 38px; background-position:0 0,19px 19px; line-height:1.45; font-size:18px;
+}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+h1,h2,h3{margin:.2em 0 .4em;line-height:1.15}
+button{font-family:inherit}
+.hero{
+  background:linear-gradient(135deg,#22c55e,#14b8a6 35%,#0ea5e9 65%,#8b5cf6);
+  color:#fff;border-radius:28px;padding:28px 22px;text-align:center;position:relative;overflow:hidden;
+  box-shadow:0 10px 0 #5b21b6;
+}
+.hero h1{font-size:clamp(2rem,6vw,3.2rem);text-shadow:3px 3px 0 rgba(0,0,0,.18)}
+.hero .big-frog{font-size:4.5rem;display:inline-block;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px) rotate(-6deg)}}
+.namebox{margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.namebox input{font-family:inherit;font-size:1.1rem;padding:10px 14px;border-radius:14px;border:3px solid #fff;min-width:0;width:220px;color:var(--ink)}
+.btn{
+  border:0;border-radius:16px;padding:10px 18px;font-size:1.05rem;font-weight:600;cursor:pointer;
+  background:var(--yellow);color:var(--ink);box-shadow:0 5px 0 rgba(0,0,0,.22);transition:transform .08s;
+}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.22)}
+.btn.green{background:var(--green);color:#fff}.btn.purple{background:var(--purple);color:#fff}
+.btn.pink{background:var(--pink);color:#fff}.btn.blue{background:var(--blue);color:#fff}
+.btn.orange{background:var(--orange);color:#fff}.btn.ghost{background:#fff;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;gap:8px;
+  background:rgba(255,248,231,.92);backdrop-filter:blur(6px);padding:8px 16px;border-bottom:3px dashed #f9a8d4}
+.topbar .stars{white-space:nowrap;flex:none;font-weight:700;font-size:1.15rem;background:#fff;border-radius:999px;padding:4px 14px;border:3px solid var(--yellow)}
+.topbar nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.topbar nav a{white-space:nowrap;text-decoration:none;color:var(--ink);background:#fff;border-radius:999px;padding:4px 10px;font-size:.9rem;border:2px solid #e9d5ff}
+.mute{background:#fff;border:3px solid #c4b5fd;border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:1.1rem;flex:none}
+
+section.card{background:var(--card);border-radius:26px;padding:22px 18px;margin:26px 0;border:4px solid var(--c,#8b5cf6);box-shadow:0 8px 0 var(--c,#8b5cf6)}
+section.card > h2{display:flex;align-items:center;gap:10px;font-size:clamp(1.5rem,4.5vw,2rem);color:var(--c)}
+.badge{display:inline-flex;align-items:center;justify-content:center;background:var(--c);color:#fff;border-radius:14px;min-width:44px;height:44px;font-size:1.4rem;padding:0 8px}
+.story{background:#f0fdf4;border-left:8px solid var(--green);padding:12px 16px;border-radius:14px;margin:12px 0}
+.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.rule{border-radius:20px;padding:16px;color:#fff;text-align:center}
+.rule .ico{font-size:2.6rem}
+.rule.right{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.rule.left{background:linear-gradient(135deg,#f97316,#ea580c)}
+.rule b{font-size:1.3rem;display:block}
+.tip{background:#fef9c3;border:3px dashed #eab308;border-radius:16px;padding:10px 14px;margin:12px 0}
+.mono{font-variant-numeric:tabular-nums}
+
+/* Hop machine */
+.hopbox{background:linear-gradient(#bae6fd,#e0f2fe 55%,#a7f3d0);border-radius:22px;padding:16px 10px 12px;margin:12px 0;border:3px solid #7dd3fc}
+.hopq{text-align:center;font-size:clamp(1.3rem,5vw,1.9rem);font-weight:700;margin-bottom:6px}
+.hopq .op{color:var(--pink)}
+.hopwrap{position:relative;margin:0 auto;padding-top:calc(var(--cw)*1.05);width:max-content}
+.hoprow{display:flex}
+.cell{width:var(--cw);height:calc(var(--cw)*1.25);display:flex;align-items:center;justify-content:center;
+  font-size:calc(var(--cw)*.78);font-weight:700;position:relative}
+.cell::after{content:"";position:absolute;left:8%;right:8%;bottom:0;height:calc(var(--cw)*.22);background:#4ade80;border-radius:50%;box-shadow:inset 0 -3px 0 #16a34a}
+.cell.ph{color:var(--pink);animation:pop .35s}
+.cell.fade{color:rgba(42,27,74,.12)}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.3)}100%{transform:scale(1)}}
+.frog{position:absolute;top:0;width:calc(var(--cw)*.95);margin-left:calc(var(--cw)*-.475);text-align:center;font-size:calc(var(--cw)*.8);transition:left .32s ease;z-index:2;line-height:1}
+.frog.jump{animation:hop .32s ease}
+@keyframes hop{50%{transform:translateY(-55%) scale(1.1)}}
+.pt{position:absolute;width:calc(var(--cw)*.28);height:calc(var(--cw)*.28);margin-left:calc(var(--cw)*-.14);bottom:calc(var(--cw)*.36);
+  background:var(--red);border-radius:50%;transition:left .32s ease;box-shadow:0 0 0 3px #fff;z-index:3}
+.hopctl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.hopinfo{text-align:center;font-weight:600;margin-top:8px;min-height:1.6em}
+.result{text-align:center;font-size:1.4rem;font-weight:700;margin-top:6px;min-height:1.6em}
+.chooser{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}
+.chooser button{border:3px solid #c4b5fd;background:#fff;border-radius:12px;padding:6px 12px;font-size:1.05rem;font-weight:600;cursor:pointer}
+.chooser button.on{background:var(--purple);color:#fff;border-color:var(--purple)}
+
+/* power cards */
+.flipgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.flip{perspective:600px;height:130px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .f,.flip .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;color:#fff;text-align:center;padding:6px}
+.flip .f{font-size:2.2rem}
+.flip .b{transform:rotateY(180deg);font-size:1rem}
+.flip .b big{font-size:1.5rem}
+
+/* oops */
+.oops{background:#fdf4ff;border-radius:20px;padding:14px;border:3px solid #f0abfc}
+.oops .work{font-size:clamp(1.4rem,5vw,1.9rem);font-weight:700;text-align:center;margin:6px 0 10px}
+.oops .work s{color:var(--red);text-decoration-thickness:3px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.choice{border:3px solid #ddd6fe;background:#fff;border-radius:14px;padding:10px;font-size:1rem;font-weight:600;cursor:pointer;text-align:left;color:var(--ink)}
+.choice:hover{border-color:var(--purple)}
+.choice.ok{background:#dcfce7;border-color:var(--green)}
+.choice.bad{background:#fee2e2;border-color:var(--red)}
+.fb{margin-top:10px;padding:10px 14px;border-radius:14px;font-weight:500;display:none}
+.fb.show{display:block}
+.fb.good{background:#dcfce7;border:3px solid var(--green)}
+.fb.nope{background:#ffedd5;border:3px solid var(--orange)}
+.dots{display:flex;gap:6px;justify-content:center;margin-bottom:8px}
+.dots i{width:14px;height:14px;border-radius:50%;background:#e9d5ff;display:block}
+.dots i.done{background:var(--pink)}
+.dots i.cur{outline:3px solid var(--purple)}
+
+/* tens trick */
+.steps{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.step{background:#fff7ed;border:3px solid #fdba74;border-radius:16px;padding:10px 14px;font-size:1.2rem;font-weight:600;display:none}
+.step.show{display:block;animation:pop .35s}
+.step small{display:block;font-weight:500;font-size:.95rem;color:var(--muted)}
+
+/* Drag and drop */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:58px;padding:10px;border-radius:16px;background:#f5f3ff;border:3px dashed #c4b5fd;justify-content:center;margin:10px 0}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--chipc,#8b5cf6);color:#fff;font-weight:700;padding:8px 12px;border-radius:14px;
+  cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 4px 0 rgba(0,0,0,.2);font-size:1.05rem}
+.chip:active{cursor:grabbing}
+.chip .x{background:rgba(255,255,255,.3);border:0;color:#fff;border-radius:50%;width:24px;height:24px;font-size:.8rem;cursor:pointer;line-height:24px;padding:0;font-weight:700}
+.chip.right{outline:4px solid var(--green)}.chip.wrong{outline:4px solid var(--red)}
+.ghost{position:fixed;pointer-events:none;z-index:999;opacity:.9;transform:rotate(4deg) scale(1.08)}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.bin{border-radius:18px;padding:10px;min-height:110px;border:4px solid var(--binc);background:#fff;transition:transform .15s,background .15s}
+.bin h4{margin:0 0 6px;color:var(--binc);text-align:center;font-size:1.05rem}
+.bin .dz{display:flex;flex-wrap:wrap;gap:6px;min-height:60px;justify-content:center}
+.dz.over,.bin.over{background:#fef9c3 !important;transform:scale(1.03)}
+.mrow{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap}
+.mrow .lhs{flex:1 1 160px;font-weight:700;font-size:1.2rem;background:#ecfeff;border-radius:14px;padding:10px 12px;border:3px solid #67e8f9}
+.slot{flex:1 1 140px;min-height:52px;border:3px dashed #a78bfa;border-radius:14px;display:flex;align-items:center;justify-content:center;padding:4px;background:#faf5ff;transition:background .15s,transform .15s}
+.slot.ok{border-style:solid;border-color:var(--green);background:#dcfce7}
+.slot.bad{border-style:solid;border-color:var(--red);background:#fee2e2}
+.fix{font-size:.9rem;color:var(--red);font-weight:600;flex-basis:100%;text-align:right}
+
+/* quiz */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.qtype{background:var(--purple);color:#fff;border-radius:999px;padding:4px 12px;font-weight:600;font-size:.95rem}
+.bar{height:16px;background:#ede9fe;border-radius:999px;overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#facc15,#ec4899,#8b5cf6);transition:width .4s}
+.qprompt{font-size:clamp(1.2rem,4.4vw,1.55rem);font-weight:600;margin:10px 0}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{border:0;border-radius:18px;padding:16px 10px;font-size:1.3rem;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.opt:nth-child(1){background:#ec4899}.opt:nth-child(2){background:#0ea5e9}.opt:nth-child(3){background:#f97316}.opt:nth-child(4){background:#22c55e}
+.opt.ok{outline:6px solid #15803d;filter:none}
+.opt.bad{outline:6px solid #b91c1c}
+.opt.dim{opacity:.35}
+.tf .opt:nth-child(1){background:#22c55e}.tf .opt:nth-child(2){background:#ef4444}
+.end{text-align:center}
+.end .score{font-size:3.5rem;font-weight:700;color:var(--purple)}
+.missed{text-align:left;background:#fff7ed;border-radius:16px;padding:12px 16px;margin-top:12px}
+.missed li{margin:8px 0}
+canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:1000}
+footer{text-align:center;color:var(--muted);padding:20px 0 40px;font-size:.95rem}
+
+@media (max-width:600px){
+  body{font-size:17px}
+  .wrap{padding:12px 16px}
+  .rule-grid{grid-template-columns:1fr}
+  .flipgrid{grid-template-columns:1fr 1fr}
+  .choices{grid-template-columns:1fr}
+  .opts{grid-template-columns:1fr 1fr}
+  .opt{font-size:1.1rem;padding:14px 6px}
+  section.card{padding:18px 12px}
+}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+
+<div class="topbar">
+  <span class="stars" id="stars">⭐ 0</span>
+  <nav>
+    <a href="#rules">🐸 Rules</a><a href="#powers">🔟 Powers</a><a href="#play">🎮 Be the Frog</a>
+    <a href="#oops">🦉 Oops</a><a href="#tens">✖️ Tens</a><a href="#sort">🗂️ Sort</a><a href="#warm">🧠 Warm-up</a><a href="#quiz">🏆 Quiz</a>
+  </nav>
+  <button class="mute" id="mute" title="Sound on/off">🔊</button>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="big-frog">🐸</div>
+  <h1>Decimal Frog Hop!</h1>
+  <p style="font-size:1.15rem;margin:.2em 0">Multiplying &amp; dividing decimals by 10, 100, 1000 and more</p>
+  <div class="namebox">
+    <input id="nameIn" placeholder="Type your name…" maxlength="20" aria-label="Your name">
+    <button class="btn" id="nameGo">Let's hop! 🚀</button>
+  </div>
+  <p id="hello" style="margin:.6em 0 0;font-weight:600"></p>
+</header>
+
+<!-- 1. RULES -->
+<section class="card" id="rules" style="--c:#22c55e">
+  <h2><span class="badge">🐸</span> Meet Dot the Frog</h2>
+  <div class="story">
+    Every decimal number has a tiny red <b>decimal point</b>. In this pond, the point rides on the back of a frog named <b>Dot</b>. 🐸<br><br>
+    The digits are lily pads — <b>they never move</b>. Only Dot hops! And Dot only follows <b>two rules</b>:
+  </div>
+  <div class="rule-grid">
+    <div class="rule right"><div class="ico">✖️ ➡️</div><b>MULTIPLY = hop RIGHT</b>The number gets <u>BIGGER</u> 🚀</div>
+    <div class="rule left"><div class="ico">⬅️ ➗</div><b>DIVIDE = hop LEFT</b>The number gets <u>SMALLER</u> 🐜</div>
+  </div>
+  <div class="tip">🔢 <b>How many hops?</b> Count the zeros! &nbsp;10 → 1 hop &nbsp;·&nbsp; 100 → 2 hops &nbsp;·&nbsp; 1000 → 3 hops</div>
+  <div class="tip">🪷 <b>Empty lily pad?</b> If Dot lands past the digits, fill the empty pads with <b style="color:var(--pink)">0</b> so nobody falls in the water!</div>
+  <div class="tip">🕵️ <b>Whole number?</b> Dot is hiding at the very end: <b>78</b> is really <b>78.</b> — so 78 × 100 → hop 2 → <b>7800</b></div>
+
+  <h3 style="margin-top:18px">🎬 Watch Dot hop!</h3>
+  <div class="hopbox">
+    <div class="chooser" id="demoNums"></div>
+    <div class="chooser" id="demoOps"></div>
+    <div id="demoHop"></div>
+    <div class="hopctl"><button class="btn green" id="demoGo">▶️ Hop, Dot, hop!</button></div>
+  </div>
+</section>
+
+<!-- 2. POWERS -->
+<section class="card" id="powers" style="--c:#8b5cf6">
+  <h2><span class="badge">10ⁿ</span> The Little Number Secret</h2>
+  <p>Sometimes your teacher writes <b>10²</b> or <b>10³</b> instead of 100 or 1000. The little number up top is a <b>hop counter</b>! Tap each card to flip it.</p>
+  <div class="flipgrid" id="flips"></div>
+  <div class="tip">⚠️ <b>Trap alert!</b> 10³ is <u>not</u> 10 × 3 = 30. It is 10 × 10 × 10 = <b>1000</b>. So <b>× 10³</b> means <b>3 hops right</b>.</div>
+</section>
+
+<!-- 3. PLAY -->
+<section class="card" id="play" style="--c:#0ea5e9">
+  <h2><span class="badge">🎮</span> You Be the Frog!</h2>
+  <p>Press the arrows to hop Dot yourself, then press <b>Check</b>. Get a streak going! 🔥</p>
+  <div class="dots" id="playDots"></div>
+  <div class="hopbox" id="playBox"></div>
+  <div class="fb" id="playFb"></div>
+  <div class="hopctl"><button class="btn blue" id="playNext" style="display:none">Next one ➡️</button></div>
+</section>
+
+<!-- 4. OOPS -->
+<section class="card" id="oops" style="--c:#ec4899">
+  <h2><span class="badge">🦉</span> Oops the Owl's Homework</h2>
+  <p>Oops the Owl rushed through homework. Be the detective 🔍 — what went wrong?</p>
+  <div class="dots" id="oopsDots"></div>
+  <div class="oops" id="oopsBox"></div>
+</section>
+
+<!-- 5. TENS -->
+<section class="card" id="tens" style="--c:#f97316">
+  <h2><span class="badge">✖️</span> The Tens Trick: × 20, × 30, × 70…</h2>
+  <p>What about <b>× 70</b>? There's no button for that! Trick: <b>split it</b>. 70 is just <b>7 × 10</b>. So do the <b>7</b> part first, then let Dot do the <b>10</b> part.</p>
+  <div class="hopbox" style="background:#fff7ed;border-color:#fdba74">
+    <div class="hopq">2.68 <span class="op">× 70</span> = ?</div>
+    <div class="steps" id="tenSteps">
+      <div class="step">Step 1 — Split it: <b>70 = 7 × 10</b><small>So 2.68 × 70 = 2.68 × 7 × 10</small></div>
+      <div class="step">Step 2 — Multiply by 7: <b>2.68 × 7 = 18.76</b><small>Do it like 268 × 7 = 1876, then put the point back: 2 decimal places → 18.76</small></div>
+      <div class="step">Step 3 — Dot hops for the 10: <b>18.76 × 10 = 187.6</b> 🐸➡️<small>1 zero → 1 hop right</small></div>
+      <div class="step" style="background:#dcfce7;border-color:#22c55e">🎉 2.68 × 70 = <b>187.6</b></div>
+    </div>
+    <div class="hopctl"><button class="btn orange" id="tenNext">Show next step ➡️</button></div>
+  </div>
+  <div class="tip">➗ <b>Works for dividing too!</b> 4.8 ÷ 20 → 4.8 ÷ 2 = 2.4, then ÷ 10 → Dot hops left → <b>0.24</b></div>
+  <h3>Your turn — two quick steps</h3>
+  <div class="oops" id="tenPractice" style="background:#fff7ed;border-color:#fdba74"></div>
+</section>
+
+<!-- 6. SORT -->
+<section class="card" id="sort" style="--c:#14b8a6">
+  <h2><span class="badge">🗂️</span> Hop Sort</h2>
+  <p>Drag each card into the bin that shows how Dot hops. Tap ✕ to send a card back.</p>
+  <div id="sortGame"></div>
+  <div class="hopctl"><button class="btn green" id="sortCheck">Check my bins ✅</button><button class="btn ghost" id="sortNew">New cards 🔄</button></div>
+  <div class="fb" id="sortFb"></div>
+</section>
+
+<!-- 7. WARM-UP -->
+<section class="card" id="warm" style="--c:#eab308">
+  <h2><span class="badge">🧠</span> Brain Warm-up (Starter Skills)</h2>
+  <p>Your teacher loves these starters! Quick reminders:</p>
+  <div class="rule-grid">
+    <div class="rule" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)"><b>Squares ²</b>4² = 4 × 4 = 16</div>
+    <div class="rule" style="background:linear-gradient(135deg,#ec4899,#be185d)"><b>Square roots √</b>√121 = 11 because 11 × 11 = 121</div>
+    <div class="rule" style="background:linear-gradient(135deg,#0ea5e9,#0369a1)"><b>BODMAS</b>Brackets first! 10³ − (√121 + 4²) = 1000 − (11 + 16) = 973</div>
+    <div class="rule" style="background:linear-gradient(135deg,#f97316,#c2410c)"><b>How many thirds in 81?</b>Each whole has 3 thirds → 81 × 3 = 243</div>
+  </div>
+  <h3>Drag each one to its answer</h3>
+  <div id="warmGame"></div>
+  <div class="hopctl"><button class="btn green" id="warmCheck">Check ✅</button></div>
+  <div class="fb" id="warmFb"></div>
+</section>
+
+<!-- 8. QUIZ -->
+<section class="card" id="quiz" style="--c:#8b5cf6">
+  <h2><span class="badge">🏆</span> The Big Frog Challenge</h2>
+  <div id="quizStage" style="text-align:center">
+    <p style="font-size:1.15rem">28 questions · hops, picks, true/false, drag-to-match, sorting and ordering.<br>Every try gives you <b>new numbers</b> — play as many times as you like!</p>
+    <button class="btn purple" id="quizStart" style="font-size:1.3rem">Start the Challenge 🐸</button>
+  </div>
+</section>
+
+<footer>🐸 Made for Adiaha &amp; friends · SKI Academy · Keep hopping!</footer>
+</div>
+
+<script>
+/* ✏️ Swap these for the real classmates' names */
+const FRIENDS = ['Adiaha','Kai','Zara','Jaden','Amara','Malik','Tia'];
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const R = a => a[Math.floor(Math.random()*a.length)];
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const store = { get(k){try{return localStorage.getItem(k)}catch(e){return null}}, set(k,v){try{localStorage.setItem(k,v)}catch(e){}} };
+let PLAYER = store.get('frogName') || '';
+const P = () => PLAYER || 'You';
+const friend = () => R(FRIENDS.filter(f => f.toLowerCase() !== PLAYER.toLowerCase()));
+
+// exact decimal shift: n>0 multiply by 10^n, n<0 divide
+function shiftDec(s, n){
+  let [i,f=''] = String(s).split('.'); let d=i+f; let pt=i.length+n;
+  if(pt<0){ d='0'.repeat(-pt)+d; pt=0; }
+  if(pt>d.length){ d=d+'0'.repeat(pt-d.length); }
+  const ip=d.slice(0,pt).replace(/^0+/,'')||'0', fp=d.slice(pt).replace(/0+$/,'');
+  return fp ? ip+'.'+fp : ip;
+}
+function mulDec(s,k){ const dp=(String(s).split('.')[1]||'').length; const n=Math.round(parseFloat(s)*10**dp)*k; return shiftDec(String(n),-dp); }
+function fmt(s){ // add thousands separators to integer part for readability
+  let [i,f]=String(s).split('.'); i=i.replace(/\B(?=(\d{3})+(?!\d))/g,','); return f?i+'.'+f:i;
+}
+const SUP = {1:'¹',2:'²',3:'³',4:'⁴'};
+const powLabel = (n,pow) => pow ? '10'+SUP[n] : String(10**n);
+
+/* ---------- stars & sound ---------- */
+let STARS = 0, MUTED = store.get('frogMute')==='1';
+$('#mute').textContent = MUTED?'🔇':'🔊';
+$('#mute').onclick = () => { MUTED=!MUTED; store.set('frogMute',MUTED?'1':'0'); $('#mute').textContent = MUTED?'🔇':'🔊'; };
+function addStar(n=1){ STARS+=n; const el=$('#stars'); el.textContent='⭐ '+STARS; el.animate([{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:350}); }
+let AC=null;
+function tone(freqs, dur=.12, type='sine'){
+  if(MUTED) return; try{
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    freqs.forEach((f,i)=>{ const o=AC.createOscillator(), g=AC.createGain(); o.type=type; o.frequency.value=f;
+      const t=AC.currentTime+i*dur; g.gain.setValueAtTime(.18,t); g.gain.exponentialRampToValueAtTime(.001,t+dur*1.6);
+      o.connect(g).connect(AC.destination); o.start(t); o.stop(t+dur*1.7); });
+  }catch(e){}
+}
+const sndHop = () => tone([520,700],.06,'triangle');
+const sndYes = () => tone([660,880,1100],.1,'triangle');
+const sndNo  = () => tone([300,220],.14,'sawtooth');
+
+/* ---------- confetti ---------- */
+function confetti(){
+  const c=$('#confetti'), x=c.getContext('2d'); c.width=innerWidth; c.height=innerHeight;
+  const cols=['#22c55e','#ec4899','#8b5cf6','#facc15','#0ea5e9','#f97316'];
+  const ps=Array.from({length:160},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:4+Math.random()*6,c:R(cols),a:Math.random()*6}));
+  let f=0; (function loop(){ x.clearRect(0,0,c.width,c.height);
+    ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.a+=.1;x.fillStyle=p.c;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillRect(-p.r/2,-p.r/2,p.r,p.r*.6);x.restore();});
+    if(++f<200) requestAnimationFrame(loop); else x.clearRect(0,0,c.width,c.height); })();
+}
+
+/* ---------- name ---------- */
+function setHello(){ $('#hello').textContent = PLAYER ? `Hi ${PLAYER}! Dot the Frog is ready to hop with you 🐸💚` : ''; if(PLAYER) $('#nameIn').value=PLAYER; }
+$('#nameGo').onclick = () => { const v=$('#nameIn').value.trim(); if(v){ PLAYER=v.slice(0,20); store.set('frogName',PLAYER); setHello(); sndYes(); } $('#rules').scrollIntoView({behavior:'smooth'}); };
+$('#nameIn').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#nameGo').click(); });
+setHello();
+
+/* ---------- HOP WIDGET ---------- */
+function Hop(host, {num, n, op, pow=false, mode='play'}){
+  const [ip,fp=''] = num.split('.'); const D=(ip+fp).split(''); const p=ip.length;
+  const L=Math.max(n+1,2), Rr=Math.max(n+1,2), total=L+D.length+Rr;
+  const start=L+p, target=start+(op==='x'?n:-n);
+  let g=start, locked=false;
+  host.innerHTML = `
+    <div class="hopq mono">${num} <span class="op">${op==='x'?'×':'÷'} ${powLabel(n,pow)}</span> = <span class="ans">?</span></div>
+    <div class="hopwrap"><div class="hoprow"></div><div class="frog">🐸</div><div class="pt"></div></div>
+    ${mode==='play'?`<div class="hopctl"><button class="btn orange hl">⬅️ Hop left</button><button class="btn green hr">Hop right ➡️</button><button class="btn ghost rs">↺</button></div>`:''}
+    <div class="hopinfo"></div>`;
+  const wrap=host.querySelector('.hopwrap'), row=host.querySelector('.hoprow'), frog=host.querySelector('.frog'), pt=host.querySelector('.pt'), info=host.querySelector('.hopinfo');
+  function size(){ const w=(host.clientWidth||320)-8; const cw=Math.max(18,Math.min(50,Math.floor(w/total))); wrap.style.setProperty('--cw',cw+'px'); return cw; }
+  function render(anim){
+    const cw=size(); const end=L+D.length; let html='';
+    // which cell is first significant integer digit
+    for(let i=0;i<total;i++){
+      let ch='', cls='cell';
+      if(i>=L && i<end){ ch=D[i-L]; }
+      else if(i>=end && i<g){ ch='0'; cls+=' ph'; }
+      else if(i<L && i>=g-1 && i<L && g<=L){ ch='0'; cls+=' ph'; }
+      html+=`<div class="${cls}" data-i="${i}">${ch}</div>`;
+    }
+    row.innerHTML=html;
+    // fade insignificant leading zeros (left of the ones place)
+    const cells=[...row.children]; let seen=false;
+    for(let i=0;i<g-1;i++){ const t=cells[i].textContent; if(t && t!=='0') seen=true; if(!seen && t==='0') cells[i].classList.add('fade'); }
+    frog.style.left = (g*cw)+'px'; pt.style.left=(g*cw)+'px';
+    if(anim){ frog.classList.remove('jump'); void frog.offsetWidth; frog.classList.add('jump'); sndHop(); }
+    const moved=g-start;
+    if(mode==='play') info.textContent = moved===0 ? 'Dot is waiting… 🐸' : `Hops: ${Math.abs(moved)} ${moved>0?'➡️ right':'⬅️ left'}`;
+  }
+  function move(d){ if(locked) return; const ng=g+d; if(ng<0||ng>total) return; g=ng; render(true); }
+  if(mode==='play'){
+    host.querySelector('.hl').onclick=()=>move(-1);
+    host.querySelector('.hr').onclick=()=>move(1);
+    host.querySelector('.rs').onclick=()=>{ if(!locked){ g=start; render(false);} };
+  }
+  render(false);
+  const ro = new ResizeObserver(()=>render(false)); ro.observe(host);
+  const answer = shiftDec(num, op==='x'?n:-n);
+  return {
+    answer, start, target,
+    correct(){ return g===target; },
+    lock(){ locked=true; host.querySelectorAll('.hopctl button').forEach(b=>b.disabled=true); },
+    reveal(){ host.querySelector('.ans').textContent=fmt(answer); host.querySelector('.ans').style.color='var(--green-d)'; },
+    async play(){ locked=true; g=start; render(false); info.textContent='';
+      const dir=op==='x'?1:-1;
+      for(let k=1;k<=n;k++){ await new Promise(r=>setTimeout(r,550)); g+=dir; render(true); info.textContent=`Hop ${k}! ${dir>0?'➡️':'⬅️'}`; }
+      await new Promise(r=>setTimeout(r,450)); this.reveal(); info.textContent=`${n} hop${n>1?'s':''} ${dir>0?'right — BIGGER 🚀':'left — smaller 🐜'}`; locked=false; },
+    explain(){ const dir=op==='x'?'RIGHT':'LEFT'; return `${op==='x'?'×':'÷'} ${powLabel(n,pow)} → ${n} hop${n>1?'s':''} ${dir}. ${num} ${op==='x'?'×':'÷'} ${powLabel(n,pow)} = <b>${fmt(answer)}</b>`; }
+  };
+}
+
+/* ---------- Demo ---------- */
+const demoNums=['5.25','0.74','8.105','78','0.067','56.5'];
+const demoOps=[['x',1,'× 10'],['x',2,'× 100'],['x',3,'× 1000'],['/',1,'÷ 10'],['/',2,'÷ 100'],['/',3,'÷ 1000']];
+let dNum='8.105', dOp=demoOps[1], demo;
+function chooser(el, items, label, cur, on){
+  el.innerHTML=''; items.forEach(it=>{ const b=document.createElement('button'); b.textContent=label(it); if(it===cur) b.className='on';
+    b.onclick=()=>{ el.querySelectorAll('button').forEach(x=>x.className=''); b.className='on'; on(it); }; el.appendChild(b); });
+}
+function buildDemo(){ demo=Hop($('#demoHop'),{num:dNum,n:dOp[1],op:dOp[0],mode:'demo'}); }
+chooser($('#demoNums'),demoNums,x=>x,dNum,v=>{dNum=v;buildDemo();});
+chooser($('#demoOps'),demoOps,x=>x[2],dOp,v=>{dOp=v;buildDemo();});
+buildDemo();
+$('#demoGo').onclick=()=>demo.play();
+
+/* ---------- Powers flip cards ---------- */
+const flipCols=['#22c55e','#0ea5e9','#ec4899','#f97316'];
+$('#flips').innerHTML=[1,2,3,4].map((n,i)=>`<div class="flip"><div class="in">
+  <div class="f" style="background:${flipCols[i]}">10${SUP[n]}<small style="font-size:.9rem">tap me!</small></div>
+  <div class="b" style="background:${flipCols[i]}"><big>${(10**n).toLocaleString()}</big>${n} zero${n>1?'s':''}<br>= ${n} hop${n>1?'s':''} 🐸</div></div></div>`).join('');
+document.querySelectorAll('.flip').forEach(f=>f.onclick=()=>{f.classList.toggle('on');sndHop();});
+
+/* ---------- Be the Frog practice ---------- */
+const PLAY=[
+  {num:'0.05',n:1,op:'x'}, {num:'8.4',n:1,op:'x'}, {num:'3.64',n:2,op:'x'}, {num:'78',n:2,op:'x'},
+  {num:'9846.5',n:2,op:'/'}, {num:'5.6',n:3,op:'/'}, {num:'0.246',n:4,op:'x',pow:true}, {num:'8.42',n:3,op:'x',pow:true},
+  {num:'0.74',n:2,op:'/'}, {num:'3.127',n:2,op:'x',pow:true}
+];
+let pi=0, streak=0, playW;
+function playDots(){ $('#playDots').innerHTML=PLAY.map((_,i)=>`<i class="${i<pi?'done':''} ${i===pi?'cur':''}"></i>`).join(''); }
+function buildPlay(){
+  playDots(); const q=PLAY[pi]; const box=$('#playBox'); box.innerHTML='<div class="h"></div><div class="hopctl"><button class="btn purple" id="playCheck">Check ✅</button></div>';
+  playW=Hop(box.querySelector('.h'),q); $('#playFb').className='fb'; $('#playNext').style.display='none';
+  $('#playCheck').onclick=()=>{
+    const ok=playW.correct(); const fb=$('#playFb');
+    if(ok){ streak++; playW.lock(); playW.reveal(); sndYes(); addStar(); fb.className='fb show good';
+      fb.innerHTML=`🎉 Ribbit-tastic${PLAYER?', '+PLAYER:''}! ${playW.explain()} ${streak>=3?`<br>🔥 Streak: ${streak}!`:''}`;
+      $('#playCheck').disabled=true; $('#playNext').style.display=''; if(pi===PLAY.length-1){ $('#playNext').textContent='Play again 🔄'; confetti(); }
+    } else { streak=0; sndNo(); fb.className='fb show nope';
+      fb.innerHTML=`Not quite! Remember: <b>${q.op==='x'?'× means hop RIGHT ➡️':'÷ means hop LEFT ⬅️'}</b>, and ${powLabel(q.n,q.pow)} means <b>${q.n} hop${q.n>1?'s':''}</b>. Press ↺ and try again!`; }
+  };
+}
+$('#playNext').onclick=()=>{ pi=(pi+1)%PLAY.length; if(pi===0) $('#playNext').textContent='Next one ➡️'; buildPlay(); };
+buildPlay();
+
+/* ---------- Oops the Owl ---------- */
+const OOPS_CHOICES=['🔄 Hopped the WRONG way','🐢 Too FEW hops','🦘 Too MANY hops','📎 Just stuck zeros on the end','✅ Nothing — it\'s CORRECT!'];
+const OOPS=[
+  {w:'8.4 × 10 = 840', a:3, fix:'84', why:'You can\'t just add a zero to a decimal! Dot hops 1 place right: 8.4 → <b>84</b>.'},
+  {w:'0.05 × 10 = 0.005', a:0, fix:'0.5', why:'× makes it BIGGER, so Dot hops RIGHT. 0.05 → <b>0.5</b>. (0.005 is smaller — that\'s dividing!)'},
+  {w:'8.105 × 100 = 8105', a:2, fix:'810.5', why:'100 has 2 zeros → only 2 hops. 8.105 → <b>810.5</b>. Don\'t just rub out the point!'},
+  {w:'78 × 100 = 780', a:1, fix:'7800', why:'Dot hides at the end: 78. → 2 hops right fills 2 empty pads with zeros → <b>7800</b>.'},
+  {w:'0.067 × 100 = 6.7', a:4, fix:'6.7', why:'Perfect! 2 hops right: 0.067 → 6.7 ✅'},
+  {w:'5.8 × 10 = 0.58', a:0, fix:'58', why:'Multiplying makes it bigger — hop RIGHT: 5.8 → <b>58</b>.'},
+  {w:'5.6 ÷ 1000 = 0.056', a:1, fix:'0.0056', why:'1000 has 3 zeros → 3 hops left. 5.6 → 0.56 → 0.056 → <b>0.0056</b>.'},
+  {w:'3.64 × 100 = 3640', a:3, fix:'364', why:'Sticking zeros on a decimal doesn\'t work. 2 hops right: 3.64 → <b>364</b>.'},
+];
+let oi=0;
+function buildOops(){
+  $('#oopsDots').innerHTML=OOPS.map((_,i)=>`<i class="${i<oi?'done':''} ${i===oi?'cur':''}"></i>`).join('');
+  const o=OOPS[oi]; const [lhs,rhs]=o.w.split(' = ');
+  $('#oopsBox').innerHTML=`<div style="text-align:center;font-size:2.2rem">🦉📝</div><div class="work mono">${lhs} = ${o.a===4?rhs:`<s>${rhs}</s>`}</div>
+   <div class="choices">${OOPS_CHOICES.map((c,i)=>`<button class="choice" data-i="${i}">${c}</button>`).join('')}</div><div class="fb" id="oopsFb"></div>
+   <div class="hopctl"><button class="btn pink" id="oopsNext" style="display:none">Next homework ➡️</button></div>`;
+  $('#oopsBox').querySelectorAll('.choice').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.i; const fb=$('#oopsFb');
+    if(i===o.a){ b.classList.add('ok'); sndYes(); addStar(); fb.className='fb show good'; fb.innerHTML=`🔍 Great detective work! ${o.why}`;
+      $('#oopsBox').querySelectorAll('.choice').forEach(x=>x.disabled=true); $('#oopsNext').style.display='';
+      if(oi===OOPS.length-1){ $('#oopsNext').textContent='Start over 🔄'; confetti(); }
+    } else { b.classList.add('bad'); b.disabled=true; sndNo(); fb.className='fb show nope'; fb.innerHTML='Hmm, look again 👀 — count the hops and check the direction!'; }
+  });
+  $('#oopsNext').onclick=()=>{ oi=(oi+1)%OOPS.length; buildOops(); };
+}
+buildOops();
+
+/* ---------- Tens trick ---------- */
+let ts=0; $('#tenNext').onclick=()=>{ const s=document.querySelectorAll('#tenSteps .step');
+  if(ts<s.length){ s[ts].classList.add('show'); ts++; sndHop(); if(ts===s.length){ $('#tenNext').textContent='Start again 🔄'; sndYes(); } }
+  else { s.forEach(x=>x.classList.remove('show')); ts=0; $('#tenNext').textContent='Show next step ➡️'; } };
+const TEN=[['1.5',30],['5.5',60],['7.15',50],['2.46',20],['60.03',40]];
+let ti=0, tstage=0;
+function buildTen(){
+  const [a,k]=TEN[ti]; const d=k/10; const s1=mulDec(a,d), s2=shiftDec(s1,1);
+  const wrong1=shuffle([s1, shiftDec(s1,1), shiftDec(s1,-1)]);
+  const box=$('#tenPractice');
+  box.innerHTML=`<div class="work mono" style="text-align:center;font-size:1.7rem;font-weight:700">${a} × ${k}</div>
+    <p><b>Step 1:</b> ${k} = ${d} × 10. What is ${a} × ${d}?</p><div class="choices s1">${wrong1.map(v=>`<button class="choice" data-v="${v}">${fmt(v)}</button>`).join('')}</div>
+    <div class="s2wrap" style="display:none"><p><b>Step 2:</b> Now Dot hops for the × 10. ${fmt(s1)} × 10 = ?</p>
+    <div class="choices s2">${shuffle([s2,shiftDec(s1,-1),shiftDec(s1,2)]).map(v=>`<button class="choice" data-v="${v}">${fmt(v)}</button>`).join('')}</div></div>
+    <div class="fb"></div><div class="hopctl"><button class="btn orange nx" style="display:none">Another one ➡️</button></div>`;
+  const fb=box.querySelector('.fb');
+  box.querySelectorAll('.s1 .choice').forEach(b=>b.onclick=()=>{
+    if(b.dataset.v===s1){ b.classList.add('ok'); box.querySelectorAll('.s1 .choice').forEach(x=>x.disabled=true); sndYes(); addStar(); box.querySelector('.s2wrap').style.display=''; fb.className='fb'; }
+    else { b.classList.add('bad'); b.disabled=true; sndNo(); fb.className='fb show nope'; fb.innerHTML=`Tip: work out ${a.replace('.','')} × ${d} first, then put back ${(a.split('.')[1]||'').length} decimal place(s).`; }
+  });
+  box.querySelectorAll('.s2 .choice').forEach(b=>b.onclick=()=>{
+    if(b.dataset.v===s2){ b.classList.add('ok'); box.querySelectorAll('.s2 .choice').forEach(x=>x.disabled=true); sndYes(); addStar();
+      fb.className='fb show good'; fb.innerHTML=`🎉 ${a} × ${k} = <b>${fmt(s2)}</b>`; box.querySelector('.nx').style.display=''; }
+    else { b.classList.add('bad'); b.disabled=true; sndNo(); fb.className='fb show nope'; fb.innerHTML='× 10 → 1 hop RIGHT. Try again!'; }
+  });
+  box.querySelector('.nx').onclick=()=>{ ti=(ti+1)%TEN.length; buildTen(); };
+}
+buildTen();
+
+/* ---------- DRAG & DROP engine ---------- */
+function makeDnD(root, onChange){
+  const pool=root.querySelector('.pool');
+  let dragging=null, ghost=null, overZone=null;
+  const zones=()=>[...root.querySelectorAll('.dz')];
+  function addX(chip){ if(chip.querySelector('.x')) return; const x=document.createElement('button'); x.className='x'; x.textContent='✕'; x.setAttribute('aria-label','Send back');
+    x.onclick=e=>{ e.stopPropagation(); toPool(chip); }; x.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true}); chip.appendChild(x); }
+  function toPool(chip){ const x=chip.querySelector('.x'); if(x) x.remove(); chip.classList.remove('right','wrong'); pool.appendChild(chip); onChange&&onChange(); }
+  function place(chip, zone){
+    if(!zone) return; if(zone.dataset.max==='1'){ const ex=[...zone.querySelectorAll('.chip')].find(c=>c!==chip); if(ex) toPool(ex); }
+    chip.classList.remove('right','wrong'); zone.appendChild(chip); addX(chip); sndHop(); onChange&&onChange();
+  }
+  const hl=z=>{ if(overZone&&overZone!==z) (overZone.closest('.bin')||overZone).classList.remove('over'); overZone=z; if(z) (z.closest('.bin')||z).classList.add('over'); };
+  root.querySelectorAll('.chip').forEach(chip=>{
+    chip.draggable=true;
+    chip.addEventListener('dragstart',e=>{ dragging=chip; e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain','x');}catch(_){} });
+    chip.addEventListener('dragend',()=>{ dragging=null; hl(null); });
+    chip.addEventListener('touchstart',e=>{ if(e.target.classList.contains('x')) return; dragging=chip; const r=chip.getBoundingClientRect();
+      ghost=chip.cloneNode(true); ghost.classList.add('ghost'); ghost.style.width=r.width+'px'; document.body.appendChild(ghost);
+      const t=e.touches[0]; ghost.style.left=(t.clientX-r.width/2)+'px'; ghost.style.top=(t.clientY-r.height/2)+'px'; },{passive:true});
+    chip.addEventListener('touchmove',e=>{ if(!dragging||!ghost) return; e.preventDefault(); const t=e.touches[0];
+      ghost.style.left=(t.clientX-ghost.offsetWidth/2)+'px'; ghost.style.top=(t.clientY-ghost.offsetHeight/2)+'px';
+      const el=document.elementFromPoint(t.clientX,t.clientY); const bin=el&&el.closest('.bin'); hl(el ? (el.closest('.dz')|| (bin&&bin.querySelector('.dz'))) : null); },{passive:false});
+    chip.addEventListener('touchend',()=>{ if(ghost){ghost.remove();ghost=null;} if(dragging&&overZone) place(dragging,overZone); dragging=null; hl(null); });
+  });
+  zones().forEach(z=>{
+    const target=z.closest('.bin')||z;
+    target.addEventListener('dragover',e=>{ if(!dragging) return; e.preventDefault(); hl(z); });
+    target.addEventListener('dragleave',e=>{ if(!target.contains(e.relatedTarget)) hl(null); });
+    target.addEventListener('drop',e=>{ e.preventDefault(); if(dragging) place(dragging,z); dragging=null; hl(null); });
+  });
+  return { inPool:()=>pool.querySelectorAll('.chip').length, lock(){ root.querySelectorAll('.chip').forEach(c=>{c.draggable=false;c.style.pointerEvents='none';}); } };
+}
+const CHIPC=['#8b5cf6','#ec4899','#0ea5e9','#f97316','#22c55e','#14b8a6','#e11d48','#7c3aed'];
+const chipHTML=(label,data,i)=>`<span class="chip" data-v="${data}" style="--chipc:${CHIPC[i%CHIPC.length]}">${label}</span>`;
+
+// sort bins builder
+const HOPBINS=[['r1','➡️ RIGHT 1','#22c55e'],['r2','➡️ RIGHT 2','#16a34a'],['r3','➡️ RIGHT 3','#15803d'],['l1','⬅️ LEFT 1','#f97316'],['l2','⬅️ LEFT 2','#ea580c'],['l3','⬅️ LEFT 3','#c2410c']];
+function hopSortCards(k){
+  const nums=shuffle(['4.5','0.36','72.1','8','0.909','15.25','6.08','310.4','0.7','2.003','95','1.6']);
+  const ops=shuffle([['x',1],['x',2],['x',3],['/',1],['/',2],['/',3],['x',1],['/',2],['x',3],['/',1],['x',2],['/',3]]).slice(0,k);
+  return ops.map(([op,n],i)=>{ const pow=Math.random()<.35; return {label:`${nums[i]} ${op==='x'?'×':'÷'} ${pow?powLabel(n,true):10**n}`, bin:(op==='x'?'r':'l')+n}; });
+}
+function buildBins(host, bins, cards){
+  host.innerHTML=`<div class="pool">${shuffle(cards).map((c,i)=>chipHTML(c.label,c.bin,i)).join('')}</div>
+   <div class="bins">${bins.map(([id,lab,col])=>`<div class="bin" style="--binc:${col}"><h4>${lab}</h4><div class="dz" data-bin="${id}"></div></div>`).join('')}</div>`;
+  return makeDnD(host);
+}
+function checkBins(host){ let ok=0, tot=0; host.querySelectorAll('.dz').forEach(z=>z.querySelectorAll('.chip').forEach(c=>{ tot++; const good=c.dataset.v===z.dataset.bin; c.classList.toggle('right',good); c.classList.toggle('wrong',!good); if(good) ok++; })); return {ok,tot}; }
+
+let sortDnD;
+function newSort(){ sortDnD=buildBins($('#sortGame'),HOPBINS,hopSortCards(9)); $('#sortFb').className='fb'; }
+newSort(); $('#sortNew').onclick=newSort;
+$('#sortCheck').onclick=()=>{ const fb=$('#sortFb'); if(sortDnD.inPool()){ fb.className='fb show nope'; fb.textContent='Drag all the cards into bins first! 🗂️'; return; }
+  const {ok,tot}=checkBins($('#sortGame'));
+  if(ok===tot){ fb.className='fb show good'; fb.innerHTML='🎉 All sorted! Hop-tastic!'; sndYes(); addStar(3); confetti(); }
+  else { fb.className='fb show nope'; fb.innerHTML=`${ok} of ${tot} correct. Red cards are in the wrong bin — tap ✕ and try again!`; sndNo(); } };
+
+// match builder (rows with single slots)
+function buildMatch(host, rows, extra=[]){
+  const chips=shuffle([...rows.map(r=>({label:r.ans,v:r.ans})),...extra.map(e=>({label:e,v:e}))]);
+  host.innerHTML=`<div class="pool">${chips.map((c,i)=>chipHTML(c.label,c.v,i)).join('')}</div>
+    ${rows.map(r=>`<div class="mrow"><div class="lhs mono">${r.q}</div><div class="slot dz" data-max="1" data-ans="${r.ans}"></div></div>`).join('')}`;
+  return makeDnD(host,()=>host.querySelectorAll('.slot').forEach(s=>s.classList.remove('ok','bad')));
+}
+function checkMatch(host){ let ok=0; const slots=[...host.querySelectorAll('.slot')];
+  host.querySelectorAll('.fix').forEach(f=>f.remove());
+  slots.forEach(s=>{ const c=s.querySelector('.chip'); const good=c&&c.dataset.v===s.dataset.ans; s.classList.toggle('ok',!!good); s.classList.toggle('bad',!good); if(good) ok++; });
+  return {ok,tot:slots.length}; }
+function showFixes(host){ host.querySelectorAll('.slot.bad').forEach(s=>{ const f=document.createElement('div'); f.className='fix'; f.textContent='✔ '+s.dataset.ans; s.parentNode.appendChild(f); }); }
+
+// warm-up match
+const WARM=[{q:'√81',ans:'9'},{q:'√49',ans:'7'},{q:'√121',ans:'11'},{q:'4²',ans:'16'},{q:'10³',ans:'1000'},{q:'√81 + √49 − √64',ans:'8'}];
+let warmDnD=buildMatch($('#warmGame'),WARM,['30']);
+$('#warmCheck').onclick=()=>{ const fb=$('#warmFb'); if(warmDnD.inPool()>1){ fb.className='fb show nope'; fb.textContent='Fill every box first! (One chip is a trick and stays behind 😉)'; return; }
+  const {ok,tot}=checkMatch($('#warmGame'));
+  if(ok===tot){ fb.className='fb show good'; fb.innerHTML='🧠 Brain fully warmed up! (Did you spot the trap? 10³ is NOT 30!)'; sndYes(); addStar(2); }
+  else { fb.className='fb show nope'; fb.innerHTML=`${ok} of ${tot} right. Fix the red boxes!`; sndNo(); } };
+
+/* ---------- QUIZ ---------- */
+const sym=op=>op==='x'?'×':'÷';
+function shiftOpts(num,op,n){
+  const s=op==='x'?1:-1, ans=shiftDec(num,s*n);
+  const cands=[shiftDec(num,-s*n), shiftDec(num,s*(n+1)), n>1?shiftDec(num,s*(n-1)):null, (num.replace('.','').replace(/^0+/,'')||'0')+'0'.repeat(n), shiftDec(num,s*(n+2))];
+  const out=[]; cands.forEach(c=>{ if(c && c!==ans && !out.includes(c)) out.push(c); });
+  return {ans, opts:shuffle([ans,...out.slice(0,3)])};
+}
+function mcShift(num,op,n,pow=false){ const {ans,opts}=shiftOpts(num,op,n);
+  return {type:'mc', tag:'🎯 Pick one', q:`<span class="mono">${num} ${sym(op)} ${powLabel(n,pow)} = ?</span>`, opts:opts.map(fmt), ans:fmt(ans),
+    ex:`${sym(op)} ${powLabel(n,pow)} → ${n} hop${n>1?'s':''} ${op==='x'?'RIGHT':'LEFT'}. Answer: <b>${fmt(ans)}</b>`}; }
+function hopQ(num,op,n,pow=false){ return {type:'hop',tag:'🐸 Hop it!',q:'Hop Dot to the right spot, then press Check!',label:`${num} ${sym(op)} ${powLabel(n,pow)} = ?`,num,op,n,pow}; }
+function tfQ(stmt,val,ex){ return {type:'tf',tag:'✔️ True or False',q:stmt,ans:val?'TRUE':'FALSE',opts:['TRUE','FALSE'],ex}; }
+
+function buildQuiz(){
+  const F1=friend(), F2=friend(), F3=friend();
+  const qs=[];
+  qs.push(hopQ(R(['3.47','0.62','12.5','5.08']),'x',1));
+  qs.push(hopQ(R(['45.6','723.5','9.8','306.2']),'/',2));
+  qs.push(hopQ(R(['2.5','0.7','3.14','6.03']),'x',3));
+  qs.push(hopQ(R(['5.6','0.74','8.2','12.3']),'/',3));
+  qs.push(hopQ(R(['0.035','1.204','0.6','4.9']),'x',2,true));
+  qs.push(mcShift(R(['0.09','0.07','0.03','0.006']),'x',1));
+  qs.push(mcShift('8.4','x',1));
+  qs.push(mcShift(R(['8.105','3.127','5.703','2.006']),'x',2,true));
+  qs.push(mcShift(R(['9846.5','56.5','4.3']),'/',R([2,3])));
+  // true/false pool
+  const TF=[
+    tfQ('3.64 × 100 = 3640','',`2 hops right: 3.64 → <b>364</b>. You can't just stick zeros on a decimal.`),
+    tfQ('When you divide by 100, Dot hops 2 places to the LEFT.',1,'Yes! ÷ → left, 100 → 2 hops.'),
+    tfQ('10³ means 10 × 3 = 30.','',`10³ = 10 × 10 × 10 = <b>1000</b>.`),
+    tfQ('0.74 ÷ 100 = 0.0074',1,'2 hops left, filling empty pads with zeros: 0.0074 ✅'),
+    tfQ('Multiplying by 10 always makes a positive number bigger.',1,'Yes — × 10 means hop right, so the number grows.'),
+    tfQ('5.6 ÷ 1000 = 0.056','',`3 hops left: 5.6 → <b>0.0056</b>.`),
+    tfQ('78 × 100 = 7800',1,'Dot hides at the end of 78. → 2 hops right → 7800 ✅'),
+    tfQ('0.09 × 10 = 9','',`Only 1 hop right: 0.09 → <b>0.9</b>.`),
+    tfQ('6.743 × 100 = 674.3',1,'2 hops right: 674.3 ✅'),
+    tfQ('2.68 × 70 is the same as 2.68 × 7 × 10.',1,'Yes! 70 = 7 × 10 — that\'s the Tens Trick.'),
+  ];
+  shuffle(TF).slice(0,4).forEach(t=>qs.push(t));
+  // drag to match
+  const MP=shuffle([['0.5','x',2],['6.2','/',10],['4.07','x',1],['0.3','/',2],['12.6','x',3],['0.042','x',2],['850','/',3],['7.7','/',1],['0.909','x',1]])
+    .map(([a,op,n])=>{ n=n===10?1:n; return {q:`${a} ${sym(op)} ${10**n}`, ans:fmt(shiftDec(a,op==='x'?n:-n))}; });
+  const seen=new Set(); const rows=MP.filter(r=>!seen.has(r.ans)&&seen.add(r.ans)).slice(0,5);
+  qs.push({type:'match',tag:'🧲 Drag to match',q:'Drag each answer to its question. (One chip is a trick!)',rows,extra:['0.0042'].filter(x=>!rows.some(r=>r.ans===x)).concat(['999'])} );
+  // sort
+  qs.push({type:'sort',tag:'🗂️ Sort it',q:'Drag each card to the bin that shows how Dot hops.',cards:hopSortCards(6)});
+  // order
+  const ORD=R([[['4.2 × 100','420'],['42 ÷ 1000','0.042'],['0.42 × 10','4.2'],['4200 ÷ 100','42']],
+               [['0.65 × 1000','650'],['6.5 ÷ 10','0.65'],['65 ÷ 1000','0.065'],['0.0065 × 1000','6.5']],
+               [['3.9 ÷ 100','0.039'],['0.39 × 10²','39'],['390 ÷ 10','39'.replace('39','39')],['0.039 × 10','0.39']]].slice(0,2));
+  const sorted=[...ORD].sort((a,b)=>parseFloat(a[1])-parseFloat(b[1]));
+  qs.push({type:'match',tag:'📶 Put in order',q:'Work each one out in your head, then drag them from <b>smallest</b> to <b>largest</b>.',
+    rows:sorted.map((x,i)=>({q:['1st — smallest 🐜','2nd','3rd','4th — largest 🚀'][i],ans:x[0]})),extra:[],orderEx:sorted.map(x=>`${x[0]} = ${x[1]}`).join(' &lt; ')});
+  // multiples of ten
+  const MUL=shuffle([['2.46',20],['4.53',70],['60.03',40],['3.2',40],['90.09',90],['46.37',80],['1.25',30]]).slice(0,2);
+  MUL.forEach(([a,k])=>{ const d=k/10, s1=mulDec(a,d), ans=shiftDec(s1,1);
+    const o=[...new Set([ans,s1,shiftDec(s1,2),shiftDec(s1,-1)])];
+    qs.push({type:'mc',tag:'✖️ Tens Trick',q:`<span class="mono">${a} × ${k} = ?</span>`,opts:shuffle(o).map(fmt),ans:fmt(ans),ex:`${k} = ${d} × 10. ${a} × ${d} = ${fmt(s1)}, then × 10 → <b>${fmt(ans)}</b>`}); });
+  const DV=R([['4.8',20,'2.4','0.24'],['9.6',30,'3.2','0.32'],['8.4',40,'2.1','0.21'],['1.5',50,'0.03','0.03']].slice(0,3));
+  qs.push({type:'mc',tag:'➗ Tens Trick',q:`<span class="mono">${DV[0]} ÷ ${DV[1]} = ?</span>`,opts:shuffle([DV[3],DV[2],shiftDec(DV[2],1),shiftDec(DV[3],-1)]),ans:DV[3],
+    ex:`÷ ${DV[1]} = ÷ ${DV[1]/10} then ÷ 10. ${DV[0]} ÷ ${DV[1]/10} = ${DV[2]}, then hop left → <b>${DV[3]}</b>`});
+  // missing operation
+  const MO=R([['6.2','/',2],['0.38','x',3],['15.7','/',1],['0.049','x',2],['72','/',3]]); const mres=shiftDec(MO[0],MO[1]==='x'?MO[2]:-MO[2]);
+  const mlab=`${sym(MO[1])} ${10**MO[2]}`;
+  const mopts=shuffle([mlab, `${sym(MO[1]==='x'?'/':'x')} ${10**MO[2]}`, `${sym(MO[1])} ${10**(MO[2]===3?2:MO[2]+1)}`, `${sym(MO[1]==='x'?'/':'x')} ${10**(MO[2]===1?2:MO[2]-1)}`]);
+  qs.push({type:'mc',tag:'🔍 Missing piece',q:`<span class="mono">${MO[0]} &nbsp;❓&nbsp; = ${fmt(mres)}</span><br><small>Which operation goes in the ❓?</small>`,opts:mopts,ans:mlab,
+    ex:`${MO[0]} → ${fmt(mres)} got ${MO[1]==='x'?'BIGGER (hop right)':'smaller (hop left)'} by ${MO[2]} hop${MO[2]>1?'s':''} → <b>${mlab}</b>`});
+  const MN=R([['0.38','380',3],['5.2','52',1],['0.007','0.7',2],['1.09','10900',4]]);
+  qs.push({type:'mc',tag:'🔍 Missing piece',q:`<span class="mono">${MN[0]} × ❓ = ${fmt(MN[1])}</span>`,opts:['10','100','1000','10000'].map(fmt),ans:fmt(String(10**MN[2])),
+    ex:`Dot hopped ${MN[2]} place${MN[2]>1?'s':''} right → ${MN[2]} zero${MN[2]>1?'s':''} → <b>${fmt(String(10**MN[2]))}</b>`});
+  // word problems with names
+  const pr=R(['4.25','3.75','6.50']); const t1=shiftDec(pr,2);
+  qs.push({type:'mc',tag:'📖 Story problem',q:`${P()} sells <b>100</b> bottles of sorrel at <b>EC$${pr}</b> each at the Christmas market. 🍹 How much money is that?`,
+    opts:shuffle(['EC$'+fmt(t1),'EC$'+fmt(shiftDec(pr,1)),'EC$'+fmt(shiftDec(pr,3)),'EC$'+fmt((pr.replace('.','')+'00'))]),ans:'EC$'+fmt(t1),ex:`${pr} × 100 → 2 hops right → <b>EC$${fmt(t1)}</b>`});
+  const fare=R(['12.50','8.25','11.40']); const tot=mulDec(fare,30);
+  qs.push({type:'mc',tag:'📖 Story problem',q:`A ferry ticket to Nevis costs <b>EC$${fare}</b>. ⛴️ ${F1}'s class has <b>30</b> students. How much for all the tickets?`,
+    opts:shuffle(['EC$'+fmt(tot),'EC$'+fmt(mulDec(fare,3)),'EC$'+fmt(shiftDec(tot,1)),'EC$'+fmt(shiftDec(tot,-1))]),ans:'EC$'+fmt(tot),ex:`${fare} × 30 = ${fare} × 3 × 10 = ${fmt(mulDec(fare,3))} × 10 = <b>EC$${fmt(tot)}</b>`});
+  const pot=R(['56.50','84.20','125.00']); const share=shiftDec(pot,-1);
+  qs.push({type:'mc',tag:'📖 Story problem',q:`${F2} wins <b>EC$${pot}</b> in a talent show 🎤 and shares it equally with <b>10</b> friends (including ${F3}). How much does each friend get?`,
+    opts:shuffle(['EC$'+fmt(share),'EC$'+fmt(shiftDec(pot,1)),'EC$'+fmt(shiftDec(pot,-2)),'EC$'+fmt(pot)]).map(x=>x.replace(/\.(\d)$/,'.$10')),ans:('EC$'+fmt(share)).replace(/\.(\d)$/,'.$10'),
+    ex:`${pot} ÷ 10 → 1 hop left → <b>EC$${fmt(share)}</b> each`});
+  // odd one out
+  qs.push({type:'mc',tag:'🕵️ Odd one out',q:'Three of these equal <b>45</b>. Which one does NOT?',opts:shuffle(['0.45 × 100','4500 ÷ 100','4.5 × 10','450 ÷ 100']),ans:'450 ÷ 100',
+    ex:'450 ÷ 100 → 2 hops left → <b>4.5</b>, not 45. The others all make 45.'});
+  qs.push({type:'mc',tag:'🕵️ Think hard',q:`${F1} says: “0.246 × 10⁴ = 24.” What is the real answer?`,opts:shuffle(['2460','24.6','2.46','24600']),ans:'2460',
+    ex:'10⁴ → 4 hops right: 0.246 → 2.46 → 24.6 → 246 → <b>2460</b>. Never throw digits away!'});
+  const QS=shuffle(qs);
+  // brain stretch at end
+  QS.push({type:'mc',tag:'🧠 Brain stretch',q:'<span class="mono">10³ − (√121 + 4²) = ?</span>',opts:shuffle(['973','1027','3','985']),ans:'973',ex:'Brackets first: √121 = 11, 4² = 16 → 27. 1000 − 27 = <b>973</b>'});
+  QS.push({type:'mc',tag:'🧠 Brain stretch',q:'How many thirds (⅓) are there in 81?',opts:shuffle(['27','243','84','81']),ans:'243',ex:'Each whole has 3 thirds: 81 × 3 = <b>243</b>'});
+  return QS;
+}
+
+let QZ=null;
+function startQuiz(){ QZ={qs:buildQuiz(),i:0,score:0,missed:[]}; renderQ(); $('#quiz').scrollIntoView({behavior:'smooth'}); }
+$('#quizStart').onclick=startQuiz;
+
+function renderQ(){
+  const st=$('#quizStage'); const q=QZ.qs[QZ.i], N=QZ.qs.length; st.style.textAlign='left';
+  st.innerHTML=`<div class="qhead"><b>Question ${QZ.i+1} of ${N}</b><span class="qtype">${q.tag}</span><b>⭐ ${QZ.score}</b></div>
+    <div class="bar"><i style="width:${QZ.i/N*100}%"></i></div><div class="qprompt">${q.q}</div><div class="qbody"></div>
+    <div class="fb" id="qfb"></div><div class="hopctl"><button class="btn purple" id="qcheck" style="display:none">Check ✅</button><button class="btn green" id="qnext" style="display:none">Next ➡️</button></div>`;
+  const body=st.querySelector('.qbody'), chk=$('#qcheck');
+  if(q.type==='mc'||q.type==='tf'){
+    body.innerHTML=`<div class="opts ${q.type==='tf'?'tf':''}">${q.opts.map(o=>`<button class="opt">${o}</button>`).join('')}</div>`;
+    body.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ const ok=b.textContent===q.ans;
+      body.querySelectorAll('.opt').forEach(x=>{ x.disabled=true; if(x.textContent===q.ans) x.classList.add('ok'); else if(x!==b) x.classList.add('dim'); });
+      if(!ok) b.classList.add('bad'); finish(ok,q.ex); });
+  } else if(q.type==='hop'){
+    const h=document.createElement('div'); h.className='hopbox'; body.appendChild(h); const w=Hop(h,q);
+    chk.style.display=''; chk.onclick=()=>{ w.lock(); w.reveal(); finish(w.correct(), w.explain()); };
+  } else if(q.type==='match'){
+    const h=document.createElement('div'); body.appendChild(h); const d=buildMatch(h,q.rows,q.extra);
+    chk.style.display=''; chk.onclick=()=>{ if(d.inPool()>q.extra.length){ const fb=$('#qfb'); fb.className='fb show nope'; fb.textContent='Fill every box first!'; return; }
+      const {ok,tot}=checkMatch(h); d.lock(); showFixes(h); finish(ok===tot, q.orderEx ? `Order: ${q.orderEx}` : `${ok} of ${tot} matched correctly. Green ✔ shows the right answers.`); };
+  } else if(q.type==='sort'){
+    const h=document.createElement('div'); body.appendChild(h); const d=buildBins(h,HOPBINS,q.cards);
+    chk.style.display=''; chk.onclick=()=>{ if(d.inPool()){ const fb=$('#qfb'); fb.className='fb show nope'; fb.textContent='Put every card in a bin first!'; return; }
+      const {ok,tot}=checkBins(h); d.lock(); finish(ok===tot, `${ok} of ${tot} in the right bin. × → RIGHT, ÷ → LEFT, and count the zeros (or the little number).`); };
+  }
+}
+function finish(ok,ex){
+  const fb=$('#qfb'); $('#qcheck').style.display='none';
+  const cheers=['Ribbit-tastic! 🐸','You nailed it! 🎯','Hop-hop hooray! 🎉','Brilliant! ⭐','Frog-genius! 🧠'];
+  if(ok){ QZ.score++; addStar(); sndYes(); fb.className='fb show good'; fb.innerHTML=`<b>${R(cheers)}</b> ${ex}`; }
+  else { sndNo(); fb.className='fb show nope'; fb.innerHTML=`<b>Not this time.</b> ${ex}`; QZ.missed.push({q:QZ.qs[QZ.i].label||QZ.qs[QZ.i].q, ex}); }
+  const nx=$('#qnext'); nx.style.display=''; nx.textContent = QZ.i===QZ.qs.length-1 ? 'See my score 🏆' : 'Next ➡️';
+  nx.onclick=()=>{ QZ.i++; if(QZ.i<QZ.qs.length) renderQ(); else endQuiz(); };
+}
+function endQuiz(){
+  const N=QZ.qs.length, pct=Math.round(QZ.score/N*100); const st=$('#quizStage'); st.style.textAlign='center';
+  const msg = pct>=90?`🏆 FROG CHAMPION${PLAYER?', '+PLAYER:''}! You're ready for that test!`: pct>=75?`🌟 Super hopping${PLAYER?', '+PLAYER:''}! Just a few more to polish.`: pct>=50?`🐸 Good effort! Review the tricky ones below and try a new quiz.`:`💪 Keep going! Re-watch Dot hop at the top, then try again.`;
+  const starsN = pct>=90?5:pct>=75?4:pct>=60?3:pct>=40?2:1;
+  st.innerHTML=`<div class="end"><div style="font-size:3rem">${'⭐'.repeat(starsN)}</div><div class="score">${QZ.score} / ${N}</div><p style="font-size:1.3rem;font-weight:600">${msg}</p>
+    ${QZ.missed.length?`<div class="missed"><h3>🔁 Let's look at the tricky ones</h3><ol>${QZ.missed.map(m=>`<li><b>${m.q.replace(/<br>.*$/,'')}</b><br>${m.ex}</li>`).join('')}</ol></div>`:'<p>🎉 Not a single miss!</p>'}
+    <div class="hopctl" style="margin-top:14px"><button class="btn purple" id="again">Try a NEW quiz 🔄</button></div></div>`;
+  $('#again').onclick=startQuiz; if(pct>=75) confetti();
+}
+</script>
+</body>
+</html>
+
+</body></html>
