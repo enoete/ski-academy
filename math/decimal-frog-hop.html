@@ -158,6 +158,29 @@ section.card > h2{display:flex;align-items:center;gap:10px;font-size:clamp(1.5re
 .end .score{font-size:3.5rem;font-weight:700;color:var(--purple)}
 .missed{text-align:left;background:#fff7ed;border-radius:16px;padding:12px 16px;margin-top:12px}
 .missed li{margin:8px 0}
+
+/* partitioning */
+.splitdemo{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0;min-height:130px}
+.sd-big{font-size:3.4rem;font-weight:700;color:#f97316;transition:all .5s}
+.sd-parts{display:flex;gap:14px;align-items:center;font-size:2.6rem;font-weight:700;opacity:0;transform:scale(.4);transition:all .5s}
+.sd-a{background:#ec4899;color:#fff;border-radius:16px;padding:2px 18px}.sd-b{background:#22c55e;color:#fff;border-radius:16px;padding:2px 14px}.sd-x{color:#8b5cf6}
+.splitdemo.on .sd-big{transform:scale(.6);opacity:.35}
+.splitdemo.on .sd-parts{opacity:1;transform:scale(1)}
+.map4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.m4{color:#fff;border-radius:16px;padding:10px;text-align:center;font-size:.95rem;line-height:1.3}
+.m4 b{display:block;font-size:1.05rem;margin:2px 0}
+.pmstage{display:none;margin-top:12px;animation:pop .35s}
+.pmstage.show{display:block}
+.pmstage h4{margin:0 0 6px;font-size:1.15rem}
+.colmul{display:grid;justify-content:center;gap:2px 0;margin:10px auto;font-size:1.9rem;font-weight:700;font-variant-numeric:tabular-nums}
+.colmul div{width:1.4em;text-align:center}
+.colmul .cr{font-size:.95rem;color:var(--red);height:1.2em}
+.colmul .ln{border-top:4px solid var(--ink)}
+.colmul .hot{background:#fef08a;border-radius:8px}
+.colmul .res{color:var(--green-d)}
+.colsay{text-align:center;font-weight:600;min-height:1.5em}
+.halfway{background:#fee2e2;border:3px solid #ef4444;border-radius:14px;padding:8px 12px;font-weight:600;margin:8px 0;text-align:center}
+@media (max-width:600px){ .map4{grid-template-columns:1fr 1fr} .colmul{font-size:1.5rem} }
 canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:1000}
 footer{text-align:center;color:var(--muted);padding:20px 0 40px;font-size:.95rem}
 
@@ -180,7 +203,7 @@ footer{text-align:center;color:var(--muted);padding:20px 0 40px;font-size:.95rem
   <span class="stars" id="stars">⭐ 0</span>
   <nav>
     <a href="#rules">🐸 Rules</a><a href="#powers">🔟 Powers</a><a href="#play">🎮 Be the Frog</a>
-    <a href="#oops">🦉 Oops</a><a href="#tens">✖️ Tens</a><a href="#sort">🗂️ Sort</a><a href="#warm">🧠 Warm-up</a><a href="#quiz">🏆 Quiz</a>
+    <a href="#oops">🦉 Oops</a><a href="#tens">✂️ Partition</a><a href="#sort">🗂️ Sort</a><a href="#warm">🧠 Warm-up</a><a href="#quiz">🏆 Quiz</a>
   </nav>
   <button class="mute" id="mute" title="Sound on/off">🔊</button>
 </div>
@@ -250,21 +273,35 @@ footer{text-align:center;color:var(--muted);padding:20px 0 40px;font-size:.95rem
 
 <!-- 5. TENS -->
 <section class="card" id="tens" style="--c:#f97316">
-  <h2><span class="badge">✖️</span> The Tens Trick: × 20, × 30, × 70…</h2>
-  <p>What about <b>× 70</b>? There's no button for that! Trick: <b>split it</b>. 70 is just <b>7 × 10</b>. So do the <b>7</b> part first, then let Dot do the <b>10</b> part.</p>
-  <div class="hopbox" style="background:#fff7ed;border-color:#fdba74">
-    <div class="hopq">2.68 <span class="op">× 70</span> = ?</div>
-    <div class="steps" id="tenSteps">
-      <div class="step">Step 1 — Split it: <b>70 = 7 × 10</b><small>So 2.68 × 70 = 2.68 × 7 × 10</small></div>
-      <div class="step">Step 2 — Multiply by 7: <b>2.68 × 7 = 18.76</b><small>Do it like 268 × 7 = 1876, then put the point back: 2 decimal places → 18.76</small></div>
-      <div class="step">Step 3 — Dot hops for the 10: <b>18.76 × 10 = 187.6</b> 🐸➡️<small>1 zero → 1 hop right</small></div>
-      <div class="step" style="background:#dcfce7;border-color:#22c55e">🎉 2.68 × 70 = <b>187.6</b></div>
-    </div>
-    <div class="hopctl"><button class="btn orange" id="tenNext">Show next step ➡️</button></div>
+  <h2><span class="badge">✂️</span> Partitioning: × 20, × 30, × 70…</h2>
+  <div class="story" style="background:#fff7ed;border-color:#f97316">
+    <b>Partitioning</b> means <b>breaking a number into friendly parts</b>. ✂️<br>
+    There's no button for <b>× 70</b>… but 70 is just <b>7 × 10</b>! So we break it apart, do the <b>7</b> part, then let Dot do the <b>× 10</b> part.
   </div>
-  <div class="tip">➗ <b>Works for dividing too!</b> 4.8 ÷ 20 → 4.8 ÷ 2 = 2.4, then ÷ 10 → Dot hops left → <b>0.24</b></div>
-  <h3>Your turn — two quick steps</h3>
+  <div class="splitdemo" id="splitDemo">
+    <div class="sd-big">70</div>
+    <div class="sd-parts"><span class="sd-a">7</span><span class="sd-x">×</span><span class="sd-b">10</span></div>
+  </div>
+  <div class="hopctl"><button class="btn orange" id="splitGo">✂️ Snip it!</button></div>
+
+  <h3 style="margin-top:18px">🗺️ The 4-step map</h3>
+  <div class="map4">
+    <div class="m4" style="background:#ec4899">✂️<b>1. Split</b>70 → 7 × 10</div>
+    <div class="m4" style="background:#8b5cf6">🙈<b>2. Hide the point</b>2.68 → 268<br>268 × 7 = 1876</div>
+    <div class="m4" style="background:#0ea5e9">📍<b>3. Point back</b>2.68 had 2 decimal places → 18.76</div>
+    <div class="m4" style="background:#22c55e">🐸<b>4. Hop × 10</b>18.76 → 187.6</div>
+  </div>
+  <div class="tip" style="background:#fee2e2;border-color:#ef4444">🛑 <b>Don't stop at step 3!</b> 2.46 × 2 = 4.92 is only <u>halfway</u>. The 20 still has a <b>× 10</b> hiding inside it → 4.92 × 10 = <b>49.2</b>.</div>
+  <div class="tip">🤔 <b>Sense check:</b> 2.46 × 20 is about 2 × 20 = 40. Is 4.92 near 40? No way! Is 49.2? Yes! ✅</div>
+
+  <h3 style="margin-top:18px">🏭 The Partition Machine</h3>
+  <p>Pick a problem and go through the steps. The machine shows you the column working too!</p>
+  <div class="chooser" id="pmPick"></div>
+  <div class="oops" id="pmBox" style="background:#fff7ed;border-color:#fdba74"></div>
+
+  <h3 style="margin-top:18px">⚡ Speed round</h3>
   <div class="oops" id="tenPractice" style="background:#fff7ed;border-color:#fdba74"></div>
+  <div class="tip">➗ <b>Works for dividing too!</b> 4.8 ÷ 20 → 4.8 ÷ 2 = 2.4, then ÷ 10 → Dot hops left → <b>0.24</b></div>
 </section>
 
 <!-- 6. SORT -->
@@ -296,7 +333,7 @@ footer{text-align:center;color:var(--muted);padding:20px 0 40px;font-size:.95rem
 <section class="card" id="quiz" style="--c:#8b5cf6">
   <h2><span class="badge">🏆</span> The Big Frog Challenge</h2>
   <div id="quizStage" style="text-align:center">
-    <p style="font-size:1.15rem">28 questions · hops, picks, true/false, drag-to-match, sorting and ordering.<br>Every try gives you <b>new numbers</b> — play as many times as you like!</p>
+    <p style="font-size:1.15rem">34 questions · hops, partitioning, picks, true/false, drag-to-match, sorting and ordering.<br>Every try gives you <b>new numbers</b> — play as many times as you like!</p>
     <button class="btn purple" id="quizStart" style="font-size:1.3rem">Start the Challenge 🐸</button>
   </div>
 </section>
@@ -465,7 +502,7 @@ $('#playNext').onclick=()=>{ pi=(pi+1)%PLAY.length; if(pi===0) $('#playNext').te
 buildPlay();
 
 /* ---------- Oops the Owl ---------- */
-const OOPS_CHOICES=['🔄 Hopped the WRONG way','🐢 Too FEW hops','🦘 Too MANY hops','📎 Just stuck zeros on the end','✅ Nothing — it\'s CORRECT!'];
+const OOPS_CHOICES=['🔄 Hopped the WRONG way','🐢 Too FEW hops','🦘 Too MANY hops','📎 Just stuck zeros on the end','✅ Nothing — it\'s CORRECT!','⏸️ Stopped halfway — forgot the × 10'];
 const OOPS=[
   {w:'8.4 × 10 = 840', a:3, fix:'84', why:'You can\'t just add a zero to a decimal! Dot hops 1 place right: 8.4 → <b>84</b>.'},
   {w:'0.05 × 10 = 0.005', a:0, fix:'0.5', why:'× makes it BIGGER, so Dot hops RIGHT. 0.05 → <b>0.5</b>. (0.005 is smaller — that\'s dividing!)'},
@@ -474,6 +511,9 @@ const OOPS=[
   {w:'0.067 × 100 = 6.7', a:4, fix:'6.7', why:'Perfect! 2 hops right: 0.067 → 6.7 ✅'},
   {w:'5.8 × 10 = 0.58', a:0, fix:'58', why:'Multiplying makes it bigger — hop RIGHT: 5.8 → <b>58</b>.'},
   {w:'5.6 ÷ 1000 = 0.056', a:1, fix:'0.0056', why:'1000 has 3 zeros → 3 hops left. 5.6 → 0.56 → 0.056 → <b>0.0056</b>.'},
+  {w:'2.46 × 20 = 4.92', a:5, fix:'49.2', why:'2.46 × 2 = 4.92 is only step 1! 20 = 2 × 10, so Dot still has to hop: <b>49.2</b>. Sense check: about 2 × 20 = 40.'},
+  {w:'5.5 × 60 = 33', a:5, fix:'330', why:'5.5 × 6 = 33, then × 10 → <b>330</b>. Sense check: about 5 × 60 = 300.'},
+  {w:'12.063 × 100 = 12063', a:2, fix:'1206.3', why:'100 → only 2 hops: 12.063 → <b>1206.3</b>. Don\'t just rub out the point!'},
   {w:'3.64 × 100 = 3640', a:3, fix:'364', why:'Sticking zeros on a decimal doesn\'t work. 2 hops right: 3.64 → <b>364</b>.'},
 ];
 let oi=0;
@@ -494,18 +534,75 @@ function buildOops(){
 }
 buildOops();
 
-/* ---------- Tens trick ---------- */
-let ts=0; $('#tenNext').onclick=()=>{ const s=document.querySelectorAll('#tenSteps .step');
-  if(ts<s.length){ s[ts].classList.add('show'); ts++; sndHop(); if(ts===s.length){ $('#tenNext').textContent='Start again 🔄'; sndYes(); } }
-  else { s.forEach(x=>x.classList.remove('show')); ts=0; $('#tenNext').textContent='Show next step ➡️'; } };
-const TEN=[['1.5',30],['5.5',60],['7.15',50],['2.46',20],['60.03',40]];
+/* ---------- Partitioning ---------- */
+$('#splitGo').onclick=()=>{ const d=$('#splitDemo'); d.classList.toggle('on'); sndHop(); $('#splitGo').textContent=d.classList.contains('on')?'🔁 Put it back':'✂️ Snip it!'; };
+
+// column multiplication animator: whole number string × single digit
+function ColMul(host, top, d, onDone){
+  const digs=top.split('').map(Number); const n=digs.length; const cols=n+1;
+  const steps=[]; let carry=0; const res=Array(cols).fill(''); const carries=Array(cols).fill('');
+  for(let i=n-1;i>=0;i--){ const p=digs[i]*d+carry; const w=p%10, c=Math.floor(p/10);
+    steps.push({col:i+1, say:`${digs[i]} × ${d}${carry?` + ${carry} carried`:''} = ${p} → write ${w}${c?`, carry ${c}`:''}`, w, c}); carry=c; }
+  if(carry) steps.push({col:0, say:`Nothing left to multiply — write the carried ${carry}`, w:carry, c:0, last:true});
+  let k=0;
+  host.innerHTML=`<div class="colmul" style="grid-template-columns:repeat(${cols+1},auto)"></div><div class="colsay">Press the button to start on the right ➡️</div>
+    <div class="hopctl"><button class="btn purple cm">Next column ⬅️</button></div>`;
+  const g=host.querySelector('.colmul'), say=host.querySelector('.colsay'), btn=host.querySelector('.cm');
+  function draw(hot){
+    let h='';
+    h+='<div></div>'+carries.map(c=>`<div class="cr">${c}</div>`).join('');
+    h+='<div></div><div></div>'+digs.map((x,i)=>`<div class="${hot===i+1?'hot':''}">${x}</div>`).join('');
+    h+='<div>×</div>'+Array(cols-1).fill('<div></div>').join('')+`<div class="${hot?'hot':''}">${d}</div>`;
+    h+='<div></div>'+Array(cols).fill('<div class="ln"></div>').join('');
+    h+='<div></div>'+res.map(r=>`<div class="res">${r}</div>`).join('');
+    g.innerHTML=h;
+  }
+  draw(0);
+  btn.onclick=()=>{ if(k>=steps.length) return; const s=steps[k]; res[s.col]=s.w; carries[s.col]=''; if(s.c) carries[s.col-1]=s.c; say.textContent=s.say; draw(s.col); sndHop(); k++;
+    if(k===steps.length){ btn.disabled=true; const prod=String(parseInt(top,10)*d); setTimeout(()=>{ say.innerHTML=`✅ ${top} × ${d} = <b>${prod}</b>`; draw(0); onDone&&onDone(prod); },500); } };
+}
+
+const PM=[['3.24',30],['1.8',40],['70.04',60],['5.36',20],['8.07',50],['12.4',70],['30.08',90],['2.65',80]];
+let pmCur=PM[0];
+function buildPM(){
+  const [a,k]=pmCur, d=k/10, dp=(a.split('.')[1]||'').length, hidden=a.replace('.','').replace(/^0+/,''), prod=String(parseInt(hidden,10)*d),
+        s1=shiftDec(prod,-dp), ans=shiftDec(s1,1);
+  const box=$('#pmBox');
+  box.innerHTML=`<div class="work mono" style="text-align:center;font-size:2rem;font-weight:700">${a} × ${k} = <span class="pmans">?</span></div>
+   <div class="pmstage show" data-s="1"><h4>✂️ Step 1 — Split ${k}</h4><div class="choices">${shuffle([`${d} × 10`,`${d} + 10`,`${d} × 100`,`${k} + 0`]).map(v=>`<button class="choice" data-v="${v}">${k} = ${v}</button>`).join('')}</div></div>
+   <div class="pmstage" data-s="2"><h4>🙈 Step 2 — Hide the point</h4><p>Pretend the point isn't there for now. What whole number is ${a} without its point?</p>
+     <div class="choices">${shuffle([...new Set([hidden, a.replace(/\.0+/,'.').replace('.',''), String(parseInt(a,10)), a.split('.').reverse().join('')])]).map(v=>`<button class="choice" data-v="${v}">${v}</button>`).join('')}</div></div>
+   <div class="pmstage" data-s="3"><h4>✖️ Step 3 — Multiply ${hidden} × ${d}</h4><p>Start on the <b>right</b>. Watch the carries! (Zeros count too: 0 × ${d} = 0)</p><div class="cmhost"></div></div>
+   <div class="pmstage" data-s="4"><h4>📍 Step 4 — Put the point back</h4><p>${a} has <b>${dp}</b> digit${dp>1?'s':''} after the point, so the answer needs <b>${dp}</b> too. Count ${dp} from the right of ${prod}.</p>
+     <div class="choices">${shuffle([...new Set([s1,shiftDec(prod,-dp-1),shiftDec(prod,-dp+1),prod])]).map(v=>`<button class="choice" data-v="${v}">${fmt(v)}</button>`).join('')}</div></div>
+   <div class="pmstage" data-s="5"><div class="halfway">🛑 Halfway! ${a} × ${d} = ${fmt(s1)} … but we still owe the <b>× 10</b>!</div><h4>🐸 Step 5 — Dot hops for the × 10</h4><div class="hopbox hh"></div>
+     <div class="hopctl"><button class="btn green hk">Check ✅</button></div></div>
+   <div class="fb" id="pmFb"></div>`;
+  const fb=$('#pmFb');
+  const show=n=>{ const st=box.querySelector(`.pmstage[data-s="${n}"]`); st.classList.add('show'); setTimeout(()=>st.scrollIntoView({behavior:'smooth',block:'nearest'}),50); };
+  const wire=(n,good,hint,next)=>box.querySelectorAll(`.pmstage[data-s="${n}"] .choice`).forEach(b=>b.onclick=()=>{
+    if(b.dataset.v===good){ b.classList.add('ok'); box.querySelectorAll(`.pmstage[data-s="${n}"] .choice`).forEach(x=>x.disabled=true); sndYes(); addStar(); fb.className='fb'; next(); }
+    else { b.classList.add('bad'); b.disabled=true; sndNo(); fb.className='fb show nope'; fb.innerHTML=hint; } });
+  wire(1,`${d} × 10`,`We want two numbers that <b>multiply</b> to make ${k}. ${d} × 10 = ${k} ✅`,()=>show(2));
+  wire(2,hidden,`Just rub out the point and read the digits: ${a} → <b>${hidden}</b>`,()=>{ show(3); ColMul(box.querySelector('.cmhost'),hidden,d,()=>show(4)); });
+  wire(4,s1,`Count <b>${dp}</b> digit${dp>1?'s':''} in from the right of ${prod}, and put the point there. Sense check: ${a} × ${d} should be about ${Math.round(parseFloat(a))*d}.`,()=>{
+    show(5); const w=Hop(box.querySelector('.hh'),{num:s1,n:1,op:'x'});
+    box.querySelector('.hk').onclick=()=>{ if(w.correct()){ w.lock(); w.reveal(); box.querySelector('.hk').disabled=true; box.querySelector('.pmans').textContent=fmt(ans); box.querySelector('.pmans').style.color='var(--green-d)';
+        sndYes(); addStar(2); confetti(); fb.className='fb show good'; fb.innerHTML=`🎉 ${a} × ${k} = <b>${fmt(ans)}</b>. Sense check: about ${Math.round(parseFloat(a))} × ${k} = ${Math.round(parseFloat(a))*k} ✅ Pick another problem above!`; }
+      else { sndNo(); fb.className='fb show nope'; fb.innerHTML='× 10 → <b>1 hop RIGHT</b>. Press ↺ and try again!'; } };
+  });
+}
+chooser($('#pmPick'),PM,x=>`${x[0]} × ${x[1]}`,pmCur,v=>{pmCur=v;buildPM();});
+buildPM();
+
+const TEN=[['4.6',30],['2.15',40],['6.5',70],['10.06',50],['3.12',20],['0.45',60]];
 let ti=0, tstage=0;
 function buildTen(){
   const [a,k]=TEN[ti]; const d=k/10; const s1=mulDec(a,d), s2=shiftDec(s1,1);
   const wrong1=shuffle([s1, shiftDec(s1,1), shiftDec(s1,-1)]);
   const box=$('#tenPractice');
   box.innerHTML=`<div class="work mono" style="text-align:center;font-size:1.7rem;font-weight:700">${a} × ${k}</div>
-    <p><b>Step 1:</b> ${k} = ${d} × 10. What is ${a} × ${d}?</p><div class="choices s1">${wrong1.map(v=>`<button class="choice" data-v="${v}">${fmt(v)}</button>`).join('')}</div>
+    <p><b>Step 1:</b> Partition: ${k} = ${d} × 10. What is ${a} × ${d}?</p><div class="choices s1">${wrong1.map(v=>`<button class="choice" data-v="${v}">${fmt(v)}</button>`).join('')}</div>
     <div class="s2wrap" style="display:none"><p><b>Step 2:</b> Now Dot hops for the × 10. ${fmt(s1)} × 10 = ?</p>
     <div class="choices s2">${shuffle([s2,shiftDec(s1,-1),shiftDec(s1,2)]).map(v=>`<button class="choice" data-v="${v}">${fmt(v)}</button>`).join('')}</div></div>
     <div class="fb"></div><div class="hopctl"><button class="btn orange nx" style="display:none">Another one ➡️</button></div>`;
@@ -639,7 +736,9 @@ function buildQuiz(){
     tfQ('78 × 100 = 7800',1,'Dot hides at the end of 78. → 2 hops right → 7800 ✅'),
     tfQ('0.09 × 10 = 9','',`Only 1 hop right: 0.09 → <b>0.9</b>.`),
     tfQ('6.743 × 100 = 674.3',1,'2 hops right: 674.3 ✅'),
-    tfQ('2.68 × 70 is the same as 2.68 × 7 × 10.',1,'Yes! 70 = 7 × 10 — that\'s the Tens Trick.'),
+    tfQ('2.68 × 70 is the same as 2.68 × 7 × 10.',1,'Yes! 70 = 7 × 10 — that\'s partitioning.'),
+    tfQ('To work out 5.5 × 60, you can do 5.5 × 6 = 33 and stop there.','','That\'s only halfway! 60 = 6 × 10, so 33 × 10 = <b>330</b>.'),
+    tfQ('Partitioning 40 for the trick means 40 = 4 + 10.','','Partitioning for multiplying uses ×: 40 = <b>4 × 10</b>.'),
   ];
   shuffle(TF).slice(0,4).forEach(t=>qs.push(t));
   // drag to match
@@ -657,12 +756,12 @@ function buildQuiz(){
   qs.push({type:'match',tag:'📶 Put in order',q:'Work each one out in your head, then drag them from <b>smallest</b> to <b>largest</b>.',
     rows:sorted.map((x,i)=>({q:['1st — smallest 🐜','2nd','3rd','4th — largest 🚀'][i],ans:x[0]})),extra:[],orderEx:sorted.map(x=>`${x[0]} = ${x[1]}`).join(' &lt; ')});
   // multiples of ten
-  const MUL=shuffle([['2.46',20],['4.53',70],['60.03',40],['3.2',40],['90.09',90],['46.37',80],['1.25',30]]).slice(0,2);
+  const MUL=shuffle([['3.4',20],['2.15',30],['6.02',40],['1.75',60],['12.3',70],['40.06',50],['5.25',80],['7.08',90]]).slice(0,3);
   MUL.forEach(([a,k])=>{ const d=k/10, s1=mulDec(a,d), ans=shiftDec(s1,1);
     const o=[...new Set([ans,s1,shiftDec(s1,2),shiftDec(s1,-1)])];
-    qs.push({type:'mc',tag:'✖️ Tens Trick',q:`<span class="mono">${a} × ${k} = ?</span>`,opts:shuffle(o).map(fmt),ans:fmt(ans),ex:`${k} = ${d} × 10. ${a} × ${d} = ${fmt(s1)}, then × 10 → <b>${fmt(ans)}</b>`}); });
+    qs.push({type:'mc',tag:'✂️ Partitioning',q:`<span class="mono">${a} × ${k} = ?</span>`,opts:shuffle(o).map(fmt),ans:fmt(ans),ex:`${k} = ${d} × 10. ${a} × ${d} = ${fmt(s1)}, then × 10 → <b>${fmt(ans)}</b>`}); });
   const DV=R([['4.8',20,'2.4','0.24'],['9.6',30,'3.2','0.32'],['8.4',40,'2.1','0.21'],['1.5',50,'0.03','0.03']].slice(0,3));
-  qs.push({type:'mc',tag:'➗ Tens Trick',q:`<span class="mono">${DV[0]} ÷ ${DV[1]} = ?</span>`,opts:shuffle([DV[3],DV[2],shiftDec(DV[2],1),shiftDec(DV[3],-1)]),ans:DV[3],
+  qs.push({type:'mc',tag:'✂️ Partitioning ÷',q:`<span class="mono">${DV[0]} ÷ ${DV[1]} = ?</span>`,opts:shuffle([DV[3],DV[2],shiftDec(DV[2],1),shiftDec(DV[3],-1)]),ans:DV[3],
     ex:`÷ ${DV[1]} = ÷ ${DV[1]/10} then ÷ 10. ${DV[0]} ÷ ${DV[1]/10} = ${DV[2]}, then hop left → <b>${DV[3]}</b>`});
   // missing operation
   const MO=R([['6.2','/',2],['0.38','x',3],['15.7','/',1],['0.049','x',2],['72','/',3]]); const mres=shiftDec(MO[0],MO[1]==='x'?MO[2]:-MO[2]);
@@ -673,6 +772,25 @@ function buildQuiz(){
   const MN=R([['0.38','380',3],['5.2','52',1],['0.007','0.7',2],['1.09','10900',4]]);
   qs.push({type:'mc',tag:'🔍 Missing piece',q:`<span class="mono">${MN[0]} × ❓ = ${fmt(MN[1])}</span>`,opts:['10','100','1000','10000'].map(fmt),ans:fmt(String(10**MN[2])),
     ex:`Dot hopped ${MN[2]} place${MN[2]>1?'s':''} right → ${MN[2]} zero${MN[2]>1?'s':''} → <b>${fmt(String(10**MN[2]))}</b>`});
+
+  // partitioning extras
+  const PK=R([40,60,80,90,30]);
+  qs.push({type:'mc',tag:'✂️ Partitioning',q:`To work out <span class="mono">3.7 × ${PK}</span>, how should you partition ${PK}?`,opts:shuffle([`${PK/10} × 10`,`${PK/10} + 10`,`${PK/10} × 100`,`${PK} + 0`]),ans:`${PK/10} × 10`,
+    ex:`Split it into parts that <b>multiply</b> back to ${PK}: ${PK/10} × 10 = ${PK}.`});
+  const HW=R([['3.46',20],['4.4',30],['2.13',40],['6.5',70]]); const hs1=mulDec(HW[0],HW[1]/10), hans=shiftDec(hs1,1);
+  qs.push({type:'mc',tag:'🕵️ Spot the slip',q:`${friend()} worked out <span class="mono">${HW[0]} × ${HW[1]}</span> and wrote <b>${fmt(hs1)}</b>. What went wrong?`,
+    opts:['⏸️ Forgot the × 10 at the end','🔄 Hopped the wrong way','✂️ Split into + instead of ×','✅ Nothing — it\'s right'],ans:'⏸️ Forgot the × 10 at the end',
+    ex:`${HW[0]} × ${HW[1]/10} = ${fmt(hs1)} is only halfway. × 10 → <b>${fmt(hans)}</b>. Sense check: about ${Math.round(parseFloat(HW[0]))} × ${HW[1]} = ${Math.round(parseFloat(HW[0]))*HW[1]}.`});
+  const ZP=R([['50.07',3],['20.09',6],['70.04',8],['40.06',7]]); const zans=mulDec(ZP[0],ZP[1]);
+  qs.push({type:'mc',tag:'🙈 Hide the point',q:`<span class="mono">${ZP[0]} × ${ZP[1]} = ?</span><br><small>Careful with the zero!</small>`,
+    opts:shuffle([...new Set([zans,shiftDec(zans,-1),shiftDec(zans,1),mulDec(ZP[0].replace(/\.0/,'.'),ZP[1])])]).map(fmt),ans:fmt(zans),
+    ex:`Hide the point: ${ZP[0].replace('.','')} × ${ZP[1]} = ${parseInt(ZP[0].replace('.',''),10)*ZP[1]}. ${ZP[0]} has 2 decimal places → <b>${fmt(zans)}</b>. The 0 counts as a digit!`});
+  qs.push({type:'match',tag:'📶 Steps in order',q:'Put the partitioning steps for <span class="mono">3.24 × 30</span> in order.',
+    rows:[['1st','✂️ 30 = 3 × 10'],['2nd','🙈 324 × 3 = 972'],['3rd','📍 Point back: 9.72'],['4th','🐸 Hop × 10: 97.2']].map(([q,ans])=>({q,ans})),extra:[],
+    orderEx:'✂️ Split → 🙈 Hide the point & multiply → 📍 Point back → 🐸 Hop × 10 = <b>97.2</b>'});
+  const PMQ=shuffle([['4.1','30','123'],['0.25','40','10'],['6.5','90','585'],['1.2','50','60'],['3.3','20','66'],['2.06','30','61.8']]).slice(0,4);
+  qs.push({type:'match',tag:'🧲 Partition & match',q:'Partition, multiply, then drag each answer to its question. (One chip is a trick!)',
+    rows:PMQ.map(([a,k,v])=>({q:`${a} × ${k}`,ans:v})),extra:['12.3']});
   // word problems with names
   const pr=R(['4.25','3.75','6.50']); const t1=shiftDec(pr,2);
   qs.push({type:'mc',tag:'📖 Story problem',q:`${P()} sells <b>100</b> bottles of sorrel at <b>EC$${pr}</b> each at the Christmas market. 🍹 How much money is that?`,
