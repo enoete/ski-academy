@@ -128,7 +128,7 @@ section.card > h2{display:flex;align-items:center;gap:10px;font-size:clamp(1.5re
 .chip:active{cursor:grabbing}
 .chip .x{background:rgba(255,255,255,.3);border:0;color:#fff;border-radius:50%;width:24px;height:24px;font-size:.8rem;cursor:pointer;line-height:24px;padding:0;font-weight:700}
 .chip.right{outline:4px solid var(--green)}.chip.wrong{outline:4px solid var(--red)}
-.ghost{position:fixed;pointer-events:none;z-index:999;opacity:.9;transform:rotate(4deg) scale(1.08)}
+.dragghost{position:fixed;pointer-events:none;z-index:999;opacity:.9;transform:rotate(4deg) scale(1.08)}
 .bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .bin{border-radius:18px;padding:10px;min-height:110px;border:4px solid var(--binc);background:#fff;transition:transform .15s,background .15s}
 .bin h4{margin:0 0 6px;color:var(--binc);text-align:center;font-size:1.05rem}
@@ -181,6 +181,7 @@ section.card > h2{display:flex;align-items:center;gap:10px;font-size:clamp(1.5re
 .colsay{text-align:center;font-weight:600;min-height:1.5em}
 .halfway{background:#fee2e2;border:3px solid #ef4444;border-radius:14px;padding:8px 12px;font-weight:600;margin:8px 0;text-align:center}
 @media (max-width:600px){ .map4{grid-template-columns:1fr 1fr} .colmul{font-size:1.5rem} }
+@media (max-width:400px){ .bins{grid-template-columns:1fr 1fr;gap:6px} .bin{padding:6px;min-height:84px} .bin .dz{min-height:44px} .bin .chip{max-width:100%;font-size:.85rem;padding:6px 8px;gap:4px} .bin .chip .x{flex:none;width:20px;height:20px;line-height:20px} }
 canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:1000}
 footer{text-align:center;color:var(--muted);padding:20px 0 40px;font-size:.95rem}
 
@@ -638,7 +639,7 @@ function makeDnD(root, onChange){
     chip.addEventListener('dragstart',e=>{ dragging=chip; e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain','x');}catch(_){} });
     chip.addEventListener('dragend',()=>{ dragging=null; hl(null); });
     chip.addEventListener('touchstart',e=>{ if(e.target.classList.contains('x')) return; dragging=chip; const r=chip.getBoundingClientRect();
-      ghost=chip.cloneNode(true); ghost.classList.add('ghost'); ghost.style.width=r.width+'px'; document.body.appendChild(ghost);
+      ghost=chip.cloneNode(true); ghost.classList.add('dragghost'); ghost.style.width=r.width+'px'; document.body.appendChild(ghost);
       const t=e.touches[0]; ghost.style.left=(t.clientX-r.width/2)+'px'; ghost.style.top=(t.clientY-r.height/2)+'px'; },{passive:true});
     chip.addEventListener('touchmove',e=>{ if(!dragging||!ghost) return; e.preventDefault(); const t=e.touches[0];
       ghost.style.left=(t.clientX-ghost.offsetWidth/2)+'px'; ghost.style.top=(t.clientY-ghost.offsetHeight/2)+'px';
@@ -745,7 +746,7 @@ function buildQuiz(){
   const MP=shuffle([['0.5','x',2],['6.2','/',10],['4.07','x',1],['0.3','/',2],['12.6','x',3],['0.042','x',2],['850','/',3],['7.7','/',1],['0.909','x',1]])
     .map(([a,op,n])=>{ n=n===10?1:n; return {q:`${a} ${sym(op)} ${10**n}`, ans:fmt(shiftDec(a,op==='x'?n:-n))}; });
   const seen=new Set(); const rows=MP.filter(r=>!seen.has(r.ans)&&seen.add(r.ans)).slice(0,5);
-  qs.push({type:'match',tag:'🧲 Drag to match',q:'Drag each answer to its question. (One chip is a trick!)',rows,extra:['0.0042'].filter(x=>!rows.some(r=>r.ans===x)).concat(['999'])} );
+  qs.push({type:'match',tag:'🧲 Drag to match',q:'Drag each answer to its question. (Two chips are tricks!)',rows,extra:['0.0042'].filter(x=>!rows.some(r=>r.ans===x)).concat(['999'])} );
   // sort
   qs.push({type:'sort',tag:'🗂️ Sort it',q:'Drag each card to the bin that shows how Dot hops.',cards:hopSortCards(6)});
   // order
@@ -797,7 +798,7 @@ function buildQuiz(){
     opts:shuffle(['EC$'+fmt(t1),'EC$'+fmt(shiftDec(pr,1)),'EC$'+fmt(shiftDec(pr,3)),'EC$'+fmt((pr.replace('.','')+'00'))]),ans:'EC$'+fmt(t1),ex:`${pr} × 100 → 2 hops right → <b>EC$${fmt(t1)}</b>`});
   const fare=R(['12.50','8.25','11.40']); const tot=mulDec(fare,30);
   qs.push({type:'mc',tag:'📖 Story problem',q:`A ferry ticket to Nevis costs <b>EC$${fare}</b>. ⛴️ ${F1}'s class has <b>30</b> students. How much for all the tickets?`,
-    opts:shuffle(['EC$'+fmt(tot),'EC$'+fmt(mulDec(fare,3)),'EC$'+fmt(shiftDec(tot,1)),'EC$'+fmt(shiftDec(tot,-1))]),ans:'EC$'+fmt(tot),ex:`${fare} × 30 = ${fare} × 3 × 10 = ${fmt(mulDec(fare,3))} × 10 = <b>EC$${fmt(tot)}</b>`});
+    opts:shuffle(['EC$'+fmt(tot),'EC$'+fmt(mulDec(fare,3)),'EC$'+fmt(shiftDec(tot,1)),'EC$'+fmt(shiftDec(tot,2))]),ans:'EC$'+fmt(tot),ex:`${fare} × 30 = ${fare} × 3 × 10 = ${fmt(mulDec(fare,3))} × 10 = <b>EC$${fmt(tot)}</b>`});
   const pot=R(['56.50','84.20','125.00']); const share=shiftDec(pot,-1);
   qs.push({type:'mc',tag:'📖 Story problem',q:`${F2} wins <b>EC$${pot}</b> in a talent show 🎤 and shares it equally with <b>10</b> friends (including ${F3}). How much does each friend get?`,
     opts:shuffle(['EC$'+fmt(share),'EC$'+fmt(shiftDec(pot,1)),'EC$'+fmt(shiftDec(pot,-2)),'EC$'+fmt(pot)]).map(x=>x.replace(/\.(\d)$/,'.$10')),ans:('EC$'+fmt(share)).replace(/\.(\d)$/,'.$10'),
