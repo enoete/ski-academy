@@ -87,6 +87,20 @@
           "added": "2026-11-05"
         }
       ]
+    },
+    {
+      "id": "spelling",
+      "name": "Spelling",
+      "emoji": "✏️",
+      "color": "#1F8A4C",
+      "guides": [
+        {
+          "title": "The Spelling Hive",
+          "file": "spelling-hive.html",
+          "blurb": "Wordly Wise Book 6, Lesson 1: fill the honeycomb by mastering 15 words with six spelling games and an eight-round quiz.",
+          "added": "2026-11-05"
+        }
+      ]
     }
   ]
 }

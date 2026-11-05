@@ -1,0 +1,578 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Spelling Hive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFF8E8; --card:#FFFFFF; --ink:#2B2238; --muted:#6E6480; --line:#EEDFC0;
+  --honey:#F5A400; --honey2:#FFC93C; --comb:#FFE7A3;
+  --k1:#E0357A; --k2:#1C7FE0; --k3:#0FA392; --k4:#8B3FD1; --k5:#F06A12;
+  --ok:#159A5B; --okbg:#DFF6EA; --bad:#DB3A40; --badbg:#FDE6E7;
+  --stick:0 3px 0 rgba(43,34,56,.2);
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1424; --card:#261E35; --ink:#F7F2FF; --muted:#B9AFCF; --line:#3D3354;
+    --honey:#FFB627; --honey2:#FFD15C; --comb:#4A3A1C;
+    --k1:#FF5E97; --k2:#4FA6FF; --k3:#2CC7B4; --k4:#B67BFF; --k5:#FF8A45;
+    --ok:#3DD68C; --okbg:#123A29; --bad:#FF6B70; --badbg:#431C25;
+    --stick:0 3px 0 rgba(0,0,0,.45); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1424; --card:#261E35; --ink:#F7F2FF; --muted:#B9AFCF; --line:#3D3354;
+  --honey:#FFB627; --honey2:#FFD15C; --comb:#4A3A1C;
+  --k1:#FF5E97; --k2:#4FA6FF; --k3:#2CC7B4; --k4:#B67BFF; --k5:#FF8A45;
+  --ok:#3DD68C; --okbg:#123A29; --bad:#FF6B70; --badbg:#431C25;
+  --stick:0 3px 0 rgba(0,0,0,.45); color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--k2);outline-offset:3px;border-radius:8px}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;padding:30px 0 10px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:10px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,8vw,4.6rem);font-weight:700;letter-spacing:-.01em}
+.hero h1 span{color:var(--honey)}
+.hero p{font-size:1.12rem;color:var(--muted);margin:8px 0 0;max-width:40ch}
+.hero svg{width:100%;height:auto;display:block}
+.themebtn{position:absolute;top:14px;right:14px;z-index:5}
+@media (max-width:720px){.hero .wrap{grid-template-columns:1fr}.hero svg{max-width:420px;margin:0 auto}}
+
+/* NAV */
+nav.tabs{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+nav.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-family:var(--display);font-weight:600;font-size:.98rem;cursor:pointer;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--ink);border-color:var(--ink);color:var(--paper);box-shadow:var(--stick)}
+main{padding:26px 0 60px}
+
+/* GENERIC */
+.btn{border:0;cursor:pointer;background:var(--lc,var(--k2));color:#fff;font-family:var(--display);font-weight:600;font-size:1.02rem;padding:11px 20px;border-radius:14px;box-shadow:var(--stick);transition:transform .1s}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn.honey{background:var(--honey);color:#2B2238}
+.btn.big{font-size:1.15rem;padding:14px 26px}
+.icon{border:0;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.05rem;display:inline-grid;place-items:center;flex:0 0 40px}
+.say{background:var(--honey2);box-shadow:var(--stick)}
+.lhead{display:flex;gap:16px;align-items:center;margin-bottom:14px}
+.hexbadge{flex:0 0 72px;height:80px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--honey);display:grid;place-items:center;font-size:2rem}
+.lhead h2{font-size:clamp(1.6rem,4vw,2.3rem)}
+.lhead p{margin:4px 0 0;color:var(--muted);max-width:62ch}
+p.hint{color:var(--muted);margin:0 0 14px}
+h3.sec{font-size:1.5rem;margin:30px 0 6px}
+.panel{background:var(--card);border-radius:22px;padding:18px;box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.navrow{display:flex;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.dots{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.ok{background:var(--ok)}.dots i.no{background:var(--bad)}.dots i.now{background:var(--ink)}
+
+/* HIVE */
+.hive{display:flex;flex-direction:column;align-items:center;margin:16px 0 6px}
+.hrow{display:flex;gap:6px}
+.hrow+.hrow{margin-top:-18px}
+.hrow.off{transform:translateX(calc(var(--hw)/2 + 3px))}
+.hive{--hw:min(17vw,104px)}
+.hex{width:var(--hw);height:calc(var(--hw)*1.12);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);border:0;cursor:pointer;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:clamp(.62rem,2.3vw,.95rem);color:var(--ink);padding:0 6px;text-align:center;line-height:1.05;
+  background:linear-gradient(to top,var(--honey2) 0 var(--f,0%),var(--comb) var(--f,0%) 100%);transition:transform .15s}
+.hex:hover{transform:scale(1.06)}
+.hex.full{background:var(--honey);color:#2B2238}
+.legend{text-align:center;color:var(--muted);font-size:.92rem}
+
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-top:16px}
+.game{border:0;text-align:left;cursor:pointer;background:var(--card);border-radius:22px 22px 22px 6px;padding:16px;box-shadow:inset 0 0 0 2px var(--line),var(--stick);transition:transform .15s;position:relative;overflow:hidden}
+.game:hover{transform:translateY(-3px)}
+.game .e{font-size:2.2rem;display:block}
+.game h3{font-size:1.2rem;margin:6px 0 4px}
+.game small{color:var(--muted)}
+.game::after{content:"";position:absolute;right:-20px;bottom:-20px;width:70px;height:78px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--gc);opacity:.85}
+
+/* WORD LAB */
+.labpick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.wpick{border:0;cursor:pointer;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);border-radius:999px;padding:6px 14px;font-family:var(--display);font-weight:600}
+.wpick[aria-current="true"]{background:var(--wc);color:#fff;box-shadow:var(--stick)}
+.wpick.got::after{content:" 🍯"}
+.labcard{background:var(--card);border-radius:28px;padding:22px;box-shadow:inset 0 0 0 3px var(--wc),var(--stick);text-align:center;max-width:720px;margin:0 auto}
+.bigword{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,9vw,3.8rem);letter-spacing:.02em;line-height:1.1;display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin:10px 0}
+.bigword .chunk{padding:0 8px;border-radius:12px;background:color-mix(in srgb,var(--cc) 18%,transparent);color:var(--cc);animation:rise .4s backwards}
+.bigword .chunk:nth-child(2){animation-delay:.12s}.bigword .chunk:nth-child(3){animation-delay:.24s}.bigword .chunk:nth-child(4){animation-delay:.36s}
+@keyframes rise{from{transform:translateY(14px);opacity:0}}
+.bigword u{text-decoration:none;border-bottom:5px solid var(--honey);background:color-mix(in srgb,var(--honey2) 35%,transparent);border-radius:4px}
+.labmeta{color:var(--muted);font-style:italic}
+.labsent{font-size:1.1rem;margin:10px auto;max-width:48ch}
+.trick{background:color-mix(in srgb,var(--honey2) 25%,var(--card));border-radius:16px;padding:12px 14px;text-align:left;max-width:560px;margin:12px auto 0}
+.trick b{font-family:var(--display)}
+.chunkkey{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;color:var(--muted);font-size:.9rem;margin-top:6px}
+
+/* BUILD AREA */
+.task{background:var(--card);border-radius:24px;padding:20px;box-shadow:inset 0 0 0 3px var(--wc,var(--line)),var(--stick);max-width:760px;margin:0 auto;text-align:center}
+.task .clue{font-size:1.1rem;margin:8px 0 2px}
+.task .clue b{font-family:var(--display)}
+.sayrow{display:flex;gap:10px;justify-content:center;align-items:center;margin-bottom:6px}
+.slots{display:flex;gap:4px;justify-content:center;margin:16px 0;flex-wrap:nowrap}
+.slots.chunks{flex-wrap:wrap;gap:8px}
+.lslot{flex:0 1 46px;min-width:0;height:52px;border-radius:12px;border:2px dashed var(--muted);display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--honey2) 10%,transparent)}
+.cslot{min-width:84px;height:56px;border-radius:14px;border:2px dashed var(--muted);display:flex;align-items:center;justify-content:center;padding:3px;background:color-mix(in srgb,var(--honey2) 10%,transparent)}
+.drop.filled{border-style:solid;border-color:transparent;background:transparent}
+.mword{font-family:var(--display);font-weight:700;font-size:clamp(1.6rem,7vw,2.6rem);display:flex;justify-content:center;align-items:center;gap:3px;flex-wrap:nowrap;margin:16px 0}
+.mword .fixed{display:inline-block;min-width:.6em}
+.mword .lslot{flex:0 0 auto;width:clamp(34px,9vw,48px);height:clamp(42px,11vw,56px)}
+.answer{font-family:var(--display);font-size:1.3rem;margin-top:8px}
+
+/* DRAG & DROP */
+.dnd{position:relative;user-select:none;-webkit-user-select:none}
+.pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;border-radius:18px;background:color-mix(in srgb,var(--honey2) 14%,var(--card));min-height:62px;border:2px dashed color-mix(in srgb,var(--honey) 60%,var(--line))}
+.pool:empty::after{content:"All placed ✨";color:var(--muted);font-family:var(--display);padding:6px}
+.chip{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:7px 14px;font-weight:700;cursor:grab;user-select:none;-webkit-user-select:none;box-shadow:var(--stick);touch-action:none;max-width:100%;line-height:1.3}
+.chip.long{border-radius:14px;font-weight:400;padding:9px 12px}
+.chip.tile{width:44px;height:48px;padding:0;justify-content:center;border-radius:12px;font-family:var(--display);font-size:1.45rem;background:var(--honey2);color:#2B2238;border-color:#2B2238}
+.chip.chunkchip{font-family:var(--display);font-size:1.3rem;border-radius:14px;padding:8px 14px}
+.lslot .chip.tile{width:100%;height:100%;font-size:clamp(1rem,4.6vw,1.45rem)}
+.chip:active{cursor:grabbing}
+.chip.dragging{opacity:.35}
+.chip .x{display:none;border:0;background:var(--ink);color:var(--paper);width:22px;height:22px;border-radius:50%;font-size:.72rem;cursor:pointer;flex:0 0 22px;padding:0}
+.drop .chip .x{display:inline-grid;place-items:center}
+.drop .chip.tile .x{position:absolute;top:-9px;right:-9px;width:20px;height:20px;font-size:.62rem;z-index:2}
+.locked .chip .x{display:none!important}
+.locked .chip{cursor:default}
+.chip.ghost{position:fixed;z-index:1000;pointer-events:none;opacity:.95;transform:rotate(-3deg) scale(1.08);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.chip.right{border-color:var(--ok);background:var(--okbg);color:var(--ink)}
+.chip.wrong{border-color:var(--bad);background:var(--badbg);color:var(--ink)}
+.pop{animation:pop .28s ease-out}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+.drop.hi{outline:3px solid var(--honey);outline-offset:2px;background:color-mix(in srgb,var(--honey2) 30%,var(--card))!important}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:14px}
+.bin{border-radius:22px;padding:12px;min-height:170px;background:var(--card);box-shadow:inset 0 0 0 3px var(--bc,var(--line))}
+.binlabel{font-family:var(--display);font-weight:600;font-size:1.2rem;margin:2px 4px 10px;color:var(--bc)}
+.binbody{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px}
+
+/* BUG HUNT */
+.bugsent{font-size:1.3rem;line-height:2;margin:14px 0}
+.bw{border:0;background:transparent;cursor:pointer;padding:2px 4px;border-radius:8px;font:inherit}
+.bw:hover:not(:disabled){background:color-mix(in srgb,var(--honey2) 35%,transparent)}
+.bw.caught{background:var(--badbg);color:var(--bad);text-decoration:line-through;font-weight:700}
+.bw.nope{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* MC */
+.q{background:var(--card);border-radius:20px;padding:16px 18px;margin-bottom:14px;box-shadow:inset 0 0 0 2px var(--line)}
+.q .qt{font-weight:700;margin:0 0 10px;font-size:1.05rem}
+.q .qt .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--honey);color:#2B2238;font-family:var(--display);margin-right:8px;font-size:.9rem}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.opt{text-align:center;border:0;cursor:pointer;background:var(--paper);border-radius:14px;padding:10px 14px;box-shadow:inset 0 0 0 2px var(--line);transition:transform .1s;font-family:var(--display);font-weight:600;font-size:1.15rem}
+.opt:hover:not(:disabled){transform:translateY(-2px);box-shadow:inset 0 0 0 2px var(--honey)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--okbg);box-shadow:inset 0 0 0 3px var(--ok)}
+.opt.wrong{background:var(--badbg);box-shadow:inset 0 0 0 3px var(--bad)}
+.opt.missed{box-shadow:inset 0 0 0 3px var(--ok)}
+.why{margin:10px 0 0;padding:10px 12px;border-radius:12px;font-size:.95rem;text-align:left}
+.why.good{background:var(--okbg)}.why.bad{background:var(--badbg)}
+.pfoot{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.pfoot .msg{font-family:var(--display);font-weight:600;font-size:1.15rem}
+
+/* BEE RACE */
+.race{max-width:640px;margin:0 auto;text-align:center}
+.timer{height:14px;border-radius:9px;background:var(--line);overflow:hidden;margin:10px 0}
+.timer i{display:block;height:100%;background:var(--honey);width:100%;transition:width .25s linear}
+.bstats{display:flex;justify-content:space-between;font-family:var(--display);font-weight:700;font-size:1.2rem}
+.bq{font-size:1.2rem;font-weight:700;margin:16px 0 12px}
+.bq .target{display:block;font-family:var(--display);font-size:2.2rem;margin-top:6px}
+.flash-ok{animation:fok .35s}.flash-no{animation:fno .35s}
+@keyframes fok{0%{box-shadow:inset 0 0 0 6px var(--ok)}}
+@keyframes fno{0%{box-shadow:inset 0 0 0 6px var(--bad)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* QUIZ */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.qtrack{display:flex;gap:6px;flex-wrap:wrap}
+.qtrack span{width:26px;height:10px;border-radius:9px;background:var(--line)}
+.qtrack span.now{background:var(--ink)}.qtrack span.good{background:var(--ok)}.qtrack span.meh{background:var(--honey)}.qtrack span.low{background:var(--bad)}
+.total{font-family:var(--display);font-weight:700;font-size:1.2rem}
+.phead{display:flex;gap:14px;align-items:center;background:var(--ink);color:var(--paper);border-radius:22px;padding:16px 18px;margin-bottom:16px}
+.phead .pemo{font-size:2.4rem}.phead h3{font-size:1.4rem}.phead p{margin:2px 0 0;opacity:.85}
+.results{text-align:center;padding:10px 0}
+.results .pct{font-family:var(--display);font-weight:700;font-size:clamp(3.5rem,14vw,6rem);line-height:1}
+.results .stars{font-size:2.4rem;margin:6px 0}
+.breakdown{display:grid;gap:6px;max-width:560px;margin:22px auto;text-align:left}
+.breakdown div{display:flex;justify-content:space-between;gap:10px;background:var(--card);padding:8px 14px;border-radius:12px;box-shadow:inset 0 0 0 2px var(--line)}
+.review{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;text-align:left;margin:14px 0 24px}
+.review div{background:var(--card);border-radius:14px;padding:10px 12px;box-shadow:inset 0 0 0 2px var(--line);border-left:6px solid var(--tc)}
+.review b{font-family:var(--display);font-size:1.2rem}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:999}
+footer{color:var(--muted);text-align:center;font-size:.9rem;padding:20px 0 40px}
+
+@media (max-width:720px){body{font-size:16px}.hrow+.hrow{margin-top:-12px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <button class="icon themebtn" id="themeBtn" aria-label="Switch light or dark">🌓</button>
+  <div class="wrap">
+    <div>
+      <h1>The Spelling <span>Hive</span></h1>
+      <p>Wordly Wise Book 6, Lesson 1. Fifteen words to spell perfectly. Every word you master fills a honeycomb cell with honey. 🍯</p>
+    </div>
+    <svg viewBox="0 0 420 260" aria-hidden="true" id="heroSvg">
+      <g id="combs"></g>
+      <path id="beePath" d="M10 250 C 80 150, 150 260, 220 215 S 380 150, 360 215" fill="none"/>
+      <g id="bee"><text font-size="40" text-anchor="middle" dominant-baseline="middle">🐝</text></g>
+    </svg>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections"><div class="wrap" id="tabs"></div></nav>
+
+<main class="wrap">
+  <section id="view-home"></section>
+  <section id="view-lab" hidden></section>
+  <section id="view-chunk" hidden></section>
+  <section id="view-tiles" hidden></section>
+  <section id="view-missing" hidden></section>
+  <section id="view-bugs" hidden></section>
+  <section id="view-race" hidden></section>
+  <section id="view-quiz" hidden></section>
+</main>
+<footer>Made for Adiaha and her class. Five minutes of spelling games a day beats an hour of copying! 🐝</footer>
+<canvas id="confetti"></canvas>
+
+<script>
+/* ============================ WORDS ============================ */
+/* ch: syllable chunks · dc: decoy chunks · m: missing-letter mask (_ = hidden) · md: decoy letters · bad: common misspellings */
+const W=[
+ {w:"affection",d:"a fond or tender feeling",pos:"noun",ch:["af","fec","tion"],dc:["a","shun"],m:"a_fec_ion",md:"sc",bad:["afection","affecshun","affektion"],t:"<b>Two F's</b> for Family and Friends, the people you feel affection for. It ends in <b>-TION</b>, even though it sounds like \"shun.\"",s:"Cookie the dog shows her ____ with a big sloppy lick.",hl:[1,2,5,6,7,8]},
+ {w:"appeal",d:"an earnest request; the power to attract",pos:"verb / noun",ch:["ap","peal"],dc:["a","peel"],m:"a_pe_l",md:"ei",bad:["apeal","appeel","appiel"],t:"<b>Two P's</b>, like saying \"please, please!\" Then <b>EAL</b>, as in a meal.",s:"Our class made an ____ for donations to the animal shelter.",hl:[1,2,3,4,5]},
+ {w:"clasp",d:"to grasp or hold tightly; a hook or fastener",pos:"verb / noun",ch:["cla","sp"],dc:["ps","k"],m:"cla_p",md:"zc",bad:["clapse","klasp","clasb"],t:"It's <b>CLAP</b> with an <b>S</b> squeezed into the middle: C-L-A-<b>S</b>-P. Your hands clasp together, just like the letters.",s:"Adiaha's bracelet has a tiny gold ____ shaped like a star.",hl:[3]},
+ {w:"conspicuous",d:"easily or plainly seen",pos:"adjective",ch:["con","spic","u","ous"],dc:["i","us"],m:"consp_cu_us",md:"ea",bad:["conspicious","conspicous","conspickuous"],t:"Say all four parts slowly: <b>CON · SPIC · U · OUS</b>. Remember: \"<b>U</b> can't miss <b>US</b>!\" There's a U in the middle and it ends in -OUS.",s:"A bright pink flamingo would be ____ in a flock of pigeons.",hl:[5,7,8,9,10]},
+ {w:"contribute",d:"to give along with others",pos:"verb",ch:["con","trib","ute"],dc:["tre","oot"],m:"contr_b_te",md:"eo",bad:["contrebute","contributte","contrubute"],t:"A <b>TRIBe</b> where everyone chips in: con + <b>TRIB</b> + <b>UTE</b>. The I and the U are the tricky vowels.",s:"Everyone will ____ a dish to the class lunch.",hl:[5,7]},
+ {w:"declare",d:"to make known; to state openly",pos:"verb",ch:["de","clare"],dc:["clair","di"],m:"decl_r_",md:"iy",bad:["declair","decleare","diclare"],t:"It's <b>DE</b> + <b>CLARE</b>, like the name Clare. It is NOT \"declair.\"",s:"The judges will ____ the winner of the talent show.",hl:[4,5,6]},
+ {w:"eloquent",d:"skilled at speaking or writing; able to move people",pos:"adjective",ch:["el","o","quent"],dc:["quant","e"],m:"elo_u_nt",md:"ka",bad:["eloquant","elequent","eloqent"],t:"<b>Q always brings its buddy U.</b> EL · O · <b>QU</b>ENT ends in <b>-ENT</b>, not -ant.",s:"Her ____ speech made the whole hall go silent.",hl:[3,4,5,6,7]},
+ {w:"exhibit",d:"to show in public; something shown in a public show",pos:"verb / noun",ch:["ex","hib","it"],dc:["ib","et"],m:"ex_ib_t",md:"ea",bad:["exibit","exhebit","exhibbit"],t:"There's a <b>silent H</b> hiding in this exhibit: EX-<b>H</b>IB-IT. You can't hear it, but it's on display!",s:"The museum will ____ old photos of Basseterre.",hl:[2]},
+ {w:"ferry",d:"a boat that carries people and goods across water",pos:"noun / verb",ch:["fer","ry"],dc:["rie","fa"],m:"fe__y",md:"ai",bad:["fery","ferrie","ferrey"],t:"<b>Two R's</b>, like the two shores a ferry travels between: St. Kitts and Nevis!",s:"We took the ____ from St. Kitts to Nevis.",hl:[2,3]},
+ {w:"immigrant",d:"a person who comes into a country to live there",pos:"noun",ch:["im","mi","grant"],dc:["grent","i"],m:"i_migr_nt",md:"ei",bad:["imigrant","immigrent","immagrant"],t:"<b>IN + migrant</b>: the \"in\" turns into \"im,\" so you get <b>two M's</b>. It ends in <b>-ANT</b>, like an ant that moves to a new hill.",s:"My great-grandfather was an ____ who arrived by ship.",hl:[1,2,6,7,8]},
+ {w:"lofty",d:"very tall or high; noble; too proud",pos:"adjective",ch:["lof","ty"],dc:["tie","loff"],m:"lof_y",md:"fe",bad:["loftey","lofti","loffty"],t:"A <b>LOFT</b> is a room high up. Add <b>Y</b>: loft + y = lofty. Only one F!",s:"____ coconut palms swayed high above Frigate Bay.",hl:[2]},
+ {w:"pedestal",d:"a base or support on which something stands",pos:"noun",ch:["ped","es","tal"],dc:["tle","is"],m:"ped_st_l",md:"il",bad:["pedestle","pedistal","peddestal"],t:"<b>PED</b> means foot (like pedal). A statue's foot stands on <b>PED · ES · TAL</b>. It ends in <b>-AL</b>, not -le.",s:"The trophy stood on a shiny marble ____.",hl:[3,6,7]},
+ {w:"persecute",d:"to treat cruelly because of differences",pos:"verb",ch:["per","se","cute"],dc:["sa","pur"],m:"pers_cut_",md:"ai",bad:["persacute","persicute","percecute"],t:"<b>PER · SE · CUTE</b>. Persecuting someone is <b>never cute</b>, but the word ends with CUTE!",s:"It is wrong to ____ people because of their beliefs.",hl:[4,8]},
+ {w:"poverty",d:"the state of being poor",pos:"noun",ch:["pov","er","ty"],dc:["ity","puv"],m:"pov_rt_",md:"ia",bad:["povity","povertie","poverity"],t:"Say it slowly: <b>POV · ER · TY</b>. Don't swallow the ER, and it ends with a plain <b>Y</b>.",s:"The charity helps families living in ____.",hl:[3,4,6]},
+ {w:"unveil",d:"to remove a covering from; to reveal",pos:"verb",ch:["un","veil"],dc:["vail","viel"],m:"unv__l",md:"ay",bad:["unviel","unvail","unvale"],t:"<b>UN + VEIL</b>. A veil is a cloth covering. In VEIL the <b>E comes before I</b>, just like in \"vein\" and \"eight.\"",s:"The mayor pulled off the cloth to ____ the new statue.",hl:[3,4]}
+];
+const FAM=[
+ ["affection","affectionate",["affectionite","afectionate","affecsionate"]],
+ ["contribute","contribution",["contrebution","contributtion","contribusion"]],
+ ["contribute","contributor",["contributer","contributter","contrabutor"]],
+ ["declare","declaration",["declairation","declaretion","declarasion"]],
+ ["eloquent","eloquence",["eloquance","eloquense","elloquence"]],
+ ["exhibit","exhibition",["exibition","exhebition","exhibittion"]],
+ ["persecute","persecution",["persacution","persecusion","persicution"]]
+];
+const COLORS=["var(--k1)","var(--k2)","var(--k3)","var(--k4)","var(--k5)"];
+W.forEach((x,i)=>x.c=COLORS[i%5]);
+const WD=Object.fromEntries(W.map(x=>[x.w,x]));
+
+/* ============================ HELPERS ============================ */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let uidN=0;const uid=()=>"g"+(++uidN);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+const reduced=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+function say(t){try{const u=new SpeechSynthesisUtterance(t);u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const sayBtn=w=>`<button class="icon say" data-say="${w}" aria-label="Hear the word">🔊</button>`;
+document.addEventListener("click",e=>{const b=e.target.closest("[data-say]");if(b)say(b.dataset.say)});
+let honey=store.get("sp1-honey",{});
+const NEED=3;
+function bump(w,ok){if(!ok)return;honey[w]=Math.min(NEED,(honey[w]||0)+1);store.set("sp1-honey",honey)}
+const mastered=()=>W.filter(x=>(honey[x.w]||0)>=NEED).length;
+function wordHTML(x,hl=true){ // chunks colored, tricky letters underlined
+  let k=0;return x.ch.map((c,ci)=>`<span class="chunk" style="--cc:${COLORS[(ci+W.indexOf(x))%5]}">${[...c].map(ch=>{const i=k++;return hl&&x.hl.includes(i)?`<u>${ch}</u>`:ch}).join("")}</span>`).join("");
+}
+
+/* ============================ HERO ============================ */
+(function(){
+  const hex=(cx,cy,r)=>{let p=[];for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-90);p.push((cx+r*Math.cos(a)).toFixed(1)+","+(cy+r*Math.sin(a)).toFixed(1))}return p.join(" ")};
+  const letters="SPELLHIVE";let g="",n=0;const r=38;
+  [[0,0],[1,0],[2,0],[3,0],[4,0],[0.5,1],[1.5,1],[2.5,1],[3.5,1]].forEach(([c,row],i)=>{const cx=70+c*r*1.75,cy=60+row*r*1.5;const fill=i%3===0?"var(--honey)":i%3===1?"var(--honey2)":"var(--comb)";
+    g+=`<polygon points="${hex(cx,cy,r-2)}" fill="${fill}" stroke="var(--paper)" stroke-width="4"/><text x="${cx}" y="${cy+2}" text-anchor="middle" dominant-baseline="middle" font-family="Fredoka, sans-serif" font-weight="700" font-size="30" fill="#2B2238">${letters[i]}</text>`});
+  $("#combs").innerHTML=g;
+  const path=$("#beePath"),L=path.getTotalLength(),bee=$("#bee");
+  const put=t=>{const p=path.getPointAtLength(t*L);bee.setAttribute("transform",`translate(${p.x} ${p.y})`)};
+  if(reduced()){put(1);return}
+  const t0=performance.now();const f=now=>{const t=Math.min(1,(now-t0)/2600);put(1-Math.pow(1-t,3));if(t<1)requestAnimationFrame(f)};requestAnimationFrame(f);
+})();
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store.set("sp1-theme",r.dataset.theme)};
+{const t=store.get("sp1-theme",null);if(t)document.documentElement.dataset.theme=t;}
+
+/* ============================ NAV ============================ */
+const GAMES=[
+ ["lab","🔬","Word Lab","See each word in colored chunks, find the tricky letters, learn a memory trick, then build it.","var(--k3)"],
+ ["chunk","🧱","Chunk It","Hear the word, then drag its syllable chunks into order. Watch out for fake chunks!","var(--k2)"],
+ ["missing","🕳️","Missing Letters","Drag the right letters into the tricky spots.","var(--k4)"],
+ ["tiles","🔤","Letter Tiles","Build the whole word one letter at a time. The hardest game!","var(--k1)"],
+ ["bugs","🐞","Bug Hunt","Find the misspelled word in the sentence, then fix it.","var(--k5)"],
+ ["race","🐝","Bee Race","60 seconds. How many right spellings can you spot?","var(--honey)"]
+];
+const VIEWS=[["home","🍯 Hive"],...GAMES.map(g=>[g[0],g[1]+" "+g[2]]),["quiz","🏆 Big Quiz"]];
+$("#tabs").innerHTML=VIEWS.map(([id,l])=>`<button class="tab" data-view="${id}">${l}</button>`).join("");
+$("#tabs").onclick=e=>{const b=e.target.closest(".tab");if(b)show(b.dataset.view)};
+let raceTimer=null;const stopRace=()=>{if(raceTimer){clearInterval(raceTimer);raceTimer=null}};
+function show(id,arg){
+  stopRace();
+  $$("main > section").forEach(s=>s.hidden=s.id!=="view-"+id);
+  $$(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.view===id?"page":"false"));
+  const tab=$(`.tab[data-view="${id}"]`);tab&&tab.scrollIntoView({inline:"center",block:"nearest"});
+  ({home:renderHome,lab:renderLab,chunk:()=>runSeq("chunk"),missing:()=>runSeq("missing"),tiles:()=>runSeq("tiles"),bugs:renderBugs,race:renderRace,quiz:renderQuizIntro})[id](arg);
+  if(show.ready)window.scrollTo({top:$("nav.tabs").offsetTop,behavior:"smooth"});show.ready=true;
+}
+const head=(emo,t,p)=>`<div class="lhead"><div class="hexbadge">${emo}</div><div><h2>${t}</h2><p>${p}</p></div></div>`;
+
+/* ============================ HOME ============================ */
+function renderHome(){
+  const rows=[W.slice(0,5),W.slice(5,10),W.slice(10,15)];
+  const m=mastered();
+  $("#view-home").innerHTML=`
+  <h2 style="font-size:1.9rem">Fill the hive!</h2>
+  <p class="hint">Each word needs <b>${NEED} correct spellings</b> in any game to fill its cell with honey. Tap a cell to study that word in the Word Lab.</p>
+  <div class="hive">${rows.map((r,ri)=>`<div class="hrow ${ri===1?"off":""}">${r.map(x=>{const h=honey[x.w]||0;return `<button class="hex ${h>=NEED?"full":""}" data-w="${x.w}" style="--f:${h/NEED*100}%">${x.w}</button>`}).join("")}</div>`).join("")}</div>
+  <p class="legend"><b>${m} of 15</b> cells full${m===15?": the hive is complete! 🎉":""}</p>
+  <h3 class="sec">Pick a game</h3>
+  <div class="games">${GAMES.map(g=>`<button class="game" data-go="${g[0]}" style="--gc:${g[4]}"><span class="e">${g[1]}</span><h3>${g[2]}</h3><small>${g[3]}</small></button>`).join("")}
+  <button class="game" data-go="quiz" style="--gc:var(--ink)"><span class="e">🏆</span><h3>Big Quiz</h3><small>Eight rounds on all 15 words. Best: <b>${store.get("sp1-best",null)!==null?store.get("sp1-best")+"%":"not yet"}</b></small></button></div>
+  <h3 class="sec">Spelling tips for the test</h3>
+  <div class="panel"><ul style="margin:0;padding-left:20px">
+   <li><b>Double letters</b> to watch: a<b>ff</b>ection, a<b>pp</b>eal, fe<b>rr</b>y, i<b>mm</b>igrant.</li>
+   <li><b>Endings</b> that trick people: affec<b>tion</b>, conspicu<b>ous</b>, eloqu<b>ent</b>, immigr<b>ant</b>, pedest<b>al</b>.</li>
+   <li><b>Silent or hiding letters</b>: ex<b>h</b>ibit (silent H), conspic<b>u</b>ous (the U in the middle), elo<b>qu</b>ent (Q + U).</li>
+   <li><b>Say it in chunks</b>: per · se · cute, pov · er · ty, con · trib · ute.</li>
+  </ul></div>`;
+  $$("#view-home .hex").forEach(b=>b.onclick=()=>show("lab",b.dataset.w));
+  $$("#view-home [data-go]").forEach(b=>b.onclick=()=>show(b.dataset.go));
+}
+
+/* ============================ WORD LAB ============================ */
+let labWord=W[0].w;
+function renderLab(w){
+  if(w)labWord=w;const x=WD[labWord];const v=$("#view-lab");
+  v.innerHTML=head("🔬","Word Lab","Look at the chunks. Spot the tricky letters (underlined in honey). Read the trick. Then hide the word and build it yourself.")+
+  `<div class="labpick">${W.map(y=>`<button class="wpick ${(honey[y.w]||0)>=NEED?"got":""}" data-w="${y.w}" aria-current="${y.w===labWord}" style="--wc:${y.c}">${y.w}</button>`).join("")}</div>
+  <div class="labcard" style="--wc:${x.c}" id="labcard">
+    <div class="sayrow">${sayBtn(x.w)}<span class="labmeta">${x.pos}: ${x.d}</span></div>
+    <div class="bigword">${wordHTML(x)}</div>
+    <div class="chunkkey">${x.ch.length} chunk${x.ch.length>1?"s":""}: ${x.ch.join(" · ")} &nbsp;|&nbsp; ${x.w.length} letters</div>
+    <p class="labsent">“${x.s.replace("____",`<b>${x.w}</b>`)}”</p>
+    <div class="trick">💡 ${x.t}</div>
+    <div class="navrow" style="justify-content:center"><button class="btn big" style="--lc:${x.c}" id="cover">🙈 Hide it and build it</button></div>
+  </div><div id="labbuild"></div>`;
+  $(".labpick",v).onclick=e=>{const b=e.target.closest(".wpick");if(b)renderLab(b.dataset.w)};
+  $("#cover").onclick=()=>{$("#labcard").hidden=true;const host=$("#labbuild");
+    buildTask(host,x,Math.random()<.5?"chunk":"missing",ok=>{
+      const i=W.indexOf(x),nx=W[(i+1)%15];
+      host.insertAdjacentHTML("beforeend",`<div class="navrow" style="justify-content:center"><button class="btn ghost" id="again">👀 Show the word again</button><button class="btn" style="--lc:${nx.c}" id="nextw">Next word: ${nx.w}</button></div>`);
+      $("#again").onclick=()=>renderLab(x.w);$("#nextw").onclick=()=>renderLab(nx.w)});
+  };
+}
+
+/* ============================ BUILD TASKS ============================ */
+/* mode: chunk | tiles | missing ; done(ok) */
+function buildTask(host,x,mode,done,opts={}){
+  const id=uid();let pool,slots,expected;
+  if(mode==="chunk"){expected=x.ch;pool=shuffle([...x.ch,...x.dc]);slots=`<div class="slots chunks">${x.ch.map((c,i)=>`<div class="drop one cslot" data-i="${i}"></div>`).join("")}</div>`}
+  else if(mode==="tiles"){expected=[...x.w];const dec=shuffle([..."aeioulrstn"].filter(c=>!x.w.includes(c))).slice(0,2);pool=shuffle([...x.w,...dec]);slots=`<div class="slots">${expected.map((c,i)=>`<div class="drop one lslot" data-i="${i}"></div>`).join("")}</div>`}
+  else{expected=[];slots=`<div class="mword">${[...x.m].map((c,i)=>{if(c==="_"){expected.push(x.w[i]);return `<div class="drop one lslot" data-i="${expected.length-1}"></div>`}return `<span class="fixed">${c}</span>`}).join("")}</div>`;pool=shuffle([...expected,...x.md])}
+  const chipCls=mode==="chunk"?"chunkchip":"tile";
+  host.innerHTML=`<div class="task" style="--wc:${x.c}">
+   <div class="sayrow">${sayBtn(x.w)}<span>${opts.label||(mode==="chunk"?"Build the word from its chunks":mode==="tiles"?"Build the word letter by letter":"Fill in the missing letters")}</span></div>
+   <p class="clue">Meaning: <b>${x.d}</b></p>
+   ${opts.hideSentence?"":`<p class="hint" style="margin:4px 0 0">“${x.s}”</p>`}
+   <div class="dnd" id="${id}">${slots}<div class="pool" id="${id}-pool">${pool.map(c=>chipHTML(c,{val:c},id+"-pool",chipCls)).join("")}</div></div>
+   <div class="navrow" style="justify-content:center"><button class="btn honey" id="${id}-chk">Check my spelling</button></div><div id="${id}-res"></div></div>`;
+  $("#"+id+"-chk").onclick=()=>{
+    const g=$("#"+id);const sl=$$(".drop",g);
+    if(sl.some(s=>!s.querySelector(".chip"))){const r=$("#"+id+"-res");r.innerHTML=`<p class="why bad">Fill every space first! 🐝</p>`;return}
+    $("#"+id+"-chk").remove();g.classList.add("locked");let ok=true;
+    sl.forEach(s=>{const c=s.querySelector(".chip");const good=c.dataset.val===expected[+s.dataset.i];c.classList.add(good?"right":"wrong");if(!good)ok=false});
+    bump(x.w,ok);
+    $("#"+id+"-res").innerHTML=`<p class="why ${ok?"good":"bad"}">${ok?"✅ Perfect spelling! +1 honey 🍯":"❌ Almost! Here's the right spelling:"}</p><div class="bigword" style="font-size:2rem">${wordHTML(x)}</div>`;
+    if(ok&&!opts.quiet)say(x.w);
+    done(ok);
+  };
+}
+
+/* sequence runner for Chunk / Missing / Tiles */
+function runSeq(mode,arg){
+  const meta={chunk:["🧱","Chunk It","Tap 🔊 to hear the word, read the meaning, then drag the chunks into order. There are fake chunks too!"],missing:["🕳️","Missing Letters","The tricky letters have gone missing. Drag the right ones back in."],tiles:["🔤","Letter Tiles","The ultimate test: build the whole word, letter by letter. Two extra letters are there to trick you."]}[mode];
+  const v=$("#view-"+mode);const order=shuffle(W);let i=0;const res=[];
+  const draw=()=>{
+    v.innerHTML=head(meta[0],meta[1],meta[2])+`<div class="dots">${order.map((x,k)=>`<i class="${k===i?"now":res[k]===true?"ok":res[k]===false?"no":""}"></i>`).join("")}</div><div id="seq-${mode}"></div>`;
+    const host=$("#seq-"+mode);
+    buildTask(host,order[i],mode,ok=>{res[i]=ok;$$(".dots i",v)[i].className=ok?"ok":"no";if(ok)confettiSmall();
+      host.insertAdjacentHTML("beforeend",`<div class="navrow" style="justify-content:center"><button class="btn big" id="sn">${i<order.length-1?"Next word →":"See my score"}</button></div>`);
+      $("#sn").focus({preventScroll:true});
+      $("#sn").onclick=()=>{i++;if(i<order.length)draw();else finish()}});
+  };
+  const finish=()=>{const s=res.filter(Boolean).length;const missed=order.filter((x,k)=>!res[k]);
+    v.innerHTML=head(meta[0],meta[1],"Round complete!")+`<div class="panel" style="text-align:center"><div style="font-size:3.4rem">${s===15?"🏆":s>=12?"🌟":"🐝"}</div><h3 style="font-size:1.8rem">${s} / 15 spelled perfectly</h3>
+    ${missed.length?`<p>Practice these in the Word Lab:</p><div class="review">${missed.map(x=>`<div style="--tc:${x.c}"><b>${x.w}</b></div>`).join("")}</div>`:"<p>Every single word! You're a spelling champion.</p>"}
+    <div class="navrow" style="justify-content:center"><button class="btn big" id="again">Play again</button><button class="btn ghost big" id="hive">Back to the hive</button></div></div>`;
+    $("#again").onclick=()=>runSeq(mode);$("#hive").onclick=()=>show("home");if(s>=12)confetti(1.5)};
+  draw();
+}
+
+/* ============================ BUG HUNT ============================ */
+function bugTask(host,x,done){
+  const bad=pick(x.bad);const words=x.s.replace("____",bad).split(" ");const others=shuffle(x.bad.filter(b=>b!==bad)).slice(0,2);
+  host.innerHTML=`<div class="task" style="--wc:${x.c}"><p style="font-family:var(--display);font-weight:600;font-size:1.1rem;margin:0">🔎 One word in this sentence is misspelled. Tap it!</p>
+  <p class="bugsent">${words.map(w=>{const core=w.replace(/[^A-Za-z'-]/g,"");return `<button class="bw" data-bad="${core.toLowerCase()===bad?1:0}">${w}</button>`}).join(" ")}</p><div id="bstep"></div></div>`;
+  let tries=0;
+  host.querySelector(".bugsent").onclick=e=>{const b=e.target.closest(".bw");if(!b||b.disabled)return;
+    if(b.dataset.bad!=="1"){tries++;b.classList.remove("nope");void b.offsetWidth;b.classList.add("nope");if(tries<2)return;$$(".bw",host).forEach(z=>{if(z.dataset.bad==="1")z.classList.add("caught")})}
+    else b.classList.add("caught");
+    $$(".bw",host).forEach(z=>z.disabled=true);
+    const opts=shuffle([x.w,...others]);
+    $("#bstep",host).innerHTML=`<p style="font-weight:700">${tries<2?"🐞 Bug caught!":"🐞 Here's the bug."} Now pick the correct spelling:</p><div class="opts">${opts.map(o=>`<button class="opt" data-ok="${o===x.w?1:0}">${o}</button>`).join("")}</div><div id="bres"></div>`;
+    $(".opts",host).onclick=e2=>{const o=e2.target.closest(".opt");if(!o||o.disabled)return;const ok=o.dataset.ok==="1"&&tries<2;
+      $$(".opts .opt",host).forEach(z=>{z.disabled=true;if(z.dataset.ok==="1")z.classList.add(z===o?"right":"missed")});if(o.dataset.ok!=="1")o.classList.add("wrong");
+      bump(x.w,ok);$("#bres",host).innerHTML=`<p class="why ${ok?"good":"bad"}">${ok?"✅ Bug squashed! +1 honey 🍯":"The correct spelling is <b>"+x.w+"</b>."} 💡 ${x.t}</p>`;done(ok)}};
+}
+function renderBugs(){
+  const v=$("#view-bugs");const order=shuffle(W);let i=0,score=0;
+  const draw=()=>{v.innerHTML=head("🐞","Bug Hunt","A spelling bug crawled into each sentence. Catch it, then fix it. (You get two taps to find each bug.)")+`<p class="hint" style="text-align:center">Sentence ${i+1} of 15 · Bugs squashed: ${score}</p><div id="bhost"></div>`;
+    bugTask($("#bhost"),order[i],ok=>{if(ok){score++;confettiSmall()}$("#bhost").insertAdjacentHTML("beforeend",`<div class="navrow" style="justify-content:center"><button class="btn big" id="bn">${i<14?"Next sentence →":"See my score"}</button></div>`);
+      $("#bn").onclick=()=>{i++;if(i<15)draw();else{v.innerHTML=head("🐞","Bug Hunt","Hunt complete!")+`<div class="panel" style="text-align:center"><h3 style="font-size:1.8rem">${score} / 15 bugs squashed</h3><div class="navrow" style="justify-content:center"><button class="btn big" id="again">Hunt again</button></div></div>`;$("#again").onclick=renderBugs;if(score>=12)confetti(1.5)}}})};
+  draw();
+}
+
+/* ============================ BEE RACE ============================ */
+function renderRace(){
+  const v=$("#view-race");const best=store.get("sp1-race",0);
+  v.innerHTML=head("🐝","Bee Race","60 seconds to spot as many correct spellings as you can. Get 3 in a row for double points and 5 in a row for triple!")+
+  `<div class="race panel"><p style="font-size:1.2rem">Your best: <b>${best}</b> points</p><button class="btn big honey" id="rgo">Buzz off! (Start)</button></div>`;
+  $("#rgo").onclick=()=>{
+    let t=60,score=0,streak=0,right=0,wrong=0;const missed=new Set();
+    v.querySelector(".race").outerHTML=`<div class="race panel" id="rp"><div class="bstats"><span>⏱️ <span id="rt">60</span>s</span><span>🔥 <span id="rs">0</span></span><span>🍯 <span id="rsc">0</span></span></div><div class="timer"><i id="rbar"></i></div><div id="rq"></div></div>`;
+    let cur;
+    const nextQ=()=>{const x=pick(W);
+      if(Math.random()<.55){cur={x,ans:x.w};const opts=shuffle([x.w,...shuffle(x.bad).slice(0,3)]);$("#rq").innerHTML=`<p class="bq">Which one is spelled correctly?<span class="hint" style="display:block;font-weight:400">(${x.d})</span></p><div class="opts">${opts.map(o=>`<button class="opt">${o}</button>`).join("")}</div>`}
+      else{const good=Math.random()<.5;const shown=good?x.w:pick(x.bad);cur={x,ans:good?"yes":"no"};$("#rq").innerHTML=`<p class="bq">Is this spelled correctly?<span class="target">${shown}</span></p><div class="yn"><button class="opt" data-v="yes">✓ Yes</button><button class="opt" data-v="no">✗ No</button></div>`}};
+    $("#rq").onclick=e=>{const b=e.target.closest(".opt");if(!b||!raceTimer)return;const val=b.dataset.v||b.textContent;const ok=val===cur.ans;const rp=$("#rp");rp.classList.remove("flash-ok","flash-no");void rp.offsetWidth;
+      if(ok){streak++;right++;score+=streak>=5?3:streak>=3?2:1;rp.classList.add("flash-ok")}else{streak=0;wrong++;missed.add(cur.x.w);rp.classList.add("flash-no")}
+      $("#rs").textContent=streak+(streak>=5?" ×3":streak>=3?" ×2":"");$("#rsc").textContent=score;nextQ()};
+    nextQ();
+    raceTimer=setInterval(()=>{t--;$("#rt").textContent=t;$("#rbar").style.width=(t/60*100)+"%";if(t<=0){stopRace();const nb=score>best;if(nb)store.set("sp1-race",score);
+      $("#rp").outerHTML=`<div class="race panel"><h3 style="font-size:1.8rem">${nb?"🏆 New best!":"⏰ Time!"}</h3><p style="font-size:1.3rem"><b>${score}</b> points: ${right} right, ${wrong} wrong</p>
+      ${missed.size?`<p>Words to practice:</p><div class="review">${[...missed].map(w=>`<div style="--tc:${WD[w].c}"><b>${w}</b></div>`).join("")}</div>`:"<p>No mistakes! 🐝</p>"}<button class="btn big honey" id="ragain">Race again</button></div>`;
+      $("#ragain").onclick=renderRace;if(nb)confetti(1.2)}},1000);
+  };
+}
+
+/* ============================ DRAG & DROP ENGINE ============================ */
+function chipHTML(text,data,poolId,cls){const attrs=Object.entries(data).map(([k,v])=>`data-${k}="${esc(v)}"`).join(" ");return `<div class="chip ${cls||""}" draggable="true" data-pool="${poolId}" ${attrs}><span>${text}</span><button class="x" aria-label="Send back">✕</button></div>`}
+function sortHTML(items,bins){const id=uid();return `<div class="dnd" id="${id}"><div class="pool" id="${id}-pool">${items.map(it=>chipHTML(it.text,{bin:it.bin,w:it.w||""},id+"-pool","chunkchip")).join("")}</div><div class="bins">${bins.map(b=>`<div class="drop many bin" data-bin="${b.key}" style="--bc:${b.c}"><div class="binlabel">${b.label}</div><div class="binbody"></div></div>`).join("")}</div></div>`}
+function gradeSort(game){game.classList.add("locked");let score=0;const chips=$$(".chip",game);const missed=[];chips.forEach(c=>{const bin=c.closest(".bin");const ok=bin&&bin.dataset.bin===c.dataset.bin;c.classList.add(ok?"right":"wrong");if(ok)score++;else if(c.dataset.w)missed.push(c.dataset.w)});return {score,max:chips.length,missed}}
+let drag=null,ghost=null,hiEl=null;
+function setHi(d){if(hiEl&&hiEl!==d)hiEl.classList.remove("hi");hiEl=d;if(d)d.classList.add("hi")}
+function dropFor(el,chip){if(!el||!el.closest||!chip)return null;const d=el.closest(".drop");if(!d)return null;if(d.closest(".dnd")!==chip.closest(".dnd"))return null;if(d.closest(".locked"))return null;return d}
+function refresh(game){if(game)$$(".drop.one",game).forEach(d=>d.classList.toggle("filled",!!d.querySelector(".chip")))}
+function sendBack(chip){const p=document.getElementById(chip.dataset.pool);if(p){p.appendChild(chip);pop(chip);refresh(chip.closest(".dnd"))}}
+function pop(el){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop")}
+function place(chip,d){const body=d.querySelector(".binbody")||d;if(d.classList.contains("one")){const ex=body.querySelector(".chip");if(ex&&ex!==chip)sendBack(ex)}body.appendChild(chip);pop(chip);refresh(d.closest(".dnd"))}
+document.addEventListener("dragstart",e=>{const c=e.target.closest&&e.target.closest(".chip");if(!c)return;if(ghost||c.closest(".locked")){e.preventDefault();return}drag=c;c.classList.add("dragging");try{e.dataTransfer.setData("text/plain",c.textContent);e.dataTransfer.effectAllowed="move"}catch(_){}});
+document.addEventListener("dragend",()=>{if(drag&&!ghost){drag.classList.remove("dragging");drag=null}setHi(null)});
+document.addEventListener("dragover",e=>{if(!drag||ghost)return;const d=dropFor(e.target,drag);if(d){e.preventDefault();setHi(d)}else setHi(null)});
+document.addEventListener("drop",e=>{if(!drag||ghost)return;const d=dropFor(e.target,drag);if(d){e.preventDefault();place(drag,d)}setHi(null)});
+function moveGhost(t){ghost.style.left=(t.clientX-ghost._dx)+"px";ghost.style.top=(t.clientY-ghost._dy)+"px"}
+document.addEventListener("touchstart",e=>{const c=e.target.closest&&e.target.closest(".chip");if(!c||e.target.closest(".x")||c.closest(".locked")||e.touches.length>1)return;const t=e.touches[0],r=c.getBoundingClientRect();drag=c;ghost=c.cloneNode(true);ghost.classList.add("ghost");ghost.classList.remove("pop");ghost.style.width=r.width+"px";ghost.style.height=r.height+"px";ghost._dx=t.clientX-r.left;ghost._dy=t.clientY-r.top;document.body.appendChild(ghost);moveGhost(t);c.classList.add("dragging")},{passive:true});
+document.addEventListener("touchmove",e=>{if(!ghost)return;e.preventDefault();const t=e.touches[0];moveGhost(t);setHi(dropFor(document.elementFromPoint(t.clientX,t.clientY),drag));if(t.clientY<90)window.scrollBy(0,-14);else if(t.clientY>innerHeight-90)window.scrollBy(0,14)},{passive:false});
+function endTouch(e,cancel){if(!ghost)return;const t=e.changedTouches[0];const d=cancel?null:dropFor(document.elementFromPoint(t.clientX,t.clientY),drag);ghost.remove();ghost=null;drag.classList.remove("dragging");if(d)place(drag,d);drag=null;setHi(null)}
+document.addEventListener("touchend",e=>endTouch(e,false));
+document.addEventListener("touchcancel",e=>endTouch(e,true));
+document.addEventListener("click",e=>{const x=e.target.closest(".x");if(!x)return;const c=x.closest(".chip");if(c&&!c.closest(".locked")){e.stopPropagation();sendBack(c)}});
+
+/* ============================ BIG QUIZ ============================ */
+const Q={parts:[],i:0,res:[]};
+function mcHTML(items){return items.map((it,qi)=>`<div class="q" data-qi="${qi}"><p class="qt"><span class="num">${qi+1}</span>${it.q}</p><div class="opts">${it.shuffled.map(o=>`<button class="opt" data-ok="${o===it.correct?1:0}">${o}</button>`).join("")}</div></div>`).join("")}
+function wireMC(body,items,done,whyFn){let answered=0,score=0;const missed=[];
+  body.addEventListener("click",e=>{const b=e.target.closest(".opt");if(!b||b.disabled)return;const q=b.closest(".q");if(!q)return;const it=items[+q.dataset.qi];
+    $$(".opt",q).forEach(o=>{o.disabled=true;if(o.dataset.ok==="1")o.classList.add(o===b?"right":"missed")});
+    const ok=b.dataset.ok==="1";if(!ok){b.classList.add("wrong");missed.push(it.w)}else score++;bump(it.w,ok);
+    q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅ ":"❌ "}${whyFn?whyFn(it,ok):(ok?"Correct!":`The correct spelling is <b>${it.correct}</b>.`)}</p>`);
+    if(++answered===items.length)done(score,items.length,missed)})}
+function seqPart(mode,n,pickFrom){return (body,done)=>{const words=shuffle(pickFrom||W).slice(0,n);let i=0,s=0;const missed=[];
+  const go=()=>{body.innerHTML=`<p class="hint" style="text-align:center">Word ${i+1} of ${n}</p><div id="qs"></div>`;
+    const fn=mode==="bugs"?bugTask:(h,x,d)=>buildTask(h,x,mode,d,{quiet:true,hideSentence:mode==="tiles"});
+    fn($("#qs",body),words[i],ok=>{if(ok)s++;else missed.push(words[i].w);
+      if(i<n-1){$("#qs",body).insertAdjacentHTML("beforeend",`<div class="navrow" style="justify-content:center"><button class="btn" id="qn">Next word →</button></div>`);$("#qn",body).onclick=()=>{i++;go()}}
+      else done(s,n,missed)})};go()}}
+const PARTS=[
+ {emoji:"🔍",title:"Spot the correct spelling",intro:"Only one spelling is right each time.",render:(body,done)=>{const items=shuffle(W).slice(0,10).map(x=>({q:`<span style="font-weight:400">${x.d}</span>`,correct:x.w,shuffled:shuffle([x.w,...x.bad]),w:x.w}));body.innerHTML=mcHTML(items);wireMC(body,items,done,(it,ok)=>ok?`Yes! 💡 ${WD[it.w].t}`:`It's <b>${it.w}</b>. 💡 ${WD[it.w].t}`)}},
+ {emoji:"🍯",title:"Honey or oops?",intro:"Drag each word into the right jar: spelled correctly, or misspelled?",render:(body,done)=>{const ws=shuffle(W).slice(0,12);const items=shuffle(ws.map((x,i)=>i%2?{text:x.w,bin:"ok",w:x.w}:{text:pick(x.bad),bin:"no",w:x.w}));
+   body.innerHTML=sortHTML(items,[{key:"ok",label:"🍯 Spelled correctly",c:"var(--ok)"},{key:"no",label:"🐞 Misspelled",c:"var(--bad)"}]);checkBtn(body,"Check my jars",()=>{const r=gradeSort($(".dnd",body));done(r.score,r.max,r.missed)})}},
+ {emoji:"🕳️",title:"Missing letters",intro:"Drag the missing letters into the tricky spots.",render:seqPart("missing",5)},
+ {emoji:"🧱",title:"Chunk it",intro:"Build each word from its chunks. Some chunks are fakes!",render:seqPart("chunk",5)},
+ {emoji:"🐞",title:"Bug hunt",intro:"Find the misspelled word in each sentence, then fix it.",render:seqPart("bugs",5)},
+ {emoji:"✏️",title:"Finish the sentence",intro:"Choose the correctly spelled word for each sentence.",render:(body,done)=>{const items=shuffle(W).slice(0,8).map(x=>({q:x.s.replace("____",'<span style="color:var(--honey)">_______</span>'),correct:x.w,shuffled:shuffle([x.w,...shuffle(x.bad).slice(0,3)]),w:x.w}));body.innerHTML=mcHTML(items);wireMC(body,items,done)}},
+ {emoji:"🌳",title:"Word family spelling",intro:"These are longer forms of your words. Which spelling is right?",render:(body,done)=>{const items=shuffle(FAM).map(([b,r,bad])=>({q:`A word from the <b>${b}</b> family:`,correct:r,shuffled:shuffle([r,...bad]),w:b}));body.innerHTML=mcHTML(items);wireMC(body,items,done,(it,ok)=>`${ok?"Yes!":"It's <b>"+it.correct+"</b>."} Notice how it keeps the spelling of <b>${it.w}</b>.`)}},
+ {emoji:"🏆",title:"Champion round: Letter tiles",intro:"Build the three hardest words letter by letter. Tap 🔊 to hear each one.",render:seqPart("tiles",3,["conspicuous","persecute","eloquent","immigrant","affection"].map(w=>WD[w]))}
+];
+function checkBtn(body,label,fn){const w=document.createElement("div");w.className="navrow";w.style.justifyContent="flex-end";w.innerHTML=`<button class="btn honey">${label}</button>`;body.appendChild(w);$(".btn",w).onclick=()=>{w.remove();fn()}}
+function renderQuizIntro(){
+  const v=$("#view-quiz");
+  v.innerHTML=head("🏆","The Big Quiz",`${PARTS.length} rounds on all 15 words. Get them right to earn honey too! Aim for 90% or higher.`)+`<div class="qtop"><div class="qtrack" id="qtrack"></div><div class="total" id="qtotal"></div></div><div id="stage"></div>`;
+  Q.parts=PARTS;Q.i=0;Q.res=[];renderPart();
+}
+function totals(){let s=0,m=0;Q.res.forEach(r=>{if(r){s+=r.score;m+=r.max}});return {s,m}}
+function drawTrack(){$("#qtrack").innerHTML=Q.parts.map((p,i)=>{const r=Q.res[i];let c="";if(r){const pc=r.score/r.max;c=pc>=.85?"good":pc>=.6?"meh":"low"}else if(i===Q.i)c="now";return `<span class="${c}" title="${esc(p.title)}"></span>`}).join("");const t=totals();$("#qtotal").textContent=`Score: ${t.s} / ${t.m}`}
+function renderPart(){
+  const p=Q.parts[Q.i];
+  $("#stage").innerHTML=`<div class="phead"><span class="pemo">${p.emoji}</span><div><h3>Round ${Q.i+1} of ${Q.parts.length}: ${p.title}</h3><p>${p.intro}</p></div></div><div id="pbody"></div><div class="pfoot"><span class="msg" id="pmsg"></span><button class="btn big" id="nextBtn" disabled>${Q.i===Q.parts.length-1?"See my results":"Next round"}</button></div>`;
+  drawTrack();
+  p.render($("#pbody"),(score,max,missed)=>{Q.res[Q.i]={title:p.title,score,max,missed:missed||[]};drawTrack();
+    const pc=score/max;$("#pmsg").textContent=`${score} / ${max}: ${pc===1?"Flawless! 🌟":pc>=.8?"Great work! 💪":pc>=.6?"Not bad, keep going!":"Practice these later 💡"}`;
+    const nb=$("#nextBtn");nb.disabled=false;nb.focus({preventScroll:true});if(pc===1)confetti(.6)});
+  $("#nextBtn").onclick=()=>{Q.i++;if(Q.i>=Q.parts.length)showResults();else{renderPart();$("#view-quiz").scrollIntoView({behavior:"smooth"})}};
+}
+function showResults(){
+  const t=totals();const pc=Math.round(t.s/t.m*100);const best=store.get("sp1-best",null);if(best===null||pc>best)store.set("sp1-best",pc);
+  const stars=pc>=95?"⭐⭐⭐⭐⭐":pc>=85?"⭐⭐⭐⭐":pc>=70?"⭐⭐⭐":pc>=55?"⭐⭐":"⭐";
+  const missed=[...new Set(Q.res.flatMap(r=>r.missed))].filter(w=>WD[w]);drawTrack();
+  $("#stage").innerHTML=`<div class="results"><div class="pct">${pc}%</div><div class="stars">${stars}</div><h3 style="font-size:1.6rem">${pc>=95?"Spelling champion! You're ready for the test.":pc>=85?"Superb! Just polish the words below.":pc>=70?"Good progress. Practice the words below, then retake.":"Keep going: play the games for the words below, then try again."}</h3><p style="color:var(--muted)">${t.s} out of ${t.m} points${best!==null?`. Best before: ${best}%`:""}</p>
+  <div class="breakdown">${Q.res.map(r=>`<div><span>${r.title}</span><b>${r.score} / ${r.max}</b></div>`).join("")}</div>
+  ${missed.length?`<h3 style="font-size:1.4rem">Words to practice (${missed.length})</h3><div class="review">${missed.map(w=>`<div style="--tc:${WD[w].c}"><b>${w}</b><br><small>${WD[w].t}</small></div>`).join("")}</div>`:`<p style="font-size:1.2rem">No words to practice. Every one is yours! 🎉</p>`}
+  <div class="navrow" style="justify-content:center"><button class="btn big" id="retake">🔁 Retake</button><button class="btn ghost big" id="qhome">Back to the hive</button></div></div>`;
+  $("#retake").onclick=()=>renderQuizIntro();$("#qhome").onclick=()=>show("home");confetti(pc>=85?2.2:pc>=70?1:0);
+}
+
+/* ============================ CONFETTI ============================ */
+function confetti(sec){
+  if(!sec||reduced())return;
+  const cv=$("#confetti"),ctx=cv.getContext("2d");cv.width=innerWidth;cv.height=innerHeight;
+  const cols=["#F5A400","#FFC93C","#E0357A","#1C7FE0","#0FA392","#8B3FD1"];
+  const ps=Array.from({length:Math.round(120*Math.min(sec,1.5))},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.4,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[Math.random()*cols.length|0]}));
+  const end=performance.now()+sec*1000+1800;
+  (function f(now){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);ctx.restore()});if(now<end)requestAnimationFrame(f);else ctx.clearRect(0,0,cv.width,cv.height)})(performance.now());
+}
+const confettiSmall=()=>confetti(.4);
+
+show("home");
+</script>
+</body>
+</html>
+
+</body></html>
