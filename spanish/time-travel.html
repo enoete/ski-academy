@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spanish Time Travel: Past, Present & Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --past:#8b5cf6; --past-l:#ede9fe;
+  --pres:#10b981; --pres-l:#d1fae5;
+  --fut:#f97316; --fut-l:#ffedd5;
+  --ink:#1e1b4b; --soft:#64748b; --bg:#fdf8ff; --card:#ffffff;
+  --pink:#ec4899; --blue:#3b82f6; --yellow:#facc15;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;font-size:17px}
+h1,h2,h3{font-family:'Baloo 2',cursive;line-height:1.15;margin:0 0 .4em}
+h2{font-size:2rem}
+h3{font-size:1.35rem}
+p{margin:.4em 0 .9em}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+.past{color:var(--past)} .pres{color:var(--pres)} .fut{color:var(--fut)}
+.end{font-weight:800;border-radius:6px;padding:0 3px}
+.end.past{background:var(--past-l)} .end.pres{background:var(--pres-l)} .end.fut{background:var(--fut-l)}
+.en-help{font-weight:800;text-decoration:underline wavy;text-underline-offset:4px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#7c3aed 0%,#10b981 50%,#f97316 100%);color:#fff;padding:56px 0 70px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2.2rem,6vw,3.8rem);text-shadow:0 3px 0 rgba(0,0,0,.15)}
+.hero p{font-size:1.15rem;max-width:620px}
+.hero .clocks{position:absolute;right:4%;top:30px;font-size:5rem;opacity:.9;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.2);padding:4px 14px;border-radius:99px;font-weight:700;margin-bottom:14px}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+nav.toc a{background:#fff;color:var(--ink);text-decoration:none;padding:6px 14px;border-radius:99px;font-weight:700;font-size:.92rem;box-shadow:0 3px 0 rgba(0,0,0,.15);transition:transform .15s}
+nav.toc a:hover{transform:translateY(-2px)}
+
+section{padding:44px 0}
+section:nth-of-type(even){background:#fff}
+.card{background:var(--card);border-radius:22px;padding:22px;box-shadow:0 6px 24px rgba(30,27,75,.08);margin:16px 0}
+section:nth-of-type(even) .card{background:#faf7ff}
+.story{border-left:6px solid var(--pink);background:#fff0f7 !important}
+.tip{border-left:6px solid var(--blue);background:#eff6ff !important}
+.warn{border-left:6px solid var(--yellow);background:#fefce8 !important}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.tcard{border-radius:20px;padding:18px;color:#fff;transition:transform .2s}
+.tcard:hover{transform:translateY(-4px) rotate(-1deg)}
+.tcard .big{font-size:2.6rem}
+.tcard.past{background:var(--past)} .tcard.pres{background:var(--pres)} .tcard.fut{background:var(--fut)}
+.tcard p{margin:.3em 0}
+
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:1rem}
+th,td{padding:9px 10px;text-align:left;border-bottom:2px solid #eee}
+th{font-family:'Baloo 2';font-size:1.05rem}
+.tbl-wrap{overflow-x:auto}
+
+/* time machine */
+.tm{text-align:center}
+.tm .scene{font-size:4.5rem;height:90px;transition:transform .4s}
+.tm .scene.bounce{animation:pop .45s}
+@keyframes pop{0%{transform:scale(.4) rotate(-20deg)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.tm input[type=range]{width:min(520px,90%);accent-color:var(--pink);height:30px}
+.tm .labels{display:flex;justify-content:space-between;width:min(540px,92%);margin:0 auto;font-weight:800}
+.tm .sent{font-size:1.6rem;font-weight:800;margin:10px 0 2px;font-family:'Baloo 2'}
+.tm .sent-en{font-size:1.2rem;color:var(--soft)}
+.pillrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.pill{border:none;border-radius:99px;padding:8px 16px;font-weight:800;font-family:'Nunito';font-size:1rem;cursor:pointer;background:#eef;color:var(--ink);transition:all .15s}
+.pill.on{background:var(--ink);color:#fff;transform:scale(1.05)}
+.pill:hover{transform:translateY(-2px)}
+
+/* verb anatomy */
+.anat{display:flex;justify-content:center;align-items:center;gap:6px;font-family:'Baloo 2';font-size:2.4rem;flex-wrap:wrap;margin:12px 0}
+.blk{padding:6px 16px;border-radius:14px;color:#fff;position:relative}
+.blk small{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);font-size:.85rem;color:var(--soft);white-space:nowrap;font-family:'Nunito'}
+.blk.stem{background:var(--blue)} .blk.tail{background:var(--pink)}
+
+/* tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tab{border:none;border-radius:12px 12px 0 0;padding:8px 18px;font-weight:800;cursor:pointer;font-family:'Nunito';font-size:1rem;background:#eee}
+.tab.on{color:#fff}
+.tabpanel{display:none} .tabpanel.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+
+/* machine */
+.machine{background:linear-gradient(160deg,#1e1b4b,#312e81);color:#fff;border-radius:26px;padding:24px;box-shadow:0 10px 30px rgba(30,27,75,.3)}
+.machine h3{color:#fff}
+.machine .row{margin:10px 0}
+.machine .row b{display:block;font-size:.85rem;opacity:.8;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.machine .pill{background:rgba(255,255,255,.12);color:#fff}
+.machine .pill.on{background:#fff;color:var(--ink)}
+.out{background:rgba(255,255,255,.08);border-radius:20px;padding:20px;text-align:center;margin-top:14px;min-height:150px}
+.out .pieces{display:flex;justify-content:center;align-items:center;gap:6px;font-family:'Baloo 2';font-size:2.4rem;flex-wrap:wrap}
+.out .piece{padding:4px 14px;border-radius:14px;background:var(--blue)}
+.out .piece.tail{animation:slidein .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes slidein{from{transform:translateX(80px) scale(.5);opacity:0}to{transform:none;opacity:1}}
+.out .eng{font-size:1.25rem;margin-top:10px}
+.out .eng em{font-style:normal;color:var(--yellow);font-weight:800}
+
+/* DnD shared */
+.pool{display:flex;flex-wrap:wrap;gap:10px;min-height:62px;padding:12px;border:3px dashed #c7d2fe;border-radius:18px;background:#f8faff;margin:10px 0}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:8px 12px;font-weight:800;cursor:grab;user-select:none;-webkit-user-select:none;box-shadow:0 3px 0 var(--ink);font-size:1rem;touch-action:none;transition:transform .12s}
+.chip:active{cursor:grabbing}
+.chip:hover{transform:translateY(-2px)}
+.chip.dragging{opacity:.35}
+.chip.ghost{position:fixed;pointer-events:none;z-index:9999;opacity:.95;transform:rotate(-4deg) scale(1.06);box-shadow:0 10px 20px rgba(0,0,0,.25)}
+.chip .x{border:none;background:#fee2e2;color:#b91c1c;border-radius:50%;width:24px;height:24px;font-weight:900;cursor:pointer;font-size:.8rem;line-height:1;padding:0;flex-shrink:0}
+.chip.right{border-color:#16a34a;background:#dcfce7;box-shadow:0 3px 0 #16a34a}
+.chip.wrong{border-color:#dc2626;background:#fee2e2;box-shadow:0 3px 0 #dc2626;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.locked .chip{cursor:default}
+.locked .chip .x{display:none}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.bin{border-radius:20px;padding:12px;min-height:170px;border:3px solid transparent;transition:all .15s}
+.bin h4{margin:0 0 8px;font-family:'Baloo 2';font-size:1.3rem;color:#fff;padding:4px 12px;border-radius:12px;display:inline-block}
+.bin .drop{display:flex;flex-wrap:wrap;gap:8px;min-height:60px}
+.bin.past{background:var(--past-l)} .bin.past h4{background:var(--past)}
+.bin.pres{background:var(--pres-l)} .bin.pres h4{background:var(--pres)}
+.bin.fut{background:var(--fut-l)} .bin.fut h4{background:var(--fut)}
+.bin.over{border-color:var(--ink);transform:scale(1.03);box-shadow:0 0 0 6px rgba(236,72,153,.25)}
+.match{display:flex;flex-direction:column;gap:10px}
+.match .bin{display:flex;align-items:center;gap:12px;min-height:64px;background:#f1f5f9;padding:8px 12px}
+.match .bin .lbl{font-family:'Baloo 2';font-size:1.35rem;min-width:130px;font-weight:700}
+.match .bin .drop{flex:1;min-height:48px;border:3px dashed #cbd5e1;border-radius:14px;padding:4px;align-items:center}
+.match .bin.over .drop{border-color:var(--pink)}
+
+.btn{border:none;border-radius:16px;padding:12px 24px;font-weight:800;font-family:'Nunito';font-size:1.05rem;cursor:pointer;background:var(--pink);color:#fff;box-shadow:0 4px 0 #9d174d;transition:transform .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #9d174d}
+.btn.ghostbtn{background:#e2e8f0;color:var(--ink);box-shadow:0 4px 0 #94a3b8}
+.btn.go{background:var(--pres);box-shadow:0 4px 0 #047857}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.msg{font-weight:800;margin-left:6px}
+
+/* Quiz */
+#quiz{background:linear-gradient(180deg,#fdf2f8,#eef2ff)}
+.qbox{background:#fff;border-radius:26px;padding:24px;box-shadow:0 10px 30px rgba(30,27,75,.12)}
+.qhead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.qtype{background:var(--ink);color:#fff;border-radius:99px;padding:3px 12px;font-weight:800;font-size:.85rem}
+.progress{height:14px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin:6px 0 16px}
+.progress div{height:100%;background:linear-gradient(90deg,var(--past),var(--pres),var(--fut));transition:width .4s;width:0}
+.qprompt{font-size:1.3rem;font-weight:800;margin:6px 0 14px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.opt{border:3px solid #cbd5e1;background:#fff;border-radius:16px;padding:14px;font-weight:800;font-family:'Nunito';font-size:1.08rem;cursor:pointer;text-align:left;transition:all .12s;color:var(--ink)}
+.opt:hover{border-color:var(--ink);transform:translateY(-2px)}
+.opt.sel{border-color:var(--blue);background:#eff6ff}
+.opt.right{border-color:#16a34a;background:#dcfce7}
+.opt.wrong{border-color:#dc2626;background:#fee2e2}
+.tfrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:#f8fafc;margin:8px 0;flex-wrap:wrap}
+.tfrow .st{flex:1;min-width:220px;font-weight:700}
+.tfrow .tfb{display:flex;gap:6px}
+.tfrow button{border:3px solid #cbd5e1;background:#fff;border-radius:12px;padding:6px 14px;font-weight:800;cursor:pointer;font-family:'Nunito';font-size:1rem}
+.tfrow button.sel{border-color:var(--blue);background:#eff6ff}
+.tfrow.right{background:#dcfce7} .tfrow.wrong{background:#fee2e2}
+.spot{display:flex;flex-wrap:wrap;gap:8px;font-size:1.5rem;font-family:'Baloo 2'}
+.spot button{border:3px solid #cbd5e1;background:#fff;border-radius:12px;padding:4px 14px;font-family:'Baloo 2';font-size:1.4rem;cursor:pointer;color:var(--ink)}
+.spot button.sel{border-color:var(--blue);background:#eff6ff}
+.spot button.right{border-color:#16a34a;background:#dcfce7}
+.spot button.wrong{border-color:#dc2626;background:#fee2e2}
+.build{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.build .col b{display:block;margin-bottom:6px}
+.build .col .opts{grid-template-columns:1fr}
+.buildout{font-family:'Baloo 2';font-size:2rem;text-align:center;margin:14px 0 0;min-height:48px}
+.buildout span{padding:2px 12px;border-radius:12px;margin:0 2px;color:#fff}
+.fb{margin-top:16px;border-radius:16px;padding:14px 16px;font-weight:600;display:none}
+.fb.show{display:block;animation:fade .3s}
+.fb.good{background:#dcfce7;border-left:6px solid #16a34a}
+.fb.mid{background:#fef9c3;border-left:6px solid #ca8a04}
+.fb.bad{background:#fee2e2;border-left:6px solid #dc2626}
+.final{text-align:center}
+.final .stars{font-size:3.4rem;letter-spacing:6px}
+.final .score{font-size:3rem;font-family:'Baloo 2';font-weight:800}
+.confetti{position:fixed;top:-20px;font-size:1.6rem;pointer-events:none;animation:fall linear forwards;z-index:999}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+footer{text-align:center;padding:30px;color:var(--soft);font-size:.9rem}
+@media(max-width:600px){
+  h2{font-size:1.6rem}
+  .hero .clocks{font-size:3rem;top:12px}
+  .build{grid-template-columns:1fr}
+  .match .bin{flex-direction:column;align-items:stretch}
+  .match .bin .lbl{min-width:0}
+  .anat,.out .pieces{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="clocks">⏰</div>
+    <span class="badge">🇪🇸 Spanish • Study Guide</span>
+    <h1>Spanish Time Travel:<br>Past, Present &amp; Future</h1>
+    <p>Verbs are time travellers. In Spanish, a verb changes the <b>end of the word</b> to tell you <i>when</i> something happens and <i>who</i> is doing it. You'll learn the trick and compare it with English, then finish with a big quiz.</p>
+    <nav class="toc">
+      <a href="#what">⏳ What's a tense?</a>
+      <a href="#english">🇬🇧 English vs Spanish</a>
+      <a href="#who">🙋🏽‍♀️ Who?</a>
+      <a href="#present">🟢 Present</a>
+      <a href="#past">🟣 Past</a>
+      <a href="#future">🟠 Future</a>
+      <a href="#machine">⚙️ Verb Machine</a>
+      <a href="#clues">🕵🏽‍♀️ Clue Words</a>
+      <a href="#cheat">📋 Cheat Sheet</a>
+      <a href="#quiz">🏆 Quiz</a>
+    </nav>
+  </div>
+</header>
+
+<!-- WHAT IS A TENSE -->
+<section id="what"><div class="wrap">
+  <h2>⏳ What is a "tense"?</h2>
+  <p>A <b>tense</b> is the <b>time</b> of an action. Did it already happen? Is it happening now? Will it happen later? Every sentence you say has a time hidden inside its verb (the action word).</p>
+  <div class="grid3">
+    <div class="tcard past"><div class="big">🌙</div><h3>PAST · el pasado</h3><p>Already happened.</p><p><b>Yesterday I danced.</b></p></div>
+    <div class="tcard pres"><div class="big">☀️</div><h3>PRESENT · el presente</h3><p>Happening now, or happens regularly.</p><p><b>Today I dance.</b></p></div>
+    <div class="tcard fut"><div class="big">🚀</div><h3>FUTURE · el futuro</h3><p>Hasn't happened yet.</p><p><b>Tomorrow I will dance.</b></p></div>
+  </div>
+
+  <div class="card tm">
+    <h3>🕹️ Try the Time Machine</h3>
+    <p>Pick a verb, then drag the slider through time. Watch which part of the word changes.</p>
+    <div class="pillrow" id="tmVerbs"></div>
+    <div class="scene" id="tmScene">☀️</div>
+    <input type="range" min="0" max="2" step="1" value="1" id="tmRange" aria-label="Time slider">
+    <div class="labels"><span class="past">⬅ Past</span><span class="pres">Present</span><span class="fut">Future ➡</span></div>
+    <div class="sent" id="tmEs"></div>
+    <div class="sent-en" id="tmEn"></div>
+  </div>
+</div></section>
+
+<!-- ENGLISH VS SPANISH -->
+<section id="english"><div class="wrap">
+  <h2>🇬🇧 ↔ 🇪🇸 How English and Spanish show time</h2>
+  <p>Both languages have past, present and future, so you already know the idea. The difference is <b>how</b> they show the time.</p>
+  <div class="card story">
+    <h3>🚂 The train story</h3>
+    <p>Picture a verb as a little train. <b>English</b> usually adds a <b>new carriage in front</b>: <span class="en-help">will</span> dance. <b>Spanish</b> changes the <b>last carriage</b> instead: bail<span class="end fut">aré</span>. All the information about time and person rides at the back of the train.</p>
+  </div>
+  <div class="tbl-wrap card">
+    <table>
+      <tr><th>Time</th><th>🇬🇧 English does this…</th><th>🇪🇸 Spanish does this…</th></tr>
+      <tr><td class="pres"><b>Present</b></td><td>She danc<span class="en-help">es</span> (small change)</td><td>Ella bail<span class="end pres">a</span></td></tr>
+      <tr><td class="past"><b>Past</b></td><td>She danc<span class="en-help">ed</span> (adds <b>-ed</b>)</td><td>Ella bail<span class="end past">ó</span></td></tr>
+      <tr><td class="fut"><b>Future</b></td><td><span class="en-help">will</span> dance (adds a helper word in front)</td><td>Ella bail<span class="end fut">ará</span> (no helper word, just a new ending)</td></tr>
+    </table>
+  </div>
+  <div class="grid3">
+    <div class="card tip"><h3>💡 One word, three meanings</h3><p><b>Hablo</b> can mean <i>I speak</i>, <i>I am speaking</i>, OR <i>I do speak</i>. English needs three versions. Spanish uses one word.</p></div>
+    <div class="card tip"><h3>💡 Spanish can skip "I"</h3><p>The ending already says who it is, so Spanish often drops the pronoun. <b>Bailo</b> = <i>I dance</i>. In English you can't just say "Dance" and mean "I dance".</p></div>
+    <div class="card tip"><h3>💡 English has rule-breakers too</h3><p>English: eat → <b>ate</b>, run → <b>ran</b>, sing → <b>sang</b> (no -ed!). Spanish also has some rule-breakers, but the verbs here follow the rules: com<span class="end past">í</span> (I ate).</p></div>
+  </div>
+</div></section>
+
+<!-- WHO -->
+<section id="who"><div class="wrap">
+  <h2>🙋🏽‍♀️ The "WHO" part: pronouns</h2>
+  <p>The ending tells you the <b>time</b> and also <b>who</b> is doing it. These are the "who" words. They line up with English almost exactly.</p>
+  <div class="tbl-wrap card">
+    <table>
+      <tr><th>Spanish</th><th>English</th><th>Notes</th></tr>
+      <tr><td><b>yo</b></td><td>I</td><td>Just you</td></tr>
+      <tr><td><b>tú</b></td><td>you</td><td>A friend or family member</td></tr>
+      <tr><td><b>él / ella / usted</b></td><td>he / she / you (polite)</td><td>All three share the same ending</td></tr>
+      <tr><td><b>nosotros / nosotras</b></td><td>we</td><td>Me + others</td></tr>
+      <tr><td><b>vosotros</b></td><td>you all</td><td>Mostly used in Spain</td></tr>
+      <tr><td><b>ellos / ellas / ustedes</b></td><td>they / you all</td><td>All three share the same ending</td></tr>
+    </table>
+  </div>
+
+  <h3>🧩 The two parts of a verb</h3>
+  <p>Every Spanish verb in its basic form (the <b>infinitive</b>, meaning "to ___") ends in <b>-ar</b>, <b>-er</b>, or <b>-ir</b>. These are the three <b>verb families</b>.</p>
+  <div class="anat"><span class="blk stem">habl<small>STEM (the meaning)</small></span><span>+</span><span class="blk tail">ar<small>ENDING (who + when)</small></span></div>
+  <br>
+  <div class="grid3">
+    <div class="card"><h3>-AR family</h3><p>hablar (to speak)<br>bailar (to dance)<br>cantar (to sing)</p></div>
+    <div class="card"><h3>-ER family</h3><p>comer (to eat)<br>correr (to run)<br>beber (to drink)</p></div>
+    <div class="card"><h3>-IR family</h3><p>vivir (to live)<br>escribir (to write)<br>abrir (to open)</p></div>
+  </div>
+  <div class="card story"><b>🍰 The recipe:</b> Chop off the <b>-ar / -er / -ir</b> to get the stem, then add the ending you need. For the <b>future</b> there's a shortcut: you keep the whole word and add the ending to the end.</div>
+</div></section>
+
+<!-- PRESENT -->
+<section id="present"><div class="wrap">
+  <h2 class="pres">🟢 Present tense · <i>el presente</i></h2>
+  <p>Use it for what is happening <b>now</b>, or things you do <b>regularly</b> ("I eat breakfast every day").</p>
+  <p><b>Recipe:</b> stem + present ending</p>
+  <div class="card">
+    <div class="tabs" data-color="var(--pres)"><button class="tab on" data-t="p-ar">-AR</button><button class="tab" data-t="p-er">-ER</button><button class="tab" data-t="p-ir">-IR</button></div>
+    <div class="tabpanel on" id="p-ar"></div>
+    <div class="tabpanel" id="p-er"></div>
+    <div class="tabpanel" id="p-ir"></div>
+  </div>
+  <div class="card tip">🎵 <b>Memory song:</b> For -AR, the vowel is <b>A</b>: <b>o, as, a, amos, áis, an</b>. For -ER and -IR, the vowel becomes <b>E</b>: <b>o, es, e…</b> -ER and -IR only differ for <b>nosotros</b> (com<b>emos</b> / viv<b>imos</b>) and <b>vosotros</b>.</div>
+</div></section>
+
+<!-- PAST -->
+<section id="past"><div class="wrap">
+  <h2 class="past">🟣 Past tense · <i>el pretérito</i></h2>
+  <p>Use it for something that <b>happened and finished</b>, like "Yesterday I sang." It does the same job as English <b>-ed</b>.</p>
+  <p><b>Recipe:</b> stem + past ending</p>
+  <div class="card">
+    <div class="tabs" data-color="var(--past)"><button class="tab on" data-t="pa-ar">-AR</button><button class="tab" data-t="pa-er">-ER</button><button class="tab" data-t="pa-ir">-IR</button></div>
+    <div class="tabpanel on" id="pa-ar"></div>
+    <div class="tabpanel" id="pa-er"></div>
+    <div class="tabpanel" id="pa-ir"></div>
+  </div>
+  <div class="grid3">
+    <div class="card warn"><h3>⚠️ Accent marks matter!</h3><p><b>hablo</b> = I speak (now)<br><b>habló</b> = he/she spoke (past)</p><p>The little mark (´) changes the time and the person. Always watch for it.</p></div>
+    <div class="card tip"><h3>🎉 Good news</h3><p>-ER and -IR verbs use the <b>exact same</b> past endings: <b>í, iste, ió, imos, isteis, ieron</b>.</p></div>
+    <div class="card tip"><h3>🤔 Twin words</h3><p><b>hablamos</b> = "we speak" AND "we spoke"! Same for <b>vivimos</b>. Clue words like <i>ayer</i> (yesterday) tell you which one it means.</p></div>
+  </div>
+</div></section>
+
+<!-- FUTURE -->
+<section id="future"><div class="wrap">
+  <h2 class="fut">🟠 Future tense · <i>el futuro</i></h2>
+  <p>Use it for things that <b>will</b> happen. English says <span class="en-help">will</span> + verb. Spanish puts the "will" into the ending.</p>
+  <p><b>Recipe (shortcut!):</b> <u>whole infinitive</u> + future ending. Don't chop anything off.</p>
+  <div class="anat"><span class="blk stem">bailar<small>keep the WHOLE word</small></span><span>+</span><span class="blk tail" style="background:var(--fut)">é<small>= "I will"</small></span><span>=</span><span>bailar<span class="end fut">é</span></span></div>
+  <br>
+  <div class="card tbl-wrap"><table id="futTable"></table></div>
+  <div class="grid3">
+    <div class="card tip"><h3>🌟 Easiest tense</h3><p>The future endings are the <b>same for -AR, -ER and -IR</b>: <b>é, ás, á, emos, éis, án</b>.</p></div>
+    <div class="card story"><h3>🎁 Bonus: "going to"</h3><p>English: I'm <b>going to</b> sing. Spanish does almost the same thing: <b>voy a</b> cantar.</p><p>voy a / vas a / va a / vamos a / van a + infinitive. Very common, and very close to English!</p></div>
+  </div>
+
+  <div class="card warn">
+    <h3>👀 Sneak peek: rule-breakers (irregular verbs)</h3>
+    <p>English has "go → went". Spanish has its own rule-breakers. You'll meet more later, but here are a few common ones:</p>
+    <div class="tbl-wrap"><table>
+      <tr><th>Verb</th><th class="pres">Present</th><th class="past">Past</th><th class="fut">Future</th></tr>
+      <tr><td><b>ir</b> (to go)</td><td>voy = I go</td><td>fui = I went</td><td>iré = I will go</td></tr>
+      <tr><td><b>tener</b> (to have)</td><td>tengo = I have</td><td>tuve = I had</td><td>tendré = I will have</td></tr>
+      <tr><td><b>hacer</b> (to do/make)</td><td>hago = I do</td><td>hice = I did</td><td>haré = I will do</td></tr>
+    </table></div>
+  </div>
+</div></section>
+
+<!-- MACHINE -->
+<section id="machine"><div class="wrap">
+  <h2>⚙️ The Verb-Building Machine</h2>
+  <p>Choose a verb, a person and a time. The machine builds the Spanish word and translates it into English.</p>
+  <div class="machine">
+    <div class="row"><b>1 · Verb</b><div class="pillrow" style="justify-content:flex-start" id="mVerb"></div></div>
+    <div class="row"><b>2 · Who</b><div class="pillrow" style="justify-content:flex-start" id="mWho"></div></div>
+    <div class="row"><b>3 · When</b><div class="pillrow" style="justify-content:flex-start" id="mWhen"></div></div>
+    <div class="out" id="mOut"></div>
+  </div>
+</div></section>
+
+<!-- CLUES -->
+<section id="clues"><div class="wrap">
+  <h2>🕵🏽‍♀️ Detective game: clue words</h2>
+  <p>Some words are clues that tell you which tense to use. <b>Ayer</b> (yesterday) means past. <b>Mañana</b> (tomorrow) means future. Drag each clue into the right time zone.</p>
+  <div class="card" id="clueGame">
+    <div class="pool"></div>
+    <div class="bins">
+      <div class="bin past" data-bin="past"><h4>🌙 Past</h4><div class="drop"></div></div>
+      <div class="bin pres" data-bin="pres"><h4>☀️ Present</h4><div class="drop"></div></div>
+      <div class="bin fut" data-bin="fut"><h4>🚀 Future</h4><div class="drop"></div></div>
+    </div>
+    <div class="btnrow"><button class="btn go" id="clueCheck">Check ✔</button><button class="btn ghostbtn" id="clueReset">Reset ↺</button><span class="msg" id="clueMsg"></span></div>
+  </div>
+</div></section>
+
+<!-- CHEAT SHEET -->
+<section id="cheat"><div class="wrap">
+  <h2>📋 Cheat Sheet</h2>
+  <div class="card tbl-wrap">
+    <table>
+      <tr><th>Who</th><th class="pres">Present -AR</th><th class="pres">Present -ER/-IR</th><th class="past">Past -AR</th><th class="past">Past -ER/-IR</th><th class="fut">Future (all)</th></tr>
+      <tr><td>yo</td><td>-o</td><td>-o</td><td>-é</td><td>-í</td><td>-é</td></tr>
+      <tr><td>tú</td><td>-as</td><td>-es</td><td>-aste</td><td>-iste</td><td>-ás</td></tr>
+      <tr><td>él/ella</td><td>-a</td><td>-e</td><td>-ó</td><td>-ió</td><td>-á</td></tr>
+      <tr><td>nosotros</td><td>-amos</td><td>-emos / -imos</td><td>-amos</td><td>-imos</td><td>-emos</td></tr>
+      <tr><td>vosotros</td><td>-áis</td><td>-éis / -ís</td><td>-asteis</td><td>-isteis</td><td>-éis</td></tr>
+      <tr><td>ellos/ellas</td><td>-an</td><td>-en</td><td>-aron</td><td>-ieron</td><td>-án</td></tr>
+    </table>
+    <p style="margin-top:12px"><b>Remember:</b> Present &amp; Past → <b>stem</b> + ending. Future → <b>whole infinitive</b> + ending.</p>
+  </div>
+</div></section>
+
+<!-- QUIZ -->
+<section id="quiz"><div class="wrap">
+  <h2>🏆 The Time Traveller Challenge</h2>
+  <p>20 challenges, 38 points. Read carefully, look for clue words, and watch those accent marks!</p>
+  <div class="qbox" id="qbox"></div>
+</div></section>
+
+<footer>¡Buen trabajo! Keep practising: say your day out loud in Spanish (ayer… hoy… mañana…).</footer>
+
+<script>
+/* ---------- DATA ---------- */
+const VERBS={
+  hablar:{en:['speak','speaks','spoke'],e:'🗣️'},
+  bailar:{en:['dance','dances','danced'],e:'💃🏽'},
+  cantar:{en:['sing','sings','sang'],e:'🎤'},
+  comer:{en:['eat','eats','ate'],e:'🍕'},
+  correr:{en:['run','runs','ran'],e:'🏃🏽‍♀️'},
+  beber:{en:['drink','drinks','drank'],e:'🥤'},
+  vivir:{en:['live','lives','lived'],e:'🏠'},
+  escribir:{en:['write','writes','wrote'],e:'✍🏽'},
+  abrir:{en:['open','opens','opened'],e:'🚪'}
+};
+const PERS=[
+  {es:'yo',en:'I'},{es:'tú',en:'you'},{es:'él / ella',en:'he / she'},
+  {es:'nosotros',en:'we'},{es:'vosotros',en:'you all'},{es:'ellos / ellas',en:'they'}
+];
+const END={
+  present:{ar:['o','as','a','amos','áis','an'],er:['o','es','e','emos','éis','en'],ir:['o','es','e','imos','ís','en']},
+  past:{ar:['é','aste','ó','amos','asteis','aron'],er:['í','iste','ió','imos','isteis','ieron'],ir:['í','iste','ió','imos','isteis','ieron']},
+  future:['é','ás','á','emos','éis','án']
+};
+const CLS={present:'pres',past:'past',future:'fut'};
+function conj(v,p,t){
+  const fam=v.slice(-2);
+  if(t==='future') return {stem:v,end:END.future[p]};
+  return {stem:v.slice(0,-2),end:END[t][fam][p]};
+}
+function eng(v,p,t){
+  const e=VERBS[v].en, who=PERS[p].en;
+  if(t==='present') return `${who} <em>${p===2?e[1]:e[0]}</em>`;
+  if(t==='past') return `${who} <em>${e[2]}</em>`;
+  return `${who} <em>will ${e[0]}</em>`;
+}
+const $=s=>document.querySelector(s);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- TIME MACHINE ---------- */
+const TM={
+  bailar:[['Ayer yo bail','é','Yesterday I danc<span class="en-help past">ed</span>.'],['Hoy yo bail','o','Today I dance.'],['Mañana yo bail','aré','Tomorrow I <span class="en-help fut">will</span> dance.']],
+  comer:[['Ayer yo com','í','Yesterday I <span class="en-help past">ate</span>. (English rule-breaker!)'],['Hoy yo com','o','Today I eat.'],['Mañana yo com','eré','Tomorrow I <span class="en-help fut">will</span> eat.']],
+  vivir:[['El año pasado ella viv','ió','Last year she liv<span class="en-help past">ed</span>.'],['Ahora ella viv','e','Now she live<span class="en-help pres">s</span>.'],['El próximo año ella viv','irá','Next year she <span class="en-help fut">will</span> live.']]
+};
+let tmVerb='bailar';
+const tmScenes=['🌙','☀️','🚀'], tmCls=['past','pres','fut'];
+function tmDraw(){
+  const i=+$('#tmRange').value, d=TM[tmVerb][i];
+  $('#tmEs').innerHTML=`${d[0]}<span class="end ${tmCls[i]}">${d[1]}</span>.`;
+  $('#tmEn').innerHTML=d[2];
+  const sc=$('#tmScene'); sc.textContent=tmScenes[i]; sc.classList.remove('bounce'); void sc.offsetWidth; sc.classList.add('bounce');
+}
+Object.keys(TM).forEach(v=>{
+  const b=document.createElement('button'); b.className='pill'+(v===tmVerb?' on':''); b.textContent=VERBS[v].e+' '+v;
+  b.onclick=()=>{tmVerb=v;document.querySelectorAll('#tmVerbs .pill').forEach(x=>x.classList.remove('on'));b.classList.add('on');tmDraw()};
+  $('#tmVerbs').appendChild(b);
+});
+$('#tmRange').addEventListener('input',tmDraw); tmDraw();
+
+/* ---------- ENDING TABLES ---------- */
+function endTable(t,fam,verb){
+  let h='<div class="tbl-wrap"><table><tr><th>Who</th><th>Ending</th><th>Example ('+verb+')</th><th>English</th></tr>';
+  PERS.forEach((p,i)=>{const c=conj(verb,i,t);
+    h+=`<tr><td><b>${p.es}</b></td><td><span class="end ${CLS[t]}">-${c.end}</span></td><td>${c.stem}<span class="end ${CLS[t]}">${c.end}</span></td><td>${eng(verb,i,t).replace(/<\/?em>/g,'')}</td></tr>`});
+  return h+'</table></div>';
+}
+$('#p-ar').innerHTML=endTable('present','ar','hablar');
+$('#p-er').innerHTML=endTable('present','er','comer');
+$('#p-ir').innerHTML=endTable('present','ir','vivir');
+$('#pa-ar').innerHTML=endTable('past','ar','hablar');
+$('#pa-er').innerHTML=endTable('past','er','comer');
+$('#pa-ir').innerHTML=endTable('past','ir','vivir');
+(function(){
+  let h='<tr><th>Who</th><th>Ending</th><th>hablar</th><th>comer</th><th>vivir</th><th>English</th></tr>';
+  PERS.forEach((p,i)=>{h+=`<tr><td><b>${p.es}</b></td><td><span class="end fut">-${END.future[i]}</span></td>`+
+    ['hablar','comer','vivir'].map(v=>`<td>${v}<span class="end fut">${END.future[i]}</span></td>`).join('')+
+    `<td>${p.en} will …</td></tr>`});
+  $('#futTable').innerHTML=h;
+})();
+document.querySelectorAll('.tabs').forEach(tb=>{
+  const col=tb.dataset.color;
+  const paint=()=>tb.querySelectorAll('.tab').forEach(t=>t.style.background=t.classList.contains('on')?col:'#eee');
+  paint();
+  tb.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+    tb.querySelectorAll('.tab').forEach(x=>{x.classList.remove('on');document.getElementById(x.dataset.t).classList.remove('on')});
+    t.classList.add('on');document.getElementById(t.dataset.t).classList.add('on');paint();
+  });
+});
+
+/* ---------- MACHINE ---------- */
+const M={v:'cantar',p:0,t:'present'};
+function pills(el,items,key){
+  items.forEach(([val,label])=>{const b=document.createElement('button');b.className='pill'+(M[key]===val?' on':'');b.innerHTML=label;
+    b.onclick=()=>{M[key]=val;el.querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));b.classList.add('on');mDraw()};el.appendChild(b)});
+}
+pills($('#mVerb'),Object.keys(VERBS).map(v=>[v,VERBS[v].e+' '+v]),'v');
+pills($('#mWho'),PERS.map((p,i)=>[i,p.es]),'p');
+pills($('#mWhen'),[['past','🌙 Past'],['present','☀️ Present'],['future','🚀 Future']],'t');
+function mDraw(){
+  const c=conj(M.v,M.p,M.t), col={present:'var(--pres)',past:'var(--past)',future:'var(--fut)'}[M.t];
+  const fam=M.v.slice(-2).toUpperCase();
+  const note=M.t==='future'?'Future: keep the whole verb <b>'+M.v+'</b>, then add the ending.':'Chop off <b>-'+fam.toLowerCase()+'</b> → stem <b>'+c.stem+'-</b>, then add the '+(M.t==='past'?'past':'present')+' ending.';
+  $('#mOut').innerHTML=`<div class="pieces"><span class="piece">${c.stem}</span><span>+</span><span class="piece tail" style="background:${col}">${c.end}</span><span>=</span><span>${c.stem}${c.end}</span></div>
+  <div class="eng">🇬🇧 ${eng(M.v,M.p,M.t)}</div><div style="opacity:.8;margin-top:8px;font-size:.95rem">${note}</div>`;
+}
+mDraw();
+
+/* ---------- DRAG & DROP ENGINE ---------- */
+function initDnD(root,opts={}){
+  const pool=root.querySelector('.pool'), bins=[...root.querySelectorAll('.bin')];
+  let dragged=null,ghost=null,over=null,ox=0,oy=0;
+  const api={locked:false};
+  function setOver(b){bins.forEach(x=>x.classList.toggle('over',x===b));over=b}
+  function back(c){const x=c.querySelector('.x');if(x)x.remove();c.classList.remove('right','wrong');c.draggable=true;pool.appendChild(c)}
+  function place(c,b){
+    const zone=b.querySelector('.drop')||b;
+    if(opts.single){const ex=zone.querySelector('.chip');if(ex&&ex!==c)back(ex)}
+    c.classList.remove('dragging');
+    if(!c.querySelector('.x')){const x=document.createElement('button');x.className='x';x.type='button';x.textContent='✕';x.setAttribute('aria-label','Send back');
+      x.addEventListener('click',e=>{e.stopPropagation();if(!api.locked)back(c)});
+      x.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});c.appendChild(x)}
+    c.draggable=false; zone.appendChild(c);
+  }
+  function inPool(c){return c.parentElement===pool}
+  function tMove(e){if(!dragged)return;e.preventDefault();const t=e.touches[0];
+    ghost.style.left=(t.clientX-ox)+'px';ghost.style.top=(t.clientY-oy)+'px';
+    const el=document.elementFromPoint(t.clientX,t.clientY);const b=el&&el.closest('.bin');setOver(b&&bins.includes(b)?b:null)}
+  function tEnd(){document.removeEventListener('touchmove',tMove);document.removeEventListener('touchend',tEnd);document.removeEventListener('touchcancel',tEnd);
+    if(ghost)ghost.remove();ghost=null;if(dragged){dragged.classList.remove('dragging');if(over)place(dragged,over)}setOver(null);dragged=null}
+  root.querySelectorAll('.chip').forEach(c=>{
+    c.draggable=true;
+    c.addEventListener('dragstart',e=>{if(api.locked||!inPool(c)){e.preventDefault();return}dragged=c;e.dataTransfer.effectAllowed='move';
+      try{e.dataTransfer.setData('text/plain',c.dataset.id||'x')}catch(_){}setTimeout(()=>c.classList.add('dragging'),0)});
+    c.addEventListener('dragend',()=>{c.classList.remove('dragging');setOver(null);dragged=null});
+    c.addEventListener('touchstart',e=>{if(api.locked||!inPool(c))return;e.preventDefault();dragged=c;const t=e.touches[0],r=c.getBoundingClientRect();
+      ox=t.clientX-r.left;oy=t.clientY-r.top;ghost=c.cloneNode(true);ghost.classList.add('ghost');ghost.style.width=r.width+'px';
+      ghost.style.left=r.left+'px';ghost.style.top=r.top+'px';document.body.appendChild(ghost);c.classList.add('dragging');
+      document.addEventListener('touchmove',tMove,{passive:false});document.addEventListener('touchend',tEnd);document.addEventListener('touchcancel',tEnd)},{passive:false});
+  });
+  bins.forEach(b=>{
+    b.addEventListener('dragover',e=>{if(!dragged)return;e.preventDefault();setOver(b)});
+    b.addEventListener('dragleave',e=>{if(!b.contains(e.relatedTarget))b.classList.remove('over')});
+    b.addEventListener('drop',e=>{e.preventDefault();if(dragged)place(dragged,b);setOver(null)});
+  });
+  api.chips=()=>[...root.querySelectorAll('.chip')];
+  api.poolCount=()=>pool.querySelectorAll('.chip').length;
+  api.binOf=c=>{const b=c.closest('.bin');return b?b.dataset.bin:null};
+  api.lock=()=>{api.locked=true;root.classList.add('locked')};
+  api.reset=()=>{api.locked=false;root.classList.remove('locked');shuffle(api.chips()).forEach(back)};
+  return api;
+}
+function chipsHTML(items){return shuffle(items).map((it,i)=>`<div class="chip" data-id="c${i}" data-ans="${esc(it.ans)}">${it.html}</div>`).join('')}
+
+/* ---------- CLUE GAME ---------- */
+const CLUES=[['ayer','yesterday','past'],['anoche','last night','past'],['la semana pasada','last week','past'],['el año pasado','last year','past'],
+ ['hoy','today','pres'],['ahora','now','pres'],['todos los días','every day','pres'],['siempre','always','pres'],
+ ['mañana','tomorrow','fut'],['el próximo año','next year','fut'],['la semana que viene','next week','fut'],['pronto','soon','fut']];
+const cg=$('#clueGame');
+cg.querySelector('.pool').innerHTML=chipsHTML(CLUES.map(c=>({ans:c[2],html:`${c[0]} <small style="font-weight:600;color:#64748b">(${c[1]})</small>`})));
+const clueDnD=initDnD(cg);
+$('#clueCheck').onclick=()=>{
+  if(clueDnD.poolCount()){$('#clueMsg').textContent=`Place all the clues first (${clueDnD.poolCount()} left)!`;return}
+  let ok=0;clueDnD.chips().forEach(c=>{const r=clueDnD.binOf(c)===c.dataset.ans;c.classList.toggle('right',r);c.classList.toggle('wrong',!r);if(r)ok++});
+  $('#clueMsg').textContent=ok===CLUES.length?'🎉 Perfect detective work! 12/12':`${ok}/12 correct. Tap ✕ on the red ones and try again!`;
+  if(ok===CLUES.length)confetti();
+};
+$('#clueReset').onclick=()=>{clueDnD.reset();$('#clueMsg').textContent=''};
+
+/* ---------- QUIZ DATA ---------- */
+const QUIZ=[
+ {type:'match',label:'Drag to match',prompt:'Match each person to their PRESENT tense ending for -AR verbs (like hablar).',
+  pairs:[['yo','-o'],['tú','-as'],['él / ella','-a'],['nosotros','-amos'],['ellos / ellas','-an']],
+  explain:'Present -AR: yo habl<b>o</b>, tú habl<b>as</b>, ella habl<b>a</b>, nosotros habl<b>amos</b>, ellos habl<b>an</b>.'},
+ {type:'mc',prompt:'Ayer yo ___ con mi abuela. (hablar)',opts:['hablo','hablé','hablaré','habló'],a:1,
+  explain:'<b>Ayer</b> = yesterday → past. For <b>yo</b>, the -AR past ending is <b>-é</b>: hablé = I spoke. (Habló means he/she spoke.)'},
+ {type:'tf',label:'True or False lightning round',prompt:'True or false? Decide for each one.',items:[
+  ['In English we often add a helper word like "will" for the future. Spanish usually changes the verb ending instead.',true],
+  ['"Comí" means "I eat."',false],
+  ['Spanish speakers can often leave out "yo" because the verb ending already shows who it is.',true],
+  ['The future endings are different for -AR, -ER and -IR verbs.',false],
+  ['In the past tense, -ER and -IR verbs use the same endings.',true],
+  ['"Ellos hablarán" describes something that happened yesterday.',false]],
+  explain:'"Comí" = I <b>ate</b> (past). Future endings (é, ás, á, emos, éis, án) are the <b>same</b> for all three families. "Hablarán" = they <b>will</b> speak (future).'},
+ {type:'mc',prompt:'What does "Voy a cantar" mean?',opts:['I sang','I am going to sing','I sing','I went to sing'],a:1,
+  explain:'<b>Voy a</b> + infinitive = "I\'m <b>going to</b>…". It works almost exactly like English!'},
+ {type:'sort',label:'Drag to sort',prompt:'Sort each sentence into the right time zone.',items:[
+  ['Ayer comí arroz.','past'],['Ahora bailo con mi perro.','pres'],['Viviremos en Londres.','fut'],
+  ['Ella cantó en el concierto.','past'],['Tú escribes una carta.','pres'],['Mañana correrán en el parque.','fut']],
+  explain:'Past: com<b>í</b>, cant<b>ó</b>. Present: bail<b>o</b>, escrib<b>es</b>. Future: vivir<b>emos</b>, correr<b>án</b> (whole infinitive + ending).'},
+ {type:'build',prompt:'Build the Spanish for: <b>"They ate."</b>',stems:['com-','comer-','beb-'],ends:['-ieron','-en','-án','-aron'],a:[0,0],
+  explain:'Past tense uses the <b>stem</b> (com-). Comer is an -ER verb, so "they" in the past = <b>-ieron</b> → comieron.'},
+ {type:'mc',prompt:'What does "Ella vivió en Nevis" mean?',opts:['She lives in Nevis','She lived in Nevis','She will live in Nevis','I lived in Nevis'],a:1,
+  explain:'<b>-ió</b> is the past ending for él/ella with -ER/-IR verbs. vivió = she lived.'},
+ {type:'spot',prompt:'Tap the word that is WRONG in this sentence.',words:['Ayer','yo','comeré','una','manzana.'],a:2,
+  explain:'<b>Ayer</b> (yesterday) needs the past tense: <b>comí</b>. "Comeré" means "I will eat", which doesn\'t fit with yesterday!'},
+ {type:'mc',prompt:'Which clue word tells you to use the FUTURE?',opts:['ayer','ahora','el año pasado','el próximo año'],a:3,
+  explain:'<b>El próximo año</b> = next year → future. Ayer and el año pasado → past. Ahora → present.'},
+ {type:'match',label:'Drag to match',prompt:'Match each form of HABLAR to its English meaning.',
+  pairs:[['hablo','I speak'],['hablé','I spoke'],['hablaré','I will speak'],['hablaste','you spoke'],['hablará','he/she will speak']],
+  explain:'-o = I (present), -é = I (past), hablar<b>é</b> = I will, -aste = you (past), hablar<b>á</b> = he/she will.'},
+ {type:'build',prompt:'Build the Spanish for: <b>"We will live."</b>',stems:['viv-','vivir-'],ends:['-imos','-emos','-amos'],a:[1,1],
+  explain:'Future = <b>whole infinitive</b> (vivir-) + <b>-emos</b> for nosotros → viviremos. (Vivimos means "we live" or "we lived".)'},
+ {type:'mc',prompt:'Ahora tú ___ muy bien. (bailar)',opts:['bailas','bailaste','bailarás','bailo'],a:0,
+  explain:'<b>Ahora</b> = now → present. Tú + -AR present = <b>-as</b> → bailas.'},
+ {type:'spot',prompt:'Tap the word that is WRONG in this sentence.',words:['El','año','pasado','ellas','viven','en','Francia.'],a:4,
+  explain:'<b>El año pasado</b> (last year) needs the past tense: viv<b>ieron</b>. "Viven" is present ("they live").'},
+ {type:'mc',prompt:'In the FUTURE tense, the ending is attached to…',opts:['the stem (habl-)','the whole infinitive (hablar)','the pronoun (yo)','the end of the sentence'],a:1,
+  explain:'Future shortcut: keep the <b>whole verb</b>: hablar + é = hablaré.'},
+ {type:'mc',prompt:'Which one means "He spoke"?',opts:['hablo','habló','hablé','hablará'],a:1,
+  explain:'The accent changes everything! hablo = I speak, <b>habló</b> = he spoke, hablé = I spoke, hablará = he will speak.'},
+ {type:'build',prompt:'Build the Spanish for: <b>"You (tú) sang."</b>',stems:['cant-','cantar-'],ends:['-as','-aste','-ás','-aron'],a:[0,1],
+  explain:'Past → stem <b>cant-</b> + tú past ending <b>-aste</b> → cantaste. (Cantarás would be "you will sing".)'},
+ {type:'mc',prompt:'Mañana nosotros ___ pizza. (comer)',opts:['comemos','comimos','comeremos','comerán'],a:2,
+  explain:'<b>Mañana</b> = tomorrow → future. comer + <b>emos</b> = comeremos. (Comerán = they will eat.)'},
+ {type:'spot',prompt:'Tap the word that is WRONG in this sentence.',words:['Mañana','yo','bailé','en','la','fiesta.'],a:2,
+  explain:'<b>Mañana</b> (tomorrow) needs the future: bailar<b>é</b>. "Bailé" (no r!) means "I danced". Look how close they are!'},
+ {type:'mc',prompt:'Brain-buster: "Nosotros hablamos" can mean…',opts:['only "we speak"','only "we spoke"','both "we speak" AND "we spoke"','"we will speak"'],a:2,
+  explain:'For -AR (and -IR) verbs, the nosotros form is the <b>same</b> in the present and the past. Clue words like ayer or hoy tell you which one.'},
+ {type:'mc',prompt:'Rule-breaker! "Ayer fui al cine." What does "fui" mean here?',opts:['I will go','I go','I went','I am going to go'],a:2,
+  explain:'<b>Fui</b> is the irregular past of <b>ir</b> (to go) → I went. Like English go → went, it doesn\'t follow the pattern!'}
+];
+const TOTAL=QUIZ.reduce((s,q)=>s+(q.type==='tf'?q.items.length:q.type==='match'?q.pairs.length:q.type==='sort'?q.items.length:1),0);
+
+/* ---------- QUIZ ENGINE ---------- */
+let qi=0,score=0;
+const LABEL={mc:'Multiple choice',tf:'True / False',match:'Drag to match',sort:'Drag to sort',build:'Word builder',spot:'Spot the mistake'};
+function renderQ(){
+  const q=QUIZ[qi],box=$('#qbox');
+  box.innerHTML=`<div class="qhead"><b>Challenge ${qi+1} of ${QUIZ.length}</b><span class="qtype">${q.label||LABEL[q.type]}</span><b>⭐ ${score} / ${TOTAL}</b></div>
+   <div class="progress"><div style="width:${qi/QUIZ.length*100}%"></div></div>
+   <div class="qprompt">${q.prompt}</div><div id="qbody"></div>
+   <div class="btnrow"><button class="btn" id="qCheck">Check answer</button><button class="btn go" id="qNext" style="display:none">${qi===QUIZ.length-1?'See my score 🏆':'Next ➡'}</button><span class="msg" id="qMsg"></span></div>
+   <div class="fb" id="qFb"></div>`;
+  const body=$('#qbody'),h=BUILD[q.type](q,body);
+  $('#qCheck').onclick=()=>{
+    const r=h.check();
+    if(!r){$('#qMsg').textContent='👆 Finish answering first!';return}
+    $('#qMsg').textContent='';score+=r.got;
+    const fb=$('#qFb'),cls=r.got===r.max?'good':r.got>0?'mid':'bad';
+    const head=r.got===r.max?'🎉 ¡Excelente!':r.got>0?`👍 ${r.got} out of ${r.max}. Nearly there!`:'💪 Not quite, but now you know!';
+    fb.className='fb show '+cls;fb.innerHTML=`<b>${head}</b><br>${q.explain}`;
+    $('#qCheck').style.display='none';$('#qNext').style.display='';
+    box.querySelector('.qhead b:last-child').textContent=`⭐ ${score} / ${TOTAL}`;
+    if(r.got===r.max)miniBurst();
+  };
+  $('#qNext').onclick=()=>{qi++;if(qi<QUIZ.length){renderQ();$('#quiz').scrollIntoView({behavior:'smooth'})}else finalScreen()};
+}
+const BUILD={
+  mc(q,body){
+    let sel=null;const order=shuffle(q.opts.map((o,i)=>i));
+    body.innerHTML=`<div class="opts">${order.map(i=>`<button class="opt" data-i="${i}">${esc(q.opts[i])}</button>`).join('')}</div>`;
+    const btns=[...body.querySelectorAll('.opt')];
+    btns.forEach(b=>b.onclick=()=>{if(body.dataset.done)return;btns.forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=+b.dataset.i});
+    return{check(){if(sel===null)return null;body.dataset.done=1;
+      btns.forEach(b=>{const i=+b.dataset.i;if(i===q.a)b.classList.add('right');else if(i===sel)b.classList.add('wrong')});
+      return{got:sel===q.a?1:0,max:1}}};
+  },
+  tf(q,body){
+    const ans=q.items.map(()=>null);
+    body.innerHTML=q.items.map((it,i)=>`<div class="tfrow" data-i="${i}"><div class="st">${esc(it[0])}</div><div class="tfb"><button data-v="1">✅ True</button><button data-v="0">❌ False</button></div></div>`).join('');
+    body.querySelectorAll('.tfrow').forEach(row=>{const i=+row.dataset.i;row.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(body.dataset.done)return;
+      row.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');ans[i]=b.dataset.v==='1'})});
+    return{check(){if(ans.includes(null))return null;body.dataset.done=1;let got=0;
+      body.querySelectorAll('.tfrow').forEach(row=>{const i=+row.dataset.i,ok=ans[i]===q.items[i][1];row.classList.add(ok?'right':'wrong');if(ok)got++;
+        if(!ok)row.querySelector('.st').innerHTML+=` <b>(Answer: ${q.items[i][1]?'True':'False'})</b>`});
+      return{got,max:q.items.length}}};
+  },
+  match(q,body){
+    body.innerHTML=`<div class="pool">${chipsHTML(q.pairs.map((p,i)=>({ans:'m'+i,html:esc(p[1])})))}</div>
+      <div class="match">${q.pairs.map((p,i)=>`<div class="bin" data-bin="m${i}"><span class="lbl">${esc(p[0])}</span><div class="drop"></div></div>`).join('')}</div>`;
+    const d=initDnD(body,{single:true});
+    return{check(){if(d.poolCount())return null;d.lock();let got=0;
+      d.chips().forEach(c=>{const ok=d.binOf(c)===c.dataset.ans;c.classList.add(ok?'right':'wrong');if(ok)got++});
+      body.querySelectorAll('.match .bin').forEach((b,i)=>{const c=b.querySelector('.chip');if(c&&c.classList.contains('wrong'))
+        b.insertAdjacentHTML('beforeend',`<small style="font-weight:800;color:#16a34a">→ ${esc(q.pairs[i][1])}</small>`)});
+      return{got,max:q.pairs.length}}};
+  },
+  sort(q,body){
+    body.innerHTML=`<div class="pool">${chipsHTML(q.items.map(it=>({ans:it[1],html:esc(it[0])})))}</div>
+      <div class="bins"><div class="bin past" data-bin="past"><h4>🌙 Past</h4><div class="drop"></div></div>
+      <div class="bin pres" data-bin="pres"><h4>☀️ Present</h4><div class="drop"></div></div>
+      <div class="bin fut" data-bin="fut"><h4>🚀 Future</h4><div class="drop"></div></div></div>`;
+    const d=initDnD(body);
+    return{check(){if(d.poolCount())return null;d.lock();let got=0;
+      d.chips().forEach(c=>{const ok=d.binOf(c)===c.dataset.ans;c.classList.add(ok?'right':'wrong');if(ok)got++});
+      return{got,max:q.items.length}}};
+  },
+  build(q,body){
+    let s=null,e=null;
+    body.innerHTML=`<div class="build"><div class="col"><b>① Pick the start</b><div class="opts" id="bs">${q.stems.map((x,i)=>`<button class="opt" data-i="${i}">${x}</button>`).join('')}</div></div>
+      <div class="col"><b>② Pick the ending</b><div class="opts" id="be">${q.ends.map((x,i)=>`<button class="opt" data-i="${i}">${x}</button>`).join('')}</div></div></div>
+      <div class="buildout" id="bo">❔ + ❔</div>`;
+    const draw=()=>{body.querySelector('#bo').innerHTML=`<span style="background:var(--blue)">${s===null?'❔':q.stems[s].replace('-','')}</span>+<span style="background:var(--pink)">${e===null?'❔':q.ends[e].replace('-','')}</span>`+
+      (s!==null&&e!==null?` = ${q.stems[s].replace('-','')}${q.ends[e].replace('-','')}`:'')};
+    const wire=(id,setter)=>{const bs=[...body.querySelectorAll(id+' .opt')];bs.forEach(b=>b.onclick=()=>{if(body.dataset.done)return;bs.forEach(x=>x.classList.remove('sel'));b.classList.add('sel');setter(+b.dataset.i);draw()})};
+    wire('#bs',v=>s=v);wire('#be',v=>e=v);draw();
+    return{check(){if(s===null||e===null)return null;body.dataset.done=1;
+      const mark=(id,pick,right)=>body.querySelectorAll(id+' .opt').forEach(b=>{const i=+b.dataset.i;if(i===right)b.classList.add('right');else if(i===pick)b.classList.add('wrong')});
+      mark('#bs',s,q.a[0]);mark('#be',e,q.a[1]);
+      return{got:(s===q.a[0]&&e===q.a[1])?1:0,max:1}}};
+  },
+  spot(q,body){
+    let sel=null;
+    body.innerHTML=`<div class="spot">${q.words.map((w,i)=>`<button data-i="${i}">${esc(w)}</button>`).join('')}</div>`;
+    const bs=[...body.querySelectorAll('.spot button')];
+    bs.forEach(b=>b.onclick=()=>{if(body.dataset.done)return;bs.forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=+b.dataset.i});
+    return{check(){if(sel===null)return null;body.dataset.done=1;bs.forEach(b=>{const i=+b.dataset.i;if(i===q.a)b.classList.add('right');else if(i===sel)b.classList.add('wrong')});
+      return{got:sel===q.a?1:0,max:1}}};
+  }
+};
+function finalScreen(){
+  const pct=score/TOTAL, stars=pct>=.9?3:pct>=.7?2:pct>=.5?1:0;
+  const msg=pct===1?'PERFECT! You are a Master Time Traveller! 🧙🏽‍♀️':pct>=.9?'¡Fantástico! Almost flawless!':pct>=.7?'¡Muy bien! You really get it. Review the red ones and go again for 3 stars!':pct>=.5?'¡Bien! You\'re getting there. Revisit the Cheat Sheet and the Verb Machine, then try again.':'Keep going! Play with the Verb Machine and the Time Machine, then try again. You\'ve got this!';
+  $('#qbox').innerHTML=`<div class="final"><div class="stars">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+   <div class="score">${score} / ${TOTAL}</div><p style="font-size:1.2rem;font-weight:700">${msg}</p>
+   <div class="btnrow" style="justify-content:center"><button class="btn" id="again">Play again ↺</button><a class="btn ghostbtn" href="#cheat" style="text-decoration:none">📋 Cheat Sheet</a></div></div>`;
+  $('#again').onclick=()=>{qi=0;score=0;renderQ()};
+  if(stars>=2)confetti();
+}
+function confetti(){const em=['🎉','⭐','🌟','🎊','💜','🧡','💚'];for(let i=0;i<40;i++){const s=document.createElement('div');s.className='confetti';s.textContent=em[i%em.length];
+  s.style.left=Math.random()*100+'vw';s.style.animationDuration=(2+Math.random()*2)+'s';s.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),5000)}}
+function miniBurst(){const em=['⭐','✨','🎉'];for(let i=0;i<10;i++){const s=document.createElement('div');s.className='confetti';s.textContent=em[i%3];
+  s.style.left=(30+Math.random()*40)+'vw';s.style.animationDuration=(1.5+Math.random())+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),3000)}}
+renderQ();
+</script>
+</body>
+</html>

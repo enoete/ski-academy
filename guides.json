@@ -73,6 +73,20 @@
           "added": "2026-11-03"
         }
       ]
+    },
+    {
+      "id": "spanish",
+      "name": "Spanish",
+      "emoji": "🇪🇸",
+      "color": "#2277D8",
+      "guides": [
+        {
+          "title": "Spanish Time Travel: Past, Present & Future",
+          "file": "time-travel.html",
+          "blurb": "Learn how verb endings show when and who: a Time Machine, a Verb-Building Machine, a clue-word game and a 20-challenge quiz.",
+          "added": "2026-11-05"
+        }
+      ]
     }
   ]
 }
