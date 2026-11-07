@@ -86,9 +86,9 @@ h3.sec{font-size:1.5rem;margin:30px 0 6px}
 .hive{display:flex;flex-direction:column;align-items:center;margin:16px 0 6px}
 .hrow{display:flex;gap:6px}
 .hrow+.hrow{margin-top:-18px}
-.hrow.off{transform:translateX(calc(var(--hw)/2 + 3px))}
-.hive{--hw:min(17vw,104px)}
-.hex{width:var(--hw);height:calc(var(--hw)*1.12);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);border:0;cursor:pointer;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:clamp(.62rem,2.3vw,.95rem);color:var(--ink);padding:0 6px;text-align:center;line-height:1.05;
+.hrow{transform:translateX(calc(var(--hw)/-4 - 1.5px))}.hrow.off{transform:translateX(calc(var(--hw)/4 + 1.5px))}
+.hive{--hw:min(16vw,104px)}
+.hex{width:var(--hw);height:calc(var(--hw)*1.12);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);border:0;cursor:pointer;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:clamp(.62rem,2.3vw,.95rem);color:var(--ink);padding:0 3px;text-align:center;line-height:1.05;
   background:linear-gradient(to top,var(--honey2) 0 var(--f,0%),var(--comb) var(--f,0%) 100%);transition:transform .15s}
 .hex:hover{transform:scale(1.06)}
 .hex.full{background:var(--honey);color:#2B2238}
@@ -217,6 +217,7 @@ h3.sec{font-size:1.5rem;margin:30px 0 6px}
 footer{color:var(--muted);text-align:center;font-size:.9rem;padding:20px 0 40px}
 
 @media (max-width:720px){body{font-size:16px}.hrow+.hrow{margin-top:-12px}}
+@media (max-width:340px){.hex{font-size:.56rem;letter-spacing:-.02em}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -334,7 +335,7 @@ $("#tabs").onclick=e=>{const b=e.target.closest(".tab");if(b)show(b.dataset.view
 let raceTimer=null;const stopRace=()=>{if(raceTimer){clearInterval(raceTimer);raceTimer=null}};
 function show(id,arg){
   stopRace();
-  $$("main > section").forEach(s=>s.hidden=s.id!=="view-"+id);
+  $$("main > section").forEach(s=>{s.hidden=s.id!=="view-"+id;if(s.hidden)s.innerHTML=""});
   $$(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.view===id?"page":"false"));
   const tab=$(`.tab[data-view="${id}"]`);tab&&tab.scrollIntoView({inline:"center",block:"nearest"});
   ({home:renderHome,lab:renderLab,chunk:()=>runSeq("chunk"),missing:()=>runSeq("missing"),tiles:()=>runSeq("tiles"),bugs:renderBugs,race:renderRace,quiz:renderQuizIntro})[id](arg);
@@ -472,7 +473,7 @@ function renderRace(){
       if(Math.random()<.55){cur={x,ans:x.w};const opts=shuffle([x.w,...shuffle(x.bad).slice(0,3)]);$("#rq").innerHTML=`<p class="bq">Which one is spelled correctly?<span class="hint" style="display:block;font-weight:400">(${x.d})</span></p><div class="opts">${opts.map(o=>`<button class="opt">${o}</button>`).join("")}</div>`}
       else{const good=Math.random()<.5;const shown=good?x.w:pick(x.bad);cur={x,ans:good?"yes":"no"};$("#rq").innerHTML=`<p class="bq">Is this spelled correctly?<span class="target">${shown}</span></p><div class="yn"><button class="opt" data-v="yes">✓ Yes</button><button class="opt" data-v="no">✗ No</button></div>`}};
     $("#rq").onclick=e=>{const b=e.target.closest(".opt");if(!b||!raceTimer)return;const val=b.dataset.v||b.textContent;const ok=val===cur.ans;const rp=$("#rp");rp.classList.remove("flash-ok","flash-no");void rp.offsetWidth;
-      if(ok){streak++;right++;score+=streak>=5?3:streak>=3?2:1;rp.classList.add("flash-ok")}else{streak=0;wrong++;missed.add(cur.x.w);rp.classList.add("flash-no")}
+      bump(cur.x.w,ok);if(ok){streak++;right++;score+=streak>=5?3:streak>=3?2:1;rp.classList.add("flash-ok")}else{streak=0;wrong++;missed.add(cur.x.w);rp.classList.add("flash-no")}
       $("#rs").textContent=streak+(streak>=5?" ×3":streak>=3?" ×2":"");$("#rsc").textContent=score;nextQ()};
     nextQ();
     raceTimer=setInterval(()=>{t--;$("#rt").textContent=t;$("#rbar").style.width=(t/60*100)+"%";if(t<=0){stopRace();const nb=score>best;if(nb)store.set("sp5-race",score);
