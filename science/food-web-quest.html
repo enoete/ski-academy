@@ -1,0 +1,802 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Food Web Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: a quest map — a sticky energy meter, then seven numbered levels (each a mini-game that awards a star), ending in a boss quiz. */
+:root{
+  --bg:#f3f6ff; --surface:#ffffff; --sunk:#eaf0fd; --ink:#182338; --muted:#56607a; --line:#d6def2;
+  --sun:#f5a300; --sunsoft:#fff1c9; --leaf:#1f9d55; --leafsoft:#dcf5e5; --soil:#9a5b34; --soilsoft:#f3e2d4;
+  --berry:#e2366b; --berrysoft:#fde1ea; --sky:#2f6fe0; --skysoft:#dfe9ff; --violet:#7a4bd6; --violetsoft:#ece4fd;
+  --good:#1f8a4c; --bad:#c9334a; --onfill:#ffffff;
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1424; --surface:#172036; --sunk:#111a2e; --ink:#eaf0ff; --muted:#9aa6c4; --line:#2a3656;
+  --sun:#ffc53d; --sunsoft:#3a3014; --leaf:#4fd18a; --leafsoft:#123425; --soil:#d99566; --soilsoft:#3a2618;
+  --berry:#ff6f98; --berrysoft:#3d1424; --sky:#7aa6ff; --skysoft:#16264a; --violet:#b08cff; --violetsoft:#271b45;
+  --good:#5fd394; --bad:#ff7b8c; --onfill:#0e1424; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1424; --surface:#172036; --sunk:#111a2e; --ink:#eaf0ff; --muted:#9aa6c4; --line:#2a3656;
+  --sun:#ffc53d; --sunsoft:#3a3014; --leaf:#4fd18a; --leafsoft:#123425; --soil:#d99566; --soilsoft:#3a2618;
+  --berry:#ff6f98; --berrysoft:#3d1424; --sky:#7aa6ff; --skysoft:#16264a; --violet:#b08cff; --violetsoft:#271b45;
+  --good:#5fd394; --bad:#ff7b8c; --onfill:#0e1424; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:16px;padding-block:0 70px}
+.wrap{max-width:920px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.12;text-wrap:balance;margin:0;font-weight:600}
+h2{font-size:clamp(1.6rem,4.4vw,2.2rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+.muted{color:var(--muted)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,.chip:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.stack{display:grid;gap:14px}
+
+/* energy meter */
+.meter{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;margin-inline:-16px;padding:10px 16px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.meter-in{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.meter-label{font-family:var(--display);font-weight:600;font-size:.95rem;white-space:nowrap}
+.bar{flex:1;height:14px;border-radius:99px;background:var(--sunk);border:1px solid var(--line);overflow:hidden}
+.bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--leaf),var(--sun));transition:width .6s}
+.stars{display:flex;gap:2px;font-size:1.05rem}
+.stars a{text-decoration:none;filter:grayscale(1);opacity:.35;transition:all .3s}
+.stars a.on{filter:none;opacity:1}
+
+/* hero */
+.hero{padding-block:40px 18px}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--sky)}
+.hero h1{font-size:clamp(2.6rem,8vw,4.4rem);margin-top:6px}
+.hero h1 span{color:var(--leaf)}
+.hero .lede{font-size:1.1rem;margin-top:12px;max-width:36em}
+.track{position:relative;margin-top:26px;background:var(--surface);border:1.5px solid var(--line);border-radius:22px;padding:18px 12px 14px;overflow:hidden}
+.track-row{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.track-row div{display:flex;flex-direction:column;align-items:center;font-size:.72rem;color:var(--muted);gap:2px;min-width:0}
+.track-row span{font-size:clamp(1.6rem,6vw,2.4rem);line-height:1}
+.track .rail{position:absolute;left:8%;right:8%;top:42px;height:4px;border-radius:4px;background:repeating-linear-gradient(90deg,var(--sun) 0 10px,transparent 10px 18px)}
+.orb{position:absolute;top:32px;left:6%;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff7cf,var(--sun) 60%);box-shadow:0 0 14px var(--sun)}
+@media (prefers-reduced-motion:no-preference){.orb{animation:ride 6s ease-in-out infinite}}
+@keyframes ride{0%{left:6%;transform:scale(1.2)}85%{left:90%;transform:scale(.55)}100%{left:90%;transform:scale(.4);opacity:0}}
+.track-cap{text-align:center;font-size:.85rem;color:var(--muted);margin-top:8px}
+.objectives{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.obj{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;font-size:.92rem}
+.obj b{font-family:var(--display);color:var(--violet);display:block}
+
+/* level shell */
+section.level{padding-block:46px 6px;scroll-margin-top:70px}
+.lvl-head{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.lvl-num{font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:99px;background:var(--c);color:var(--onfill)}
+.lvl-star{margin-left:auto;font-size:.85rem;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}
+.lvl-star i{font-style:normal;font-size:1.3rem;filter:grayscale(1);opacity:.35;transition:all .4s}
+.lvl-star.on{color:var(--sun)}
+.lvl-star.on i{filter:none;opacity:1;transform:scale(1.15)}
+.intro{max-width:42em;margin-bottom:16px}
+.panel{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:18px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.note{border-radius:14px;padding:12px 14px;background:var(--sunsoft);border:1.5px solid color-mix(in srgb,var(--sun) 45%,var(--line))}
+.note b.t{display:block;font-family:var(--display);font-weight:600}
+.pill{display:inline-block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:2px 9px;border-radius:7px}
+.btn{border:none;background:var(--sky);color:var(--onfill);padding:10px 18px;border-radius:12px;font-weight:700;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--sky);border:2px solid var(--sky)}
+.btn.berry{background:var(--berry)}
+.btn.leaf{background:var(--leaf)}
+.btn:disabled{opacity:.45;cursor:default;transform:none}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.msg{font-weight:700;min-height:1.6em}
+.msg.good{color:var(--good)} .msg.bad{color:var(--bad)}
+
+/* level 1 factory */
+.factory{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;margin-top:14px}
+.factory .out{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.prod{padding:8px 14px;border-radius:12px;background:var(--sunk);border:2px dashed var(--line);font-weight:700;color:var(--muted);transition:all .5s}
+.prod.made{border-style:solid;border-color:var(--leaf);background:var(--leafsoft);color:var(--ink);transform:scale(1.05)}
+.arrowbig{font-size:2rem;color:var(--leaf);font-weight:700}
+.factory .zone{min-height:150px}
+.leafzone h4::before{content:"🍃 "}
+
+/* consumer cast */
+.cast{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.who{border-radius:16px;padding:12px;background:var(--c2);border:2px solid var(--c);text-align:left;display:flex;flex-direction:column;gap:4px}
+.who .e{font-size:1.8rem;line-height:1}
+.who h4{font-size:1.05rem;color:var(--c)}
+.who p{font-size:.85rem}
+
+/* arrow detective */
+.arena{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;margin-top:12px}
+.critter{background:var(--sunk);border:2px solid var(--line);border-radius:18px;padding:16px;text-align:center}
+.critter .e{font-size:3rem;line-height:1}
+.critter b{display:block;font-family:var(--display);font-size:1.15rem;margin-top:4px}
+.dirbtns{display:flex;flex-direction:column;gap:8px}
+.dirbtns button{border:2.5px solid var(--sky);background:var(--surface);border-radius:14px;padding:6px 18px;font-size:1.8rem;line-height:1;color:var(--sky);font-weight:700}
+.dirbtns button.right{border-color:var(--good);background:var(--leafsoft);color:var(--good)}
+.dirbtns button.wrong{border-color:var(--bad);background:var(--berrysoft);color:var(--bad)}
+.streak{display:flex;gap:16px;flex-wrap:wrap;font-weight:700;font-size:.95rem}
+.rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.rule{border-radius:14px;padding:12px;background:var(--skysoft);border:1.5px solid color-mix(in srgb,var(--sky) 35%,var(--line));font-size:.9rem}
+.rule .n{font-family:var(--display);font-weight:700;font-size:1.4rem;color:var(--sky);display:block;line-height:1;margin-bottom:4px}
+
+/* chain reveal */
+.energy-run{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px}
+.energy-run span{padding:6px 10px;border-radius:10px;background:var(--sunk);transition:all .3s;font-weight:700}
+.energy-run span.lit{background:var(--sun);color:#2b1d00;transform:translateY(-3px)}
+.energy-run i{font-style:normal;color:var(--sun);font-weight:700}
+
+/* web explorer */
+.webwrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start}
+.websvg{width:100%;height:auto;display:block;background:var(--sunk);border-radius:16px;border:1.5px solid var(--line)}
+.websvg .node{cursor:pointer;outline:none}
+.websvg .node:focus-visible circle{stroke:var(--sky);stroke-width:4}
+.websvg .node circle{fill:var(--surface);stroke:var(--line);stroke-width:2.5;transition:all .2s}
+.websvg .node text.e{font-size:26px;text-anchor:middle;dominant-baseline:central}
+.websvg .node text.n{font-family:var(--body);font-size:12px;font-weight:700;text-anchor:middle;fill:var(--ink)}
+.websvg .node.sel circle{stroke:var(--sun);stroke-width:4;fill:var(--sunsoft)}
+.websvg .node.food circle{stroke:var(--leaf);stroke-width:4}
+.websvg .node.eater circle{stroke:var(--berry);stroke-width:4}
+.websvg .node.path circle{stroke:var(--sun);stroke-width:4;fill:var(--sunsoft)}
+.websvg .edge{stroke:var(--muted);stroke-width:2;opacity:.45;fill:none;transition:all .2s}
+.websvg .edge{marker-end:url(#wa)}.websvg .edge.in{marker-end:url(#wa-in)}.websvg .edge.out{marker-end:url(#wa-out)}.websvg .edge.path{marker-end:url(#wa-path)}
+.websvg .edge.in{stroke:var(--leaf);opacity:1;stroke-width:3.5}
+.websvg .edge.out{stroke:var(--berry);opacity:1;stroke-width:3.5}
+.websvg .edge.path{stroke:var(--sun);opacity:1;stroke-width:5}
+.modes{display:flex;gap:6px;background:var(--sunk);padding:4px;border-radius:12px;border:1.5px solid var(--line);margin-bottom:10px}
+.modes button{flex:1;border:none;background:transparent;border-radius:9px;padding:7px 8px;font-weight:700;font-size:.9rem;color:var(--muted)}
+.modes button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.info h3{font-size:1.3rem}
+.info .row{margin-top:8px;font-size:.95rem}
+.info .row b{display:inline-block;min-width:72px}
+.paths{display:grid;gap:6px;margin-top:10px}
+.paths div{padding:6px 10px;border-radius:10px;background:var(--sunk);border:1.5px dashed var(--line);font-size:.88rem;color:var(--muted)}
+.paths div.found{border-style:solid;border-color:var(--sun);background:var(--sunsoft);color:var(--ink);font-weight:700}
+
+/* decomposer loop */
+.loop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center}
+.cycle{position:relative;aspect-ratio:1;max-width:340px;width:100%;margin:0 auto}
+.cycle .st{position:absolute;width:44%;text-align:center;font-size:.82rem;font-weight:700;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:8px 6px;transition:all .3s}
+.cycle .st .e{display:block;font-size:1.7rem;line-height:1.1}
+.cycle .st.on{border-color:var(--soil);background:var(--soilsoft);transform:scale(1.06)}
+.cycle .s0{top:0;left:28%}.cycle .s1{top:36%;right:0}.cycle .s2{bottom:0;left:28%}.cycle .s3{top:36%;left:0}
+.cycle .ring{position:absolute;inset:16%;border-radius:50%;border:4px dashed var(--soil);opacity:.5}
+@media (prefers-reduced-motion:no-preference){.cycle .ring{animation:spin 18s linear infinite}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cycle.off .ring{animation:none;border-color:var(--bad)}
+.ground{position:relative;height:150px;border-radius:16px;overflow:hidden;background:linear-gradient(var(--skysoft) 0 55%,var(--soilsoft) 55%);border:1.5px solid var(--line)}
+.ground .plants{position:absolute;left:0;right:0;bottom:45%;display:flex;justify-content:space-around;font-size:2rem;transition:all .6s}
+.ground.off .plants{filter:grayscale(1) brightness(.8);opacity:.6;transform:translateY(8px) scale(.8)}
+.ground .pile{position:absolute;left:0;right:0;bottom:45%;display:flex;flex-wrap:wrap-reverse;justify-content:center;gap:0;font-size:1.3rem;line-height:1;padding-inline:10px}
+.loopsay{margin-top:10px;font-weight:700;min-height:3em}
+
+/* mosquito */
+.case{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
+.case .big{font-size:4rem;line-height:1}
+
+/* choice questions */
+.q{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:18px}
+.q + .q{margin-top:12px}
+.q-stem{font-weight:700;margin-bottom:12px;display:flex;gap:10px}
+.qn{font-family:var(--display);color:var(--berry);flex:none}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 14px;transition:border-color .15s,background .15s;font-size:.96rem}
+.opt:hover:not(:disabled){border-color:var(--sky)}
+.opt.sel{border-color:var(--sky);background:var(--skysoft);font-weight:700}
+.opt.right{border-color:var(--good);background:var(--leafsoft)}
+.opt.wrong{border-color:var(--bad);background:var(--berrysoft);text-decoration:line-through}
+.opt:disabled{cursor:default;color:var(--ink)}
+.opts.tf{grid-template-columns:1fr 1fr}
+.opts.tf .opt{text-align:center;font-weight:700}
+.tfrow{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:14px;align-items:center}
+.tfrow + .tfrow{border-top:1px dashed var(--line);padding-top:12px;margin-top:12px}
+.fb{display:none;margin-top:10px;font-size:.92rem;padding:10px 12px;border-radius:10px}
+.fb.show{display:block}
+.fb.good{background:var(--leafsoft);border-left:4px solid var(--good)}
+.fb.bad{background:var(--berrysoft);border-left:4px solid var(--bad)}
+.tfrow .fb{grid-column:1/-1;margin-top:0}
+
+/* drag and drop */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:58px;padding:12px;border-radius:14px;border:2px dashed var(--line);background:var(--sunk);margin-bottom:12px}
+.pool:empty::after{content:"All placed! Press check.";color:var(--muted);font-size:.88rem;align-self:center}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:12px;background:var(--surface);border:2px solid var(--sky);font-size:.92rem;font-weight:700;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;max-width:100%}
+.chip.dragging{opacity:.4}
+.chip.ghost{position:fixed;z-index:999;pointer-events:none;opacity:.94;box-shadow:0 10px 30px rgba(0,0,0,.25);transform:rotate(-2deg)}
+.chip .x{border:none;background:var(--berrysoft);color:var(--bad);width:22px;height:22px;border-radius:50%;font-size:.7rem;display:grid;place-items:center;padding:0;flex:none}
+.chip.locked{cursor:default}
+.chip.right{border-color:var(--good);background:var(--leafsoft)}
+.chip.wrong{border-color:var(--bad);background:var(--berrysoft)}
+.chip .fix{font-size:.74rem;color:var(--bad);font-weight:700}
+.bins{display:grid;gap:12px}
+.zone{border:2px solid var(--line);border-radius:16px;padding:12px;background:var(--surface);transition:all .15s;min-width:0}
+.zone.over{border-color:var(--sun);background:var(--sunsoft);transform:scale(1.01)}
+.zone h4{margin:0 0 8px;font-size:1.05rem}
+.zone .zb{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;align-content:flex-start}
+.matchrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:10px;align-items:center}
+.matchrow + .matchrow{margin-top:10px}
+.matchrow .sc{font-size:.94rem}
+.matchrow .zone,.ordrow .zone{padding:6px;border-style:dashed}
+.ordrow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center}
+.ordrow + .ordrow{margin-top:8px}
+.slotn{font-family:var(--display);font-weight:700;font-size:1.3rem;color:var(--sun);width:30px;text-align:center}
+.ordrow .chip{width:100%}
+.ordrow .zone .zb{min-height:44px}
+
+/* boss quiz */
+.qsec{margin-top:26px}
+.qsec-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.qsec-head h3{color:var(--violet)}
+.qsec .how{font-size:.92rem;color:var(--muted);margin-bottom:12px}
+.result{font-weight:700;font-family:var(--display);font-size:1.1rem}
+.warn{color:var(--soil);font-size:.88rem;font-weight:700}
+.board{position:relative;overflow:hidden;background:var(--violet);color:#fff;border-radius:24px;padding:24px;margin-top:30px}
+.board h3{font-size:1.5rem}
+.board .total{font-family:var(--display);font-weight:700;font-size:3rem;line-height:1}
+.board .rows{display:grid;gap:6px;margin-top:14px;font-size:.9rem}
+.board .row{display:grid;grid-template-columns:minmax(0,1fr) 60px;gap:10px;align-items:center}
+.board .bb{height:8px;border-radius:9px;background:rgba(255,255,255,.25);overflow:hidden;margin-top:3px}
+.board .bb b{display:block;height:100%;background:#ffd34d;transition:width .6s}
+.board .btn{background:#fff;color:#4a2a99}
+.confetti{position:absolute;inset:0;pointer-events:none}
+
+@media (max-width:760px){
+  .cast{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .webwrap,.loop,.grid2{grid-template-columns:1fr}
+  .grid3{grid-template-columns:1fr}
+  .objectives{grid-template-columns:1fr}
+  .factory{grid-template-columns:1fr}
+  .factory .arrowbig{transform:rotate(90deg);justify-self:center}
+  .matchrow{grid-template-columns:1fr}
+  .tfrow{grid-template-columns:1fr}
+}
+@media (max-width:440px){.cast{grid-template-columns:1fr}.arena{grid-template-columns:1fr}.dirbtns{flex-direction:row;justify-content:center}}
+</style>
+
+<div class="meter"><div class="meter-in">
+  <span class="meter-label">⚡ Energy</span>
+  <div class="bar"><b id="meterBar"></b></div>
+  <div class="stars" id="meterStars"></div>
+</div></div>
+
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">Science · Food webs · Adiaha's quest</div>
+  <h1>Food Web <span>Quest</span></h1>
+  <p class="lede">You are a ray of sunshine energy. Your job is to travel from the sun to the very top of the food web. Beat each level to earn a star and fill your energy meter. Then face the boss quiz.</p>
+  <div class="track" aria-hidden="true">
+    <div class="rail"></div><div class="orb"></div>
+    <div class="track-row"><div><span>☀️</span>sun</div><div><span>🌿</span>grass</div><div><span>🦗</span>grasshopper</div><div><span>🐸</span>frog</div><div><span>🐍</span>snake</div><div><span>🦅</span>hawk</div></div>
+  </div>
+  <p class="track-cap">Watch the energy ride the food chain. It gets smaller at every step, because each living thing uses some up.</p>
+  <div class="objectives">
+    <div class="obj"><b>Goal 1</b>Identify producers, consumers and decomposers.</div>
+    <div class="obj"><b>Goal 2</b>Explain what food web arrows show, and trace feeding paths accurately.</div>
+  </div>
+</header>
+
+<!-- L1 -->
+<section class="level" id="l1" style="--c:var(--leaf)">
+  <div class="lvl-head"><span class="lvl-num">Level 1</span><h2>Earth's food factories</h2><span class="lvl-star" data-star="0"><i>⭐</i>star</span></div>
+  <p class="intro"><b>Producers</b> make their own food using sunlight. Plants, algae and certain bacteria are producers. They are also called <b>autotrophs</b>, which means "self-feeders". They don't hunt or shop for food. They make it! This happens through <b>photosynthesis</b>: green leaves use <b>sunlight</b>, <b>air</b> and <b>water</b> to make <b>glucose</b> (a sugar that is food for the plant).</p>
+  <div class="panel">
+    <h3>Run the leaf factory</h3>
+    <p class="muted" style="margin-top:4px;font-size:.92rem">Drag what a leaf really needs into the factory. Leave the rest outside.</p>
+    <div id="factory" style="margin-top:12px"></div>
+    <div class="btnrow"><button class="btn leaf" id="factoryBtn" type="button">Switch on the factory</button><span class="msg" id="factoryMsg"></span></div>
+  </div>
+  <div class="note" style="margin-top:14px"><b class="t">Remember</b>Every food chain starts with a producer catching light energy. No sun means no producers, and no producers means no food for anyone.</div>
+</section>
+
+<!-- L2 -->
+<section class="level" id="l2" style="--c:var(--berry)">
+  <div class="lvl-head"><span class="lvl-num">Level 2</span><h2>Meet the cast</h2><span class="lvl-star" data-star="1"><i>⭐</i>star</span></div>
+  <p class="intro">A <b>consumer</b> gets energy by eating other living things. Consumers come in three kinds, depending on their menu. Add producers and decomposers and you have the whole cast of every food web.</p>
+  <div class="cast">
+    <div class="who" style="--c:var(--leaf);--c2:var(--leafsoft)"><span class="e">🌱</span><h4>Producer</h4><p>Makes its own food from sunlight.</p><p class="muted">grass, trees, algae</p></div>
+    <div class="who" style="--c:var(--sky);--c2:var(--skysoft)"><span class="e">🐄</span><h4>Herbivore</h4><p>Eats only plants. Herbivores are <b>primary consumers</b>.</p><p class="muted">grasshopper, cow, caterpillar</p></div>
+    <div class="who" style="--c:var(--berry);--c2:var(--berrysoft)"><span class="e">🦅</span><h4>Carnivore</h4><p>Eats only other animals.</p><p class="muted">hawk, snake, frog</p></div>
+    <div class="who" style="--c:var(--violet);--c2:var(--violetsoft)"><span class="e">🐷</span><h4>Omnivore</h4><p>Eats plants <b>and</b> animals.</p><p class="muted">humans, pigs, crows</p></div>
+    <div class="who" style="--c:var(--soil);--c2:var(--soilsoft)"><span class="e">🍄</span><h4>Decomposer</h4><p>Breaks down dead plant and animal matter.</p><p class="muted">fungi, bacteria, earthworms</p></div>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <h3>Casting call</h3>
+    <p class="muted" style="margin-top:4px;font-size:.92rem">Drag every living thing to its role.</p>
+    <div id="castSort" style="margin-top:12px"></div>
+    <div class="btnrow"><button class="btn berry" id="castBtn" type="button">Check the cast</button><span class="msg" id="castMsg"></span></div>
+  </div>
+</section>
+
+<!-- L3 -->
+<section class="level" id="l3" style="--c:var(--sky)">
+  <div class="lvl-head"><span class="lvl-num">Level 3</span><h2>Arrow detective</h2><span class="lvl-star" data-star="2"><i>⭐</i>star</span></div>
+  <p class="intro">The arrows are the most important part of any food chain or web, and the easiest marks to lose. Learn the four arrow rules from class.</p>
+  <div class="rules">
+    <div class="rule"><span class="n">1</span>An arrow means <b>"is eaten by"</b>. Grass → rabbit means grass is eaten by the rabbit.</div>
+    <div class="rule"><span class="n">2</span>The arrowhead points to the animal <b>receiving the energy</b>.</div>
+    <div class="rule"><span class="n">3</span>Arrows show how food energy <b>moves along the chain</b>.</div>
+    <div class="rule"><span class="n">4</span>Energy <b>never travels backward</b>. It only flows one way.</div>
+  </div>
+  <div class="note" style="margin-top:12px;background:var(--berrysoft);border-color:color-mix(in srgb,var(--berry) 40%,var(--line))"><b class="t" style="color:var(--berry)">Never point the arrow at what is being eaten!</b>The arrow always points to the hungry feeder that receives the energy.</div>
+  <div class="panel" style="margin-top:14px">
+    <h3>Which way does the energy go?</h3>
+    <p class="muted" style="margin-top:4px;font-size:.92rem">Tap the arrow that is drawn correctly. Get 8 in a row to earn the star.</p>
+    <div class="arena">
+      <div class="critter" id="cA"><span class="e"></span><b></b></div>
+      <div class="dirbtns"><button type="button" id="dR" aria-label="Arrow pointing right">→</button><button type="button" id="dL" aria-label="Arrow pointing left">←</button></div>
+      <div class="critter" id="cB"><span class="e"></span><b></b></div>
+    </div>
+    <p class="msg" id="arrowMsg" style="margin-top:10px"></p>
+    <div class="streak"><span>Streak: <span id="streak">0</span> / 8</span><span>Best: <span id="best">0</span></span></div>
+  </div>
+</section>
+
+<!-- L4 -->
+<section class="level" id="l4" style="--c:var(--sun)">
+  <div class="lvl-head"><span class="lvl-num" style="color:#2b1d00">Level 4</span><h2>Build the food chain</h2><span class="lvl-star" data-star="3"><i>⭐</i>star</span></div>
+  <p class="intro">A <b>food chain</b> shows a single, direct path of energy. The <b>energy flow</b> is the one-way transfer of energy through the feeding stages, from the sun all the way to the top. Put this typical food chain in order, step by step.</p>
+  <div class="panel">
+    <div id="chainOrder"></div>
+    <div class="btnrow"><button class="btn" id="chainBtn" type="button" style="background:var(--sun);color:#2b1d00">Send the energy</button><button class="btn ghost" id="chainReset" type="button">Shuffle again</button><span class="msg" id="chainMsg"></span></div>
+    <div class="energy-run" id="energyRun" hidden></div>
+  </div>
+</section>
+
+<!-- L5 -->
+<section class="level" id="l5" style="--c:var(--violet)">
+  <div class="lvl-head"><span class="lvl-num">Level 5</span><h2>Chain vs web</h2><span class="lvl-star" data-star="4"><i>⭐</i>star</span></div>
+  <p class="intro">A <b>single food chain</b> is one path: grass → caterpillar → blue tit → hawk. A <b>food web</b> connects many overlapping food chains, like a real, resilient community. Most animals have <b>varied diets</b>: they eat more than one kind of organism, which gives them backup food options.</p>
+  <div class="webwrap">
+    <svg class="websvg" id="web" viewBox="0 0 560 492" role="img" aria-label="Interactive food web"></svg>
+    <div class="panel info">
+      <div class="modes" role="tablist"><button type="button" class="on" id="mExplore">Explore</button><button type="button" id="mTrace">Trace paths</button></div>
+      <div id="infoExplore">
+        <h3 id="iName">Tap any living thing</h3>
+        <p class="muted" id="iRole" style="font-size:.92rem">See what it eats and who eats it.</p>
+        <div class="row" id="iEats"></div>
+        <div class="row" id="iEaten"></div>
+        <p class="row" id="iBackup" style="font-weight:700"></p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;margin-top:10px"><span><b style="color:var(--leaf)">green</b> = its food</span><span><b style="color:var(--berry)">pink</b> = eats it</span></div>
+      </div>
+      <div id="infoTrace" hidden>
+        <h3>Find all 4 paths</h3>
+        <p class="muted" style="font-size:.92rem">Start at the grass. Tap your way up, one eater at a time, until you reach the hawk.</p>
+        <p class="msg" id="traceMsg" style="margin-top:8px"></p>
+        <div class="paths" id="paths"></div>
+        <div class="btnrow"><button class="btn ghost" id="traceReset" type="button">Start a new path</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L6 -->
+<section class="level" id="l6" style="--c:var(--soil)">
+  <div class="lvl-head"><span class="lvl-num">Level 6</span><h2>Closing the loop</h2><span class="lvl-star" data-star="5"><i>⭐</i>star</span></div>
+  <p class="intro">What happens when plants shed leaves or animals die? <b>Decomposers</b> like fungi, bacteria and earthworms break down dead plants and animals. They return <b>nutrients</b> (the things living things need to grow) to the soil. These returned nutrients enrich the soil, so producers can sprout and grow once again.</p>
+  <div class="loop">
+    <div>
+      <div class="cycle" id="cycle">
+        <div class="ring"></div>
+        <div class="st s0"><span class="e">🌳</span>Producers grow</div>
+        <div class="st s1"><span class="e">🍂</span>Leaves fall, animals die</div>
+        <div class="st s2"><span class="e">🍄</span>Decomposers break it down</div>
+        <div class="st s3"><span class="e">🟫</span>Nutrients enrich the soil</div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>The experiment</h3>
+      <p class="muted" style="font-size:.92rem;margin-top:4px">What would Earth be like without decomposers? Switch them off and watch.</p>
+      <div class="ground" id="ground" style="margin-top:12px"><div class="pile" id="pile"></div><div class="plants">🌿🌻🌿🌳🌿</div></div>
+      <p class="loopsay" id="loopSay">The loop is working. Dead matter is broken down and the plants are healthy.</p>
+      <div class="btnrow"><button class="btn berry" id="decoBtn" type="button">Switch off decomposers</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- L7 -->
+<section class="level" id="l7" style="--c:var(--berry)">
+  <div class="lvl-head"><span class="lvl-num">Level 7</span><h2>The mosquito case file</h2><span class="lvl-star" data-star="6"><i>⭐</i>star</span></div>
+  <div class="panel case">
+    <span class="big" aria-hidden="true">🦟</span>
+    <p>Everyone wants mosquitoes gone. But scientists say they have <b>ecological roles</b> too. Mosquitoes help the environment as <b>pollinators</b>, as a <b>food source for wildlife</b>, and by helping with <b>nutrient recycling</b>. Their larvae live in water, where they filter the water and eat decaying algae and bacteria. Larvae and adults are food for fish, tadpoles and turtles. <b>But</b> mosquitoes also carry dangerous viruses, parasites and other pathogens, which they pass to humans and animals through their saliva when they bite.</p>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <h3>Helpful or harmful?</h3>
+    <p class="muted" style="margin-top:4px;font-size:.92rem">Sort the evidence.</p>
+    <div id="mozSort" style="margin-top:12px"></div>
+    <div class="btnrow"><button class="btn berry" id="mozBtn" type="button">Close the case</button><span class="msg" id="mozMsg"></span></div>
+  </div>
+</section>
+
+<!-- BOSS -->
+<section class="level" id="boss" style="--c:var(--violet)">
+  <div class="lvl-head"><span class="lvl-num">Boss level</span><h2>The Food Web Boss Quiz</h2></div>
+  <p class="intro">Seven rounds of challenges. Finish a round, press <b>Check</b>, and read the feedback. Your scoreboard is at the bottom.</p>
+  <div id="quizBody"></div>
+  <div class="board">
+    <canvas class="confetti" id="confetti"></canvas>
+    <div style="position:relative">
+      <div class="eyebrow" style="color:#fff;opacity:.85">Scoreboard</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap">
+        <h3 id="boardMsg">Check each round to fill your scoreboard</h3>
+        <div class="total" id="total">0%</div>
+      </div>
+      <div class="rows" id="rows"></div>
+      <div class="btnrow"><button class="btn" id="retake" type="button">Retake with shuffled questions</button></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const h=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const praise=["Nailed it!","Correct!","Brilliant!","Spot on!","Yes!","Energy flowing!"];
+
+/* ---------- stars ---------- */
+const LV=["l1","l2","l3","l4","l5","l6","l7"];
+let stars=new Set();
+try{ (JSON.parse(localStorage.getItem('fwq-stars')||'[]')).forEach(i=>stars.add(i)); }catch(_){}
+function drawStars(){
+  $('#meterStars').innerHTML=LV.map((id,i)=>`<a href="#${id}" class="${stars.has(i)?'on':''}" aria-label="Level ${i+1}${stars.has(i)?' complete':''}">⭐</a>`).join('');
+  $('#meterBar').style.width=(stars.size/LV.length*100)+'%';
+  document.querySelectorAll('.lvl-star').forEach(s=>s.classList.toggle('on',stars.has(+s.dataset.star)));
+  document.querySelectorAll('.lvl-star').forEach(s=>s.lastChild.textContent=stars.has(+s.dataset.star)?'earned!':'star');
+}
+function award(i){ if(stars.has(i)) return; stars.add(i); try{localStorage.setItem('fwq-stars',JSON.stringify([...stars]));}catch(_){} drawStars(); }
+drawStars();
+
+/* ---------- drag & drop engine ---------- */
+const DnD=(()=>{
+  let drag=null,ghost=null,offX=0,offY=0,over=null;
+  const pool=c=>document.getElementById(c.dataset.pool);
+  function addX(c){ if(c.querySelector('.x'))return; const x=h('button','x','✕'); x.type='button'; x.setAttribute('aria-label','Send back'); x.addEventListener('click',e=>{e.stopPropagation();back(c);}); x.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true}); c.appendChild(x); }
+  function back(c){ if(c.classList.contains('locked'))return; c.querySelector('.x')?.remove(); pool(c).appendChild(c); }
+  function place(c,z){ const b=z.querySelector('.zb'); const cap=+z.dataset.cap||Infinity; if(b.contains(c))return; const ins=b.querySelectorAll('.chip'); if(ins.length>=cap) back(ins[0]); b.appendChild(c); addX(c); }
+  function setOver(z){ if(over&&over!==z) over.classList.remove('over'); over=z; z&&z.classList.add('over'); }
+  function chip(c){
+    c.draggable=true;
+    c.addEventListener('dragstart',e=>{ if(c.classList.contains('locked')){e.preventDefault();return;} drag=c; e.dataTransfer.effectAllowed='move'; try{e.dataTransfer.setData('text/plain','x');}catch(_){} setTimeout(()=>c.classList.add('dragging'),0); });
+    c.addEventListener('dragend',()=>{ c.classList.remove('dragging'); drag=null; setOver(null); });
+    c.addEventListener('touchstart',e=>{
+      if(c.classList.contains('locked')||e.target.closest('.x'))return;
+      const t=e.touches[0],r=c.getBoundingClientRect(); drag=c; offX=t.clientX-r.left; offY=t.clientY-r.top;
+      ghost=c.cloneNode(true); ghost.classList.add('ghost'); ghost.querySelector('.x')?.remove(); ghost.style.width=r.width+'px';
+      ghost.style.left=(t.clientX-offX)+'px'; ghost.style.top=(t.clientY-offY)+'px'; document.body.appendChild(ghost); c.classList.add('dragging');
+    },{passive:true});
+    c.addEventListener('touchmove',e=>{ if(!ghost)return; e.preventDefault(); const t=e.touches[0]; ghost.style.left=(t.clientX-offX)+'px'; ghost.style.top=(t.clientY-offY)+'px'; const z=document.elementFromPoint(t.clientX,t.clientY)?.closest('.zone'); setOver(z&&z.dataset.group===drag.dataset.group?z:null); },{passive:false});
+    const end=()=>{ if(!ghost)return; ghost.remove(); ghost=null; drag.classList.remove('dragging'); if(over) place(drag,over); setOver(null); drag=null; };
+    c.addEventListener('touchend',end); c.addEventListener('touchcancel',end);
+  }
+  function zone(z){
+    z.addEventListener('dragover',e=>{ if(!drag||drag.dataset.group!==z.dataset.group)return; e.preventDefault(); setOver(z); });
+    z.addEventListener('dragleave',e=>{ if(!z.contains(e.relatedTarget)) z.classList.remove('over'); });
+    z.addEventListener('drop',e=>{ e.preventDefault(); if(drag&&drag.dataset.group===z.dataset.group) place(drag,z); setOver(null); });
+  }
+  return {chip,zone};
+})();
+let gid=0;
+function makeChip(t,k,pid,g){ const c=h('div','chip',`<span>${t}</span>`); c.dataset.key=k; c.dataset.pool=pid; c.dataset.group=g; c.tabIndex=0; DnD.chip(c); return c; }
+function makeZone(g,cap,k,title,cls){ const z=h('div','zone'+(cls?' '+cls:'')); z.dataset.group=g; z.dataset.cap=cap; z.dataset.key=k; if(title) z.appendChild(h('h4',null,title)); z.appendChild(h('div','zb')); DnD.zone(z); return z; }
+function lock(root){ root.querySelectorAll('.chip').forEach(c=>{c.classList.add('locked');c.draggable=false;c.querySelector('.x')?.remove();}); }
+
+function sortActivity(el,bins,items,{minw=170,layout}={}){
+  const g='g'+(++gid),pid=g+'-pool'; el.innerHTML='';
+  const pool=h('div','pool'); pool.id=pid; el.appendChild(pool);
+  shuffle(items).forEach(([t,b])=>pool.appendChild(makeChip(t,b,pid,g)));
+  const wrap=h('div','bins'); wrap.style.gridTemplateColumns=`repeat(auto-fit,minmax(${minw}px,1fr))`;
+  bins.forEach((b,i)=>wrap.appendChild(makeZone(g,0,i,b))); el.appendChild(wrap);
+  return {answered:()=>!pool.querySelector('.chip'),grade(){
+    let s=0; el.querySelectorAll('.chip').forEach(c=>{ const z=c.closest('.zone'); if(z&&z.dataset.key===c.dataset.key){c.classList.add('right');s++;} else {c.classList.add('wrong'); c.insertAdjacentHTML('beforeend',`<span class="fix">→ ${bins[c.dataset.key].replace(/<[^>]+>/g,'')}</span>`);} });
+    lock(el); return {score:s,max:items.length}; }};
+}
+function matchActivity(el,pairs){
+  const g='g'+(++gid),pid=g+'-pool';
+  const pool=h('div','pool'); pool.id=pid; el.appendChild(pool);
+  shuffle(pairs.map((p,i)=>[p[0],i])).forEach(([t,i])=>pool.appendChild(makeChip(t,i,pid,g)));
+  shuffle(pairs.map((p,i)=>[p[1],i])).forEach(([sc,i])=>{ const r=h('div','matchrow'); r.appendChild(h('div','sc',sc)); r.appendChild(makeZone(g,1,i)); el.appendChild(r); });
+  return {answered:()=>!pool.querySelector('.chip'),grade(){
+    let s=0; el.querySelectorAll('.zone').forEach(z=>{ const c=z.querySelector('.chip'); if(c&&c.dataset.key===z.dataset.key){c.classList.add('right');s++;} else { if(c)c.classList.add('wrong'); z.insertAdjacentHTML('beforeend',`<span class="fix" style="color:var(--bad);font-size:.78rem;font-weight:700">Answer: ${pairs[z.dataset.key][0]}</span>`);} });
+    lock(el); return {score:s,max:pairs.length}; }};
+}
+function orderActivity(el,steps){
+  const g='g'+(++gid),pid=g+'-pool'; el.innerHTML='';
+  const pool=h('div','pool'); pool.id=pid; el.appendChild(pool);
+  shuffle(steps.map((t,i)=>[t,i])).forEach(([t,i])=>pool.appendChild(makeChip(t,i,pid,g)));
+  steps.forEach((_,i)=>{ const r=h('div','ordrow'); r.appendChild(h('div','slotn',i+1)); r.appendChild(makeZone(g,1,i)); el.appendChild(r); });
+  return {answered:()=>!pool.querySelector('.chip'),grade(){
+    let s=0; el.querySelectorAll('.ordrow .zone').forEach(z=>{ const c=z.querySelector('.chip'); if(c&&c.dataset.key===z.dataset.key){c.classList.add('right');s++;} else if(c){c.classList.add('wrong'); c.insertAdjacentHTML('beforeend',`<span class="fix">→ step ${+c.dataset.key+1}</span>`);} });
+    lock(el); return {score:s,max:steps.length}; }};
+}
+function choice(container,opts,answer,why,{multi=false,cls=''}={}){
+  const box=h('div','opts '+cls); const sel=new Set();
+  const order=cls==='tf'?opts.map((t,j)=>({t,j})):shuffle(opts.map((t,j)=>({t,j})));
+  const btns=order.map(o=>{ const b=h('button','opt',o.t); b.type='button'; b.dataset.j=o.j;
+    b.onclick=()=>{ if(multi){sel.has(o.j)?sel.delete(o.j):sel.add(o.j); b.classList.toggle('sel');} else {sel.clear(); sel.add(o.j); btns.forEach(x=>x.classList.remove('sel')); b.classList.add('sel');} };
+    box.appendChild(b); return b; });
+  const fb=h('div','fb'); container.append(box,fb);
+  const ans=multi?new Set(answer):new Set([answer]);
+  return {answered:()=>sel.size>0,grade(){
+    btns.forEach(b=>{const j=+b.dataset.j; b.disabled=true; if(ans.has(j))b.classList.add('right'); else if(sel.has(j))b.classList.add('wrong');});
+    let score,max; if(multi){let hit=0,miss=0; sel.forEach(j=>ans.has(j)?hit++:miss++); max=ans.size; score=Math.max(0,hit-miss);} else {max=1; score=sel.has(answer)?1:0;}
+    const ok=score===max; fb.className='fb show '+(ok?'good':'bad');
+    fb.innerHTML=`<b>${ok?pick(praise):(multi&&score>0?`Partly right (${score}/${max}).`:'Not quite.')}</b> ${why}`;
+    return {score,max}; }};
+}
+
+/* ---------- L1 factory ---------- */
+let fact;
+function buildFactory(){
+  const el=$('#factory'); el.innerHTML='';
+  const g='g'+(++gid),pid=g+'-pool';
+  const pool=h('div','pool'); pool.id=pid; el.appendChild(pool);
+  const items=[["☀️ Sunlight",1],["💧 Water",1],["💨 Air (carbon dioxide)",1],["🍕 Pizza",0],["🐛 Bugs to eat",0],["🛒 A trip to the shop",0],["🍬 Candy",0]];
+  shuffle(items).forEach(([t,k])=>pool.appendChild(makeChip(t,k,pid,g)));
+  const row=h('div','factory');
+  const z=makeZone(g,0,1,'Leaf factory','leafzone');
+  const out=h('div','out','<span class="pill" style="background:var(--leafsoft);color:var(--leaf)">Factory makes</span><div class="prod" id="pGlu">? food</div><div class="prod" id="pOxy">? bonus gas</div>');
+  row.append(z,h('div','arrowbig','→'),out); el.appendChild(row);
+  const no=makeZone(g,0,0,'🚫 Plants don\'t need this'); no.style.marginTop='12px'; el.appendChild(no);
+  fact={el,items};
+}
+buildFactory();
+$('#factoryBtn').onclick=()=>{
+  const btn=$('#factoryBtn');
+  if(btn.dataset.done){ buildFactory(); btn.textContent='Switch on the factory'; delete btn.dataset.done; $('#factoryMsg').textContent=''; $('#factoryMsg').className='msg'; return; }
+  const inLeaf=[...fact.el.querySelectorAll('.leafzone .chip')].map(c=>c.dataset.key);
+  const inPool=fact.el.querySelector('.pool .chip');
+  const wrong=[...fact.el.querySelectorAll('.zone .chip')].filter(c=>c.closest('.zone').dataset.key!==c.dataset.key);
+  const m=$('#factoryMsg');
+  if(inPool){ m.className='msg bad'; m.textContent='Place every card first.'; return; }
+  fact.el.querySelectorAll('.zone .chip').forEach(c=>c.classList.add(c.closest('.zone').dataset.key===c.dataset.key?'right':'wrong'));
+  lock(fact.el);
+  if(!wrong.length){
+    $('#pGlu').textContent='🍬 Glucose (plant food)'; $('#pGlu').classList.add('made');
+    setTimeout(()=>{ $('#pOxy').textContent='🫧 Oxygen (we breathe it!)'; $('#pOxy').classList.add('made'); },500);
+    m.className='msg good'; m.textContent='Photosynthesis! Sunlight + water + air = glucose.'; award(0);
+  } else { m.className='msg bad'; m.textContent=`${wrong.length} card(s) in the wrong place. Plants make their own food; they never eat it.`; }
+  btn.textContent='Try again'; btn.dataset.done=1;
+};
+
+/* ---------- L2 cast sort ---------- */
+const CAST_BINS=['🌱 Producer','🐄 Herbivore','🦅 Carnivore','🐷 Omnivore','🍄 Decomposer'];
+const CAST=[["🌾 Grass",0],["🟢 Algae",0],["🌳 Mango tree",0],["🦗 Grasshopper",1],["🐄 Cow",1],["🐛 Caterpillar",1],["🦅 Hawk",2],["🐍 Snake",2],["🐸 Frog",2],["🧒 Human",3],["🐖 Pig",3],["🐦‍⬛ Crow",3],["🍄 Mushroom",4],["🪱 Earthworm",4],["🦠 Bacteria",4]];
+let castAct; function buildCast(){ castAct=sortActivity($('#castSort'),CAST_BINS,CAST,{minw:150}); } buildCast();
+$('#castBtn').onclick=()=>{ const b=$('#castBtn'),m=$('#castMsg');
+  if(b.dataset.done){ buildCast(); b.textContent='Check the cast'; delete b.dataset.done; m.textContent=''; return; }
+  if(!castAct.answered()){ m.className='msg bad'; m.textContent='Drag every card into a role first.'; return; }
+  const r=castAct.grade(); m.className='msg '+(r.score===r.max?'good':'bad');
+  m.textContent= r.score===r.max?'Perfect cast! 15 / 15':`${r.score} / ${r.max}. Read the red labels, then try again.`;
+  if(r.score>=13) award(1); b.textContent='Play again'; b.dataset.done=1; };
+
+/* ---------- L3 arrow detective ---------- */
+const PAIRS=[["🌾","grass","🐇","rabbit"],["🌾","grass","🦗","grasshopper"],["🦗","grasshopper","🐸","frog"],["🐸","frog","🐍","snake"],["🐍","snake","🦅","hawk"],["🌿","leaf","🐛","caterpillar"],["🐛","caterpillar","🐦","blue tit"],["🐦","blue tit","🦅","hawk"],["🟢","algae","🐟","small fish"],["🐟","small fish","🐢","turtle"],["🦟","mosquito larva","🐟","fish"],["🌽","corn","🐖","pig"],["🐭","mouse","🦉","owl"],["☀️","sun","🌾","grass"],["🌸","flower nectar","🐝","bee"]];
+let cur,flip,streak=0,best=0,lockA=false;
+function newPair(){
+  lockA=false; cur=pick(PAIRS); flip=Math.random()<.5;
+  const [a,b]=flip?[[cur[2],cur[3]],[cur[0],cur[1]]]:[[cur[0],cur[1]],[cur[2],cur[3]]];
+  $('#cA .e').textContent=a[0]; $('#cA b').textContent=a[1]; $('#cB .e').textContent=b[0]; $('#cB b').textContent=b[1];
+  ['#dR','#dL'].forEach(s=>$(s).className='');
+}
+function answerArrow(dir){
+  if(lockA) return; lockA=true;
+  const correct = flip ? 'L' : 'R';
+  const btn = dir==='R'?$('#dR'):$('#dL');
+  const m=$('#arrowMsg');
+  if(dir===correct){ btn.className='right'; streak++; best=Math.max(best,streak);
+    m.className='msg good'; m.textContent=`Yes! The ${cur[1]} is eaten by the ${cur[3]}, so the energy flows to the ${cur[3]}.`;
+    if(streak>=8) { award(2); m.textContent+=' ⭐ Star earned!'; }
+  } else { btn.className='wrong'; (correct==='R'?$('#dR'):$('#dL')).className='right'; streak=0;
+    m.className='msg bad'; m.textContent=`Oops! The arrow must point to the eater: the ${cur[3]}. Streak reset.`; }
+  $('#streak').textContent=Math.min(streak,8); $('#best').textContent=best;
+  setTimeout(newPair,1500);
+}
+$('#dR').onclick=()=>answerArrow('R'); $('#dL').onclick=()=>answerArrow('L');
+newPair();
+
+/* ---------- L4 chain ---------- */
+const CHAIN=["☀️ Sun","🌾 Grass","🦗 Grasshopper","🐸 Frog","🐍 Snake","🦅 Hawk"];
+let chainAct; function buildChain(){ chainAct=orderActivity($('#chainOrder'),CHAIN); $('#energyRun').hidden=true; $('#chainMsg').textContent=''; $('#chainBtn').disabled=false; }
+buildChain();
+$('#chainBtn').onclick=()=>{
+  const m=$('#chainMsg');
+  if(!chainAct.answered()){ m.className='msg bad'; m.textContent='Fill every step first.'; return; }
+  const r=chainAct.grade(); $('#chainBtn').disabled=true;
+  if(r.score===r.max){
+    m.className='msg good'; m.textContent='Energy delivered to the top!';
+    const run=$('#energyRun'); run.hidden=false; run.innerHTML=CHAIN.map((c,i)=>`<span>${c}</span>${i<CHAIN.length-1?'<i>→</i>':''}`).join('');
+    const sp=[...run.querySelectorAll('span')]; sp.forEach((s,i)=>setTimeout(()=>s.classList.add('lit'),i*350));
+    award(3);
+  } else { m.className='msg bad'; m.textContent=`${r.score} / ${r.max} in the right place. Remember: the sun first, the top predator last.`; }
+};
+$('#chainReset').onclick=buildChain;
+
+/* ---------- L5 web ---------- */
+const N={
+  hawk:{e:"🦅",n:"Hawk",x:300,y:52,role:"Carnivore · top predator"},
+  snake:{e:"🐍",n:"Snake",x:130,y:150,role:"Carnivore"},
+  tit:{e:"🐦",n:"Blue tit",x:450,y:160,role:"Carnivore (eats insects)"},
+  frog:{e:"🐸",n:"Frog",x:220,y:245,role:"Carnivore"},
+  rabbit:{e:"🐇",n:"Rabbit",x:80,y:330,role:"Herbivore · primary consumer"},
+  hopper:{e:"🦗",n:"Grasshopper",x:270,y:345,role:"Herbivore · primary consumer"},
+  cat:{e:"🐛",n:"Caterpillar",x:450,y:330,role:"Herbivore · primary consumer"},
+  grass:{e:"🌾",n:"Grass",x:280,y:430,role:"Producer"}
+};
+const E=[["grass","rabbit"],["grass","hopper"],["grass","cat"],["hopper","frog"],["hopper","tit"],["cat","tit"],["frog","snake"],["rabbit","snake"],["snake","hawk"],["tit","hawk"]];
+const ALLPATHS=[["grass","hopper","frog","snake","hawk"],["grass","rabbit","snake","hawk"],["grass","cat","tit","hawk"],["grass","hopper","tit","hawk"]];
+const svg=$('#web'), NS='http://www.w3.org/2000/svg';
+svg.innerHTML=`<defs>${[["wa","--muted"],["wa-in","--leaf"],["wa-out","--berry"],["wa-path","--sun"]].map(([id,c])=>`<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L10,5L0,10z" style="fill:var(${c})"/></marker>`).join("")}</defs>`;
+const edgeEls=E.map(([a,b])=>{
+  const A=N[a],B=N[b],dx=B.x-A.x,dy=B.y-A.y,L=Math.hypot(dx,dy),r=30;
+  const l=document.createElementNS(NS,'line');
+  l.setAttribute('x1',A.x+dx/L*r); l.setAttribute('y1',A.y+dy/L*r); l.setAttribute('x2',B.x-dx/L*(r+3)); l.setAttribute('y2',B.y-dy/L*(r+3));
+  l.setAttribute('class','edge'); l.dataset.a=a; l.dataset.b=b; svg.appendChild(l); return l;
+});
+const nodeEls={};
+Object.entries(N).forEach(([k,v])=>{
+  const g=document.createElementNS(NS,'g'); g.setAttribute('class','node'); g.setAttribute('tabindex','0'); g.setAttribute('role','button'); g.setAttribute('aria-label',v.n);
+  g.innerHTML=`<circle cx="${v.x}" cy="${v.y}" r="28"/><text class="e" x="${v.x}" y="${v.y}">${v.e}</text><text class="n" x="${v.x}" y="${v.y+44}">${v.n}</text>`;
+  g.addEventListener('click',()=>tapNode(k)); g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tapNode(k);}});
+  svg.appendChild(g); nodeEls[k]=g;
+});
+let mode='explore', trail=[], found=new Set();
+function clearWeb(){ Object.values(nodeEls).forEach(g=>g.setAttribute('class','node')); edgeEls.forEach(l=>l.setAttribute('class','edge')); }
+function tapNode(k){ mode==='explore'?explore(k):trace(k); }
+function explore(k){
+  clearWeb(); nodeEls[k].setAttribute('class','node sel');
+  const eats=E.filter(e=>e[1]===k).map(e=>e[0]), eaten=E.filter(e=>e[0]===k).map(e=>e[1]);
+  eats.forEach(x=>nodeEls[x].setAttribute('class','node food')); eaten.forEach(x=>nodeEls[x].setAttribute('class','node eater'));
+  edgeEls.forEach(l=>{ if(l.dataset.b===k) l.setAttribute('class','edge in'); if(l.dataset.a===k) l.setAttribute('class','edge out'); });
+  $('#iName').textContent=N[k].e+' '+N[k].n; $('#iRole').textContent=N[k].role;
+  $('#iEats').innerHTML=`<b style="color:var(--leaf)">Eats:</b> ${eats.length?eats.map(x=>N[x].n).join(', '):'nothing. It makes its own food from sunlight!'}`;
+  $('#iEaten').innerHTML=`<b style="color:var(--berry)">Eaten by:</b> ${eaten.length?eaten.map(x=>N[x].n).join(', '):'nobody here. It is the top predator.'}`;
+  $('#iBackup').textContent= k==='grass'?'Every chain in this web starts here.': eats.length>=2?`✅ ${eats.length} food options, so it has a backup if one disappears.`: eats.length===1?`⚠️ Only one food option. If the ${N[eats[0]].n.toLowerCase()} disappeared, it would be in trouble.`:'';
+}
+function trace(k){
+  const m=$('#traceMsg');
+  if(!trail.length){ if(k!=='grass'){ m.className='msg bad'; m.textContent='Every path starts with the producer. Tap the grass!'; return; } }
+  else { const last=trail[trail.length-1]; if(!E.some(e=>e[0]===last&&e[1]===k)){ m.className='msg bad'; m.textContent=`The ${N[k].n.toLowerCase()} doesn't eat the ${N[last].n.toLowerCase()}. Pick one of its eaters.`; return; } }
+  trail.push(k); nodeEls[k].setAttribute('class','node path');
+  if(trail.length>1){ const a=trail[trail.length-2]; edgeEls.find(l=>l.dataset.a===a&&l.dataset.b===k).setAttribute('class','edge path'); }
+  if(k==='hawk'){
+    const key=trail.join('>'); const idx=ALLPATHS.findIndex(p=>p.join('>')===key);
+    if(found.has(idx)){ m.className='msg'; m.textContent='You already found that path. Try a different route!'; }
+    else { found.add(idx); m.className='msg good'; m.textContent=`Path ${found.size} of 4 found!`; drawPaths(); if(found.size===4){ m.textContent='All 4 paths found! That is why a web is stronger than a single chain. ⭐'; award(4);} }
+    setTimeout(()=>{ trail=[]; clearWeb(); },1400);
+  } else { m.className='msg'; m.textContent=trail.map(x=>N[x].n).join(' → ')+' → ?'; }
+}
+function drawPaths(){ $('#paths').innerHTML=ALLPATHS.map((p,i)=>`<div class="${found.has(i)?'found':''}">${found.has(i)?p.map(x=>N[x].e+' '+N[x].n).join(' → '):'Path '+(i+1)+': ???'}</div>`).join(''); }
+drawPaths();
+$('#mExplore').onclick=()=>{ mode='explore'; $('#mExplore').classList.add('on'); $('#mTrace').classList.remove('on'); $('#infoExplore').hidden=false; $('#infoTrace').hidden=true; clearWeb(); };
+$('#mTrace').onclick=()=>{ mode='trace'; trail=[]; $('#mTrace').classList.add('on'); $('#mExplore').classList.remove('on'); $('#infoExplore').hidden=true; $('#infoTrace').hidden=false; clearWeb(); $('#traceMsg').className='msg'; $('#traceMsg').textContent='Tap the grass to begin.'; };
+$('#traceReset').onclick=()=>{ trail=[]; clearWeb(); $('#traceMsg').className='msg'; $('#traceMsg').textContent='Tap the grass to begin.'; };
+
+/* ---------- L6 decomposers ---------- */
+let stepI=0, decoOn=true, pileTimer=null, cycTimer=null, seenOff=false;
+const sts=[...document.querySelectorAll('.cycle .st')];
+function cycleTick(){ sts.forEach((s,i)=>s.classList.toggle('on',decoOn&&i===stepI)); stepI=(stepI+1)%4; }
+cycTimer=setInterval(cycleTick,1300); cycleTick();
+$('#decoBtn').onclick=()=>{
+  decoOn=!decoOn; const b=$('#decoBtn');
+  $('#cycle').classList.toggle('off',!decoOn); $('#ground').classList.toggle('off',!decoOn);
+  sts[2].style.opacity=decoOn?1:.3; sts[3].style.opacity=decoOn?1:.3;
+  if(!decoOn){
+    seenOff=true; b.textContent='Bring decomposers back'; b.className='btn leaf';
+    $('#loopSay').innerHTML='<span style="color:var(--bad)">Dead leaves and animals pile up and nothing breaks them down. No nutrients return to the soil, so the plants grow weak. The Earth would be buried in dead matter!</span>';
+    const pile=$('#pile'); pile.innerHTML=''; let n=0;
+    clearInterval(pileTimer); pileTimer=setInterval(()=>{ pile.insertAdjacentText('beforeend',pick(['🍂','🍂','🍁','🪵','🦴'])); if(++n>60) clearInterval(pileTimer); },70);
+  } else {
+    b.textContent='Switch off decomposers'; b.className='btn berry'; clearInterval(pileTimer);
+    const pile=$('#pile'); const shrink=setInterval(()=>{ if(!pile.textContent.length){clearInterval(shrink);return;} pile.textContent=[...pile.textContent].slice(2).join(''); },40);
+    $('#loopSay').innerHTML='<span style="color:var(--good)">Fungi, bacteria and earthworms get to work. The nutrients go back into the soil, and the producers sprout and grow again. Loop closed!</span>';
+    if(seenOff) award(5);
+  }
+};
+
+/* ---------- L7 mosquito ---------- */
+const MOZ=[["🌸 Pollinates flowers",0],["🐟 Food for fish",0],["🐸 Food for tadpoles",0],["🐢 Food for turtles",0],["💧 Larvae filter the water",0],["♻️ Helps recycle nutrients",0],["🦠 Carries viruses",1],["🪱 Carries parasites",1],["💉 Passes pathogens through saliva when it bites",1]];
+let mozAct; function buildMoz(){ mozAct=sortActivity($('#mozSort'),['👍 Helpful to the ecosystem','👎 Harmful to humans and animals'],MOZ,{minw:220}); } buildMoz();
+$('#mozBtn').onclick=()=>{ const b=$('#mozBtn'),m=$('#mozMsg');
+  if(b.dataset.done){ buildMoz(); b.textContent='Close the case'; delete b.dataset.done; m.textContent=''; return; }
+  if(!mozAct.answered()){ m.className='msg bad'; m.textContent='Sort all the evidence first.'; return; }
+  const r=mozAct.grade(); m.className='msg '+(r.score===r.max?'good':'bad');
+  m.textContent=r.score===r.max?'Case closed: mosquitoes are both helpful AND harmful.':`${r.score} / ${r.max}. Check the red cards.`;
+  if(r.score>=8) award(6); b.textContent='Play again'; b.dataset.done=1; };
+
+/* ---------- BOSS QUIZ DATA ---------- */
+const MCQ=[
+ ["Algae in a pond use sunlight to make their own food. What role do they play?",["Producer","Herbivore","Decomposer","Omnivore"],0,"Plants, algae and certain bacteria are producers (autotrophs). They make food using sunlight."],
+ ["In a food web, what does the arrow in <b>grass → grasshopper</b> show?",["The grasshopper is eaten by the grass","Energy moves from the grass to the grasshopper that eats it","The grass is bigger than the grasshopper","The grasshopper gives energy back to the grass"],1,"The arrow points to the eater that receives the energy."],
+ ["A pig eats corn and also eats worms. What is a pig?",["Herbivore","Carnivore","Omnivore","Producer"],2,"An omnivore eats both plants and animals, like humans, pigs and crows."],
+ ["What would most likely happen if all the decomposers on Earth disappeared?",["Plants would grow much faster","Dead matter would pile up and the soil would lose nutrients","Animals would stop needing food","The sun would give less energy"],1,"Without decomposers, the Earth would be buried in dead matter, and producers would lack nutrients to grow."],
+ ["Which THREE things does a green leaf use in photosynthesis?",["Sunlight, air and water","Soil, bugs and water","Sunlight, glucose and candy","Oxygen, meat and rain"],0,"Leaves use sunlight, air (carbon dioxide) and water to make glucose."],
+ ["The blue tit eats both caterpillars and grasshoppers. Why does this help it survive?",["It makes the blue tit a producer","If one food disappears, it still has a backup food","It means energy can travel backward","It stops hawks from eating it"],1,"Varied diets give animals backup food options. This is what makes food webs resilient."],
+ ["What does <b>energy flow</b> mean?",["Energy moving back and forth between animals","The one-way transfer of energy through the feeding stages","Animals running fast","Water flowing in a river"],1,"Energy flows one way, from the sun to producers to consumers, and never backward."],
+ ["Mosquito larvae live in ponds. Which statement shows a HELPFUL role they play?",["They carry viruses to humans","They are food for fish, tadpoles and turtles","They bite people at night","They make glucose from sunlight"],1,"Larvae are an important food source, and they also filter water while eating decaying algae and bacteria."],
+ ["Every food chain must begin with…",["A top predator","A decomposer","A producer catching light energy","An omnivore"],2,"Remember: every food chain starts with a producer harnessing light energy from the sun."]
+];
+const TF=[
+ ["Producers are also called autotrophs.",true,"Autotroph means self-feeder. They make their own food."],
+ ["A herbivore eats only other animals.",false,"Herbivores eat only plants. Carnivores eat only animals."],
+ ["The arrowhead should point at the organism being eaten.",false,"Never! It points to the hungry feeder receiving the energy."],
+ ["Energy can travel backward along a food chain.",false,"Energy never travels backward. It flows one way."],
+ ["Fungi, bacteria and earthworms are decomposers.",true,"They break down dead plants and animals."],
+ ["A food web connects many overlapping food chains.",true,"That is why a web shows a more real and resilient community."],
+ ["Most animals eat only one kind of organism.",false,"Most animals have varied diets, which gives them backup food options."],
+ ["Mosquitoes can pass pathogens to people through their saliva when they bite.",true,"That is their harmful side, even though they are helpful in the food web."],
+ ["Glucose is the food a plant makes during photosynthesis.",true,"Leaves turn sunlight, air and water into glucose."]
+];
+const MATCH=[
+ ["Producer","An organism that makes its own food using sunlight"],
+ ["Consumer","An organism that gets energy by eating other living things"],
+ ["Decomposer","An organism that breaks down dead plant and animal matter"],
+ ["Energy flow","The one-way transfer of energy through feeding stages"],
+ ["Food chain","A single, direct path of energy"],
+ ["Food web","Many overlapping food chains connected together"],
+ ["Photosynthesis","How green leaves use sunlight, air and water to make glucose"]
+];
+const SORT=[["🐐 Goat",0],["🦎 Iguana (eats leaves)",0],["🐛 Caterpillar",0],["🦅 Hawk",1],["🐍 Snake",1],["🦈 Shark",1],["🐒 Monkey",2],["🐖 Pig",2],["🐦‍⬛ Crow",2],["🧒 Human",2]];
+const ORDER=["☀️ Sun","🌿 Grass","🐛 Caterpillar","🐦 Blue tit","🦅 Hawk"];
+const SPOT=[
+ ["Which food chain is drawn CORRECTLY?",["Hawk → snake → frog → grasshopper → grass","Grass → grasshopper → frog → snake → hawk","Grass ← grasshopper ← frog ← snake ← hawk","Frog → grass → hawk → snake"],1,"Start with the producer, and every arrow points to the eater."],
+ ["A student drew <b>fish → algae</b>. What is wrong?",["Nothing, it's correct","The arrow points at what is being eaten. It should be algae → fish","Algae are decomposers","Fish are producers"],1,"Never point the arrow at what is being eaten! Algae are eaten by fish, so algae → fish."],
+ ["Look at this web: grass → rabbit, grass → grasshopper, rabbit → snake, grasshopper → frog, frog → snake, snake → hawk. Which animal has TWO food options?",["Rabbit","Frog","Snake","Hawk"],2,"Two arrows point INTO the snake (from the rabbit and the frog), so it has two food options."],
+ ["In that same web, if the frogs disappeared, which animal loses its ONLY food?",["The snake","The hawk","Nobody","The rabbit"],2,"The snake still has rabbits, and nothing else eats frogs. Nobody loses their only food. Backup options at work!"]
+];
+const MULTI=["Plants","Algae","Certain bacteria","Mushrooms","Grasshoppers","Earthworms"];
+
+/* ---------- BOSS QUIZ BUILD ---------- */
+function group(items){ return {answered:()=>items.every(i=>i.answered()),grade(){let s=0,m=0; items.forEach(i=>{const r=i.grade(); s+=r.score; m+=r.max;}); return {score:s,max:m};}}; }
+const sections=[
+ {t:"Round 1 · Real-world multiple choice",how:"Choose the best answer for each.",build(el){ return group(shuffle(MCQ).map((q,i)=>{ const c=h('div','q'); c.appendChild(h('p','q-stem',`<span class="qn">${i+1}</span><span>${q[0]}</span>`)); el.appendChild(c); return choice(c,q[1],q[2],q[3]); })); }},
+ {t:"Round 2 · True or false",how:"Read every word. Some are sneaky.",build(el){ const c=h('div','q'); el.appendChild(c); return group(shuffle(TF).map(([s,a,w])=>{ const r=h('div','tfrow'); r.appendChild(h('div',null,s)); c.appendChild(r); return choice(r,['True','False'],a?0:1,w,{cls:'tf'}); })); }},
+ {t:"Round 3 · Match the key word",how:"Drag each word onto its meaning.",build(el){ const c=h('div','q'); el.appendChild(c); return matchActivity(c,MATCH); }},
+ {t:"Round 4 · What's on the menu?",how:"Drag each animal into the right group.",build(el){ const c=h('div','q'); el.appendChild(c); return sortActivity(c,['🌿 Herbivore','🥩 Carnivore','🍽️ Omnivore'],SORT); }},
+ {t:"Round 5 · Build the chain",how:"Drag into order, starting where ALL energy begins.",build(el){ const c=h('div','q'); el.appendChild(c); return orderActivity(c,ORDER); }},
+ {t:"Round 6 · Arrow and web detective",how:"Use the arrow rules to solve each one.",build(el){ return group(SPOT.map((q,i)=>{ const c=h('div','q'); c.appendChild(h('p','q-stem',`<span class="qn">${i+1}</span><span>${q[0]}</span>`)); el.appendChild(c); return choice(c,q[1],q[2],q[3]); })); }},
+ {t:"Round 7 · Pick all the producers",how:"Select ALL the producers. Wrong picks cost a point.",build(el){ const c=h('div','q'); el.appendChild(c); return choice(c,MULTI,[0,1,2],"Plants, algae and certain bacteria are producers. Mushrooms and earthworms are decomposers, and grasshoppers are herbivores.",{multi:true}); }},
+];
+let results=[];
+function buildQuiz(){
+  const body=$('#quizBody'); body.innerHTML=''; results=sections.map(()=>null);
+  sections.forEach((s,i)=>{
+    const sec=h('div','qsec'); const head=h('div','qsec-head'); head.appendChild(h('h3',null,s.t)); const res=h('span','result'); head.appendChild(res);
+    sec.append(head,h('p','how',s.how)); const inner=h('div'); sec.appendChild(inner); body.appendChild(sec);
+    const api=s.build(inner);
+    const row=h('div','btnrow'); const btn=h('button','btn','Check this round'); btn.type='button'; btn.style.background='var(--violet)'; const warn=h('span','warn'); row.append(btn,warn); sec.appendChild(row);
+    let warned=false;
+    btn.onclick=()=>{
+      if(!api.answered()&&!warned){ warned=true; warn.textContent='Some answers are still empty. Press again to check anyway.'; btn.textContent='Check anyway'; return; }
+      warn.textContent=''; const r=api.grade(); results[i]=r; btn.disabled=true; btn.textContent='Checked';
+      res.textContent=`${r.score} / ${r.max}`; res.style.color=r.score/r.max>=.8?'var(--good)':r.score/r.max>=.5?'var(--soil)':'var(--bad)';
+      updateBoard();
+    };
+  });
+  updateBoard();
+}
+function updateBoard(){
+  const rows=$('#rows'); rows.innerHTML=''; let s=0,m=0,done=0;
+  sections.forEach((sec,i)=>{ const r=results[i]; const pct=r?Math.round(r.score/r.max*100):0; if(r){s+=r.score;m+=r.max;done++;}
+    rows.insertAdjacentHTML('beforeend',`<div class="row"><div>${sec.t.split('·')[1].trim()}<div class="bb"><b style="width:${pct}%"></b></div></div><div style="text-align:right">${r?r.score+'/'+r.max:'–'}</div></div>`); });
+  $('#total').textContent=m?Math.round(s/m*100)+'%':'0%';
+  if(done===sections.length){ const p=s/m;
+    $('#boardMsg').textContent=p>=.9?`Food Web Champion! ${s}/${m}`:p>=.75?`Strong work! ${s}/${m}. Review the red ones.`:p>=.5?`Getting there: ${s}/${m}. Replay Levels 3 and 5, then retake.`:`${s}/${m}. Replay the levels and try again.`;
+    if(p>=.75) confetti();
+  } else $('#boardMsg').textContent=done?`${done} of ${sections.length} rounds checked`:'Check each round to fill your scoreboard';
+}
+$('#retake').onclick=()=>{ buildQuiz(); $('#boss').scrollIntoView({behavior:'smooth'}); };
+buildQuiz();
+
+function confetti(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv=$('#confetti'),b=cv.parentElement; cv.width=b.clientWidth; cv.height=b.clientHeight; const x=cv.getContext('2d');
+  const cols=['#ffd34d','#4fd18a','#ff6f98','#7aa6ff','#ffffff'];
+  const ps=[...Array(130)].map(()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height,vy:2+Math.random()*3,vx:-1+Math.random()*2,c:pick(cols),a:Math.random()*6}));
+  let f=0;(function loop(){ x.clearRect(0,0,cv.width,cv.height); ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.a+=.1; x.fillStyle=p.c; x.save(); x.translate(p.x,p.y); x.rotate(p.a); x.fillRect(-4,-2,8,4); x.restore();}); if(++f<200) requestAnimationFrame(loop); else x.clearRect(0,0,cv.width,cv.height); })();
+}
+</script>
+
+</body></html>

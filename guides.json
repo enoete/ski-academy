@@ -57,6 +57,12 @@
           "file": "biodiversity.html",
           "blurb": "Food webs, disruptions, resilience, mangroves, answering like a scientist and a nine-round quiz.",
           "added": "2026-10-13"
+        },
+        {
+          "title": "Food Web Quest",
+          "file": "food-web-quest.html",
+          "blurb": "Ride the sun's energy up the food chain, earn 7 stars, then beat the boss quiz.",
+          "added": "2026-11-07"
         }
       ]
     },
