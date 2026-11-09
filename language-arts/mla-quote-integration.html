@@ -1,0 +1,1005 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Quote Sandwich Café</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFF7EC; --card:#FFFFFF; --ink:#2C2133; --muted:#6D6178; --line:#EFDDC6;
+  --bun:#D9913C; --bun2:#F2C27B; --lettuce:#3FA34D; --tomato:#E0483B; --cheese:#F7C531; --plate:#E9E1F5;
+  --i:#D9913C; --q:#3FA34D; --c:#E8A800; --e:#7B4FD6;
+  --k1:#E0483B; --k2:#1C7FE0; --k3:#3FA34D; --k4:#7B4FD6; --k5:#E8A800;
+  --ok:#159A5B; --okbg:#DFF6EA; --bad:#DB3A40; --badbg:#FDE6E7;
+  --stick:0 3px 0 rgba(44,33,51,.2);
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#1B1520; --card:#272030; --ink:#F7F1FB; --muted:#BBAFC6; --line:#40354B; --plate:#332A40;
+    --bun:#F0A852; --bun2:#E8B46A; --lettuce:#5CC46A; --tomato:#FF6B5E; --cheese:#FFD54A;
+    --i:#F0A852; --q:#5CC46A; --c:#FFD54A; --e:#A78BFA;
+    --k1:#FF6B5E; --k2:#4FA6FF; --k3:#5CC46A; --k4:#A78BFA; --k5:#FFD54A;
+    --ok:#3DD68C; --okbg:#123A29; --bad:#FF6B70; --badbg:#431C25;
+    --stick:0 3px 0 rgba(0,0,0,.45); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1B1520; --card:#272030; --ink:#F7F1FB; --muted:#BBAFC6; --line:#40354B; --plate:#332A40;
+  --bun:#F0A852; --bun2:#E8B46A; --lettuce:#5CC46A; --tomato:#FF6B5E; --cheese:#FFD54A;
+  --i:#F0A852; --q:#5CC46A; --c:#FFD54A; --e:#A78BFA;
+  --k1:#FF6B5E; --k2:#4FA6FF; --k3:#5CC46A; --k4:#A78BFA; --k5:#FFD54A;
+  --ok:#3DD68C; --okbg:#123A29; --bad:#FF6B70; --badbg:#431C25;
+  --stick:0 3px 0 rgba(0,0,0,.45); color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--k2);outline-offset:3px;border-radius:8px}
+i.cont,em.cont{font-style:italic}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;padding:28px 0 12px}
+.hero .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,7.5vw,4.2rem);font-weight:700;letter-spacing:-.01em}
+.hero h1 span{color:var(--tomato)}
+.hero p{font-size:1.1rem;color:var(--muted);margin:10px 0 0;max-width:44ch}
+.hero svg{width:100%;max-width:380px;height:auto;display:block;margin:0 auto}
+.layer{animation:drop .55s cubic-bezier(.3,1.4,.5,1) backwards}
+@keyframes drop{from{transform:translateY(-140px);opacity:0}}
+.themebtn{position:absolute;top:14px;right:14px;z-index:5}
+@media (max-width:720px){.hero .wrap{grid-template-columns:1fr}.hero svg{max-width:300px}}
+
+/* NAV */
+nav.tabs{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+nav.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:2px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-family:var(--display);font-weight:600;font-size:.98rem;cursor:pointer;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--ink);border-color:var(--ink);color:var(--paper);box-shadow:var(--stick)}
+main{padding:26px 0 60px}
+
+/* GENERIC */
+.btn{border:0;cursor:pointer;background:var(--lc,var(--tomato));color:#fff;font-family:var(--display);font-weight:600;font-size:1.02rem;padding:11px 20px;border-radius:14px;box-shadow:var(--stick);transition:transform .1s}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn.big{font-size:1.15rem;padding:14px 26px}
+.icon{border:0;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.05rem;display:inline-grid;place-items:center}
+.lhead{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+.plate{flex:0 0 72px;height:72px;border-radius:50%;background:var(--plate);box-shadow:inset 0 0 0 6px var(--card),0 0 0 3px var(--line);display:grid;place-items:center;font-size:2rem}
+.lhead h2{font-size:clamp(1.6rem,4vw,2.3rem)}
+.lhead p{margin:4px 0 0;color:var(--muted);max-width:64ch}
+h3.sec{font-size:1.45rem;margin:32px 0 6px}
+p.hint{color:var(--muted);margin:0 0 14px}
+.panel{background:var(--card);border-radius:22px;padding:18px;box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.navrow{display:flex;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.callout{border-radius:16px;padding:12px 16px;background:color-mix(in srgb,var(--cheese) 22%,var(--card));margin:12px 0}
+.callout b{font-family:var(--display)}
+.cite{font-family:var(--body);background:color-mix(in srgb,var(--paper) 60%,var(--card));border-left:5px solid var(--k2);padding:10px 14px;border-radius:10px;margin:8px 0;line-height:1.7;padding-left:2.2em;text-indent:-1.2em}
+mark{border-radius:5px;padding:0 3px;color:inherit}
+.mi{background:color-mix(in srgb,var(--i) 30%,transparent)}
+.mq{background:color-mix(in srgb,var(--q) 28%,transparent)}
+.mc{background:color-mix(in srgb,var(--c) 40%,transparent)}
+.me{background:color-mix(in srgb,var(--e) 26%,transparent)}
+
+/* HOME */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.skill{border:0;text-align:left;cursor:pointer;background:var(--card);border-radius:22px;padding:18px;box-shadow:inset 0 0 0 3px var(--sc),var(--stick);transition:transform .15s}
+.skill:hover{transform:translateY(-3px)}
+.skill .e{font-size:2.4rem}
+.skill h3{font-size:1.25rem;margin:6px 0 4px}
+.skill small{color:var(--muted)}
+.pts{display:grid;gap:8px;margin-top:10px}
+.pt{display:grid;grid-template-columns:150px 1fr 40px;gap:10px;align-items:center;font-weight:700}
+.pt .bar{height:16px;border-radius:9px;background:var(--line);overflow:hidden}
+.pt .bar i{display:block;height:100%;border-radius:9px;background:var(--pc);width:0;transition:width 1s .2s}
+@media (max-width:560px){.pt{grid-template-columns:110px 1fr 34px;font-size:.9rem}}
+
+/* ARTICLE CARDS */
+.arts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.article{background:var(--card);border-radius:18px;box-shadow:inset 0 0 0 2px var(--line),var(--stick);overflow:hidden;font-size:.95rem}
+.article .mast{background:var(--ac);color:#fff;padding:10px 14px;font-family:var(--display);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.article .mast .nm{font-size:1.15rem;font-weight:700;font-style:italic}
+.article .body{padding:14px}
+.article h4{font-size:1.3rem;margin:2px 0 4px}
+.article .by{color:var(--muted);font-weight:700}
+.article .pg{display:inline-block;font-family:var(--display);font-size:.8rem;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 6px;margin:6px 0}
+.article .foot{border-top:1px dashed var(--line);padding:8px 14px;color:var(--muted);font-size:.85rem}
+.article .url{background:var(--paper);border-radius:999px;padding:4px 12px;font-family:monospace;font-size:.8rem;margin:0 0 8px;display:block;overflow-wrap:anywhere}
+.hot{border-radius:6px;transition:background .2s,box-shadow .2s;cursor:pointer}
+.hot.lit{background:color-mix(in srgb,var(--cheese) 55%,transparent);box-shadow:0 0 0 3px var(--cheese);color:var(--ink)}
+.mast .hot.lit{color:#2C2133}
+.hot.good{background:var(--okbg);box-shadow:0 0 0 3px var(--ok);color:var(--ink)}
+.hot.nope{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.xray{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.xb{border:0;cursor:pointer;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);border-radius:999px;padding:5px 12px;font-family:var(--display);font-weight:600;font-size:.92rem}
+.xb[aria-pressed="true"]{background:var(--cheese);color:#2C2133;box-shadow:var(--stick)}
+.detect{position:sticky;top:calc(var(--navh,62px) + 6px);z-index:10;background:var(--ink);color:var(--paper);border-radius:16px;padding:10px 16px;font-family:var(--display);font-weight:600;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+
+/* RECIPE */
+.recipe{background:var(--card);border-radius:24px;padding:18px 18px 10px;box-shadow:inset 0 0 0 3px var(--bun),var(--stick);background-image:repeating-linear-gradient(transparent 0 39px,color-mix(in srgb,var(--k2) 14%,transparent) 39px 40px)}
+.ing{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;border:0;background:transparent;width:100%;text-align:left;padding:6px 4px;cursor:pointer;border-radius:12px}
+.ing:hover{background:color-mix(in srgb,var(--cheese) 18%,transparent)}
+.ing .n{width:38px;height:38px;border-radius:50%;background:var(--ic);color:#fff;font-family:var(--display);font-weight:700;display:grid;place-items:center}
+.ing .nm{font-family:var(--display);font-weight:600;font-size:1.15rem}
+.ing .pn{font-family:var(--display);font-weight:700;font-size:1.5rem;color:var(--tomato);min-width:1.5em;text-align:center}
+.ingd{margin:0 0 8px 56px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--ic) 12%,var(--card));font-size:.95rem}
+.ingd b{font-family:var(--display)}
+
+/* SANDWICH */
+.sand{max-width:640px;margin:0 auto}
+.lay{border-radius:18px;padding:8px 10px 8px 12px;margin:6px 0;display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;min-height:62px;position:relative}
+.lay .lab{font-family:var(--display);font-weight:700;font-size:.92rem;line-height:1.1}
+.lay .lab small{display:block;font-weight:500;opacity:.85}
+.lay.top{background:var(--bun2);border-radius:60px 60px 16px 16px;padding-top:16px;color:#3A2410}
+.lay.fill{background:color-mix(in srgb,var(--lettuce) 35%,var(--card));border:3px solid var(--lettuce);border-radius:30px 8px 30px 8px}
+.lay.ch{background:var(--cheese);color:#3A2410;border-radius:6px}
+.lay.bot{background:var(--bun2);border-radius:16px 16px 50px 50px;padding-bottom:14px;color:#3A2410}
+.lay .drop{min-height:46px;border-radius:12px;border:2px dashed rgba(0,0,0,.25);display:flex;align-items:center;padding:3px;background:rgba(255,255,255,.35)}
+.lay .drop.filled{border-color:transparent;background:transparent}
+.sandbuilt{animation:pop .4s}
+.sdemo{display:grid;gap:6px;max-width:640px;margin:0 auto}
+.sdemo .lay{grid-template-columns:96px 1fr;animation:drop .5s cubic-bezier(.3,1.4,.5,1) backwards}
+.sdemo .lay:nth-child(2){animation-delay:.15s}.sdemo .lay:nth-child(3){animation-delay:.3s}.sdemo .lay:nth-child(4){animation-delay:.45s}
+
+/* TEMPLATES */
+.tmpl{display:grid;gap:10px}
+.tmpl div{background:var(--card);border-radius:14px;padding:12px 14px;box-shadow:inset 0 0 0 2px var(--line);line-height:1.8}
+.slotw{display:inline-block;border-radius:6px;padding:0 6px;font-family:var(--display);font-size:.88rem;font-weight:600;color:#fff;background:var(--sw)}
+.verbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.verbs div{background:var(--card);border-radius:12px;padding:8px 12px;box-shadow:inset 0 0 0 2px var(--line)}
+.verbs b{font-family:var(--display);color:var(--k4)}
+
+/* DRAG & DROP */
+.dnd{position:relative;user-select:none;-webkit-user-select:none}
+.pool{display:flex;flex-wrap:wrap;gap:8px;padding:12px;border-radius:18px;background:color-mix(in srgb,var(--cheese) 12%,var(--card));min-height:62px;border:2px dashed color-mix(in srgb,var(--bun) 60%,var(--line))}
+.pool.sticky{position:sticky;top:calc(var(--navh,62px) + 6px);z-index:12;box-shadow:0 8px 18px -10px rgba(0,0,0,.35)}
+.pool:empty::after{content:"All placed ✨";color:var(--muted);font-family:var(--display);padding:6px}
+.chip{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:8px 12px;font-weight:400;cursor:grab;user-select:none;-webkit-user-select:none;box-shadow:var(--stick);touch-action:none;max-width:100%;line-height:1.35;color:var(--ink)}
+.chip.lbl{font-family:var(--display);font-weight:600;border-radius:999px}
+.chip:active{cursor:grabbing}
+.chip.dragging{opacity:.35}
+.chip .x{display:none;border:0;background:var(--ink);color:var(--paper);width:22px;height:22px;border-radius:50%;font-size:.72rem;cursor:pointer;flex:0 0 22px;padding:0}
+.drop .chip .x{display:inline-grid;place-items:center}
+.locked .chip .x{display:none!important}
+.locked .chip{cursor:default}
+.chip.ghost{position:fixed;z-index:1000;pointer-events:none;opacity:.95;transform:rotate(-2deg) scale(1.04);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.chip.right{border-color:var(--ok);background:var(--okbg)}
+.chip.wrong{border-color:var(--bad);background:var(--badbg)}
+.pop{animation:pop .28s ease-out}
+@keyframes pop{0%{transform:scale(.85)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
+.drop.hi{outline:3px solid var(--tomato);outline-offset:2px;background:color-mix(in srgb,var(--cheese) 30%,var(--card))!important}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px}
+.bin{border-radius:22px;padding:12px;min-height:170px;background:var(--card);box-shadow:inset 0 0 0 3px var(--bc,var(--line))}
+.binlabel{font-family:var(--display);font-weight:600;font-size:1.2rem;margin:2px 4px 10px;color:var(--bc)}
+.binbody{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.seq{display:grid;gap:8px;margin-top:12px}
+.seqrow{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+.seqrow .tag{min-width:38px;height:38px;border-radius:12px;background:var(--tc,var(--ink));color:#fff;font-family:var(--display);font-weight:700;display:grid;place-items:center;padding:0 8px;font-size:.9rem}
+.seqrow .drop{min-height:50px;border-radius:14px;border:2px dashed var(--muted);padding:4px;display:flex;align-items:center}
+.seqrow .drop.filled{border-color:transparent}
+.fix{display:block;font-size:.88rem;color:var(--ok);font-weight:700;margin-top:4px}
+
+/* MC */
+.q{background:var(--card);border-radius:20px;padding:16px 18px;margin-bottom:14px;box-shadow:inset 0 0 0 2px var(--line)}
+.q .qt{font-weight:700;margin:0 0 10px;font-size:1.05rem}
+.q .qt .num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--tomato);color:#fff;font-family:var(--display);margin-right:8px;font-size:.9rem}
+.opts{display:grid;grid-template-columns:1fr;gap:8px}
+.opts.two{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.opt{text-align:left;border:0;cursor:pointer;background:var(--paper);border-radius:14px;padding:10px 14px;box-shadow:inset 0 0 0 2px var(--line);transition:transform .1s;line-height:1.5}
+.opt:hover:not(:disabled){transform:translateY(-2px);box-shadow:inset 0 0 0 2px var(--tomato)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--okbg);box-shadow:inset 0 0 0 3px var(--ok)}
+.opt.wrong{background:var(--badbg);box-shadow:inset 0 0 0 3px var(--bad)}
+.opt.missed{box-shadow:inset 0 0 0 3px var(--ok)}
+.tf{display:flex;gap:10px}
+.stamp{flex:1;border:0;cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.15rem;padding:12px;border-radius:16px;background:var(--paper);box-shadow:inset 0 0 0 3px var(--line)}
+.stamp:hover:not(:disabled){box-shadow:inset 0 0 0 3px var(--ink)}
+.stamp.right{background:var(--okbg);box-shadow:inset 0 0 0 3px var(--ok)}
+.stamp.wrong{background:var(--badbg);box-shadow:inset 0 0 0 3px var(--bad)}
+.why{margin:10px 0 0;padding:10px 12px;border-radius:12px;font-size:.95rem}
+.why.good{background:var(--okbg)}.why.bad{background:var(--badbg)}
+.pfoot{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.pfoot .msg{font-family:var(--display);font-weight:600;font-size:1.15rem}
+
+/* BUG HUNT */
+.bugsent{font-size:1.12rem;line-height:2.1;margin:10px 0;background:var(--paper);border-radius:14px;padding:10px 14px}
+.seg{border:0;background:transparent;cursor:pointer;padding:2px 3px;border-radius:8px;font:inherit;color:inherit;text-align:left;display:inline}
+.seg:hover:not(:disabled){background:color-mix(in srgb,var(--cheese) 35%,transparent)}
+.seg.caught{background:var(--badbg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
+.seg.nope{animation:shake .35s}
+
+/* QUIZ */
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.qtrack{display:flex;gap:6px;flex-wrap:wrap}
+.qtrack span{width:26px;height:10px;border-radius:9px;background:var(--line)}
+.qtrack span.now{background:var(--ink)}.qtrack span.good{background:var(--ok)}.qtrack span.meh{background:var(--cheese)}.qtrack span.low{background:var(--bad)}
+.total{font-family:var(--display);font-weight:700;font-size:1.2rem}
+.phead{display:flex;gap:14px;align-items:center;background:var(--ink);color:var(--paper);border-radius:22px;padding:16px 18px;margin-bottom:16px}
+.phead .pemo{font-size:2.4rem}.phead h3{font-size:1.35rem}.phead p{margin:2px 0 0;opacity:.85}
+.results{text-align:center;padding:10px 0}
+.results .pct{font-family:var(--display);font-weight:700;font-size:clamp(3.5rem,14vw,6rem);line-height:1}
+.results .stars{font-size:2.4rem;margin:6px 0}
+.breakdown{display:grid;gap:6px;max-width:560px;margin:22px auto;text-align:left}
+.breakdown div{display:flex;justify-content:space-between;gap:10px;background:var(--card);padding:8px 14px;border-radius:12px;box-shadow:inset 0 0 0 2px var(--line)}
+
+/* CHEAT SHEET */
+.cheat{background:var(--card);border-radius:20px;padding:22px;box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.cheat h3{font-size:1.3rem;margin:16px 0 6px;color:var(--tomato)}
+.cheat h3:first-child{margin-top:0}
+.cheat ul{margin:4px 0;padding-left:20px}
+.cheat .fm{font-family:var(--display);font-weight:600;background:var(--paper);border-radius:10px;padding:8px 12px;margin:6px 0}
+
+/* MODEL ESSAY */
+.modelgrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;grid-template-areas:"essay note";gap:18px;align-items:start}
+.essay{grid-area:essay;background:var(--card);border-radius:18px;padding:26px 28px;box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.essay h3.et{text-align:center;font-size:1.4rem;margin-bottom:14px}
+.essay p{margin:0 0 14px;text-indent:2em;line-height:1.95}
+.essay .wch{text-align:center;font-family:var(--display);font-weight:700;margin:22px 0 6px}
+.essay .wc{padding-left:2em;text-indent:-2em;margin:0 0 6px;line-height:1.7}
+.an{border-radius:5px;padding:1px 2px;cursor:pointer;transition:background .2s,box-shadow .2s;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.an.on{background:color-mix(in srgb,var(--ac) 24%,transparent);box-shadow:inset 0 -3px 0 var(--ac)}
+.an.sel{background:color-mix(in srgb,var(--ac) 45%,transparent)!important;box-shadow:0 0 0 2px var(--ac)}
+.an.good{background:var(--okbg)!important;box-shadow:0 0 0 2px var(--ok)}
+.an.nope{animation:shake .35s}
+.notebox{grid-area:note;position:sticky;top:calc(var(--navh,62px) + 10px);background:var(--ink);color:var(--paper);border-radius:18px;padding:16px;font-size:.95rem}
+.notebox h4{font-size:1.15rem;margin-bottom:4px}
+.notebox .pts{display:inline-block;background:var(--cheese);color:#2C2133;border-radius:999px;padding:0 10px;font-family:var(--display);font-weight:700;font-size:.85rem;margin:4px 0}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.lg{border:0;cursor:pointer;border-radius:999px;padding:5px 12px;font-family:var(--display);font-weight:600;font-size:.9rem;background:var(--card);box-shadow:inset 0 0 0 2px var(--lgc)}
+.lg[aria-pressed="true"]{background:var(--lgc);color:#fff}
+.score{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+.score td,.score th{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}
+.score td:last-child,.score th:last-child{text-align:right;font-family:var(--display);font-weight:700}
+@media (max-width:820px){.modelgrid{grid-template-columns:1fr;grid-template-areas:"note" "essay"}.notebox{max-height:34vh;overflow:auto;z-index:8}.essay{padding:18px 16px}.essay p{text-indent:1.2em}}
+
+/* KITCHEN */
+.ksteps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ks{border:0;cursor:pointer;border-radius:12px;padding:7px 11px;font-family:var(--display);font-weight:600;font-size:.9rem;background:var(--card);box-shadow:inset 0 0 0 2px var(--line)}
+.ks[aria-current="true"]{background:var(--tomato);color:#fff;box-shadow:var(--stick)}
+.ks.done:not([aria-current="true"]){box-shadow:inset 0 0 0 2px var(--ok)}
+.kpanel{background:var(--card);border-radius:22px;padding:18px;box-shadow:inset 0 0 0 2px var(--line),var(--stick)}
+.kpanel h3{font-size:1.35rem;margin-bottom:6px}
+.prompt{background:var(--ink);color:var(--paper);border-radius:16px;padding:14px 16px;font-family:var(--display);font-size:1.2rem;margin-bottom:12px}
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.side{border:0;cursor:pointer;border-radius:16px;padding:14px;background:var(--paper);box-shadow:inset 0 0 0 3px var(--line);font-family:var(--display);font-weight:600;font-size:1.05rem;text-align:left}
+.side[aria-pressed="true"]{box-shadow:inset 0 0 0 3px var(--tomato);background:color-mix(in srgb,var(--tomato) 12%,var(--card))}
+.sent{border:0;background:transparent;font:inherit;color:inherit;text-align:left;display:inline;padding:1px 2px;border-radius:6px;cursor:pointer}
+.sent:hover{background:color-mix(in srgb,var(--cheese) 30%,transparent)}
+.sent.picked{background:color-mix(in srgb,var(--lettuce) 35%,transparent);box-shadow:inset 0 -3px 0 var(--lettuce)}
+.basket{display:grid;gap:8px;margin-top:10px}
+.bq{background:color-mix(in srgb,var(--lettuce) 14%,var(--card));border-radius:14px;padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;font-size:.95rem}
+.bq small{color:var(--muted);display:block}
+label.fl{display:block;font-family:var(--display);font-weight:600;margin:14px 0 4px}
+label.fl small{font-family:var(--body);font-weight:400;color:var(--muted)}
+textarea.w,input.w{width:100%;border:2px solid var(--line);border-radius:14px;padding:10px 12px;font:inherit;color:var(--ink);background:var(--paper);line-height:1.6;resize:vertical}
+textarea.w:focus,input.w:focus{outline:none;border-color:var(--k2)}
+.frames{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.frame{border:0;cursor:pointer;border-radius:999px;padding:4px 10px;font-size:.88rem;background:color-mix(in srgb,var(--k2) 12%,var(--card));box-shadow:inset 0 0 0 1px var(--k2)}
+.checks{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:3px;font-size:.92rem}
+.checks li{display:flex;gap:8px;align-items:flex-start}
+.checks li::before{content:"○";font-weight:700;color:var(--muted);flex:0 0 1.2em}
+.checks li.ok::before{content:"✓";color:var(--ok)}
+.checks li.warn::before{content:"!";color:var(--bad)}
+.checks li.warn{color:var(--bad)}
+.refcard{background:var(--paper);border-radius:12px;padding:10px 12px;margin:8px 0;font-size:.92rem;border-left:5px solid var(--lettuce)}
+.timer{display:inline-flex;gap:8px;align-items:center;background:var(--card);border-radius:999px;padding:4px 6px 4px 14px;box-shadow:inset 0 0 0 2px var(--line);font-family:var(--display);font-weight:700}
+.final{background:var(--card);border-radius:18px;padding:22px;box-shadow:inset 0 0 0 2px var(--line);white-space:pre-wrap;line-height:1.8;font-size:1rem}
+.sendrow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:999}
+footer{color:var(--muted);text-align:center;font-size:.9rem;padding:20px 0 40px}
+@media print{
+  .hero,nav,footer,.noprint{display:none!important}
+  body{background:#fff;color:#000;font-size:12.5px}
+  main{padding:0}
+  .cheat{box-shadow:none;padding:0}
+  #view-write .ksteps,#view-write .lhead,#view-write .navrow,#view-write .sendrow,#view-write .refcard,#view-write h3,#view-write .hint,#view-write #kmsg{display:none!important}
+  #view-write .kpanel,#view-write .final{box-shadow:none;padding:0}
+}
+@media (max-width:720px){body{font-size:16px}.lay{grid-template-columns:78px 1fr}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <button class="icon themebtn" id="themeBtn" aria-label="Switch light or dark">🌓</button>
+  <div class="wrap">
+    <div>
+      <h1>The Quote <span>Sandwich</span> Café</h1>
+      <p>MLA citations, served fresh. Learn the recipe for a Works Cited entry, how to stack a perfect quote sandwich, and how to cite it like a pro.</p>
+    </div>
+    <svg viewBox="0 0 320 260" aria-hidden="true">
+      <ellipse cx="160" cy="236" rx="140" ry="16" fill="var(--plate)"/>
+      <g class="layer" style="animation-delay:.9s"><path d="M40 196 Q160 236 280 196 L276 214 Q160 246 44 214 Z" fill="var(--bun)"/><text x="296" y="214" font-family="Fredoka" font-weight="700" font-size="20" fill="var(--e)">E</text></g>
+      <g class="layer" style="animation-delay:.65s"><path d="M46 178 L274 178 L262 198 L58 198 Z" fill="var(--cheese)"/><text x="292" y="194" font-family="Fredoka" font-weight="700" font-size="20" fill="var(--c)">C</text></g>
+      <g class="layer" style="animation-delay:.4s"><path d="M36 160 Q60 148 84 162 Q110 148 136 162 Q160 148 186 162 Q212 148 238 162 Q262 148 286 160 L280 180 L42 180 Z" fill="var(--lettuce)"/><circle cx="110" cy="166" r="14" fill="var(--tomato)"/><circle cx="200" cy="166" r="14" fill="var(--tomato)"/><text x="296" y="174" font-family="Fredoka" font-weight="700" font-size="20" fill="var(--q)">Q</text></g>
+      <g class="layer" style="animation-delay:.15s"><path d="M38 156 Q40 70 160 64 Q280 70 282 156 Z" fill="var(--bun)"/><ellipse cx="120" cy="100" rx="5" ry="3" fill="var(--bun2)"/><ellipse cx="160" cy="86" rx="5" ry="3" fill="var(--bun2)"/><ellipse cx="200" cy="104" rx="5" ry="3" fill="var(--bun2)"/><ellipse cx="146" cy="120" rx="5" ry="3" fill="var(--bun2)"/><text x="292" y="120" font-family="Fredoka" font-weight="700" font-size="20" fill="var(--i)">I</text></g>
+    </svg>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections"><div class="wrap" id="tabs"></div></nav>
+
+<main class="wrap">
+  <section id="view-home"></section>
+  <section id="view-articles" hidden></section>
+  <section id="view-recipe" hidden></section>
+  <section id="view-sandwich" hidden></section>
+  <section id="view-intext" hidden></section>
+  <section id="view-para" hidden></section>
+  <section id="view-model" hidden></section>
+  <section id="view-write" hidden></section>
+  <section id="view-cheat" hidden></section>
+  <section id="view-quiz" hidden></section>
+</main>
+<footer>Made for Adiaha. Introduce it, quote it, cite it, explain it. You've got this! 🥪<br><small>All articles in this guide are made up for practice.</small></footer>
+<canvas id="confetti"></canvas>
+
+<script>
+/* ============================ DATA ============================ */
+const ART={
+ A:{key:"A",color:"var(--k2)",last:"Lopez",first:"Maria",title:"Why Kids Need More Recess",cont:"Kids Discover Weekly",contrib:"edited by James Carter",number:"vol. 12, no. 4",pub:"Bright Minds Press",date:"15 Mar. 2023",year:"2023",loc:"pp. 12–15",
+    q:[{t:"Students who get at least thirty minutes of recess focus better in class.",p:13},{t:"Recess teaches children how to solve problems and make friends.",p:14}]},
+ B:{key:"B",color:"var(--k4)",last:"Brooks",first:"Daniel",title:"Should Students Have Cell Phones in School?",cont:"The Young Reader",pub:"Sunrise Media",date:"2022",year:"2022",loc:"pp. 8–10",
+    q:[{t:"Phones can be a powerful learning tool when teachers set clear rules.",p:9},{t:"Many students admit that phones distract them during lessons.",p:10}]},
+ C:{key:"C",color:"var(--k3)",last:"Grant",first:"Aisha",title:"The Truth About Homework",cont:"Caribbean Kids News",pub:"Island Learning Group",date:"4 Sept. 2024",year:"2024",loc:"www.caribbeankidsnews.org/homework",web:true,
+    q:[{t:"Too much homework can leave students exhausted and stressed.",p:null},{t:"Short, focused homework helps students practice what they learned.",p:null}]}
+};
+const ELEMENTS=[
+ {k:"author",n:"Author",p:".",c:"var(--k1)",d:"The person who wrote it. Flip the name: <b>Last name, First name.</b>",ex:"Lopez, Maria."},
+ {k:"title",n:"Title of Source",p:".",c:"var(--k2)",d:"The name of the article itself. Put it in <b>“quotation marks”</b>, and the period goes <b>inside</b> the closing mark.",ex:"“Why Kids Need More Recess.”"},
+ {k:"cont",n:"Title of Container",p:",",c:"var(--k3)",d:"The bigger thing the article lives in: a magazine, newspaper, book, or website. Write it in <i>italics</i>. (Writing by hand? <u>Underline</u> it instead.)",ex:"<i>Kids Discover Weekly</i>,"},
+ {k:"contrib",n:"Other Contributors",p:",",c:"var(--k4)",d:"Other people who helped, like an editor, translator, or illustrator. Say what they did.",ex:"edited by James Carter,"},
+ {k:"version",n:"Version",p:",",c:"var(--k5)",d:"A special edition, like a 2nd edition. Most articles don't have one, so you skip it.",ex:"2nd ed.,"},
+ {k:"number",n:"Number",p:",",c:"var(--k1)",d:"Volume and issue numbers. Use the short forms <b>vol.</b> and <b>no.</b>",ex:"vol. 12, no. 4,"},
+ {k:"pub",n:"Publisher",p:",",c:"var(--k2)",d:"The company or organization that produced it.",ex:"Bright Minds Press,"},
+ {k:"date",n:"Publication Date",p:",",c:"var(--k3)",d:"When it came out. Write it day, month, year, with a short month name: <b>15 Mar. 2023</b>. Sometimes you only have the year.",ex:"15 Mar. 2023,"},
+ {k:"loc",n:"Location",p:".",c:"var(--k4)",d:"Where to find it: page numbers (<b>pp. 12–15</b>), or a web address. This is the last item, so it ends with a <b>period</b>.",ex:"pp. 12–15."}
+];
+const WC={
+ A:`Lopez, Maria. “Why Kids Need More Recess.” <i>Kids Discover Weekly</i>, edited by James Carter, vol. 12, no. 4, Bright Minds Press, 15 Mar. 2023, pp. 12–15.`,
+ B:`Brooks, Daniel. “Should Students Have Cell Phones in School?” <i>The Young Reader</i>, Sunrise Media, 2022, pp. 8–10.`,
+ C:`Grant, Aisha. “The Truth About Homework.” <i>Caribbean Kids News</i>, Island Learning Group, 4 Sept. 2024, www.caribbeankidsnews.org/homework.`
+};
+/* pieces for building Works Cited entries: [element, text] in order + decoys */
+const BUILD={
+ B:{pieces:[["Author","Brooks, Daniel."],["Title of Source","“Should Students Have Cell Phones in School?”"],["Title of Container","<i>The Young Reader</i>,"],["Publisher","Sunrise Media,"],["Publication Date","2022,"],["Location","pp. 8–10."]],decoys:["Daniel Brooks.","Should Students Have Cell Phones in School?"],note:"The title already ends with a question mark, so you don't add a period after it."},
+ C:{pieces:[["Author","Grant, Aisha."],["Title of Source","“The Truth About Homework.”"],["Title of Container","<i>Caribbean Kids News</i>,"],["Publisher","Island Learning Group,"],["Publication Date","4 Sept. 2024,"],["Location","www.caribbeankidsnews.org/homework."]],decoys:["Aisha Grant.","September 4th, 2024,"],note:"It's a website, so the location is the web address instead of page numbers."},
+ A:{pieces:[["Author","Lopez, Maria."],["Title of Source","“Why Kids Need More Recess.”"],["Title of Container","<i>Kids Discover Weekly</i>,"],["Other Contributors","edited by James Carter,"],["Number","vol. 12, no. 4,"],["Publisher","Bright Minds Press,"],["Publication Date","15 Mar. 2023,"],["Location","pp. 12–15."]],decoys:["Maria Lopez.","Why Kids Need More Recess."],note:"No version, so it's skipped, along with its comma."}
+};
+const SANDWICHES=[
+ {art:"A",I:"In the article “Why Kids Need More Recess” (2023), Maria Lopez argues that",Q:"“students who get at least thirty minutes of recess focus better in class”",C:"(Lopez 13).",E:"This shows that recess is not wasted time, because it actually helps students learn.",decoy:"(Maria Lopez, page 13)."},
+ {art:"B",I:"In the 2022 article “Should Students Have Cell Phones in School?” Daniel Brooks explains that",Q:"“phones can be a powerful learning tool when teachers set clear rules”",C:"(Brooks 9).",E:"In other words, phones help learning only when there are clear rules for using them.",decoy:"Phones are good. The article says so."},
+ {art:"C",I:"According to Aisha Grant in “The Truth About Homework,” published in 2024,",Q:"“too much homework can leave students exhausted and stressed”",C:"(Grant).",E:"This matters because tired, stressed students can't do their best work in class the next day.",decoy:"(Grant 0)."}
+];
+const SMOOTH=[
+ ["In “Why Kids Need More Recess” (2023), Maria Lopez explains that “students who get at least thirty minutes of recess focus better in class” (Lopez 13).","s"],
+ ["In the 2022 article “Should Students Have Cell Phones in School?” Daniel Brooks argues that “phones can be a powerful learning tool when teachers set clear rules” (Brooks 9).","s"],
+ ["Aisha Grant, author of “The Truth About Homework” (2024), warns that “too much homework can leave students exhausted and stressed” (Grant).","s"],
+ ["Recess is important. “Students who get at least thirty minutes of recess focus better in class.” (Lopez 13)","p"],
+ ["“Phones can be a powerful learning tool when teachers set clear rules.” This is what the article said.","p"],
+ ["Homework is bad. “Too much homework can leave students exhausted and stressed.”","p"]
+];
+const VERBS=[["argues / claims","for an opinion the author is trying to prove"],["explains / states","for a plain fact or description"],["points out / notes","for something the author noticed"],["warns","for a danger or a problem"],["suggests","for a gentle idea or advice"],["reports / found","for numbers, studies, and research"]];
+const STARTERS=["This shows that…","This proves that…","In other words,…","This matters because…","This supports my point that…","Because of this,…"];
+const INTEXT=[
+ ["Maria Lopez wrote the quote on page 13. Which in-text citation is correct MLA?",["(Lopez 13)","(Lopez, 13)","(Maria Lopez p. 13)","(pg. 13, Lopez)"],"Last name, a space, the page number. No comma, no “p.”"],
+ ["Where does the period go?",["…focus better in class” (Lopez 13).","…focus better in class.” (Lopez 13)","…focus better in class” (Lopez 13)","…focus better in class.” (Lopez 13)."],"The period waits until after the parentheses: quote mark, citation, THEN the period."],
+ ["Aisha Grant's article is on a website with no page numbers. Which citation is correct?",["(Grant)","(Grant 0)","(Grant, website)","(www.caribbeankidsnews.org)"],"No page number? Just use the author's last name."],
+ ["Daniel Brooks wrote the quote on page 10. Which is correct?",["(Brooks 10)","(Daniel 10)","(Brooks pp. 10)","(10 Brooks)"],"Always the LAST name first, then the page."],
+ ["An article has NO author. What goes in the parentheses?",["A short version of the title in quotation marks, like (“Truth About Homework”)","Nothing at all","(Anonymous)","The website address"],"No author? Use a shortened title in quotation marks instead."],
+ ["An article was written by two people, Lopez and Carter. The quote is on page 12.",["(Lopez and Carter 12)","(Lopez, Carter, 12)","(Lopez & Carter, p. 12)","(Maria and James 12)"],"Two authors: both last names joined with “and,” then the page."]
+];
+const BUGS=[
+ {seg:["In the article ","Why Kids Need More Recess"," (2023), Maria Lopez argues that “students who get at least thirty minutes of recess focus better in class” (Lopez 13)."],bad:1,fix:["“Why Kids Need More Recess”","<i>Why Kids Need More Recess</i>","WHY KIDS NEED MORE RECESS"],why:"Article titles always go in quotation marks."},
+ {seg:["Daniel Brooks explains that “phones can be a powerful learning tool when teachers set clear rules” ","(Brooks, 9)."],bad:1,fix:["(Brooks 9).","(Brooks, page 9).","(Daniel Brooks 9)."],why:"No comma between the name and the page number."},
+ {seg:["Aisha Grant warns that ","“too much homework can leave students exhausted and stressed.” (Grant)"],bad:1,fix:["“too much homework can leave students exhausted and stressed” (Grant).","“too much homework can leave students exhausted and stressed.” (Grant).","too much homework can leave students exhausted and stressed (Grant)."],why:"The period goes after the parentheses, not inside the quote."},
+ {seg:["In “Why Kids Need More Recess” (2023), Maria Lopez explains that “recess teaches children how to solve problems and make friends” ","(Maria 14)."],bad:1,fix:["(Lopez 14).","(Maria Lopez 14).","(M. L. 14)."],why:"Use the author's LAST name only."},
+ {seg:["In “The Truth About Homework,” published ","a while ago",", Aisha Grant explains that “short, focused homework helps students practice what they learned” (Grant)."],bad:1,fix:["in 2024","on the internet","by a website"],why:"Your rubric gives points for the article's year. Name it!"},
+ {seg:["Maria Lopez. ","“Why Kids Need More Recess.” ","<i>Kids Discover Weekly</i>, ","15 Mar. 2023, pp. 12–15."],bad:0,fix:["Lopez, Maria. ","Maria, Lopez. ","M. Lopez. "],why:"In the Works Cited, flip the author's name: Last name, First name."},
+ {seg:["Recess is important. ","“Students who get at least thirty minutes of recess focus better in class.”"," (Lopez 13)"],bad:0,fix:["In “Why Kids Need More Recess” (2023), Maria Lopez explains that ","Here is a quote: ","The article says this. "],why:"Never drop a quote in by itself. Introduce it with the author, title, and year."}
+];
+const PARAS=[
+ {name:"Body paragraph",items:[["Topic sentence","First, schools should give students longer recess because it helps them focus in class."],["Introduce + quote + cite","In the article “Why Kids Need More Recess” (2023), Maria Lopez explains that “students who get at least thirty minutes of recess focus better in class” (Lopez 13)."],["Explain","This shows that time to play is not wasted, because it helps students pay attention when they return to their desks."],["Example","For example, after a long recess, students are more likely to sit still and listen during a math lesson."],["Wrap it up","Clearly, longer recess makes classrooms better places to learn."]]},
+ {name:"Counterclaim + rebuttal",items:[["Counterclaim","Some people argue that longer recess takes time away from learning."],["Their reason","They believe every extra minute of the school day should be spent on lessons."],["Rebuttal + quote + cite","However, Maria Lopez points out in “Why Kids Need More Recess” (2023) that “recess teaches children how to solve problems and make friends” (Lopez 14)."],["Explain","This proves that recess is also a time for learning important life skills."],["Why you're still right","Therefore, recess does not waste learning time; it adds to it."]]}
+];
+const EXPLAIN=[
+ {quote:"In “Why Kids Need More Recess” (2023), Maria Lopez argues that “students who get at least thirty minutes of recess focus better in class” (Lopez 13).",opts:["This shows that a longer recess helps students learn more, so schools should not cut it.","This quote is from Maria Lopez.","Students who get recess focus better in class.","I like recess."],why:"A good explanation says WHY the quote matters for your argument. It doesn't just repeat the quote or say who wrote it."},
+ {quote:"In the 2022 article “Should Students Have Cell Phones in School?” Daniel Brooks explains that “phones can be a powerful learning tool when teachers set clear rules” (Brooks 9).",opts:["In other words, phones can help students learn, as long as teachers control how they're used.","Daniel Brooks wrote this in 2022.","Phones can be a powerful learning tool.","That is a good quote."],why:"Explain what the quote means and how it supports your point."},
+ {quote:"Aisha Grant warns in “The Truth About Homework” (2024) that “too much homework can leave students exhausted and stressed” (Grant).",opts:["This matters because exhausted students can't focus, so schools should limit homework.","This was on a website.","Too much homework is too much.","The end."],why:"Connect the quote back to your thesis."},
+ {quote:"However, Daniel Brooks admits in “Should Students Have Cell Phones in School?” (2022) that “many students admit that phones distract them during lessons” (Brooks 10).",opts:["This proves that phones need strict rules, or they will get in the way of learning.","This is on page 10.","Phones distract students during lessons.","Brooks is the author."],why:"Even with a counterclaim quote, explain how it connects to your argument."}
+];
+const TF=[
+ ["Article titles go in quotation marks.",true,"Yes: “Why Kids Need More Recess.”"],
+ ["The magazine or website name (the container) goes in quotation marks.",false,"The container is written in italics, or underlined if you're writing by hand."],
+ ["In the Works Cited, write the author's name as Last name, First name.",true,"Lopez, Maria."],
+ ["In-text citations use the author's first name.",false,"Use the LAST name: (Lopez 13)."],
+ ["You need a comma between the author and the page: (Lopez, 13).",false,"No comma: (Lopez 13)."],
+ ["If an element (like Version) doesn't exist, you skip it.",true,"Just leave it out, along with its comma."],
+ ["The period at the end of a quoted sentence goes after the citation.",true,"…in class” (Lopez 13)."],
+ ["It's fine to drop a quote into your paragraph on its own line without introducing it.",false,"Always introduce it in your own words. That's worth 5 points on your rubric!"],
+ ["After a quote, you should explain how it supports your argument.",true,"That's the bottom bun of the sandwich: 3 points on the rubric."],
+ ["The last element in a Works Cited entry ends with a period.",true,"…pp. 12–15."],
+ ["Your rubric gives points for naming the article's title and year.",true,"2 points for the title and 2 for the year."],
+ ["“p.” or “pg.” goes before the page number in an in-text citation.",false,"Just the number: (Lopez 13)."]
+];
+const ELQ=[
+ ["vol. 12, no. 4","Number"],["Bright Minds Press","Publisher"],["“Why Kids Need More Recess.”","Title of Source"],["Kids Discover Weekly","Title of Container"],["edited by James Carter","Other Contributors"],["pp. 12–15","Location"],["15 Mar. 2023","Publication Date"],["Lopez, Maria.","Author"],["www.caribbeankidsnews.org/homework","Location"],["2nd ed.","Version"]
+];
+
+/* ============================ HELPERS ============================ */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let uidN=0;const uid=()=>"g"+(++uidN);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+const reduced=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+const head=(emo,t,p)=>`<div class="lhead"><div class="plate">${emo}</div><div><h2>${t}</h2><p>${p}</p></div></div>`;
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store.set("mla-theme",r.dataset.theme)};
+{const t=store.get("mla-theme",null);if(t)document.documentElement.dataset.theme=t;}
+
+/* ============================ NAV ============================ */
+const VIEWS=[["home","🍽️ Menu"],["articles","🔎 Article Detective"],["recipe","📇 Works Cited Recipe"],["sandwich","🥪 Quote Sandwich"],["intext","🏷️ Citation Clinic"],["para","🧱 Paragraph Builder"],["model","📖 Model Essay"],["write","✍️ Write Your Own"],["cheat","📄 Cheat Sheet"],["quiz","🏆 Big Quiz"]];
+$("#tabs").innerHTML=VIEWS.map(([id,l])=>`<button class="tab" data-view="${id}">${l}</button>`).join("");
+$("#tabs").onclick=e=>{const b=e.target.closest(".tab");if(b)show(b.dataset.view)};
+const built={};
+function show(id){
+  $$("main > section").forEach(s=>s.hidden=s.id!=="view-"+id);
+  $$(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.view===id?"page":"false"));
+  const tab=$(`.tab[data-view="${id}"]`);tab&&tab.scrollIntoView({inline:"center",block:"nearest"});
+  if(!built[id]||id==="home"){built[id]=1;({home:renderHome,articles:renderArticles,recipe:renderRecipe,sandwich:renderSandwich,intext:renderIntext,para:renderPara,model:renderModel,write:renderWrite,cheat:renderCheat,quiz:renderQuiz})[id]()}
+  if(show.ready)window.scrollTo({top:$("nav.tabs").offsetTop,behavior:"smooth"});show.ready=true;
+  if(id==="home")setTimeout(()=>$$(".pt .bar i").forEach(b=>b.style.width=b.dataset.w),50);
+}
+const goBtns=v=>$$("[data-go]",v).forEach(b=>b.onclick=()=>show(b.dataset.go));
+
+/* ============================ HOME ============================ */
+function renderHome(){
+  const v=$("#view-home");
+  v.innerHTML=`<h2 style="font-size:1.9rem">Tonight's menu</h2>
+  <p class="hint">Tomorrow you'll get articles and use quotes from them in your essay. Your rubric gives <b>15 points</b> for MLA citations and quote integration. Here's where those points come from:</p>
+  <div class="panel"><div class="pts">
+   ${[["Seamless quotes",5,"var(--q)"],["In-text citations",3,"var(--c)"],["Explaining quotes",3,"var(--e)"],["Article title",2,"var(--k2)"],["Article year",2,"var(--k1)"]].map(([n,p,c])=>`<div class="pt"><span>${n}</span><span class="bar"><i data-w="${p/5*100}%" style="--pc:${c}"></i></span><span>${p}</span></div>`).join("")}
+  </div><p style="margin:12px 0 0">The biggest chunk is <b>seamless quotes</b>: introducing quotes in your own sentences. That's the Quote Sandwich! 🥪</p></div>
+  <h3 class="sec">Pick a dish</h3>
+  <div class="skills">
+   <button class="skill" data-go="articles" style="--sc:var(--k2)"><span class="e">🔎</span><h3>Article Detective</h3><small>Find the author, title, year, and page numbers on a real-looking article.</small></button>
+   <button class="skill" data-go="recipe" style="--sc:var(--bun)"><span class="e">📇</span><h3>Works Cited Recipe</h3><small>The 9 core elements, in order, with the right punctuation.</small></button>
+   <button class="skill" data-go="sandwich" style="--sc:var(--lettuce)"><span class="e">🥪</span><h3>The Quote Sandwich</h3><small>Introduce, Quote, Cite, Explain. The secret to full marks.</small></button>
+   <button class="skill" data-go="intext" style="--sc:var(--cheese)"><span class="e">🏷️</span><h3>Citation Clinic</h3><small>(Lopez 13) and where the period goes. Plus: fix the mistakes!</small></button>
+   <button class="skill" data-go="para" style="--sc:var(--k4)"><span class="e">🧱</span><h3>Paragraph Builder</h3><small>Put a body paragraph and a counterclaim paragraph in order.</small></button>
+   <button class="skill" data-go="model" style="--sc:var(--k2)"><span class="e">📖</span><h3>Model Essay</h3><small>A full essay that would score 75/75. X-ray it to see every part of the rubric.</small></button>
+   <button class="skill" data-go="write" style="--sc:var(--lettuce)"><span class="e">✍️</span><h3>Write Your Own</h3><small>Practice essay, step by step, with a checklist that ticks as you write. Then send it to Dad!</small></button>
+   <button class="skill" data-go="cheat" style="--sc:var(--tomato)"><span class="e">📄</span><h3>Cheat Sheet</h3><small>Everything on one page. Print it and read it before bed.</small></button>
+   <button class="skill" data-go="quiz" style="--sc:var(--ink)"><span class="e">🏆</span><h3>Big Quiz</h3><small>Ten rounds. Best: <b>${store.get("mla-best",null)!==null?store.get("mla-best")+"%":"not yet"}</b></small></button>
+  </div>
+  <h3 class="sec">The one thing to remember</h3>
+  <div class="sdemo">${sandLayers(SANDWICHES[0],true)}</div>`;
+  goBtns(v);
+}
+function sandLayers(s,static_){
+  const L=[["top","I","Introduce","who + title + year",s.I],["fill","Q","Quote","in “quotation marks”",s.Q],["ch","C","Cite","(Last name page)",s.C],["bot","E","Explain","why it matters",s.E]];
+  return L.map(([cls,k,n,sub,txt])=>`<div class="lay ${cls}"><div class="lab">${k}: ${n}<small>${sub}</small></div><div>${txt}</div></div>`).join("");
+}
+
+/* ============================ ARTICLES ============================ */
+function articleHTML(a,id){
+  const h=(el,txt)=>`<span class="hot" data-el="${el}">${txt}</span>`;
+  if(a.web)return `<div class="article" id="${id}" style="--ac:${a.color}"><div class="mast"><span class="nm">${h("Title of Container",a.cont)}</span><span>Posted ${h("Publication Date","September 4, 2024")}</span></div>
+   <div class="body"><span class="url">🔒 ${h("Location",a.loc)}</span><h4>${h("Title of Source",a.title)}</h4><div class="by">By ${h("Author",a.first+" "+a.last)}</div>
+   <p>Every night, students across the Caribbean open their backpacks and sigh. ${h("Quote",`“${a.q[0].t}”`)} Teachers agree that homework has a purpose, but how much is too much?</p>
+   <p>The answer may surprise you. ${h("Quote 2",`“${a.q[1].t}”`)}</p></div>
+   <div class="foot">© 2024 ${h("Publisher",a.pub)}. No page numbers: this is a website.</div></div>`;
+  return `<div class="article" id="${id}" style="--ac:${a.color}"><div class="mast"><span class="nm">${h("Title of Container",a.cont)}</span><span>${a.number?h("Number","Vol. 12, No. 4")+" · ":""}${h("Publication Date",a.key==="A"?"15 March 2023":"2022")}</span></div>
+   <div class="body"><h4>${h("Title of Source",a.title)}</h4><div class="by">By ${h("Author",a.first+" "+a.last)}</div>${a.contrib?`<div style="font-size:.85rem;color:var(--muted)">${h("Other Contributors","Edited by James Carter")}</div>`:""}
+   <span class="pg">page ${a.q[0].p}</span><p>${a.key==="A"?"Bells ring, doors fly open, and the playground fills with noise.":"Should phones be locked away, or used to learn?"} ${h("Quote",`“${a.q[0].t}”`)}</p>
+   <span class="pg">page ${a.q[1].p}</span><p>${a.key==="A"?"But recess is about more than running around.":"Not everyone agrees."} ${h("Quote 2",`“${a.q[1].t}”`)}</p></div>
+   <div class="foot">${h("Publisher",a.pub)} · ${h("Location","Pages "+a.loc.replace("pp. ",""))}</div></div>`;
+}
+const HUNT=[["Author","Who wrote it?"],["Title of Source","What's the article called?"],["Title of Container","What magazine or website is it in?"],["Publication Date","When was it published? (You need the year!)"],["Publisher","Who published it?"],["Location","Where can it be found: pages or web address?"]];
+function renderArticles(){
+  const v=$("#view-articles");
+  v.innerHTML=head("🔎","Article Detective","Tomorrow your articles will look something like these. Before you can cite one, you have to find its parts. Tap a button to X-ray the article, then try the detective game.")+
+  `<div class="xray" id="xray">${["Author","Title of Source","Title of Container","Other Contributors","Number","Publisher","Publication Date","Location","Quote"].map(x=>`<button class="xb" data-x="${x}" aria-pressed="false">${x}</button>`).join("")}</div>
+  <div class="arts">${["A","B","C"].map(k=>articleHTML(ART[k],"art"+k)).join("")}</div>
+  <div class="callout">💡 <b>Where to look:</b> the <b>title</b> is the big heading. The <b>author</b> follows “By.” The <b>magazine or website name</b> is at the top. The <b>date</b> is often near the name, and <b>page numbers</b> are at the top or bottom of each page.</div>
+  <h3 class="sec">🕵️ Detective game</h3><p class="hint">Read the clue, then tap the matching part of the article.</p>
+  <div id="detgame"></div>`;
+  $("#xray").onclick=e=>{const b=e.target.closest(".xb");if(!b)return;const on=b.getAttribute("aria-pressed")!=="true";$$("#xray .xb").forEach(x=>x.setAttribute("aria-pressed","false"));$$("#view-articles .arts .hot").forEach(h=>h.classList.remove("lit"));
+    if(on){b.setAttribute("aria-pressed","true");$$(`#view-articles .arts .hot[data-el^="${b.dataset.x}"]`).forEach(h=>h.classList.add("lit"))}};
+  detective();
+}
+function detective(){
+  const host=$("#detgame");const rounds=shuffle(["A","B","C"].flatMap(k=>shuffle(HUNT).slice(0,3).map(h=>[k,...h])));let i=0,score=0;
+  const draw=()=>{const [k,el,clue]=rounds[i];
+    host.innerHTML=`<div class="detect"><span>🕵️ Clue ${i+1} of ${rounds.length}: ${clue}</span><span>⭐ ${score}</span></div><div style="max-width:520px;margin:0 auto">${articleHTML(ART[k],"det")}</div><div id="detres"></div>`;
+    let tries=0;
+    $("#det").onclick=e=>{const h=e.target.closest(".hot");if(!h||host.dataset.lock)return;
+      if(h.dataset.el===el){h.classList.add("good");if(!tries)score++;fin(true)}else{tries++;h.classList.remove("nope");void h.offsetWidth;h.classList.add("nope");if(tries>=2){$$(`#det .hot[data-el="${el}"]`).forEach(x=>x.classList.add("lit"));fin(false)}}};
+    const fin=ok=>{host.dataset.lock=1;$("#detres").innerHTML=`<p class="why ${ok?"good":"bad"}">${ok?"✅ Found it!":"Here it is, highlighted."} In the Works Cited, it's written as: <b>${citeBit(k,el)}</b></p><div class="navrow" style="justify-content:center"><button class="btn" id="dn">${i<rounds.length-1?"Next clue →":"Finish"}</button></div>`;
+      $("#dn").onclick=()=>{delete host.dataset.lock;i++;if(i<rounds.length)draw();else{host.innerHTML=`<div class="panel" style="text-align:center"><h3 style="font-size:1.7rem">🕵️ ${score} / ${rounds.length} found on the first try!</h3><div class="navrow" style="justify-content:center"><button class="btn" id="dagain">Play again</button><button class="btn ghost" data-go="recipe">Next: Works Cited Recipe →</button></div></div>`;$("#dagain").onclick=detective;goBtns(host);if(score>=7)confetti(1.2)}}};
+  };draw();
+}
+function citeBit(k,el){const p=BUILD[k].pieces.find(x=>x[0]===el);return p?p[1]:""}
+
+/* ============================ RECIPE ============================ */
+function renderRecipe(){
+  const v=$("#view-recipe");
+  v.innerHTML=head("📇","The Works Cited Recipe","A Works Cited entry is a recipe: 9 ingredients, always in the same order. Tap each one to see what it is.")+
+  `<div class="recipe">${ELEMENTS.map((e,i)=>`<button class="ing" data-i="${i}" style="--ic:${e.c}"><span class="n">${i+1}</span><span class="nm">${e.n}</span><span class="pn">${e.p}</span></button><div class="ingd" id="ingd${i}" style="--ic:${e.c}" hidden>${e.d}<br><b>Example:</b> ${e.ex}</div>`).join("")}</div>
+  <div class="callout">🍅 <b>Punctuation rule:</b> <b>Author.</b> and <b>Title.</b> end with a <b>period</b>. Everything after that is followed by a <b>comma</b>, until the very last item, which gets a <b>period</b>. Missing an ingredient? <b>Skip it</b>, along with its comma.</div>
+  <h3 class="sec">Here's the finished dish</h3>
+  <div class="cite">${WC.A}</div>
+  <p class="hint">Article A has no version, so it's skipped.</p>
+  <h3 class="sec">🧩 Game 1: Put the recipe in order</h3><p class="hint">Drag the 9 ingredients into the right order.</p><div id="ordgame"></div>
+  <h3 class="sec">🏗️ Game 2: Build the Works Cited entry</h3><p class="hint">Drag each piece onto its ingredient. Watch out for the two fake pieces!</p><div id="buildgame"></div>`;
+  $(".recipe",v).onclick=e=>{const b=e.target.closest(".ing");if(!b)return;const d=$("#ingd"+b.dataset.i);d.hidden=!d.hidden};
+  const og=()=>orderGame($("#ordgame"),ELEMENTS.map(e=>e.n),ELEMENTS.map((e,i)=>String(i+1)),(s,m)=>{const f=document.createElement("div");f.className="pfoot";f.innerHTML=`<span class="msg">${s} / ${m}${s===m?" 🎉 Perfect!":""}</span><button class="btn ghost">Try again</button>`;$("#ordgame").appendChild(f);$(".btn",f).onclick=og;if(s===m)confetti(1)});og();
+  let bi=0;const keys=["B","C","A"];
+  const bg=()=>{const k=keys[bi%3];buildCite($("#buildgame"),k,(s,m)=>{const f=document.createElement("div");f.className="pfoot";f.innerHTML=`<span class="msg">${s} / ${m}${s===m?" 🎉":""}</span><button class="btn">Build another →</button>`;$("#buildgame").appendChild(f);$(".btn",f).onclick=()=>{bi++;bg()};if(s===m)confetti(1)})};bg();
+}
+function orderGame(host,items,tags,done,colors){
+  const id=uid();
+  host.innerHTML=`<div class="dnd" id="${id}"><div class="pool sticky" id="${id}-pool">${shuffle(items.map((t,i)=>[t,i])).map(([t,i])=>chipHTML(t,{val:i},id+"-pool","lbl")).join("")}</div>
+  <div class="seq">${items.map((t,i)=>`<div class="seqrow"><span class="tag" style="--tc:${colors?colors[i]:"var(--ink)"}">${tags[i]}</span><div class="drop one" data-i="${i}"></div></div>`).join("")}</div></div>`;
+  checkBtn(host,"Check my order",()=>{const g=$("#"+id);g.classList.add("locked");let s=0;
+    $$(".seqrow .drop",g).forEach(d=>{const c=d.querySelector(".chip");const ok=c&&c.dataset.val===d.dataset.i;if(c)c.classList.add(ok?"right":"wrong");if(ok)s++;else d.insertAdjacentHTML("beforeend",`<span class="fix" style="margin-left:8px">✓ ${items[+d.dataset.i]}</span>`)});
+    done(s,items.length)});
+}
+function buildCite(host,k,done){
+  const B=BUILD[k],a=ART[k],id=uid();
+  host.innerHTML=`<div style="max-width:520px;margin:0 auto 12px">${articleHTML(a,"bart"+id)}</div>
+  <div class="dnd" id="${id}"><div class="pool sticky" id="${id}-pool">${shuffle([...B.pieces.map((p,i)=>[p[1],i]),...B.decoys.map(d=>[d,-1])]).map(([t,i])=>chipHTML(t,{val:i},id+"-pool")).join("")}</div>
+  <div class="seq">${B.pieces.map((p,i)=>`<div class="seqrow"><span class="tag" style="--tc:${ELEMENTS.find(e=>e.n===p[0]).c}">${p[0]}</span><div class="drop one" data-i="${i}"></div></div>`).join("")}</div></div>`;
+  checkBtn(host,"Check my entry",()=>{const g=$("#"+id);g.classList.add("locked");let s=0;
+    $$(".seqrow .drop",g).forEach(d=>{const c=d.querySelector(".chip");const ok=c&&c.dataset.val===d.dataset.i;if(c)c.classList.add(ok?"right":"wrong");if(ok)s++});
+    g.insertAdjacentHTML("afterend",`<p class="why ${s===B.pieces.length?"good":"bad"}">The finished entry:<span class="cite" style="display:block">${WC[k]}</span>💡 ${B.note}</p>`);done(s,B.pieces.length)});
+}
+
+/* ============================ SANDWICH ============================ */
+function renderSandwich(){
+  const v=$("#view-sandwich");
+  v.innerHTML=head("🥪","The Quote Sandwich","A quote should never be served on its own. Wrap it in your own words with the I-Q-C-E sandwich: Introduce, Quote, Cite, Explain.")+
+  `<div class="sdemo">${sandLayers(SANDWICHES[1])}</div>
+  <div class="callout">🍞 <b>Top bun (Introduce):</b> who said it, the article's title in “quotes,” and the year. That earns your <b>title and year points</b>.<br>🥬 <b>Filling (Quote):</b> the author's exact words, inside “quotation marks.”<br>🧀 <b>Cheese (Cite):</b> (Last name page). The period goes after it.<br>🍞 <b>Bottom bun (Explain):</b> one sentence on <b>why</b> the quote proves your point.</div>
+  <h3 class="sec">🍞 Top bun recipes (signal phrases)</h3><p class="hint">Copy one of these patterns tomorrow. Each one already includes the title and the year.</p>
+  <div class="tmpl">
+   <div>In the article <span class="slotw" style="--sw:var(--k2)">“Title”</span> (<span class="slotw" style="--sw:var(--k1)">Year</span>), <span class="slotw" style="--sw:var(--k3)">Author</span> argues that “…” (<span class="slotw" style="--sw:var(--c)">Last name page</span>).</div>
+   <div>According to <span class="slotw" style="--sw:var(--k3)">Author</span> in the <span class="slotw" style="--sw:var(--k1)">Year</span> article <span class="slotw" style="--sw:var(--k2)">“Title,”</span> “…” (<span class="slotw" style="--sw:var(--c)">Last name page</span>).</div>
+   <div><span class="slotw" style="--sw:var(--k3)">Author</span>, writer of <span class="slotw" style="--sw:var(--k2)">“Title”</span> (<span class="slotw" style="--sw:var(--k1)">Year</span>), points out that “…” (<span class="slotw" style="--sw:var(--c)">Last name page</span>).</div>
+  </div>
+  <div class="callout">✏️ <b>Tiny trick:</b> after <b>“that”</b>, start the quote with a small letter and no comma: <i>argues that “students who…”</i>. After a <b>comma</b>, keep the capital: <i>Lopez explains, “Students who…”</i></div>
+  <h3 class="sec">Choose your verb</h3>
+  <div class="verbs">${VERBS.map(([v,w])=>`<div><b>${v}</b><br><small>${w}</small></div>`).join("")}</div>
+  <h3 class="sec">🍞 Bottom bun starters (explaining)</h3>
+  <div class="verbs">${STARTERS.map(s=>`<div><b>${s}</b></div>`).join("")}</div>
+  <h3 class="sec">👩‍🍳 Game 1: Stack the sandwich</h3><p class="hint">Drag each piece onto the right layer. One piece is spoiled. Leave it on the counter!</p><div id="sgame"></div>
+  <h3 class="sec">✨ Game 2: Smooth or plopped?</h3><p class="hint">A <b>plopped</b> quote is dropped in by itself. A <b>smooth</b> quote is built into the writer's own sentence. Sort them!</p><div id="spgame"></div>`;
+  let si=0;const sg=()=>sandGame($("#sgame"),SANDWICHES[si%3],(s,m)=>{const f=document.createElement("div");f.className="pfoot";f.innerHTML=`<span class="msg">${s} / ${m}${s===m?" 🥪 Delicious!":""}</span><button class="btn">Make another →</button>`;$("#sgame").appendChild(f);$(".btn",f).onclick=()=>{si++;sg()};if(s===m)confetti(1)});sg();
+  const sp=()=>smoothGame($("#spgame"),(s,m)=>{const f=document.createElement("div");f.className="pfoot";f.innerHTML=`<span class="msg">${s} / ${m}</span><button class="btn ghost">Play again</button>`;$("#spgame").appendChild(f);$(".btn",f).onclick=sp;if(s===m)confetti(1)});sp();
+}
+function sandGame(host,s,done){
+  const id=uid();const parts=[["I",s.I],["Q",s.Q],["C",s.C],["E",s.E]];
+  const L=[["top","I","Introduce"],["fill","Q","Quote"],["ch","C","Cite"],["bot","E","Explain"]];
+  host.innerHTML=`<div class="dnd sand" id="${id}"><div class="pool sticky" id="${id}-pool">${shuffle([...parts,["X",s.decoy]]).map(([k,t])=>chipHTML(t,{val:k},id+"-pool")).join("")}</div>
+  ${L.map(([cls,k,n])=>`<div class="lay ${cls}"><div class="lab">${k}: ${n}</div><div class="drop one" data-k="${k}"></div></div>`).join("")}</div>`;
+  checkBtn(host,"Serve it!",()=>{const g=$("#"+id);g.classList.add("locked");let sc=0;
+    $$(".lay .drop",g).forEach(d=>{const c=d.querySelector(".chip");const ok=c&&c.dataset.val===d.dataset.k;if(c)c.classList.add(ok?"right":"wrong");if(ok)sc++});
+    g.insertAdjacentHTML("afterend",`<p class="why ${sc===4?"good":"bad"}">${sc===4?"✅ Perfect sandwich! Read it all together:":"Here's how it should read:"}<br><mark class="mi">${s.I}</mark> <mark class="mq">${s.Q}</mark> <mark class="mc">${s.C}</mark> <mark class="me">${s.E}</mark></p>`);done(sc,4)});
+}
+function smoothGame(host,done){
+  host.innerHTML=sortHTML(shuffle(SMOOTH).map(([t,b])=>({text:t,bin:b})),[{key:"s",label:"✨ Smooth (built in)",c:"var(--ok)"},{key:"p",label:"💥 Plopped (dropped in)",c:"var(--bad)"}]);
+  checkBtn(host,"Check my sorting",()=>{const r=gradeSort($(".dnd",host));done(r.score,r.max)});
+}
+
+/* ============================ IN-TEXT ============================ */
+function renderIntext(){
+  const v=$("#view-intext");
+  v.innerHTML=head("🏷️","The Citation Clinic","The little label in parentheses tells your reader exactly where the quote came from. It's worth 3 points!")+
+  `<div class="panel"><ol style="margin:0;padding-left:22px;line-height:1.9">
+   <li>Author's <b>last name</b> + <b>page number</b>, with no comma and no “p.”: <mark class="mc">(Lopez 13)</mark></li>
+   <li>The <b>period goes after</b> the parentheses: …in class” <mark class="mc">(Lopez 13)</mark><b style="color:var(--tomato);font-size:1.3em">.</b></li>
+   <li>No page number (a website)? Just the last name: <mark class="mc">(Grant)</mark></li>
+   <li>Two authors? <mark class="mc">(Lopez and Carter 12)</mark></li>
+   <li>No author? Use a short title in quotes: <mark class="mc">(“Truth About Homework”)</mark></li>
+  </ol></div>
+  <div class="callout">🎯 <b>For tomorrow:</b> your rubric asks for the <b>author's surname and page number</b>, so end every quote with <b>(Last name page)</b>, even if you named the author earlier in the sentence.</div>
+  <h3 class="sec">💉 Checkup: pick the correct citation</h3><div id="itq"></div>
+  <h3 class="sec">🐞 Fix-it: find the mistake</h3><p class="hint">Each sentence has one mistake. Tap the broken part, then choose the fix.</p><div id="bugs"></div>`;
+  const items=INTEXT.map(([q,o,why])=>({q,correct:o[0],shuffled:shuffle(o),why}));
+  $("#itq").innerHTML=mcHTML(items);wireMC($("#itq"),items,(s,m)=>{if(s===m)confetti(.8)},(it)=>it.why);
+  bugRun($("#bugs"),shuffle(BUGS),()=>{});
+}
+function bugTask(host,b,done){
+  host.innerHTML=`<div class="panel"><p style="font-family:var(--display);font-weight:600;margin:0">🔎 Tap the part with the mistake:</p><p class="bugsent">${b.seg.map((s,i)=>`<button class="seg" data-i="${i}">${s}</button>`).join("")}</p><div class="bstep"></div></div>`;
+  let tries=0;
+  $(".bugsent",host).onclick=e=>{const s=e.target.closest(".seg");if(!s||s.disabled)return;
+    if(+s.dataset.i!==b.bad){tries++;s.classList.remove("nope");void s.offsetWidth;s.classList.add("nope");if(tries<2)return}
+    $$(".seg",host).forEach(z=>{z.disabled=true;if(+z.dataset.i===b.bad)z.classList.add("caught")});
+    const opts=shuffle(b.fix.map((f,i)=>[f,i===0]));
+    $(".bstep",host).innerHTML=`<p style="font-weight:700">${tries<2?"🐞 Got it!":"🐞 Here's the mistake."} Now pick the fix:</p><div class="opts">${opts.map(([f,ok])=>`<button class="opt" data-ok="${ok?1:0}">${f}</button>`).join("")}</div><div class="bres"></div>`;
+    $(".bstep .opts",host).onclick=e2=>{const o=e2.target.closest(".opt");if(!o||o.disabled)return;const ok=o.dataset.ok==="1"&&tries<2;
+      $$(".bstep .opt",host).forEach(z=>{z.disabled=true;if(z.dataset.ok==="1")z.classList.add(z===o?"right":"missed")});if(o.dataset.ok!=="1")o.classList.add("wrong");
+      $(".bres",host).innerHTML=`<p class="why ${ok?"good":"bad"}">${ok?"✅ Fixed!":"Not quite."} ${b.why}</p>`;done(ok)}};
+}
+function bugRun(host,list,done){let i=0,s=0;
+  const go=()=>{host.innerHTML=`<p class="hint">Sentence ${i+1} of ${list.length}</p><div class="bt"></div>`;bugTask($(".bt",host),list[i],ok=>{if(ok)s++;
+    if(i<list.length-1){$(".bt",host).insertAdjacentHTML("beforeend",`<div class="navrow" style="justify-content:center"><button class="btn bn">Next sentence →</button></div>`);$(".bn",host).onclick=()=>{i++;go()}}
+    else{done(s,list.length);if(!host.closest("#view-quiz"))$(".bt",host).insertAdjacentHTML("beforeend",`<div class="panel" style="text-align:center;margin-top:12px"><h3>🐞 ${s} / ${list.length} fixed!</h3><button class="btn ghost bn">Play again</button></div>`),$(".bn",host).onclick=()=>bugRun(host,shuffle(BUGS),done)}})};go()}
+
+/* ============================ PARAGRAPHS ============================ */
+function renderPara(){
+  const v=$("#view-para");
+  v.innerHTML=head("🧱","Paragraph Builder","Your rubric wants each body paragraph to have a topic sentence, evidence with a quote, and an explanation. Counterclaims need a rebuttal. Build them!")+
+  `<div class="callout">🧱 <b>Body paragraph recipe:</b> Topic sentence → Quote sandwich → Example → Wrap-up.<br>🥊 <b>Counterclaim recipe:</b> “Some people argue…” → their reason → “However…” + quote sandwich → why you're still right.</div>
+  <div id="pg0"></div><div id="pg1" style="margin-top:28px"></div>`;
+  PARAS.forEach((p,i)=>{const run=()=>{const h=$("#pg"+i);h.innerHTML=`<h3 class="sec" style="margin-top:0">${i?"🥊":"🧱"} ${p.name}</h3><p class="hint">Drag the sentences into the right order.</p><div class="og"></div>`;
+    orderGame($(".og",h),p.items.map(x=>x[1]),p.items.map(x=>x[0]),(s,m)=>{const f=document.createElement("div");f.className="pfoot";f.innerHTML=`<span class="msg">${s} / ${m}${s===m?" 🎉":""}</span><button class="btn ghost">Try again</button>`;$(".og",h).appendChild(f);$(".btn",f).onclick=run;if(s===m)confetti(1)},["var(--k2)","var(--q)","var(--e)","var(--k1)","var(--k4)"])};run()});
+}
+
+
+/* ============================ MODEL ESSAY ============================ */
+const NOTE={
+ hook:["Hook",3,"Opens with “Imagine…” to pull the reader right into the situation. Other hooks: a surprising fact, a question, or a tiny story.","var(--k1)"],
+ bg:["Background information",5,"Explains what's going on (recess is being cut) and why people disagree, so the reader understands the issue before the argument starts.","var(--k1)"],
+ thesis:["Thesis statement",7,"One clear position that people could disagree with, plus THREE reasons. Those three reasons become the three body paragraphs, in the same order.","var(--tomato)"],
+ topic:["Topic sentence",4,"Starts with a transition (First, Second, Third) and states ONE reason from the thesis. The reader knows exactly what the paragraph is about.","#14A3A3"],
+ I:["Introduce (top bun)","title 2 pts + year 2 pts","Names the author, the article title in “quotation marks,” and the year. That earns the title and year points and makes the quote seamless.","var(--i)"],
+ Q:["Quote (filling)","seamless quotes, 5 pts","The author's exact words, in quotation marks, flowing right on from the writer's own sentence. It never stands alone.","var(--q)"],
+ C:["Citation (cheese)","in-text citations, 3 pts","(Last name page), with the period AFTER the brackets.","var(--c)"],
+ E:["Explanation (bottom bun)","explaining quotes, 3 pts","Says WHY the quote proves the reason. It starts with “This shows that” or “In other words” and connects back to the thesis.","var(--e)"],
+ ex:["Example","supporting point, 5 pts each","A real-life example in the writer's own words that backs up the reason. Evidence + example = a strong supporting point.","var(--k2)"],
+ wrap:["Wrap-up sentence","","Ends the paragraph by tying the reason back to the main argument.","var(--k2)"],
+ cc:["Counterclaim","counterclaims, 6 pts","States fairly what the other side thinks: “Some people argue…”, “Others worry…”, “Finally, …”. There are THREE in this paragraph.","var(--k5)"],
+ reb:["Rebuttal","counterpoints 6 pts + rebuttal 3 pts","Answers each counterclaim with “However,” “While…,” or “Yet…” and shows why the writer's side still wins. Using a quote in a rebuttal makes it extra strong.","var(--k5)"],
+ rest:["Restated thesis",3,"The same idea as the thesis, in NEW words. Compare it with the thesis: no copying!","#E0458F"],
+ sum:["Summary of main arguments",3,"Quickly repeats the three reasons: focus, health, social skills.","#E0458F"],
+ close:["Closing statement",4,"A short, memorable last line that leaves the reader thinking. “Let them play” echoes the title!","#E0458F"],
+ wc:["Works Cited","","A list of every article used: alphabetical by last name, with a hanging indent (the second line is pushed in).","var(--k2)"]
+};
+const GROUPS=[["Introduction",["hook","bg","thesis"],"var(--k1)"],["Topic sentences",["topic"],"#14A3A3"],["Quote sandwiches",["I","Q","C","E"],"var(--q)"],["Examples",["ex","wrap"],"var(--k2)"],["Counterclaims",["cc","reb"],"var(--k5)"],["Conclusion",["rest","sum","close"],"#E0458F"]];
+const MODEL=[
+ [["hook","Imagine sitting at a desk for six hours with only a fifteen-minute break to eat, run, and talk to your friends."],["bg"," In many schools today, recess has been cut shorter to make more time for lessons and test preparation. Some adults believe that every minute of the school day should be spent in the classroom. However, recess gives students a chance to move, rest their minds, and learn how to get along with others."],["thesis"," Schools should give students at least thirty minutes of recess every day because it helps them focus in class, keeps their bodies healthy, and teaches them important social skills."]],
+ [["topic","First, longer recess helps students focus when they return to class."],["I"," In the article “Why Kids Need More Recess” (2023), Maria Lopez explains that "],["Q","“students who get at least thirty minutes of recess focus better in class”"],["C"," (Lopez 13)."],["E"," This shows that recess is not wasted time; it actually prepares students' brains to learn."],["ex"," For example, after running around at lunchtime, a student is more likely to sit still and listen during a math lesson instead of staring out the window."],["wrap"," A longer break makes the time spent in class more useful."]],
+ [["topic","Second, recess keeps students' bodies healthy."],["I"," In the 2021 article “Playtime Builds Healthy Bodies,” Kevin Thomas points out that "],["Q","“children who are active for at least an hour a day are less likely to become overweight”"],["C"," (Thomas 23)."],["E"," Since many students sit in class, on the bus, and in front of screens at home, recess may be the only time some of them get to move."],["ex"," Playing football, skipping rope, or simply racing across the field gives students the exercise their bodies need."],["wrap"," Healthy students miss fewer days of school and have more energy to learn."]],
+ [["topic","Third, recess teaches social skills that students cannot learn from a textbook."],["I"," Lopez also argues in “Why Kids Need More Recess” (2023) that "],["Q","“recess teaches children how to solve problems and make friends”"],["C"," (Lopez 14)."],["E"," In other words, the playground is a classroom too, where students practice sharing, taking turns, and settling arguments on their own."],["ex"," For instance, when two classmates disagree about the rules of a game, they have to talk it out and find a fair solution."],["wrap"," These are skills they will use for the rest of their lives."]],
+ [["cc","Some people argue that longer recess takes away time that students need for learning."],["reb"," However, Riya Patel reports in “Is Recess a Waste of Time?” (2024) that “students often score higher on tests after a short break” (Patel 7). This proves that a break helps learning instead of hurting it."],["cc"," Others worry that students may get hurt or start arguments during a longer recess."],["reb"," While accidents can happen, schools can solve this problem by having teachers supervise the playground and teach clear rules, not by taking playtime away."],["cc"," Finally, Patel notes that some principals worry that “longer breaks leave less time to prepare for exams” (Patel 6)."],["reb"," Yet students who are rested and focused will learn more in a shorter lesson than tired students will learn in a longer one. The benefits of recess are far greater than the risks."]],
+ [["rest","Recess is not just a break from learning; it is an important part of it."],["sum"," A longer recess helps students focus in class, keeps their bodies strong and healthy, and gives them the chance to build friendships and solve problems on their own."],["close"," If schools want students who are healthier, happier, and ready to learn, the answer is simple: let them play."]]
+];
+const MODEL_WC=[`Lopez, Maria. “Why Kids Need More Recess.” <i>Kids Discover Weekly</i>, edited by James Carter, vol. 12, no. 4, Bright Minds Press, 15 Mar. 2023, pp. 12–15.`,`Patel, Riya. “Is Recess a Waste of Time?” <i>The School Times</i>, Learning Tree Press, 2024, pp. 5–7.`,`Thomas, Kevin. “Playtime Builds Healthy Bodies.” <i>Health for Kids</i>, Sunshine Publishing, 2021, pp. 22–24.`];
+const SPOT=[["thesis","Tap the THESIS statement."],["topic","Tap a TOPIC SENTENCE."],["I","Tap a part that INTRODUCES a quote (author, title, year)."],["E","Tap an EXPLANATION that comes after a quote."],["ex","Tap an EXAMPLE."],["cc","Tap a COUNTERCLAIM."],["reb","Tap a REBUTTAL."],["rest","Tap the RESTATED THESIS."],["close","Tap the CLOSING STATEMENT."],["hook","Tap the HOOK."]];
+function renderModel(){
+  const v=$("#view-model");
+  const para=p=>`<p>${p.map(([k,t])=>`<span class="an on" data-k="${k}" style="--ac:${NOTE[k][3]}">${t}</span>`).join("")}</p>`;
+  v.innerHTML=head("📖","The Model Essay","This is what a full-marks essay looks like. The colors show each part of the rubric. Tap any colored part to see why it works.")+
+  `<div class="callout">📝 <b>The prompt:</b> Should schools give students longer recess? Use at least two of the provided articles to support your position.</div>
+  <div class="legend" id="lgd"><button class="lg" data-g="all" style="--lgc:var(--ink)" aria-pressed="true">Show all</button>${GROUPS.map(([n,ks,c],i)=>`<button class="lg" data-g="${i}" style="--lgc:${c}" aria-pressed="false">${n}</button>`).join("")}</div>
+  <div class="modelgrid">
+   <aside class="notebox" id="note"><h4>👆 Tap a colored part</h4><p style="margin:0">Each color is a different part of the rubric. Tap one to see what it does and how many points it earns.</p></aside>
+   <article class="essay" id="essay"><h3 class="et">Let Them Play: Why Schools Need Longer Recess</h3>${MODEL.map(para).join("")}
+    <div class="wch">Works Cited</div>${MODEL_WC.map(w=>`<div class="wc"><span class="an on" data-k="wc" style="--ac:${NOTE.wc[3]}">${w}</span></div>`).join("")}</article>
+  </div>
+  <h3 class="sec">🧭 How the essay is built</h3>
+  <div class="panel"><table class="score"><tr><th>Paragraph</th><th>What's inside</th><th>Points</th></tr>
+   <tr><td>1. Introduction</td><td>Hook → background → thesis with 3 reasons</td><td>15</td></tr>
+   <tr><td>2–4. Body paragraphs</td><td>Topic sentence → quote sandwich → example → wrap-up (one reason each)</td><td>20</td></tr>
+   <tr><td>5. Counterclaims</td><td>3 × (“Some people argue…” → “However…”)</td><td>15</td></tr>
+   <tr><td>6. Conclusion</td><td>Restated thesis → summary of 3 reasons → closing line</td><td>10</td></tr>
+   <tr><td>Throughout</td><td>Titles, years, (Last name page), smooth quotes, explanations</td><td>15</td></tr>
+   <tr><td><b>Total</b></td><td></td><td>75</td></tr></table></div>
+  <h3 class="sec">🕵️ Spot it!</h3><p class="hint">Can you find each part without the colors? Tap the matching part of the essay.</p>
+  <div class="navrow" style="justify-content:flex-start"><button class="btn" id="spotgo">Start Spot it</button></div>
+  <div class="navrow" style="justify-content:flex-end;margin-top:30px"><button class="btn big" data-go="write">✍️ Now write your own →</button></div>`;
+  goBtns(v);
+  const setGroup=g=>{$$("#lgd .lg").forEach(b=>b.setAttribute("aria-pressed",b.dataset.g===g));const keys=g==="all"?null:GROUPS[+g][1];$$("#essay .an").forEach(a=>a.classList.toggle("on",!keys||keys.includes(a.dataset.k)))};
+  $("#lgd").onclick=e=>{const b=e.target.closest(".lg");if(b&&!spot)setGroup(b.dataset.g)};
+  let spot=null;
+  $("#essay").onclick=e=>{const a=e.target.closest(".an");if(!a)return;const k=a.dataset.k;
+    if(spot){spot(a);return}
+    $$("#essay .an").forEach(x=>x.classList.toggle("sel",x===a));const [n,pts,txt,c]=NOTE[k];
+    $("#note").innerHTML=`<h4>${n}</h4>${pts!==""?`<span class="pts">Rubric: ${typeof pts==="number"?pts+" pts":pts}</span>`:""}<p style="margin:6px 0 0">${txt}</p>`};
+  $("#spotgo").onclick=()=>{
+    const order=shuffle(SPOT);let i=0,score=0,tries=0;
+    $$("#essay .an").forEach(x=>{x.classList.remove("on","sel","good")});$("#lgd").style.opacity=".4";
+    const ask=()=>{tries=0;$("#note").innerHTML=`<h4>🕵️ ${i+1} of ${order.length}</h4><p style="margin:0;font-size:1.1rem">${order[i][1]}</p><p style="margin:6px 0 0;opacity:.8">Score: ${score}</p>`;$("#note").scrollIntoView({block:"nearest"})};
+    spot=a=>{const want=order[i][0];
+      if(a.dataset.k===want){a.classList.add("good");if(!tries)score++;next()}
+      else{tries++;a.classList.remove("nope");void a.offsetWidth;a.classList.add("nope");if(tries>=2){$$(`#essay .an[data-k="${want}"]`).forEach(x=>x.classList.add("good"));next()}}};
+    const next=()=>{const was=spot;spot=()=>{};setTimeout(()=>{$$("#essay .an.good").forEach(x=>x.classList.remove("good"));i++;if(i<order.length){spot=was;ask()}else{spot=null;$("#lgd").style.opacity="";setGroup("all");$("#note").innerHTML=`<h4>🎉 ${score} / ${order.length} on the first try!</h4><p style="margin:0">Tap any part to read about it, or press Start Spot it to play again.</p>`;if(score>=8)confetti(1.2)}},900)};
+    ask();
+  };
+}
+
+/* ============================ WRITE YOUR OWN ============================ */
+const PSRC=[
+ {id:"B",last:"Brooks",first:"Daniel",title:"Should Students Have Cell Phones in School?",cont:"The Young Reader",pub:"Sunrise Media",year:"2022",date:"2022",loc:"pp. 8–10",color:"var(--k4)",
+  pages:[[8,["Across the country, schools are deciding what to do about cell phones.","Some schools collect phones at the door, while others let students keep them in their bags."]],[9,["Phones can be a powerful learning tool when teachers set clear rules.","Students can use them to look up information, take photos of notes, and use learning apps."]],[10,["Many students admit that phones distract them during lessons.","In one survey, more than half of students said they checked social media during class when phones were allowed without rules."]]]},
+ {id:"F",last:"Mitchell",first:"Sarah",title:"Phones in Class: Distraction or Tool?",cont:"Today's Students",pub:"Harbor Press",year:"2023",date:"Feb. 2023",loc:"pp. 30–32",color:"var(--k1)",
+  pages:[[30,["Teachers say that phones are one of the biggest distractions in today's classrooms.","A single buzzing phone can pull a student's attention away for several minutes."]],[31,["Schools that banned phones during class saw students talking to each other more at lunch.","However, banning phones completely can make it harder for students to contact their families."]],[32,["The best solution may be a middle path: phones stay off during lessons but can be used at break times.","Teaching students to use phones responsibly is a skill they will need as adults."]]]},
+ {id:"G",last:"Ramirez",first:"Carlos",title:"Keeping Kids Safe and Connected",cont:"Family Life Magazine",pub:"Blue Sky Publishing",year:"2024",date:"10 Jan. 2024",loc:"pp. 18–19",color:"var(--k3)",
+  pages:[[18,["Many parents want their children to carry a phone for safety.","In an emergency, a phone lets a student reach a parent within seconds."]],[19,["Parents also use phones to arrange pickups when plans change.","Still, experts warn that too much screen time can affect sleep and mood in young people."]]]}
+];
+const PROMPT="Should students be allowed to have cell phones at school?";
+const KSTEPS=[["🧭","Pick a side"],["🧺","Collect quotes"],["🗺️","Plan"],["🎣","Introduction"],["1️⃣","Body 1"],["2️⃣","Body 2"],["3️⃣","Body 3"],["🥊","Counterclaims"],["🎬","Conclusion"],["📬","Finish & send"]];
+let K=store.get("mla-kitchen",null)||{step:0,side:null,basket:[],r:["","",""],f:{}};
+const saveK=()=>store.set("mla-kitchen",K);
+const F=k=>K.f[k]||"";
+const words=t=>(t.toLowerCase().match(/[a-z']+/g)||[]);
+const sentences=t=>(t.match(/[^.!?]+[.!?]+["”’)]*/g)||[]).filter(x=>x.trim().length>3).length;
+const CK={
+ quote:t=>/[“"][^”"]{8,}[”"]/.test(t),
+ cite:t=>/\([A-Z][A-Za-z'’-]+(?: and [A-Z][A-Za-z'’-]+)?(?: \d+(?:[–-]\d+)?)?\)/.test(t),
+ citeComma:t=>/\([A-Z][A-Za-z'’-]+, ?(?:p\.? ?|pg\.? ?|page )?\d+\)/.test(t)||/\([A-Z][A-Za-z'’-]+ (?:p\.?|pg\.?|page) ?\d+\)/.test(t),
+ firstName:t=>PSRC.some(s=>t.includes("("+s.first)),
+ periodIn:t=>/[.!][”"]\s*\(/.test(t),
+ title:t=>PSRC.some(s=>t.toLowerCase().includes(s.title.toLowerCase().slice(0,18))),
+ year:t=>/\b20(2[0-9])\b/.test(t),
+ explain:t=>/\b(this shows|this proves|in other words|this means|this matters|because of this|this supports|this is why|this tells|this explains)\b/i.test(t),
+ example:t=>/\b(for example|for instance|such as|imagine)\b/i.test(t),
+ startQuote:t=>/^\s*[“"]/.test(t),
+ topicT:t=>/^\s*(first|second|third|another|finally|also|to begin|in addition|most importantly|lastly)\b/i.test(t),
+ counter:t=>/\b(some people|others|some may|critics|opponents|some say|some argue|some believe|many people|people who disagree|some parents|some teachers|some students)\b/i.test(t),
+ rebut:t=>/\b(however|but|while|yet|although|even though|on the other hand)\b/i.test(t)
+};
+function checksFor(key){
+ const t=F(key);const L=[];const add=(ok,txt,warn)=>L.push([warn?"warn":ok?"ok":"",txt]);
+ if(key==="hook"){add(words(t).length>=8,"At least one full, interesting sentence");add(/\?|imagine|did you know|picture|what if|every day|!/i.test(t),"Grabs attention (a question, “Imagine…”, a surprising fact)")}
+ if(key==="bg"){add(sentences(t)>=2,"At least 2 sentences of background");add(/\b(some|many|others|people)\b/i.test(t),"Shows that people disagree about the issue")}
+ if(key==="thesis"){add(/\bshould\b/i.test(t),"Uses “should” or “should not” (a clear position)");add(/\b(because|since)\b/i.test(t),"Gives reasons with “because”");add((t.match(/,/g)||[]).length>=1&&/\band\b/i.test(t),"Lists three reasons (…, …, and …)")}
+ if(/^b\d$/.test(key)){
+  add(CK.topicT(t),"Starts with a topic sentence and a transition (First, Second, Third…)");
+  add(CK.title(t),"Names the article title in “quotation marks”");add(CK.year(t),"Names the article's year");
+  add(CK.quote(t),"Has a quote inside “quotation marks”");add(CK.cite(t),"Has an in-text citation like (Brooks 9)");
+  add(CK.explain(t),"Explains the quote (This shows that… / In other words…)");add(CK.example(t),"Gives an example (For example…)");
+  add(sentences(t)>=5,"At least 5 sentences");
+  if(CK.citeComma(t))add(0,"Citation should be (Last name page): no comma, no “p.” or “page”",1);
+  if(CK.firstName(t))add(0,"Use the author's LAST name in the citation",1);
+  if(CK.periodIn(t))add(0,"Move the period AFTER the citation: …” (Brooks 9).",1);
+  if(CK.startQuote(t))add(0,"Don't start the paragraph with a quote. Your words go first!",1);
+ }
+ if(/^c\d$/.test(key)){add(CK.counter(t),"States what the other side thinks (Some people argue…)");add(CK.rebut(t),"Answers it with However / While / Yet");add(sentences(t)>=2,"At least 2 sentences")}
+ if(key==="rest"){const a=new Set(words(F("thesis"))),b=words(t);const same=b.filter(w=>a.has(w)).length/(b.length||1);add(b.length>=6,"Restates your position");add(b.length>=6&&same<.7,"Uses NEW words (not copied from your thesis)")}
+ if(key==="sum"){add((t.match(/,/g)||[]).length>=1&&/\band\b/i.test(t),"Mentions all three reasons")}
+ if(key==="close"){add(words(t).length>=8,"A strong, memorable final sentence")}
+ return L;
+}
+const checksHTML=key=>`<ul class="checks" data-ck="${key}">${checksFor(key).map(([c,t])=>`<li class="${c}">${t}</li>`).join("")}</ul>`;
+function field(key,label,hint,rows,frames){
+ return `<label class="fl" for="f-${key}">${label}${hint?` <small>${hint}</small>`:""}</label>${frames?`<div class="frames">${frames.map(f=>`<button class="frame" data-f="${key}" data-t="${esc(f)}">${f}</button>`).join("")}</div>`:""}<textarea class="w" id="f-${key}" data-k="${key}" rows="${rows||3}" spellcheck="true">${esc(F(key))}</textarea>${checksHTML(key)}`;
+}
+function sourceArticle(s){
+ return `<div class="article" style="--ac:${s.color}"><div class="mast"><span class="nm">${s.cont}</span><span>${s.date}</span></div><div class="body"><h4>${s.title}</h4><div class="by">By ${s.first} ${s.last}</div>
+  ${s.pages.map(([pg,ss])=>`<span class="pg">page ${pg}</span><p>${ss.map(t=>`<button class="sent ${K.basket.some(b=>b.t===t)?"picked":""}" data-s="${s.id}" data-p="${pg}" data-t="${esc(t)}">${t}</button>`).join(" ")}</p>`).join("")}</div>
+  <div class="foot">${s.pub} · Pages ${s.loc.replace("pp. ","")}</div></div>`;
+}
+const srcOf=id=>PSRC.find(s=>s.id===id);
+function basketHTML(withRemove){
+ if(!K.basket.length)return `<p class="hint">Your basket is empty. Tap sentences in the articles above to add quotes.</p>`;
+ return `<div class="basket">${K.basket.map((b,i)=>{const s=srcOf(b.s);return `<div class="bq"><div>“${b.t}”<small>${s.first} ${s.last}, “${s.title}” (${s.year}), page ${b.p}</small></div>${withRemove?`<button class="icon" data-rm="${i}" aria-label="Remove">✕</button>`:""}</div>`}).join("")}</div>`;
+}
+function quoteHelper(key){
+ if(!K.basket.length)return `<div class="refcard">🧺 No quotes in your basket yet. Go back to “Collect quotes” first.</div>`;
+ return `<div class="refcard"><b>Your quotes</b> (tap one to see its details, then tap “Insert quote”)<div class="frames" style="margin-top:6px">${K.basket.map((b,i)=>`<button class="frame qpick" data-key="${key}" data-i="${i}">Quote ${i+1}: ${srcOf(b.s).last} p. ${b.p}</button>`).join("")}</div><div class="qinfo" id="qi-${key}"></div></div>`;
+}
+function renderWrite(){
+ const v=$("#view-write");
+ v.innerHTML=head("✍️","Write Your Own","A practice essay, one step at a time. The checklist under each box ticks itself as you write. Everything saves automatically, so you can stop and come back.")+
+ `<div class="navrow" style="justify-content:flex-start;margin:0 0 12px"><span class="timer">⏱ <span id="tmr">00:00</span><button class="icon" id="tgo" aria-label="Start or pause the timer">▶️</button><button class="icon" id="trs" aria-label="Reset the timer">↺</button></span><small style="color:var(--muted)">Practice like the real test: try to finish in about 45 minutes.</small></div>
+ <div class="ksteps" id="ksteps"></div><div id="kbody"></div>`;
+ let sec=store.get("mla-timer",0),tick=null;const showT=()=>{$("#tmr").textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")};showT();
+ $("#tgo").onclick=()=>{if(tick){clearInterval(tick);tick=null;$("#tgo").textContent="▶️"}else{tick=setInterval(()=>{sec++;store.set("mla-timer",sec);if($("#tmr"))showT();else clearInterval(tick)},1000);$("#tgo").textContent="⏸️"}};
+ $("#trs").onclick=()=>{sec=0;store.set("mla-timer",0);showT()};
+ kstep(K.step||0);
+}
+function kstep(i){
+ K.step=i;saveK();
+ $("#ksteps").innerHTML=KSTEPS.map(([e,n],j)=>`<button class="ks ${j<i?"done":""}" data-j="${j}" aria-current="${j===i}">${e} ${n}</button>`).join("");
+ $("#ksteps").onclick=e=>{const b=e.target.closest(".ks");if(b)kstep(+b.dataset.j)};
+ const B=$("#kbody");const nav=(nextLabel)=>`<div class="navrow">${i>0?`<button class="btn ghost" id="kback">← Back</button>`:"<span></span>"}${i<KSTEPS.length-1?`<button class="btn" id="knext">${nextLabel||"Next →"}</button>`:""}</div>`;
+ const sideTxt=K.side==="for"?"should be allowed":K.side==="against"?"should NOT be allowed":"…";
+ const R=K.r.map((r,j)=>r||`reason ${j+1}`);
+ if(i===0)B.innerHTML=`<div class="kpanel"><div class="prompt">📝 ${PROMPT}</div><p>Read the three articles in the next step to help you decide. For now, which side are you on? (You can change your mind later.)</p>
+  <div class="sides"><button class="side" data-side="for" aria-pressed="${K.side==="for"}">📱 YES: students should be allowed to have phones at school</button><button class="side" data-side="against" aria-pressed="${K.side==="against"}">🚫 NO: students should not be allowed to have phones at school</button></div>
+  <div class="callout">💡 Pick the side you can find the <b>best quotes</b> for, not just the one you like. Both sides have good evidence in the articles!</div>${nav()}</div>`;
+ if(i===1)B.innerHTML=`<div class="kpanel"><h3>🧺 Collect your quotes</h3><p class="hint" style="margin:0 0 10px">Read all three articles. Tap any sentence to add it to your quote basket. Collect at least <b>4</b>: three that support YOUR side and one from the other side for a counterclaim.</p></div>
+  <div class="arts" style="margin-top:14px">${PSRC.map(sourceArticle).join("")}</div>
+  <div class="kpanel" style="margin-top:14px"><h3>Your quote basket (${K.basket.length})</h3><div id="bsk">${basketHTML(true)}</div>${nav()}</div>`;
+ if(i===2)B.innerHTML=`<div class="kpanel"><h3>🗺️ Plan your three reasons</h3><p class="hint">Write each reason in a few words. Each reason will become one body paragraph, so try to have a quote for each one.</p>
+  ${[0,1,2].map(j=>`<label class="fl" for="r${j}">Reason ${j+1}</label><input class="w" id="r${j}" data-r="${j}" value="${esc(K.r[j])}" placeholder="${["e.g. they keep students safe","e.g. they can be used for learning","e.g. students need to learn responsibility"][j]}">`).join("")}
+  <div class="refcard" id="thprev"></div>${basketHTML(false)}${nav()}</div>`;
+ if(i===3)B.innerHTML=`<div class="kpanel"><h3>🎣 Introduction</h3><p class="hint">Hook → background → thesis. (15 points)</p>
+  ${field("hook","Hook","grab the reader",2,["Imagine…","Did you know that…","What would you do if…"])}
+  ${field("bg","Background","what's the issue, and why do people disagree?",3,["Today, many schools…","Some people believe… while others think…"])}
+  ${field("thesis","Thesis statement","your position + three reasons",2,[`Students ${sideTxt} to have phones at school because ${R[0]}, ${R[1]}, and ${R[2]}.`])}${nav()}</div>`;
+ if(i>=4&&i<=6){const n=i-3;B.innerHTML=`<div class="kpanel"><h3>${["1️⃣ Body paragraph 1","2️⃣ Body paragraph 2","3️⃣ Body paragraph 3"][n-1]}: ${esc(R[n-1])}</h3>
+  <p class="hint">Topic sentence → quote sandwich (Introduce, Quote, Cite, Explain) → example → wrap-up.</p>
+  <div class="refcard">🍞 <b>Pattern:</b> In the article “<b>Title</b>” (<b>Year</b>), <b>Author</b> explains that “<b>quote</b>” (<b>Last name page</b>). This shows that…</div>
+  ${quoteHelper("b"+n)}
+  ${field("b"+n,"Your paragraph","",8,[["First,","Second,","Third,"][n-1],"In the article “","explains that","points out that","argues that","This shows that","In other words,","For example,"])}${nav()}</div>`}
+ if(i===7)B.innerHTML=`<div class="kpanel"><h3>🥊 Counterclaims and rebuttals</h3><p class="hint">Write THREE things the other side might say, and answer each one. (15 points) Use a quote from the other side in at least one of them!</p>
+  ${quoteHelper("c1")}
+  ${[1,2,3].map(n=>field("c"+n,"Counterclaim "+n+" + rebuttal","",3,[["Some people argue that","Others believe that","Finally, some say that"][n-1],"However,","While it is true that","Yet","This proves that"])).join("")}${nav()}</div>`;
+ if(i===8)B.innerHTML=`<div class="kpanel"><h3>🎬 Conclusion</h3><p class="hint">Restate your thesis in NEW words → sum up your three reasons → end with a powerful last line. (10 points)</p>
+  <div class="refcard">Your thesis was: <i>${esc(F("thesis"))||"(not written yet)"}</i></div>
+  ${field("rest","Restated thesis","same idea, new words",2,["In conclusion,","Clearly,","It is clear that"])}
+  ${field("sum","Summary of your three reasons","",2,[`Phones ${R[0]}, ${R[1]}, and ${R[2]}.`])}
+  ${field("close","Closing statement","leave the reader thinking",2,["If schools want…, the answer is simple:","After all,","The choice is clear:"])}${nav()}</div>`;
+ if(i===9){const essay=essayText();B.innerHTML=`<div class="kpanel"><h3>📬 Your finished essay</h3><p class="hint">Check the list, fix anything that's missing, then send it to Dad. He'll get feedback on it for you.</p>
+  ${finalChecklist()}
+  <div class="sendrow"><button class="btn" id="ksend" style="--lc:var(--lettuce)">📤 Send to Dad</button><button class="btn ghost" id="kcopy">📋 Copy essay</button><button class="btn ghost" id="kdl">💾 Download</button><button class="btn ghost" id="kprint">🖨️ Print</button></div><div id="kmsg"></div>
+  <div class="final" id="finalEssay">${esc(essay)}</div>
+  <div class="navrow"><button class="btn ghost" id="kback">← Back</button><button class="btn ghost" id="kreset" style="--lc:var(--bad)">🗑️ Start a new essay</button></div></div>`}
+ wireK(i);
+ window.scrollTo({top:$("nav.tabs").offsetTop,behavior:"smooth"});
+}
+function essayText(){
+ const intro=[F("hook"),F("bg"),F("thesis")].filter(Boolean).join(" ");
+ const counter=[F("c1"),F("c2"),F("c3")].filter(Boolean).join(" ");
+ const concl=[F("rest"),F("sum"),F("close")].filter(Boolean).join(" ");
+ const all=[intro,F("b1"),F("b2"),F("b3"),counter,concl].join(" ");
+ const used=PSRC.filter(s=>all.includes("("+s.last)||all.includes(s.last)).sort((a,b)=>a.last.localeCompare(b.last));
+ const wc=used.map(s=>`${s.last}, ${s.first}. “${s.title}${/[?!]$/.test(s.title)?"":"."}” ${s.cont}, ${s.pub}, ${s.date}, ${s.loc}.`);
+ return `Practice essay: ${PROMPT}\n\n${[intro,F("b1"),F("b2"),F("b3"),counter,concl].filter(Boolean).join("\n\n")}\n\nWorks Cited\n${wc.join("\n")||"(no sources cited yet)"}`;
+}
+function finalChecklist(){
+ const keys=["hook","bg","thesis","b1","b2","b3","c1","c2","c3","rest","sum","close"];
+ const names={hook:"Hook",bg:"Background",thesis:"Thesis",b1:"Body 1",b2:"Body 2",b3:"Body 3",c1:"Counterclaim 1",c2:"Counterclaim 2",c3:"Counterclaim 3",rest:"Restated thesis",sum:"Summary",close:"Closing"};
+ return `<div class="refcard"><b>Before you send</b><ul class="checks">${keys.map(k=>{const L=checksFor(k);const warn=L.some(x=>x[0]==="warn");const ok=F(k).trim()&&L.every(x=>x[0]==="ok");return `<li class="${warn?"warn":ok?"ok":""}">${names[k]}${!F(k).trim()?": not written yet":warn?": has something to fix":ok?"":": missing a few things"}</li>`}).join("")}</ul></div>`;
+}
+function wireK(i){
+ const B=$("#kbody");
+ $("#knext")&&($("#knext").onclick=()=>kstep(i+1));$("#kback")&&($("#kback").onclick=()=>kstep(i-1));
+ $$(".side",B).forEach(b=>b.onclick=()=>{K.side=b.dataset.side;saveK();$$(".side",B).forEach(x=>x.setAttribute("aria-pressed",x===b))});
+ B.onclick=e=>{
+  const s=e.target.closest(".sent");if(s){const t=s.dataset.t;const ix=K.basket.findIndex(b=>b.t===t);if(ix>=0)K.basket.splice(ix,1);else K.basket.push({s:s.dataset.s,p:+s.dataset.p,t});saveK();s.classList.toggle("picked",ix<0);const bk=$("#bsk");if(bk){bk.innerHTML=basketHTML(true);$("h3",bk.parentNode).textContent=`Your quote basket (${K.basket.length})`}return}
+  const rm=e.target.closest("[data-rm]");if(rm){const b=K.basket.splice(+rm.dataset.rm,1)[0];saveK();$$(".sent",B).forEach(x=>{if(x.dataset.t===b.t)x.classList.remove("picked")});$("#bsk").innerHTML=basketHTML(true);$("h3",$("#bsk").parentNode).textContent=`Your quote basket (${K.basket.length})`;return}
+  const fr=e.target.closest(".frame:not(.qpick)");if(fr){const ta=$("#f-"+fr.dataset.f);if(ta)insertAt(ta,fr.dataset.t+" ");return}
+  const qp=e.target.closest(".qpick");if(qp){const b=K.basket[+qp.dataset.i],src=srcOf(b.s);const key=qp.dataset.key;
+   $("#qi-"+key).innerHTML=`<p style="margin:8px 0 4px">“${b.t}”</p><small>Author: <b>${src.first} ${src.last}</b> · Title: <b>“${src.title}”</b> · Year: <b>${src.year}</b> · Page: <b>${b.p}</b> → cite it as <b>(${src.last} ${b.p})</b></small><div class="frames"><button class="frame qins" data-key="${key}" data-i="${qp.dataset.i}">⬇️ Insert quote</button></div><small>Tip: after “that,” change the quote's first letter to lowercase.</small>`;return}
+  const qi=e.target.closest(".qins");if(qi){const b=K.basket[+qi.dataset.i];const ta=(lastTA&&lastTA.closest("#kbody"))?lastTA:$("#f-"+qi.dataset.key);insertAt(ta,"“"+b.t.replace(/[.!?]$/,"")+"” ");return}
+ };
+ $$("textarea.w",B).forEach(ta=>ta.addEventListener("focus",()=>lastTA=ta));
+ $$("textarea.w",B).forEach(ta=>ta.addEventListener("input",()=>{K.f[ta.dataset.k]=ta.value;saveK();const ul=$(`.checks[data-ck="${ta.dataset.k}"]`,B);if(ul)ul.outerHTML=checksHTML(ta.dataset.k)}));
+ $$("input[data-r]",B).forEach(inp=>inp.addEventListener("input",()=>{K.r[+inp.dataset.r]=inp.value.trim();saveK();thprev()}));
+ const thprev=()=>{const p=$("#thprev");if(p){const R=K.r.map((r,j)=>r||`reason ${j+1}`);p.innerHTML=`Your thesis could be: <i>Students ${K.side==="against"?"should not":"should"} be allowed to have phones at school because ${R[0]}, ${R[1]}, and ${R[2]}.</i>`}};thprev();
+ if(i===9){
+  const txt=essayText();const msg=t=>$("#kmsg").innerHTML=`<p class="why good">${t}</p>`;
+  $("#kcopy").onclick=async()=>{try{await navigator.clipboard.writeText(txt);msg("Copied! Paste it into a message to Dad.")}catch(e){const r=document.createRange();r.selectNodeContents($("#finalEssay"));const s=getSelection();s.removeAllRanges();s.addRange(r);msg("Selected. Press copy to copy it.")}};
+  $("#ksend").onclick=async()=>{if(navigator.share){try{await navigator.share({title:"My practice essay",text:txt});msg("Sent! 🎉");return}catch(e){}}location.href="mailto:?subject="+encodeURIComponent("My practice essay")+"&body="+encodeURIComponent(txt)};
+  $("#kdl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:"text/plain"}));a.download="my-practice-essay.txt";a.click()};
+  $("#kprint").onclick=()=>window.print();
+  $("#kreset").onclick=()=>{if(!$("#kreset").dataset.sure){$("#kreset").dataset.sure=1;$("#kreset").textContent="Tap again to erase everything";return}K={step:0,side:null,basket:[],r:["","",""],f:{}};saveK();store.set("mla-timer",0);renderWrite()};
+ }
+}
+let lastTA=null;
+function insertAt(ta,t){const a=ta.selectionStart??ta.value.length,b=ta.selectionEnd??ta.value.length;const pre=ta.value.slice(0,a);const sp=pre&&!/\s$/.test(pre)?" ":"";ta.value=pre+sp+t+ta.value.slice(b);const pos=(pre+sp+t).length;ta.focus();ta.setSelectionRange(pos,pos);ta.dispatchEvent(new Event("input"))}
+
+/* ============================ CHEAT SHEET ============================ */
+function renderCheat(){
+  const v=$("#view-cheat");
+  v.innerHTML=`<div class="noprint">${head("📄","Cheat Sheet","Everything on one page. Read it tonight and again before the test.")}<div class="navrow" style="justify-content:flex-start;margin-bottom:14px"><button class="btn" id="printit">🖨️ Print it</button></div></div>
+  <div class="cheat">
+   <h3>1. The quote sandwich (I-Q-C-E)</h3>
+   <div class="fm"><mark class="mi">Introduce</mark> → <mark class="mq">“Quote”</mark> → <mark class="mc">(Last name page)</mark> → <mark class="me">Explain</mark></div>
+   <p style="margin:6px 0"><mark class="mi">In the article “Why Kids Need More Recess” (2023), Maria Lopez argues that</mark> <mark class="mq">“students who get at least thirty minutes of recess focus better in class”</mark> <mark class="mc">(Lopez 13).</mark> <mark class="me">This shows that recess helps students learn.</mark></p>
+   <h3>2. Signal phrases (they include the title and year)</h3>
+   <ul><li>In the article “<b>Title</b>” (<b>Year</b>), <b>Author</b> argues that “…” (Last name page).</li>
+   <li>According to <b>Author</b> in the <b>Year</b> article “<b>Title</b>,” “…” (Last name page).</li>
+   <li><b>Author</b>, writer of “<b>Title</b>” (<b>Year</b>), points out that “…” (Last name page).</li></ul>
+   <p style="margin:4px 0">Verbs: argues, claims, explains, states, points out, warns, suggests, reports.</p>
+   <h3>3. Explain it (bottom bun)</h3>
+   <p style="margin:4px 0">This shows that… · This proves that… · In other words,… · This matters because… · This supports my point that…</p>
+   <h3>4. In-text citations</h3>
+   <ul><li>(Lopez 13): last name + page. No comma, no “p.”</li><li>Period AFTER the parentheses: …in class” (Lopez 13).</li><li>No page: (Grant). No author: (“Short Title”). Two authors: (Lopez and Carter 12).</li></ul>
+   <h3>5. Works Cited: the 9 ingredients</h3>
+   <div class="fm">Author. “Title of Source.” <i>Title of Container</i>, Other Contributors, Version, Number, Publisher, Publication Date, Location.</div>
+   <div class="cite">${WC.A}</div>
+   <ul><li>Author: Last name, First name.</li><li>Article title: “in quotation marks.” Magazine/website: <i>italics</i> (underline it by hand).</li><li>Skip any ingredient that's missing. The last one ends with a period.</li></ul>
+   <h3>6. Don't forget</h3>
+   <ul><li>Every quote gets introduced, quoted, cited, AND explained.</li><li>Name the article's <b>title</b> and <b>year</b> (that's 4 rubric points!).</li><li>Never start or end a paragraph with a quote. Your own words go first and last.</li></ul>
+  </div>`;
+  $("#printit").onclick=()=>window.print();
+}
+
+/* ============================ DRAG ENGINE ============================ */
+function chipHTML(text,data,poolId,cls){const attrs=Object.entries(data).map(([k,v])=>`data-${k}="${esc(v)}"`).join(" ");return `<div class="chip ${cls||""}" draggable="true" data-pool="${poolId}" ${attrs}><span>${text}</span><button class="x" aria-label="Send back">✕</button></div>`}
+function sortHTML(items,bins){const id=uid();return `<div class="dnd" id="${id}"><div class="pool" id="${id}-pool">${items.map(it=>chipHTML(it.text,{bin:it.bin},id+"-pool")).join("")}</div><div class="bins">${bins.map(b=>`<div class="drop many bin" data-bin="${b.key}" style="--bc:${b.c}"><div class="binlabel">${b.label}</div><div class="binbody"></div></div>`).join("")}</div></div>`}
+function gradeSort(game){game.classList.add("locked");let score=0;const chips=$$(".chip",game);chips.forEach(c=>{const bin=c.closest(".bin");const ok=bin&&bin.dataset.bin===c.dataset.bin;c.classList.add(ok?"right":"wrong");if(ok)score++});return {score,max:chips.length}}
+function checkBtn(body,label,fn){const w=document.createElement("div");w.className="navrow";w.style.justifyContent="flex-end";w.innerHTML=`<button class="btn">${label}</button>`;body.appendChild(w);$(".btn",w).onclick=()=>{w.remove();fn()}}
+let drag=null,ghost=null,hiEl=null;
+function setHi(d){if(hiEl&&hiEl!==d)hiEl.classList.remove("hi");hiEl=d;if(d)d.classList.add("hi")}
+function dropFor(el,chip){if(!el||!el.closest||!chip)return null;const d=el.closest(".drop");if(!d)return null;if(d.closest(".dnd")!==chip.closest(".dnd"))return null;if(d.closest(".locked"))return null;return d}
+function refresh(game){if(game)$$(".drop.one",game).forEach(d=>d.classList.toggle("filled",!!d.querySelector(".chip")))}
+function sendBack(chip){const p=document.getElementById(chip.dataset.pool);if(p){p.appendChild(chip);pop(chip);refresh(chip.closest(".dnd"))}}
+function pop(el){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop")}
+function place(chip,d){const body=d.querySelector(".binbody")||d;if(d.classList.contains("one")){const ex=body.querySelector(".chip");if(ex&&ex!==chip)sendBack(ex)}body.appendChild(chip);pop(chip);refresh(d.closest(".dnd"))}
+document.addEventListener("dragstart",e=>{const c=e.target.closest&&e.target.closest(".chip");if(!c)return;if(ghost||c.closest(".locked")){e.preventDefault();return}drag=c;c.classList.add("dragging");try{e.dataTransfer.setData("text/plain",c.textContent);e.dataTransfer.effectAllowed="move"}catch(_){}});
+document.addEventListener("dragend",()=>{if(drag&&!ghost){drag.classList.remove("dragging");drag=null}setHi(null)});
+document.addEventListener("dragover",e=>{if(!drag||ghost)return;const d=dropFor(e.target,drag);if(d){e.preventDefault();setHi(d)}else setHi(null)});
+document.addEventListener("drop",e=>{if(!drag||ghost)return;const d=dropFor(e.target,drag);if(d){e.preventDefault();place(drag,d)}setHi(null)});
+function moveGhost(t){ghost.style.left=(t.clientX-ghost._dx)+"px";ghost.style.top=(t.clientY-ghost._dy)+"px"}
+document.addEventListener("touchstart",e=>{const c=e.target.closest&&e.target.closest(".chip");if(!c||e.target.closest(".x")||c.closest(".locked")||e.touches.length>1)return;const t=e.touches[0],r=c.getBoundingClientRect();drag=c;ghost=c.cloneNode(true);ghost.classList.add("ghost");ghost.classList.remove("pop");ghost.style.width=r.width+"px";ghost._dx=t.clientX-r.left;ghost._dy=t.clientY-r.top;document.body.appendChild(ghost);moveGhost(t);c.classList.add("dragging")},{passive:true});
+document.addEventListener("touchmove",e=>{if(!ghost)return;e.preventDefault();const t=e.touches[0];moveGhost(t);setHi(dropFor(document.elementFromPoint(t.clientX,t.clientY),drag));if(t.clientY<90)window.scrollBy(0,-14);else if(t.clientY>innerHeight-90)window.scrollBy(0,14)},{passive:false});
+function endTouch(e,cancel){if(!ghost)return;const t=e.changedTouches[0];const d=cancel?null:dropFor(document.elementFromPoint(t.clientX,t.clientY),drag);ghost.remove();ghost=null;drag.classList.remove("dragging");if(d)place(drag,d);drag=null;setHi(null)}
+document.addEventListener("touchend",e=>endTouch(e,false));
+document.addEventListener("touchcancel",e=>endTouch(e,true));
+document.addEventListener("click",e=>{const x=e.target.closest(".x");if(!x)return;const c=x.closest(".chip");if(c&&!c.closest(".locked")){e.stopPropagation();sendBack(c)}});
+
+/* ============================ MC ============================ */
+function mcHTML(items,two){return items.map((it,qi)=>`<div class="q" data-qi="${qi}"><p class="qt"><span class="num">${qi+1}</span>${it.q}</p><div class="opts${two?" two":""}">${it.shuffled.map(o=>`<button class="opt" data-ok="${o===it.correct?1:0}">${o}</button>`).join("")}</div></div>`).join("")}
+function wireMC(body,items,done,whyFn){let answered=0,score=0;
+  body.addEventListener("click",e=>{const b=e.target.closest(".opt");if(!b||b.disabled)return;const q=b.closest(".q");if(!q||q.dataset.qi===undefined)return;const it=items[+q.dataset.qi];
+    $$(".opt",q).forEach(o=>{o.disabled=true;if(o.dataset.ok==="1")o.classList.add(o===b?"right":"missed")});
+    const ok=b.dataset.ok==="1";if(!ok)b.classList.add("wrong");else score++;
+    q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅ ":"❌ "}${whyFn?whyFn(it,ok):(ok?"Correct!":`The answer is: ${it.correct}`)}</p>`);
+    if(++answered===items.length)done(score,items.length)})}
+
+/* ============================ BIG QUIZ ============================ */
+const Q={i:0,res:[]};
+const PARTS=[
+ {e:"📇",t:"Recipe order",p:"Drag the 9 core elements into MLA order.",r:(b,d)=>orderGame(b,ELEMENTS.map(e=>e.n),ELEMENTS.map((e,i)=>String(i+1)),d)},
+ {e:"🔤",t:"Name that ingredient",p:"Which core element is each piece?",r:(b,d)=>{const names=ELEMENTS.map(e=>e.n);const items=shuffle(ELQ).slice(0,8).map(([x,n])=>({q:`<span style="font-weight:400">${x}</span>`,correct:n,shuffled:shuffle([n,...shuffle(names.filter(m=>m!==n)).slice(0,3)])}));b.innerHTML=mcHTML(items,true);wireMC(b,items,d)}},
+ {e:"🏗️",t:"Build a Works Cited entry",p:"Drag each piece onto its element. Two pieces are fakes!",r:(b,d)=>buildCite(b,"C",d)},
+ {e:"🏷️",t:"Citation checkup",p:"Pick the correct in-text citation.",r:(b,d)=>{const items=INTEXT.map(([q,o,why])=>({q,correct:o[0],shuffled:shuffle(o),why}));b.innerHTML=mcHTML(items);wireMC(b,items,d,it=>it.why)}},
+ {e:"✨",t:"Smooth or plopped?",p:"Sort each quote.",r:smoothGame},
+ {e:"🥪",t:"Stack the sandwich",p:"Drag each piece onto the right layer.",r:(b,d)=>sandGame(b,SANDWICHES[1+Math.floor(Math.random()*2)],d)},
+ {e:"🍞",t:"Best bottom bun",p:"Which sentence best EXPLAINS the quote?",r:(b,d)=>{const items=EXPLAIN.map(x=>({q:`<span style="font-weight:400">${x.quote}</span><br>Which explanation is best?`,correct:x.opts[0],shuffled:shuffle(x.opts),why:x.why}));b.innerHTML=mcHTML(items);wireMC(b,items,d,it=>it.why)}},
+ {e:"🐞",t:"Fix the mistakes",p:"Tap the mistake, then pick the fix.",r:(b,d)=>bugRun(b,shuffle(BUGS).slice(0,5),d)},
+ {e:"✅",t:"True or false",p:"Stamp each MLA rule.",r:(b,d)=>{const items=shuffle(TF);let a=0,s=0;b.innerHTML=items.map(([t],i)=>`<div class="q" data-i="${i}"><p class="qt"><span class="num">${i+1}</span>${t}</p><div class="tf"><button class="stamp" data-v="1">👍 True</button><button class="stamp" data-v="0">👎 False</button></div></div>`).join("");
+   b.addEventListener("click",e=>{const x=e.target.closest(".stamp");if(!x||x.disabled)return;const q=x.closest(".q");const [,ans,why]=items[+q.dataset.i];$$(".stamp",q).forEach(z=>z.disabled=true);const ok=(x.dataset.v==="1")===ans;x.classList.add(ok?"right":"wrong");if(ok)s++;q.insertAdjacentHTML("beforeend",`<p class="why ${ok?"good":"bad"}">${ok?"✅":"❌ It's "+(ans?"TRUE":"FALSE")+"."} ${why}</p>`);if(++a===items.length)d(s,items.length)})}},
+ {e:"🥊",t:"Counterclaim paragraph",p:"Put the counterclaim paragraph in order.",r:(b,d)=>orderGame(b,PARAS[1].items.map(x=>x[1]),PARAS[1].items.map((x,i)=>String(i+1)),d)}
+];
+function renderQuiz(){
+  const v=$("#view-quiz");
+  v.innerHTML=head("🏆","The Big Quiz",`${PARTS.length} rounds covering everything for tomorrow. Aim for 90% or higher!`)+`<div class="qtop"><div class="qtrack" id="qtrack"></div><div class="total" id="qtotal"></div></div><div id="stage"></div>`;
+  Q.i=0;Q.res=[];part();
+}
+function totals(){let s=0,m=0;Q.res.forEach(r=>{if(r){s+=r.s;m+=r.m}});return {s,m}}
+function track(){$("#qtrack").innerHTML=PARTS.map((p,i)=>{const r=Q.res[i];let c="";if(r){const pc=r.s/r.m;c=pc>=.85?"good":pc>=.6?"meh":"low"}else if(i===Q.i)c="now";return `<span class="${c}" title="${esc(p.t)}"></span>`}).join("");const t=totals();$("#qtotal").textContent=`Score: ${t.s} / ${t.m}`}
+function part(){
+  const p=PARTS[Q.i];
+  $("#stage").innerHTML=`<div class="phead"><span class="pemo">${p.e}</span><div><h3>Round ${Q.i+1} of ${PARTS.length}: ${p.t}</h3><p>${p.p}</p></div></div><div id="pbody"></div><div class="pfoot"><span class="msg" id="pmsg"></span><button class="btn big" id="nextBtn" disabled>${Q.i===PARTS.length-1?"See my results":"Next round"}</button></div>`;
+  track();
+  p.r($("#pbody"),(s,m)=>{if(Q.res[Q.i])return;Q.res[Q.i]={t:p.t,s,m};track();const pc=s/m;$("#pmsg").textContent=`${s} / ${m}: ${pc===1?"Flawless! 🌟":pc>=.8?"Great work! 💪":pc>=.6?"Not bad, keep going!":"Review this one tonight 💡"}`;const nb=$("#nextBtn");nb.disabled=false;nb.focus({preventScroll:true});if(pc===1)confetti(.6)});
+  $("#nextBtn").onclick=()=>{Q.i++;if(Q.i>=PARTS.length)results();else{part();$("#view-quiz").scrollIntoView({behavior:"smooth"})}};
+}
+function results(){
+  const t=totals();const pc=Math.round(t.s/t.m*100);const best=store.get("mla-best",null);if(best===null||pc>best)store.set("mla-best",pc);track();
+  const weak=Q.res.filter(r=>r.s/r.m<.8).map(r=>r.t);
+  $("#stage").innerHTML=`<div class="results"><div class="pct">${pc}%</div><div class="stars">${pc>=95?"⭐⭐⭐⭐⭐":pc>=85?"⭐⭐⭐⭐":pc>=70?"⭐⭐⭐":pc>=55?"⭐⭐":"⭐"}</div>
+  <h3 style="font-size:1.6rem">${pc>=90?"Master chef! You're ready for tomorrow. 🥪":pc>=75?"So close! Review the rounds below, then try again.":"Keep cooking! Read the cheat sheet, play the games, then retake."}</h3><p style="color:var(--muted)">${t.s} out of ${t.m} points${best!==null?`. Best before: ${best}%`:""}</p>
+  <div class="breakdown">${Q.res.map(r=>`<div><span>${r.t}</span><b>${r.s} / ${r.m}</b></div>`).join("")}</div>
+  ${weak.length?`<p><b>Practice tonight:</b> ${weak.join(", ")}</p>`:""}
+  <div class="navrow" style="justify-content:center"><button class="btn big" id="retake">🔁 Retake</button><button class="btn ghost big" data-go="cheat">📄 Cheat sheet</button></div></div>`;
+  $("#retake").onclick=renderQuiz;goBtns($("#stage"));confetti(pc>=85?2.2:pc>=70?1:0);
+}
+
+/* ============================ CONFETTI ============================ */
+function confetti(sec){
+  if(!sec||reduced())return;
+  const cv=$("#confetti"),ctx=cv.getContext("2d");cv.width=innerWidth;cv.height=innerHeight;
+  const cols=["#E0483B","#F7C531","#3FA34D","#D9913C","#7B4FD6","#1C7FE0"];
+  const ps=Array.from({length:Math.round(120*Math.min(sec,1.5))},()=>({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.4,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[Math.random()*cols.length|0]}));
+  const end=performance.now()+sec*1000+1800;
+  (function f(now){ctx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.r+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);ctx.restore()});if(now<end)requestAnimationFrame(f);else ctx.clearRect(0,0,cv.width,cv.height)})(performance.now());
+}
+const setNavH=()=>document.documentElement.style.setProperty("--navh",$("nav.tabs").offsetHeight+"px");setNavH();addEventListener("resize",setNavH);
+show("home");
+</script>
+</body>
+</html>
+
+</body></html>
