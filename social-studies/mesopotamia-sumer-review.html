@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Rivers to Ziggurats</title>
+<title>Ninti and the River of Clay</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Lexend:wght@400;500;600;700&family=Noto+Sans+Cuneiform&display=swap" rel="stylesheet">
@@ -269,79 +269,89 @@ input[type=range]{width:100%;accent-color:var(--river)}
 .civ4 > div{border-radius:18px;padding:14px;color:#fff}
 .civ4 .h{font-family:"Lilita One",Impact,sans-serif;font-size:1.3rem;display:block}
 .civ4 small{display:block;margin-top:6px;opacity:.95}
+
+.cast{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+@media (max-width:620px){.cast{grid-template-columns:repeat(2,1fr)}}
+.cast > div{background:rgba(255,255,255,.65);border-radius:18px;padding:10px;text-align:center;font-size:.9rem;line-height:1.3}
+.cast .av{margin:0 auto 6px}
+.cast small{display:block;color:#5a5244;margin-top:2px}
+.av{width:46px;height:46px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:3px solid #fff;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.scene{background:var(--sand);border-radius:22px;padding:14px;margin:14px 0;border:3px solid var(--line)}
+.lines{display:grid;gap:10px}
+.line{display:flex;gap:10px;align-items:flex-start}
+.line.me{flex-direction:row-reverse}
+.line.hide{display:none}
+.line.pop{animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.line.pop{animation:none}}
+.bubble{background:var(--paper);border:2px solid var(--line);border-radius:4px 18px 18px 18px;padding:8px 12px;max-width:85%;font-size:.98rem}
+.line.me .bubble{border-radius:18px 4px 18px 18px;background:#FDE7E3;border-color:#F2B8AE;color:#24211C}
+.bubble .nm{display:block;font-size:.78rem;margin-bottom:2px}
+.narr p{margin:0;font-style:italic;color:var(--muted);background:none;padding:2px 6px;border-left:4px solid var(--barley)}
+.scenectl{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.scenectl .link{border:none;background:none;color:var(--lapis);font-weight:700;text-decoration:underline;padding:4px}
+.scenectl .count{margin-left:auto;font-size:.8rem;color:var(--muted);font-weight:600}
+.gembar{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:60;background:#1E2F55;color:#fff;border-radius:999px;padding:8px 14px;font-size:.95rem;box-shadow:0 4px 12px rgba(0,0,0,.25);letter-spacing:.05em}
+.toast{position:fixed;left:50%;bottom:calc(64px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:61;background:#2A4BA0;color:#fff;border-radius:16px;padding:12px 18px;font-weight:600;text-align:center;transition:opacity .3s,transform .3s;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.gemtag{font-size:.75rem;background:var(--lapis);color:#fff;border-radius:999px;padding:2px 9px;vertical-align:3px}
+.notebook{margin-top:22px;border:3px solid var(--barley);border-radius:22px;padding:6px 16px 4px;background:repeating-linear-gradient(var(--paper) 0 30px,var(--line) 30px 31px)}
+.nb-h{font-family:"Lilita One",Impact,sans-serif;font-size:1.4rem;color:var(--barley);margin-top:6px}
+.scene-t{font-size:1.02rem}
 footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px}
 </style>
 </head>
 <body>
 
-<nav class="top" aria-label="Sections">
+<nav class="top" aria-label="Chapters">
   <div class="wrap">
-    <a href="#rivers">Two rivers</a>
-    <a href="#machine">River machine</a>
-    <a href="#dryspell">Dry spell</a>
-    <a href="#resources">No wood, no stone</a>
-    <a href="#civ">Civilization</a>
-    <a href="#citystates">City-states</a>
-    <a href="#ziggurat">Ziggurat</a>
-    <a href="#classes">Who's who</a>
-    <a href="#trade">Trading post</a>
-    <a href="#inventions">Top 10</a>
-    <a href="#timeline">Timeline</a>
-    <a href="#practice">Test questions</a>
-    <a href="#cheat">Cheat sheet</a>
-    <a href="#quiz" class="quizlink">Monster quiz</a>
+    <a href="#ch1">1 · No flood</a>
+    <a href="#ch2">2 · Mud map</a>
+    <a href="#ch3">3 · Mud everything</a>
+    <a href="#ch4">4 · Race to the gates</a>
+    <a href="#ch5">5 · Ziggurat</a>
+    <a href="#ch6">6 · Market</a>
+    <a href="#ch7">7 · Tablet house</a>
+    <a href="#practice">Homework</a>
+    <a href="#cheat">Notebook</a>
+    <a href="#quiz" class="quizlink">Final battle</a>
   </div>
 </nav>
 
+<div class="gembar" aria-live="polite"><span id="gemIcons">💎</span> <b id="gemCount">0/7</b></div>
+<div class="toast" id="toast" role="status"></div>
+
 <header class="hero">
   <div class="wrap">
-    <h1>Rivers to Ziggurats</h1>
-    <p class="sub">Lesson 1: The Geography of Mesopotamia. Lesson 2: The Sumerians. Ride the river from the snowy mountains all the way to the Persian Gulf, then face the monster.</p>
+    <h1>Ninti and the River of Clay</h1>
+    <p class="sub">A Mesopotamia adventure covering Lesson 1 (Geography) and Lesson 2 (The Sumerians). Follow Ninti from her family's barley farm to the tablet house of Uruk. Finish each chapter's challenge to earn a lapis gem. Collect all seven, then face the monster.</p>
+    <div class="cast">
+      <div><span class="av" style="background:#C8372D">👧🏽</span><b>Ninti</b><small>12, farm girl from Uruk. Asks too many questions.</small></div>
+      <div><span class="av" style="background:#7A4E24">👴🏽</span><b>Grandpa Abba</b><small>Knows the river better than anyone.</small></div>
+      <div><span class="av" style="background:#6A6253">🫏</span><b>Dudu</b><small>The family donkey. Grumpy. Hungry. Always right.</small></div>
+      <div><span class="av" style="background:#6E3779">👹</span><b>Humbaba</b><small>Waits at the end. Only knowledge can beat him.</small></div>
+    </div>
     <div class="journey">
-      <a class="stop" href="#machine"><div class="dot">🏔️</div>Mountains</a>
-      <a class="stop" href="#machine"><div class="dot">🌊</div>Floodplain</a>
-      <a class="stop" href="#dryspell"><div class="dot">🌾</div>Village</a>
-      <a class="stop" href="#citystates"><div class="dot">🧱</div>City-state</a>
-      <a class="stop" href="#ziggurat"><div class="dot">🛕</div>Ziggurat</a>
-      <a class="stop" href="#trade"><div class="dot">⛵</div>Trade</a>
-      <a class="stop" href="#quiz"><div class="dot">👹</div>Monster</a>
+      <a class="stop" href="#ch1"><div class="dot">🌾</div>Farm</a>
+      <a class="stop" href="#ch2"><div class="dot">🗺️</div>Mud map</a>
+      <a class="stop" href="#ch3"><div class="dot">🧱</div>Village</a>
+      <a class="stop" href="#ch4"><div class="dot">🏰</div>Uruk</a>
+      <a class="stop" href="#ch5"><div class="dot">🛕</div>Ziggurat</a>
+      <a class="stop" href="#ch6"><div class="dot">💎</div>Market</a>
+      <a class="stop" href="#ch7"><div class="dot">📜</div>Scribes</a>
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-<!-- TWO RIVERS -->
-<section class="tab" id="rivers">
-  <div class="tabhead c-river"><span class="lesson">Lesson 1</span><h2>The land between two rivers</h2><p>The big idea: civilizations grow where the geography helps farming, trade, or both.</p></div>
+<!-- CHAPTER 1 -->
+<section class="tab" id="ch1">
+  <div class="tabhead c-river"><span class="lesson">Chapter 1 · Lesson 1</span><h2>The flood that never came</h2><p>📍 Ninti's family farm, on the floodplain outside Uruk</p></div>
   <div class="tabbody">
-    <p><b>Mesopotamia</b> is a Greek name that means <b>“land between the rivers.”</b> It's also called the <b>Fertile Crescent</b>. The two rivers are the <b>Tigris</b> and the <b>Euphrates</b>. They begin in the <b>mountains of present-day Turkey and Kurdistan</b>, then flow <b>southeast</b> through present-day <b>Iraq</b> into the <b>Persian Gulf</b>.</p>
-    <p>The land between them was mostly <b>flat</b>, with small, scrubby plants. The rivers gave people three gifts:</p>
-    <div class="facts">
-      <div class="fact"><div class="k">Gift 1</div><div class="v">💧 Water for drinking and for crops</div></div>
-      <div class="fact"><div class="k">Gift 2</div><div class="v">🟫 Floods left fresh soil, perfect for farming</div></div>
-      <div class="fact"><div class="k">Gift 3</div><div class="v">⛵ Easy travel and trade by boat</div></div>
-    </div>
-    <h3>Why “Fertile Crescent”?</h3>
-    <p>A <b>crescent</b> is a curved shape, like a banana or a fingernail moon 🌙. Look at a map of Southwest Asia (also called the <b>Middle East</b>): the strip of good farmland curves up from the <b>Persian Gulf</b>, along the Tigris and Euphrates, then bends west and down along the <b>Mediterranean</b> coast. A curved strip of <b>fertile</b> land = the <b>Fertile Crescent</b>. Mesopotamia is the eastern half of it, and many historians call it the <b>“Cradle of Civilization”</b> because the first cities grew there.</p>
-    <h3>Why boats beat walking</h3>
-    <p>In ancient times it was easier to travel by boat than over land: boats can carry <b>heavy loads</b>, the <b>river current</b> pushes boats going downriver, and there were <b>few roads</b>.</p>
-
-    <h3>Explore the map: tap anything</h3>
-    <div class="mapgrid">
-      <div class="mapbox" id="mainMap"></div>
-      <div class="panel" id="mapInfo" aria-live="polite"><b>Tap a river, mountain, desert, sea or city.</b><p>Notice the green strip: that's the fertile soil the rivers left behind. The orange dots are Sumer's cities.</p></div>
-    </div>
-    <div class="lock"><b>Lock it in.</b> Read the map left to right in ABC order: <b>E</b>uphrates is west (left), <b>T</b>igris is east (right). Both rivers run “downhill to the Gulf”: from the mountains in the north-west, southeast into the <b>Persian Gulf</b>.</div>
-    <div class="lock"><b>Natural borders, “Mountains, Deserts, Gulf”:</b> the <b>Zagros Mountains</b> to the east, the <b>Syrian Desert</b> and <b>Arabian Desert</b> to the west, and the <b>Persian Gulf</b> to the south.</div>
-    <div class="heads"><b>Wait, borders but easy to invade?</b> Yes, both are true. The mountains and deserts are far out on the edges. The land where people actually lived was flat and open, with few mountains or barriers to stop raiders.</div>
-  </div>
-</section>
-
-<!-- RIVER MACHINE -->
-<section class="tab" id="machine">
-  <div class="tabhead c-lapis"><span class="lesson">Lesson 1</span><h2>The river machine</h2><p>Snow, floods, silt and drought. Drag the slider and watch what happens to the farm.</p></div>
-  <div class="tabbody">
+    <div class="scene" data-scene="s1"></div>
+    <h3>🎮 The river machine</h3>
+    <p>Grandpa draws the river in the dirt. Drag the slider to send more or less rain and snow down from the mountains.</p>
     <div class="sim">
       <svg viewBox="0 0 400 210" id="simSvg" role="img" aria-label="River flowing from mountains across a floodplain">
         <rect width="400" height="210" fill="#BFE3F2"/>
@@ -368,111 +378,113 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
       </svg>
       <div class="simctl"><span>☀️ Dry</span><input type="range" id="snowSlider" min="0" max="100" value="50" aria-label="Amount of rain and melting snow"><span>🌨️ Wet</span></div>
       <div class="simmsg" id="simMsg" aria-live="polite"></div>
-      <div><button class="btn" id="monthBtn">When will the flood come this year?</button> <span class="monthout" id="monthOut" aria-live="polite"></span></div>
+      <div><button class="btn" id="monthBtn">Grandpa, when will the flood come this year?</button> <span class="monthout" id="monthOut" aria-live="polite"></span></div>
     </div>
 
-    <h3>How rivers move soil</h3>
-    <div class="ed">
-      <div style="background:#7A4E24"><span class="h">Erosion</span>Water rushing down the mountains <b>picks up</b> and carries away soil. Think: erosion = <b>e</b>rase it from the mountain.</div>
-      <div style="background:#357C35"><span class="h">Deposition</span>On the flat plain, the water slows down and <b>drops</b> the soil. Think: deposition = <b>dep</b>osit it, like money in a bank.</div>
-    </div>
-    <div class="facts">
-      <div class="fact"><div class="k">Floodplain</div><div class="v">The flat land bordering the river banks</div></div>
-      <div class="fact"><div class="k">Silt</div><div class="v">The fine soil the river leaves behind</div></div>
-      <div class="fact"><div class="k">Fertile</div><div class="v">Good for growing crops</div></div>
-      <div class="fact"><div class="k">Semiarid</div><div class="v">Dry: less than 10 inches of rain a year, hot summers</div></div>
-      <div class="fact"><div class="k">Drought</div><div class="v">A long time with very little or no rain and snow</div></div>
-      <div class="fact"><div class="k">By 4000 B.C.</div><div class="v">Farming villages all across southern Mesopotamia</div></div>
-    </div>
-    <div class="lock"><b>Lock it in, the Goldilocks river:</b> too little water = <b>drought</b> and starving. Too much = a <b>violent flood</b> washes everything away. “Just right” = <b>silt</b> on the <b>floodplain</b> and a great harvest. And nobody knew <i>when</i> it would come: <b>April? May? June?</b></div>
-  </div>
-</section>
-
-<!-- DRY SPELL -->
-<section class="tab" id="dryspell">
-  <div class="tabhead c-barley"><span class="lesson">Lesson 1 story</span><h2>The Long Dry Spell</h2><p>You're a farmer in Southwest Asia, more than 8,000 years ago. Make the choices that save your village.</p></div>
-  <div class="tabbody">
+    <div class="scene" data-scene="s1b"></div>
+    <h3>🎮 Challenge: save the village <span class="gemtag">earn 💎</span></h3>
     <div class="adv" id="adv" aria-live="polite"></div>
-    <p>This story takes place more than <b>8,000 years ago</b>. The first people of Southwest Asia were <b>hunters and gatherers</b>. When they learned to plant wild grains themselves, they settled in <b>villages</b> near rivers, and they came to <b>depend on the flood</b>.</p>
-    <h3>Real Mesopotamian water tools</h3>
-    <div class="facts">
-      <div class="fact"><div class="k">Canals (by about 6000 B.C.)</div><div class="v">Ditches that carried river water to the fields. That system is <b>irrigation</b>.</div></div>
-      <div class="fact"><div class="k">Silt crews</div><div class="v">Workers dug silt out of the canals so the water kept flowing</div></div>
-      <div class="fact"><div class="k">Dams</div><div class="v">Held back extra water during floods</div></div>
-      <div class="fact"><div class="k">Shaduf</div><div class="v">A long pole with a bucket on one end and a heavy weight on the other. Push down, and it lifts water from the river into a canal, like a seesaw.</div></div>
+
+    <div class="notebook"><div class="nb-h">📓 Ninti's notebook</div>
+      <div class="facts">
+        <div class="fact"><div class="k">Floodplain</div><div class="v">Flat land bordering the river banks</div></div>
+        <div class="fact"><div class="k">Silt</div><div class="v">Fine soil the river leaves behind</div></div>
+        <div class="fact"><div class="k">Fertile</div><div class="v">Good for growing crops</div></div>
+        <div class="fact"><div class="k">Semiarid</div><div class="v">Under 10 inches of rain a year; hot summers</div></div>
+        <div class="fact"><div class="k">Drought</div><div class="v">A long time with little or no rain and snow</div></div>
+        <div class="fact"><div class="k">Erosion / deposition</div><div class="v">Water picks soil up / drops it off</div></div>
+        <div class="fact"><div class="k">Irrigation</div><div class="v">Canals carry river water to fields (by about 6000 B.C.)</div></div>
+        <div class="fact"><div class="k">Water tools</div><div class="v">Canals, silt-cleaning crews, dams, and the shaduf (a pole with a bucket on one end and a weight on the other that lifts river water, like a seesaw)</div></div>
+        <div class="fact"><div class="k">By 4000 B.C.</div><div class="v">Farming villages all over southern Mesopotamia</div></div>
+      </div>
+      <div class="lock"><b>Lock it in, the Goldilocks river:</b> too little water = <b>drought</b>, too much = a <b>violent flood</b>, just right = <b>silt</b> and a big harvest. And nobody knew <i>when</i>: April? May? June? The fixes: “<b>Dig it, Clean it, Block it, Lift it</b>”: dig canals, clean out silt, block floods with dams, lift water with a shaduf.</div>
     </div>
-    <div class="lock"><b>Lock it in, “Dig it, Clean it, Block it, Lift it”:</b> <b>dig</b> canals, <b>clean</b> out the silt, <b>block</b> floods with dams, <b>lift</b> water with a shaduf.</div>
   </div>
 </section>
 
-<!-- RESOURCES -->
-<section class="tab" id="resources">
-  <div class="tabhead c-mud"><span class="lesson">Lesson 1</span><h2>No wood, no stone</h2><p>Mesopotamia had amazing soil, and almost nothing else.</p></div>
+<!-- CHAPTER 2 -->
+<section class="tab" id="ch2">
+  <div class="tabhead c-lapis"><span class="lesson">Chapter 2 · Lesson 1</span><h2>Grandpa's mud map</h2><p>📍 The riverbank at sunset. Grandpa smooths the mud and picks up a stick.</p></div>
   <div class="tabbody">
-    <p>Mesopotamia had <b>no forests</b> for wood. It also lacked <b>stone</b> and <b>minerals, such as metals</b>. So how did people build anything?</p>
-    <div class="facts">
-      <div class="fact"><div class="k">Problem</div><div class="v">No wood or stone to build with</div></div>
-      <div class="fact"><div class="k">Solution</div><div class="v">🧱 Mud for bricks and plaster</div></div>
-      <div class="fact"><div class="k">Catch</div><div class="v">Mud buildings crumbled easily and needed repairs often</div></div>
+    <div class="scene" data-scene="s2"></div>
+    <h3>🗺️ Grandpa's map: tap anything</h3>
+    <div class="mapgrid">
+      <div class="mapbox" id="mainMap"></div>
+      <div class="panel" id="mapInfo" aria-live="polite"><b>Tap a river, mountain, desert, sea or city.</b><p>The green strip is the fertile soil. Orange dots are Sumer's city-states.</p></div>
     </div>
-    <div class="facts">
-      <div class="fact"><div class="k">Problem</div><div class="v">Few mountains or natural barriers: easy to invade, and raiders came to steal or conquer</div></div>
-      <div class="fact"><div class="k">Solution</div><div class="v">🛡️ Mud walls around their villages</div></div>
+    <h3>🎮 Challenge: Grandpa's riddles <span class="gemtag">earn 💎</span></h3>
+    <p>Grandpa wipes the labels off his map. Read each riddle and tap the answer.</p>
+    <div class="riddle" id="riddle"></div>
+
+    <div class="notebook"><div class="nb-h">📓 Ninti's notebook</div>
+      <div class="facts">
+        <div class="fact"><div class="k">Mesopotamia</div><div class="v">Greek for “land between the rivers”</div></div>
+        <div class="fact"><div class="k">Also called</div><div class="v">The Fertile Crescent, “Cradle of Civilization”</div></div>
+        <div class="fact"><div class="k">Rivers start</div><div class="v">Mountains of present-day Turkey &amp; Kurdistan</div></div>
+        <div class="fact"><div class="k">Rivers flow</div><div class="v">Southeast through Iraq to the Persian Gulf</div></div>
+        <div class="fact"><div class="k">Natural borders</div><div class="v">Zagros Mts (east), Syrian &amp; Arabian Deserts (west), Persian Gulf (south)</div></div>
+        <div class="fact"><div class="k">The land</div><div class="v">Mostly flat, small scrubby plants; few barriers</div></div>
+        <div class="fact"><div class="k">Boats beat walking</div><div class="v">Heavy loads, river current, few roads</div></div>
+        <div class="fact"><div class="k">Nineveh to Ur</div><div class="v">About 400 miles</div></div>
+        <div class="fact"><div class="k">Big idea</div><div class="v">Civilizations grow where geography helps farming, trade, or both</div></div>
+      </div>
+      <div class="lock"><b>Lock it in:</b> read the map like a book in ABC order: <b>E</b>uphrates on the left (west), <b>T</b>igris on the right (east). Borders = “<b>Mountains, Deserts, Gulf</b>.”</div>
     </div>
-    <div class="facts">
-      <div class="fact"><div class="k">Problem</div><div class="v">Still needed stone, wood and metal</div></div>
-      <div class="fact"><div class="k">Solution</div><div class="v">🌾 Grow a <b>surplus</b> of grain and trade it</div></div>
-      <div class="fact"><div class="k">Surplus</div><div class="v">More than you need for yourself</div></div>
-    </div>
-    <div class="story"><span class="who">Who's in charge here?</span> Digging canals, building walls and trading had to be done again and again, at just the right time. So <b>community leaders</b> began organizing groups of people to do the work. That's the first step from village to city, and from city to government.</div>
-    <div class="lock"><b>Lock it in, “Mud, Mud, Grain”:</b> mud for <b>houses</b>, mud for <b>walls</b>, extra grain to <b>trade</b> for everything else.</div>
   </div>
 </section>
 
-<!-- CIVILIZATION -->
-<section class="tab" id="civ">
-  <div class="tabhead c-palm"><span class="lesson">Lessons 1 &amp; 2</span><h2>What makes a civilization?</h2><p>Why Sumer is called the <b>first civilization</b>, not just a big village.</p></div>
+<!-- CHAPTER 3 -->
+<section class="tab" id="ch3">
+  <div class="tabhead c-mud"><span class="lesson">Chapter 3 · Lesson 1</span><h2>Mud, mud, everything mud</h2><p>📍 Ninti's village, where the house is falling apart again</p></div>
   <div class="tabbody">
-    <p>A <b>civilization</b> is a complex way of life that grows when people settle down, farm and build cities. Remember the big idea from Lesson 1: civilizations <b>arise in places that help farming, trade, or both</b>. Mesopotamia had both, so the first one grew there: <b>Sumer</b>.</p>
-    <p>Every civilization has these features. Here's how Sumer shows each one:</p>
-    <div class="civ4">
-      <div style="background:#2A4BA0"><span class="h">Cities &amp; government</span>Organized cities with leaders who make rules and protect the food supply.<small><b>Sumer:</b> city-states like Ur, Uruk and Eridu, each with its own king and walls.</small></div>
-      <div style="background:#6E3779"><span class="h">Religion</span>Beliefs that explain life and the forces of nature.<small><b>Sumer:</b> many gods (polytheism), a patron god for each city, and ziggurats.</small></div>
-      <div style="background:#B07A0C"><span class="h">Social structure</span>People grouped by their work, wealth and power.<small><b>Sumer:</b> upper, middle and lowest classes.</small></div>
-      <div style="background:#357C35"><span class="h">Writing &amp; art</span>Ways to keep records and pass on ideas.<small><b>Sumer:</b> cuneiform, scribes, the Standard of Ur, the Epic of Gilgamesh.</small></div>
+    <div class="scene" data-scene="s3"></div>
+    <h3>🎮 Challenge: fix it, Ninti! <span class="gemtag">earn 💎</span></h3>
+    <div class="adv" id="fixit" aria-live="polite"></div>
+    <div class="notebook"><div class="nb-h">📓 Ninti's notebook</div>
+      <div class="facts">
+        <div class="fact"><div class="k">Missing</div><div class="v">No forests (wood), no stone, no minerals or metals</div></div>
+        <div class="fact"><div class="k">So they built with</div><div class="v">Mud bricks and mud plaster, which crumbled and needed repairs often</div></div>
+        <div class="fact"><div class="k">Easy to invade</div><div class="v">Few mountains or natural barriers, so they built mud walls around villages</div></div>
+        <div class="fact"><div class="k">Surplus</div><div class="v">More than you need, traded for stone, wood and metal</div></div>
+        <div class="fact"><div class="k">Leaders</div><div class="v">Community leaders organized canal-digging, wall-building and trading</div></div>
+      </div>
+      <div class="lock"><b>Lock it in, “Mud, Mud, Grain”:</b> mud for <b>houses</b>, mud for <b>walls</b>, extra <b>grain</b> to trade for everything else.</div>
     </div>
-    <p>Bonus features you can also mention: <b>job specialization</b> (artisans, merchants, scribes with special jobs), <b>trade</b>, and <b>new technology</b> (the wheel, bronze, the plough).</p>
-    <h3>Sort Sumer's features</h3>
-    <div id="civGame"></div>
-    <div class="lock"><b>Lock it in, “Can Royals Sing Well?”</b> <b>C</b>ities &amp; government, <b>R</b>eligion, <b>S</b>ocial structure, <b>W</b>riting &amp; art. If a test asks for <b>two features of Sumer</b> that made it a civilization, pick any two and give a Sumer example for each, e.g. “Sumer had <b>writing</b> (cuneiform) and <b>organized religion</b> (ziggurats for many gods).”</div>
   </div>
 </section>
 
-<!-- CITY-STATES -->
-<section class="tab" id="citystates">
-  <div class="tabhead c-carn"><span class="lesson">Lesson 2</span><h2>Sumer and its city-states</h2><p>The world's first civilization, in southern Mesopotamia, around 3000 B.C.</p></div>
+<!-- CHAPTER 4 -->
+<section class="tab" id="ch4">
+  <div class="tabhead c-carn"><span class="lesson">Chapter 4 · Lesson 2</span><h2>Race to the gates</h2><p>📍 The road to the city of Uruk, with the sun going down fast</p></div>
   <div class="tabbody">
-    <p><b>Sumer</b> was the first <b>civilization</b>, in <b>southern Mesopotamia</b>, around <b>3000 B.C.</b> Its people, the <b>Sumerians</b>, built the first cities in Southwest Asia, including <b>Ur, Uruk and Eridu</b>. These cities controlled the lower part of the Tigris and Euphrates valleys.</p>
-    <div class="story"><span class="who">Why every city went solo.</span> Picture each Sumerian city as an island, but surrounded by <b>mud-flats and scorching desert</b> instead of sea. Travelling and talking with neighbours over land was hard, so each city was cut off. Each one grew its own crops, made its own goods and took control of the land around it. That made each one a <b>city-state</b>: a city that governs itself and its surrounding territory. Kind of like how each Caribbean island runs itself.</div>
-    <div class="facts">
-      <div class="fact"><div class="k">Government</div><div class="v">Each had its own; not part of any bigger state</div></div>
-      <div class="fact"><div class="k">Population</div><div class="v"><span class="big">5,000–20,000</span></div></div>
-      <div class="fact"><div class="k">War</div><div class="v">Fought each other over resources and borders</div></div>
-      <div class="fact"><div class="k">Peace</div><div class="v">Traded with each other and formed alliances to protect common interests</div></div>
-    </div>
-    <h3>Build a city-state</h3>
-    <p>Drag each piece to where it belongs. Tap ✕ to send a piece back.</p>
+    <div class="scene" data-scene="s4"></div>
+    <h3>🎮 Challenge: build Uruk <span class="gemtag">earn 💎</span></h3>
+    <p>Help Ninti draw Uruk for her little brother. Drag each piece to where it belongs. Tap ✕ to send a piece back.</p>
     <div id="cityGame"></div>
-    <div class="lock"><b>Lock it in, a city-state is like a castle in a board game:</b> a big <b>wall</b> around the outside, <b>gates</b> open by day and shut by night, the <b>palace and ziggurat</b> right in the <b>center</b>, and the farms outside.</div>
+    <h3>🎮 Bonus: is Sumer a civilization?</h3>
+    <div id="civGame"></div>
+    <div class="notebook"><div class="nb-h">📓 Ninti's notebook</div>
+      <div class="facts">
+        <div class="fact"><div class="k">Sumer</div><div class="v">The first civilization, in southern Mesopotamia, around 3000 B.C.</div></div>
+        <div class="fact"><div class="k">First cities</div><div class="v">Ur, Uruk and Eridu (also Kish, Nippur, Lagash). They controlled the lower part of the Tigris and Euphrates valleys.</div></div>
+        <div class="fact"><div class="k">City-state</div><div class="v">A city that governs itself and its surrounding territory</div></div>
+        <div class="fact"><div class="k">Why independent?</div><div class="v">Mud-flats and desert cut cities off from each other</div></div>
+        <div class="fact"><div class="k">Size</div><div class="v">5,000–20,000 people, each with its own government</div></div>
+        <div class="fact"><div class="k">Layout</div><div class="v">Big mud wall; gates open by day, shut at night; palace and ziggurat in the center</div></div>
+        <div class="fact"><div class="k">War &amp; peace</div><div class="v">Fought over resources and borders; in peace, traded and formed alliances</div></div>
+        <div class="fact"><div class="k">Civilization</div><div class="v">Cities &amp; government, religion, social structure, writing &amp; art</div></div>
+      </div>
+      <div class="lock"><b>Lock it in, “Can Royals Sing Well?”</b> <b>C</b>ities &amp; government, <b>R</b>eligion, <b>S</b>ocial structure, <b>W</b>riting &amp; art. If a test asks for two features of Sumer that made it a civilization, name two with an example, like “<b>writing</b> (cuneiform) and <b>religion</b> (ziggurats).”</div>
+    </div>
   </div>
 </section>
 
-<!-- ZIGGURAT -->
-<section class="tab" id="ziggurat">
-  <div class="tabhead c-plum"><span class="lesson">Lesson 2</span><h2>Gods, priests and kings</h2><p>Climb the ziggurat one level at a time.</p></div>
+<!-- CHAPTER 5 -->
+<section class="tab" id="ch5">
+  <div class="tabhead c-plum"><span class="lesson">Chapter 5 · Lesson 2</span><h2>Busted on the ziggurat</h2><p>📍 The center of Uruk, at the foot of the giant stepped temple</p></div>
   <div class="tabbody">
-    <p>Sumerians believed in many gods: <b>polytheism</b> (poly = many, theism = belief in god). The gods helped explain <b>forces of nature</b> and <b>human activities and talents</b>. Each city-state had its own <b>patron god</b> and honored it with a huge temple called a <b>ziggurat</b>.</p>
-    <div class="story"><span class="who">Why so many gods?</span> Imagine your whole life depends on a river that might flood in April, or June, or not at all. Sumerians couldn't explain floods, droughts, storms or the sun scientifically, so they believed a different god controlled each force of nature, and others gave people their talents, like writing or farming. Keeping all those gods happy felt like the best way to keep the river kind. That's why they built their tallest building, the ziggurat, for their god, in the very center of the city.</div>
+    <div class="scene" data-scene="s5"></div>
+    <h3>🎮 Challenge: climb the ziggurat (in your imagination) <span class="gemtag">earn 💎</span></h3>
     <div class="zig">
       <svg viewBox="0 0 240 220" role="img" aria-label="Ziggurat with four levels">
         <rect width="240" height="220" fill="#F3D9A0" rx="18"/>
@@ -482,90 +494,94 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
         <rect class="tier" id="z3" x="95" y="48" width="50" height="34" fill="#D6AA70"/>
         <path d="M112 200 L120 160 L128 200Z" fill="#8A5A2B"/>
         <text x="120" y="40" font-size="20" text-anchor="middle">✨</text>
-        <g class="climber" id="climber"><circle cx="120" cy="188" r="6" fill="#2A4BA0"/><rect x="116" y="193" width="8" height="10" rx="2" fill="#2A4BA0"/></g>
+        <g class="climber" id="climber"><circle cx="120" cy="188" r="6" fill="#C8372D"/><rect x="116" y="193" width="8" height="10" rx="2" fill="#C8372D"/></g>
       </svg>
       <div>
-        <div class="panel" id="zigInfo" aria-live="polite"><b>Ready to climb?</b><p>Press the button to go up one level.</p></div>
+        <div class="panel" id="zigInfo" aria-live="polite"><b>Ready to climb?</b><p>The priestess says you can climb… in your imagination. Press the button to go up one level.</p></div>
         <p style="margin-top:10px"><button class="btn" id="climbBtn">Climb up a level</button></p>
       </div>
     </div>
-    <h3>Who's in charge? Three steps</h3>
-    <div class="ladder3">
-      <span style="background:#6E3779">1. Priests ruled the city-states</span><span class="arr">→</span>
-      <span style="background:#B3302A">2. War heroes became kings</span><span class="arr">→</span>
-      <span style="background:#B07A0C">3. Rule became hereditary</span>
+    <div class="notebook"><div class="nb-h">📓 Ninti's notebook</div>
+      <div class="facts">
+        <div class="fact"><div class="k">Polytheism</div><div class="v">A belief in more than one god</div></div>
+        <div class="fact"><div class="k">Gods explained</div><div class="v">Forces of nature, and human activities and talents</div></div>
+        <div class="fact"><div class="k">Patron god</div><div class="v">Each city-state had its own</div></div>
+        <div class="fact"><div class="k">Ziggurat</div><div class="v">Pyramid-shaped structure with a temple on top; “to rise high” (Akkadian)</div></div>
+        <div class="fact"><div class="k">The top</div><div class="v">Holy home of the gods; only special priests allowed</div></div>
+        <div class="fact"><div class="k">Who ruled</div><div class="v">Priests → war-hero kings → hereditary kings (monarchy)</div></div>
+        <div class="fact"><div class="k">Kings' power</div><div class="v">Claimed it came from the city's god</div></div>
+        <div class="fact"><div class="k">Hereditary</div><div class="v">When the king died, his son took over</div></div>
+      </div>
+      <div class="lock"><b>Lock it in:</b> zig-ZAG your way up and you “<b>rise high</b>.” <b>Poly</b>theism: <b>poly</b> = many, like a <b>poly</b>gon with many sides.</div>
     </div>
-    <p>Sumerian kings claimed they got their <b>power to rule from the city's god</b>. Over time, their rule became <b>hereditary</b>: when a king died, <b>his son took over</b>. A government ruled by a king or queen like that is a <b>monarchy</b>. The first kings were most likely <b>war heroes</b>.</p>
-    <div class="lock"><b>Lock it in:</b> zig-<b>ZAG</b> your way up and you <b>rise high</b>. Ziggurat means “to rise high” in the <b>Akkadian</b> language, and only special priests may reach the top, the home of the gods.</div>
   </div>
 </section>
 
-<!-- CLASSES -->
-<section class="tab" id="classes">
-  <div class="tabhead c-navy"><span class="lesson">Lesson 2</span><h2>Who's who in Sumer</h2><p>Three social classes. Tap a level. You usually stayed in the class you were born into.</p></div>
+<!-- CHAPTER 6 -->
+<section class="tab" id="ch6">
+  <div class="tabhead c-palm"><span class="lesson">Chapter 6 · Lesson 2</span><h2>Who's who at the market</h2><p>📍 Uruk's busy market, where it seems all of Sumer has shown up</p></div>
   <div class="tabbody">
+    <div class="scene" data-scene="s6"></div>
+    <h3>👑 Ninti's pyramid: tap a level</h3>
     <div class="pyr" id="pyr"></div>
     <div class="panel" id="pyrInfo" aria-live="polite"><b>Tap a level of the pyramid.</b></div>
-    <div class="heads"><b>Different from your notebook!</b> Your earlier notes put farmers at the bottom with enslaved people. <b>Lesson 2 puts farmers in the middle class</b>, along with merchants, fishers and artisans. For this test, go with Lesson 2.</div>
-    <div class="story"><span class="who">The Standard of Ur.</span> A <b>standard</b> is a flag or symbol carried on a pole. The Standard of Ur is a decorated panel, only about 8.5 by 19.5 inches, made with shell and blue lapis lazuli. Its rows of tiny people show Sumerian society: kings and soldiers at the top, farmers bringing animals and goods below. It's like an ancient comic strip of who's who.</div>
-    <h3>Roles of men and women</h3>
-    <div class="roles">
-      <div style="border-color:var(--lapis)"><b>Men</b><ul><li>Head of the home; provided for the family</li><li>Boys went to school and became apprentices, training for specific jobs</li><li>Cared for parents if they needed help</li></ul></div>
-      <div style="border-color:var(--carnelian)"><b>Women</b><ul><li>Ran the home</li><li>Taught daughters to run a household</li><li>Took care of children and elderly parents</li></ul></div>
-    </div>
-    <div class="lock"><b>Lock it in, “Kings Pray, Warriors Obey”</b> for the upper class: <b>K</b>ings, <b>P</b>riests, <b>W</b>arriors, <b>O</b>fficials. Middle class is “<b>M</b>y <b>F</b>arm <b>F</b>eeds <b>A</b>ll”: <b>M</b>erchants, <b>F</b>armers, <b>F</b>ishers, <b>A</b>rtisans. It's the biggest group. Enslaved people (war captives, criminals, people who couldn't pay debts) were the lowest.</div>
-  </div>
-</section>
-
-<!-- TRADE -->
-<section class="tab" id="trade">
-  <div class="tabhead c-palm"><span class="lesson">Lesson 2</span><h2>The trading post</h2><p>Farming was Sumer's main job. Trade got them everything else.</p></div>
-  <div class="tabbody">
-    <p>If you lived in Sumer, you were <b>most likely a farmer</b>, with a plot of land around the city-state. But Sumer couldn't produce everything, especially <b>metals</b> for metalworking. So traders sailed to other lands. You're a trader now. Spend your sacks wisely!</p>
+    <div class="heads"><b>Different from your notebook!</b> Your earlier notes put farmers at the bottom. <b>Lesson 2 puts farmers in the middle class</b>, with merchants, fishers and artisans. For this test, go with Lesson 2.</div>
+    <div class="scene" data-scene="s6b"></div>
+    <h3>🎮 Challenge: trade with Ur-Lugal <span class="gemtag">earn 💎</span></h3>
     <p><b>Your goods:</b> <span class="sacks" id="sacks"></span></p>
     <div class="trade" id="tradeCards"></div>
     <div class="chest" id="chest" aria-live="polite"><b>Treasure chest:</b> empty</div>
-    <div class="lock"><b>Lock it in, colours and places:</b> <b>C</b>arnelian is <b>C</b>rimson red, from India's Indus Valley. <b>L</b>apis <b>L</b>azuli is <b>L</b>ovely blue, from Afghanistan. Sumer gave <b>wheat, barley and tools</b> and got <b>timber, minerals and metals</b>.</div>
+    <div class="notebook"><div class="nb-h">📓 Ninti's notebook</div>
+      <div class="facts">
+        <div class="fact"><div class="k">Upper class</div><div class="v">Kings, priests, warriors, government officials</div></div>
+        <div class="fact"><div class="k">Middle class (largest)</div><div class="v">Merchants, farmers, fishers, artisans</div></div>
+        <div class="fact"><div class="k">Lowest class</div><div class="v">Enslaved people: war captives, criminals, people in debt</div></div>
+        <div class="fact"><div class="k">Moving up?</div><div class="v">Rarely; you stayed in the class you were born into</div></div>
+        <div class="fact"><div class="k">Men</div><div class="v">Head of home and provided; boys went to school as apprentices; cared for parents</div></div>
+        <div class="fact"><div class="k">Women</div><div class="v">Ran the home; taught daughters; cared for children and elderly parents</div></div>
+        <div class="fact"><div class="k">Main job</div><div class="v">Farming; most Sumerians were farmers with plots around the city</div></div>
+        <div class="fact"><div class="k">Trade</div><div class="v">Wheat, barley, tools → timber, minerals, metals</div></div>
+        <div class="fact"><div class="k">Gems</div><div class="v">Carnelian (red) from the Indus Valley; lapis lazuli (blue) from Afghanistan</div></div>
+        <div class="fact"><div class="k">Standard of Ur</div><div class="v">A decorated panel (a standard is a flag or symbol on a pole) showing Sumer's people</div></div>
+      </div>
+      <div class="lock"><b>Lock it in:</b> upper class = “<b>K</b>ings <b>P</b>ray, <b>W</b>arriors <b>O</b>bey” (Kings, Priests, Warriors, Officials). Middle = “<b>M</b>y <b>F</b>arm <b>F</b>eeds <b>A</b>ll” (Merchants, Farmers, Fishers, Artisans). <b>C</b>arnelian is <b>C</b>rimson; <b>L</b>apis <b>L</b>azuli is <b>L</b>ovely blue.</div>
+    </div>
   </div>
 </section>
 
-<!-- INVENTIONS -->
-<section class="tab" id="inventions">
-  <div class="tabhead c-lapis"><span class="lesson">Lesson 2</span><h2>Sumer's top 10</h2><p>Later civilizations copied and improved these ideas. Some are still on your wrist and in your phone.</p></div>
+<!-- CHAPTER 7 -->
+<section class="tab" id="ch7">
+  <div class="tabhead c-navy"><span class="lesson">Chapter 7 · Lesson 2</span><h2>The girl at the tablet house</h2><p>📍 The edubba, or “tablet house,” Uruk's school for scribes</p></div>
   <div class="tabbody">
+    <div class="scene" data-scene="s7"></div>
+    <h3>🏆 Sumer's top 10</h3>
     <div class="inv" id="invGrid"></div>
-    <div class="lock"><b>Lock it in, seven verbs:</b> <b>Write</b> (cuneiform), <b>Roll</b> (wheel), <b>Sail</b> (sailboat), <b>Plow</b> (wooden plough), <b>Spin</b> (potter's wheel), <b>Melt</b> (bronze), and <b>Count</b> (base 60, times tables, 60-minute hour and 360° circle, 12-month lunar calendar).</div>
-    <h3>Key words: cuneiform, scribe, epic</h3>
-    <div class="facts">
-      <div class="fact"><div class="k">Cuneiform</div><div class="v">Sumerian writing: wedge-shaped marks in soft clay</div></div>
-      <div class="fact"><div class="k">Scribe</div><div class="v">A person who copies or writes out documents; often a record keeper</div></div>
-      <div class="fact"><div class="k">Epic</div><div class="v">A long poem about the deeds of a legendary or real hero, like Gilgamesh</div></div>
-    </div>
-    <div class="story"><span class="who">The Epic of Gilgamesh, in 30 seconds.</span> Gilgamesh, king of Uruk, was strong but bossy, so the gods sent a wild man, <b>Enkidu</b>, to match him. They wrestled, tied, and became best friends. Together they defeated <b>Humbaba</b>, the monster of the Cedar Forest. When Enkidu died, Gilgamesh searched for the secret of living forever, found a magic plant, and lost it to a snake. He came home to Uruk and realized his great city walls would be what lived on. It's one of the oldest stories ever written, carved in cuneiform on clay tablets by scribes.</div>
-    <div class="story"><span class="who">School for scribes.</span> Boys who went to school trained as <b>apprentices</b> for specific jobs, and the most famous job was <b>scribe</b>. Students copied signs into clay all day in the “tablet house.” Scribes kept records of grain, trade, laws and taxes, which made them important people.</div>
-    <h3>Write your name like a scribe</h3>
+    <div class="lock"><b>Lock it in, seven verbs:</b> <b>Write</b> (cuneiform), <b>Roll</b> (wheel), <b>Sail</b> (sailboat), <b>Plow</b> (wooden plough), <b>Spin</b> (potter's wheel), <b>Melt</b> (bronze), <b>Count</b> (base 60, times tables, 60-minute hour and 360° circle, 12-month lunar calendar).</div>
+    <h3>🎮 Challenge: invention rescue <span class="gemtag">earn 💎</span></h3>
+    <p>Lu-Nanna sends Ninti around Uruk to solve problems. Which Sumerian invention saves the day?</p>
+    <div class="adv" id="rescue" aria-live="polite"></div>
+    <div class="scene" data-scene="s7b"></div>
+    <h3>✍️ Write your name like a scribe</h3>
     <div class="cw">
       <label for="cwIn">Type a name or a secret message:</label>
-      <input id="cwIn" value="Adiaha" maxlength="30" autocomplete="off">
+      <input id="cwIn" value="Ninti" maxlength="30" autocomplete="off">
       <div class="tablet cune" id="cwOut" aria-live="polite"></div>
-      <small style="color:var(--muted)">A fun code made from real cuneiform signs, one sign per letter, just like your I.A. clay tablet activity. Real Sumerian used sounds and syllables, not an alphabet.</small>
+      <small style="color:var(--muted)">A fun code made from real cuneiform signs, one per letter, like your I.A. clay tablet activity. Real Sumerian used sounds and syllables, not an alphabet.</small>
+    </div>
+    <div class="notebook"><div class="nb-h">📓 Ninti's notebook</div>
+      <div class="facts">
+        <div class="fact"><div class="k">Cuneiform</div><div class="v">Sumerian writing: wedge-shaped marks made in soft clay</div></div>
+        <div class="fact"><div class="k">Scribe</div><div class="v">A person who copies or writes out documents; often a record keeper</div></div>
+        <div class="fact"><div class="k">Epic</div><div class="v">A long poem about the deeds of a legendary or real hero</div></div>
+        <div class="fact"><div class="k">Why it matters</div><div class="v">Later civilizations copied and improved Sumer's ideas</div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TIMELINE -->
-<section class="tab" id="timeline">
-  <div class="tabhead c-river"><span class="lesson">Lesson 1</span><h2>Two timelines side by side</h2><p>What was happening in Mesopotamia, and in the rest of the world, at the same time.</p></div>
-  <div class="tabbody">
-    <div class="legend"><span style="--c:#2A4BA0">Mesopotamia</span><span style="--c:#B3302A">World</span></div>
-    <div class="tl2" id="tl2"></div>
-    <div class="heads"><b>Two dates for irrigation:</b> the textbook timeline says people by the Euphrates began irrigating crops in <b>5000 B.C.</b>, while another slide says farmers built canals <b>by about 6000 B.C.</b> If a question asks, “around 6000–5000 B.C.” covers both. Check with your teacher which one they want.</div>
-  </div>
-</section>
-
-<!-- PRACTICE -->
+<!-- HOMEWORK -->
 <section class="tab" id="practice">
-  <div class="tabhead c-plum"><h2>Test-style questions</h2><p>Every discussion question and activity from both lessons. Say or write your answer first, then open the model answer and tick the key points you remembered.</p></div>
+  <div class="tabhead c-plum"><span class="lesson">Lu-Nanna's homework</span><h2>Test-style questions</h2><p>“A real scribe answers in full sentences,” says Lu-Nanna. Say or write your answer first, then open the model answer and tick the key points you remembered.</p></div>
   <div class="tabbody">
     <div class="pfilter" role="group" aria-label="Filter questions">
       <button aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="L1">Lesson 1</button><button aria-pressed="false" data-f="L2">Lesson 2</button>
@@ -574,28 +590,31 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
   </div>
 </section>
 
-<!-- CHEAT SHEET -->
+<!-- NOTEBOOK: TIMELINE + CHEAT SHEET -->
 <section class="tab" id="cheat">
-  <div class="tabhead c-mud"><h2>Night-before cheat sheet</h2><p>Everything on one screen. Read it out loud once.</p></div>
+  <div class="tabhead c-mud"><span class="lesson">Ninti's notebook</span><h2>The night-before page</h2><p>Grandpa's history wall, then everything on one screen. Read it out loud once.</p></div>
   <div class="tabbody">
+    <h3>Grandpa's history wall</h3>
+    <div class="legend"><span style="--c:#2A4BA0">Mesopotamia</span><span style="--c:#B3302A">Rest of the world</span></div>
+    <div class="tl2" id="tl2"></div>
+    <div class="heads"><b>Two dates for irrigation:</b> the textbook timeline says people by the Euphrates began irrigating crops in <b>5000 B.C.</b>, while another slide says canals came <b>by about 6000 B.C.</b> Check which one your teacher wants.</div>
+    <h3>Cheat sheet</h3>
     <div class="cheat">
-      <div style="border-color:var(--river)"><b class="t" style="color:var(--river)">Geography</b><ul><li>Mesopotamia = land between the rivers = Fertile Crescent</li><li>Tigris (east) &amp; Euphrates (west)</li><li>Start: mountains of Turkey &amp; Kurdistan</li><li>Flow southeast through Iraq to the Persian Gulf</li><li>Borders: Zagros Mts, Syrian &amp; Arabian Deserts, Persian Gulf</li><li>Fertile Crescent: curved strip of farmland, Gulf → Mediterranean</li><li>Southwest Asia = the Middle East</li><li>Nineveh to Ur ≈ 400 miles</li></ul></div>
-      <div style="border-color:var(--lapis)"><b class="t" style="color:var(--lapis)">River words</b><ul><li>Floodplain: flat land by the banks</li><li>Silt: fine soil left by rivers</li><li>Fertile: good for crops</li><li>Semiarid: under 10 in. of rain, hot summers</li><li>Drought: long time with little or no rain/snow</li><li>Erosion picks up soil; deposition drops it</li></ul></div>
-      <div style="border-color:var(--barley)"><b class="t" style="color:var(--barley)">Taming the water</b><ul><li>Floods unpredictable: April to June</li><li>Irrigation: canals carry river water to fields</li><li>Workers cleaned silt out of canals</li><li>Dams held back extra flood water</li><li>Shaduf: pole + bucket + weight lifts water</li></ul></div>
-      <div style="border-color:var(--mud)"><b class="t" style="color:var(--mud)">Resources</b><ul><li>No forests, stone or metals</li><li>Mud bricks &amp; plaster (crumbled easily)</li><li>Few natural barriers: mud walls</li><li>Surplus grain traded for stone, wood, metal</li></ul></div>
-      <div style="border-color:var(--palm)"><b class="t" style="color:var(--palm)">Civilization</b><ul><li>Can Royals Sing Well?</li><li>Cities &amp; government, Religion, Social structure, Writing &amp; art</li><li>Sumer = first civilization (~3000 B.C.)</li></ul></div>
-      <div style="border-color:var(--carnelian)"><b class="t" style="color:var(--carnelian)">City-states</b><ul><li>Sumer: 1st civilization, ~3000 B.C., southern Mesopotamia</li><li>Cities: Ur, Uruk, Eridu (also Kish, Nippur, Lagash)</li><li>Cut off by mud-flats &amp; desert → independent</li><li>5,000–20,000 people, own government, big wall</li><li>Palace + ziggurat in the center</li><li>War over resources &amp; borders; trade in peace</li></ul></div>
-      <div style="border-color:var(--plum)"><b class="t" style="color:var(--plum)">Religion &amp; rulers</b><ul><li>Polytheism: many gods; each city has a patron god</li><li>Ziggurat = “to rise high” (Akkadian)</li><li>Top = home of the gods; only special priests</li><li>Priests → war-hero kings → hereditary kings</li><li>Kings' power came “from the city's god”</li><li>Monarchy: ruled by a king or queen</li><li>Gods explained nature &amp; human talents</li></ul></div>
-      <div style="border-color:#1E2F55"><b class="t">Classes</b><ul><li>Upper: kings, priests, warriors, officials</li><li>Middle (largest): merchants, farmers, fishers, artisans</li><li>Lowest: enslaved people</li><li>You stayed in the class you were born into</li></ul></div>
-      <div style="border-color:var(--palm)"><b class="t" style="color:var(--palm)">Trade &amp; inventions</b><ul><li>Most Sumerians were farmers</li><li>Gave wheat, barley, tools; got timber, minerals, metals</li><li>Carnelian (red) from the Indus Valley; lapis lazuli (blue) from Afghanistan</li><li>Write, Roll, Sail, Plow, Spin, Melt, Count</li></ul></div>
+      <div style="border-color:var(--river)"><b class="t" style="color:var(--river)">Geography</b><ul><li>Mesopotamia = land between the rivers = Fertile Crescent</li><li>Tigris (east) &amp; Euphrates (west)</li><li>Start in the mountains of Turkey &amp; Kurdistan; flow southeast through Iraq to the Persian Gulf</li><li>Borders: Zagros Mts, Syrian &amp; Arabian Deserts, Persian Gulf</li><li>Southwest Asia = the Middle East</li><li>Nineveh to Ur ≈ 400 miles</li></ul></div>
+      <div style="border-color:var(--lapis)"><b class="t" style="color:var(--lapis)">River words</b><ul><li>Floodplain, silt, fertile, semiarid (under 10 in.), drought</li><li>Erosion picks up soil; deposition drops it</li><li>Floods unpredictable: April to June</li><li>Irrigation canals, silt crews, dams, shaduf</li></ul></div>
+      <div style="border-color:var(--mud)"><b class="t" style="color:var(--mud)">Resources</b><ul><li>No forests, stone or metals</li><li>Mud bricks &amp; plaster (crumbled easily)</li><li>Few natural barriers, so mud walls</li><li>Surplus grain traded for stone, wood, metal</li><li>Community leaders organized the work</li></ul></div>
+      <div style="border-color:var(--carnelian)"><b class="t" style="color:var(--carnelian)">City-states &amp; civilization</b><ul><li>Sumer: first civilization, ~3000 B.C.</li><li>Ur, Uruk, Eridu (also Kish, Nippur, Lagash)</li><li>Cut off by mud-flats &amp; desert, so independent</li><li>5,000–20,000 people; own government; big wall</li><li>War over resources; trade &amp; alliances in peace</li><li>Can Royals Sing Well?</li></ul></div>
+      <div style="border-color:var(--plum)"><b class="t" style="color:var(--plum)">Religion &amp; rulers</b><ul><li>Polytheism; a patron god for each city</li><li>Ziggurat = “to rise high” (Akkadian)</li><li>Top: only special priests</li><li>Priests → war-hero kings → hereditary (monarchy)</li><li>Power “from the city's god”</li></ul></div>
+      <div style="border-color:var(--palm)"><b class="t" style="color:var(--palm)">People &amp; trade</b><ul><li>Upper: kings, priests, warriors, officials</li><li>Middle (largest): merchants, farmers, fishers, artisans</li><li>Lowest: enslaved people</li><li>Carnelian (red, Indus Valley), lapis lazuli (blue, Afghanistan)</li><li>Write, Roll, Sail, Plow, Spin, Melt, Count</li></ul></div>
     </div>
   </div>
 </section>
 
-<!-- QUIZ -->
+<!-- FINAL BATTLE -->
 <section class="tab" id="quiz">
-  <div class="tabhead c-carn"><h2>The monster quiz</h2><p>Fourteen rounds. Every correct answer is a hit on Humbaba.</p></div>
+  <div class="tabhead c-carn"><span class="lesson">The final chapter</span><h2>Ninti vs. Humbaba</h2><p>Fourteen rounds. Every correct answer is a hit.</p></div>
   <div class="tabbody">
+    <div class="scene" data-scene="s8"></div>
     <div class="monster">
       <svg viewBox="0 0 150 150" aria-hidden="true"><g class="hum" id="hum">
         <path d="M30 40 L18 8 L48 30Z M120 40 L132 8 L102 30Z" fill="#E8D7A8" stroke="#7A5A2A" stroke-width="2"/>
@@ -606,7 +625,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
         <path id="mouth" d="M45 104 L55 96 L65 106 L75 96 L85 106 L95 96 L105 104 Q 75 124 45 104Z" fill="#7A1E1E" stroke="#3E5320" stroke-width="3"/>
       </g></svg>
       <div>
-        <p><b>Humbaba</b>, the monster of the Cedar Forest from the <b>Epic of Gilgamesh</b>, guards the last stop of your journey. Gilgamesh and his friend Enkidu beat him with teamwork. You'll beat him with knowledge.</p>
+        <p><b>Humbaba</b>, guardian of the Cedar Forest. Get about 80% of the points right to bring his HP to zero.</p>
         <p class="taunt" id="taunt">“Hrrrm. Nobody remembers what silt is.”</p>
       </div>
     </div>
@@ -618,6 +637,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
 
 </main>
 <footer>Made for Adiaha &amp; friends · SKI Academy</footer>
+
 
 <script>
 /* ================= MAP ================= */
@@ -717,9 +737,9 @@ const ADV=[
 let advStep=0;
 function renderAdv(){
   const a=$('adv');
-  if(advStep>=ADV.length){a.innerHTML=`<div class="progress">${ADV.map(()=>'<i class="done"></i>').join('')}</div><div class="emo">🏆🏘️➡️🏙️</div><p class="scene"><b>You saved the village!</b> With irrigation, silt-cleaning crews, dams and trade, your village keeps growing. Around 3500 B.C., farming villages like yours grow into the first <b>cities</b>.</p><p>Your class question: <i>“What can you invent to make farming easier?”</i> Now you know the inventions Mesopotamians really came up with: canals, dams, and later the <b>wooden plough</b>.</p><button class="btn" id="advRestart">Play again</button>`;$('advRestart').onclick=()=>{advStep=0;renderAdv()};return}
+  if(advStep>=ADV.length){a.innerHTML=`<div class="progress">${ADV.map(()=>'<i class="done"></i>').join('')}</div><div class="emo">🏆🏘️➡️🏙️</div><p class="scene-t"><b>You saved the village!</b> With irrigation, silt-cleaning crews, dams and trade, your village keeps growing. Around 3500 B.C., farming villages like yours grow into the first <b>cities</b>.</p><p>Your class question: <i>“What can you invent to make farming easier?”</i> Now you know the inventions Mesopotamians really came up with: canals, dams, and later the <b>wooden plough</b>.</p><button class="btn" id="advRestart">Play again</button>`;$('advRestart').onclick=()=>{advStep=0;renderAdv()};award('ch1');return}
   const st=ADV[advStep];
-  a.innerHTML=`<div class="progress">${ADV.map((_,i)=>`<i class="${i<advStep?'done':''}"></i>`).join('')}</div><div class="emo" aria-hidden="true">${st.emo}</div><p class="scene">${st.s}</p><div class="choices"></div><div class="advres"></div>`;
+  a.innerHTML=`<div class="progress">${ADV.map((_,i)=>`<i class="${i<advStep?'done':''}"></i>`).join('')}</div><div class="emo" aria-hidden="true">${st.emo}</div><p class="scene-t">${st.s}</p><div class="choices"></div><div class="advres"></div>`;
   const ch=a.querySelector('.choices'),res=a.querySelector('.advres');
   st.c.forEach(([t,ok,r])=>{const b=document.createElement('button');b.textContent=t;b.addEventListener('click',()=>{
     if(ok){ch.querySelectorAll('button').forEach(x=>x.disabled=true);b.classList.add('right');res.innerHTML=`<p>${r}</p><button class="btn" id="advNext">Continue</button>`;$('advNext').onclick=()=>{advStep++;renderAdv()}}
@@ -748,7 +768,7 @@ $('climbBtn').addEventListener('click',()=>{
   document.querySelectorAll('.zig .tier').forEach((t,i)=>t.setAttribute('fill',i===zl?'#E9B949':['#B5814A','#C08F57','#CB9C63','#D6AA70'][i]));
   if(zl===ZIG.length){$('climber').style.transform='translate(0,0)';$('zigInfo').innerHTML='<b>Back to the ground.</b><p>Press again to climb once more.</p>';$('climbBtn').textContent='Climb up a level';return}
   $('climber').style.transform=`translate(0,${ZY[zl]-188}px)`;
-  $('zigInfo').innerHTML=`<b>${ZIG[zl][0]}</b><p>${ZIG[zl][1]}</p>`;
+  $('zigInfo').innerHTML=`<b>${ZIG[zl][0]}</b><p>${ZIG[zl][1]}</p>`;if(zl===ZIG.length-1)award('ch5');
   $('climbBtn').textContent=zl===ZIG.length-1?'Climb back down':'Climb up a level';
 });
 
@@ -767,7 +787,7 @@ function renderTrade(){
     d.innerHTML=`<span class="e" aria-hidden="true">${t.e}</span><b>${t.place}</b><span>Has: <b>${t.get}</b></span>${got.includes(i)?'<span>✅ Traded!</span>':'<button class="btn alt">Trade 1 sack</button>'}`;
     const b=d.querySelector('button');if(b)b.addEventListener('click',()=>{sacks.pop();got.push(i);renderTrade();renderChest(t)});wrap.appendChild(d)});
 }
-function renderChest(last){
+function renderChest(last){if(got.length===TRADE.length)award('ch6');
   const c=$('chest');
   if(!got.length){c.innerHTML='<b>Treasure chest:</b> empty';return}
   c.innerHTML=`<b>Treasure chest:</b> ${got.map(i=>TRADE[i].e+' '+TRADE[i].get).join(' · ')}${last?`<br><small>You got <b>${last.get}</b>: ${last.note}.</small>`:''}${got.length===TRADE.length?'<br><b>All goods collected!</b> Sumer traded <b>wheat, barley and tools</b> for <b>timber, minerals and metals</b>, plus fancy gems for jewelry. <button class="btn" id="tradeAgain" style="margin-top:6px">Trade again</button>':''}`;
@@ -878,7 +898,7 @@ function fb(el,ok,msg){el.className='fb show '+(ok?'good':'oops');el.innerHTML=(
 
 /* city-state practice game */
 $('cityGame').appendChild(renderDragQ({type:'bins',stem:'Where does each piece go?',bins:[['center','City center','#B3302A'],['edge','Edge of the city','#7A4E24'],['out','Outside the walls','#357C35']],
-  chips:[['Ruler\'s palace','center'],['Ziggurat','center'],['Other public buildings','center'],['Large mud-brick wall','edge'],['Gates: open by day, shut at night','edge'],['Farmers\' plots of land','out'],['Irrigation canals','out']]},0,null));
+  chips:[['Ruler\'s palace','center'],['Ziggurat','center'],['Other public buildings','center'],['Large mud-brick wall','edge'],['Gates: open by day, shut at night','edge'],['Farmers\' plots of land','out'],['Irrigation canals','out']]},0,()=>award('ch4')));
 
 /* civilization practice game */
 $('civGame').appendChild(renderDragQ({type:'bins',cols:2,stem:'Which feature of civilization does each Sumer example show?',
@@ -918,6 +938,209 @@ function renderPQ(filter){
 }
 document.querySelectorAll('.pfilter button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.pfilter button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderPQ(b.dataset.f)}));
 renderPQ('all');
+
+
+/* ================= STORY ENGINE ================= */
+const WHO={
+ ninti:['Ninti','👧🏽','#C8372D'],gpa:['Grandpa Abba','👴🏽','#7A4E24'],dudu:['Dudu','🫏','#6A6253'],ama:['Ama (Mom)','👩🏽','#B07A0C'],
+ guard:['Gate guard','💂🏽','#1E2F55'],priest:['Priestess Ninsun','👩🏽‍🦳','#6E3779'],merch:['Ur-Lugal the merchant','🧔🏽','#357C35'],
+ teach:['Lu-Nanna, “School Father”','👨🏽‍🏫','#2A4BA0'],hum:['Humbaba','👹','#3E5320'],gil:['Gilgamesh','🤴🏽','#B3302A'],n:null
+};
+const SCENES={
+ s1:[
+  ['n','Spring in Sumer. Ninti, twelve, stands at the edge of her family\'s barley field with Dudu, the family donkey. Far to the north, the snow on the mountains is melting.'],
+  ['ninti','Grandpa, when is the flood coming? Everyone in the village keeps staring at the river.'],
+  ['gpa','Nobody knows, little one. Some years it comes in April. Some years not until June. Some years it\'s a monster. And some years… it never comes at all.'],
+  ['dudu','Hee-haw. (Translation: I hate surprises.)'],
+  ['ninti','Then why do we live next to such a grumpy river?'],
+  ['gpa','Because the river is our life! It gives us <b>water for drinking and for our crops</b>. And when it floods, it leaves a fresh layer of dark soil called <b>silt</b>. Silt is <b>fertile</b>: perfect for growing barley.'],
+  ['ninti','Where does the silt even come from?'],
+  ['gpa','From the mountains of <b>Turkey and Kurdistan</b>, where the rivers begin. Rain and melting snow make the rivers swell. The rushing water picks up soil (<b>erosion</b>), carries it all the way here, spills over our flat <b>floodplain</b>, and drops it (<b>deposition</b>).'],
+  ['ninti','So the mountains mail us free dirt!'],
+  ['gpa','Ha! Exactly. And we need it. Down here in the south, it barely rains: <b>less than 10 inches a year</b>, with scorching summers. That\'s called <b>semiarid</b>. Without the river, nothing grows.'],
+  ['dudu','Also, the river is where I drink. Just saying.'],
+  ['gpa','Here, let me draw you the river machine…']
+ ],
+ s1b:[
+  ['ninti','Grandpa, what happens when the flood doesn\'t come?'],
+  ['gpa','That\'s a <b>drought</b>: a long time with very little rain and snow. The river drops, the crops die, and people go hungry.'],
+  ['gpa','Close your eyes. More than <b>8,000 years ago</b>, our ancestors were <b>hunters and gatherers</b> in Southwest Asia, which some people call the Middle East. Then they learned to plant wild grains, and they settled in villages by the river.'],
+  ['gpa','One year, the flood never came. They called it <b>The Long Dry Spell</b>. Now <i>you</i> are that farmer, Ninti. What would you do?'],
+  ['ninti','Me? Okay… I can do this.']
+ ],
+ s2:[
+  ['gpa','Two rivers. This one on the west, the sunset side, is the <b>Euphrates</b>. This one on the east is the <b>Tigris</b>.'],
+  ['gpa','One day, people called the Greeks will name our land <b>Mesopotamia</b>: “land between the rivers.”'],
+  ['ninti','The Greeks? Who are they?'],
+  ['gpa','Never mind. They come much, much later. 😉'],
+  ['gpa','Both rivers flow <b>southeast</b>, through the flat land, all the way to the <b>Persian Gulf</b>. That\'s where our traders sail.'],
+  ['dudu','Boats? Wonderful. Less carrying for me.'],
+  ['gpa','You\'re right, Dudu. <b>Boats can carry heavy loads</b>, the <b>current pushes them downriver</b>, and there are <b>hardly any roads</b> anyway.'],
+  ['ninti','What\'s all around us?'],
+  ['gpa','The <b>Zagros Mountains</b> to the east. The <b>Syrian Desert</b> and the <b>Arabian Desert</b> to the west. The <b>Persian Gulf</b> to the south. And our strip of green farmland curves like a crescent moon, from the Gulf up and over to the Great Sea. They call it the <b>Fertile Crescent</b>.'],
+  ['ninti','Mountains, deserts and a gulf… so we\'re safe from enemies!'],
+  ['gpa','Not really. Those borders are far away. The land where we live is <b>flat and open, with few natural barriers</b>, so raiders can walk right in. Remember that. It matters in the next chapter.']
+ ],
+ s3:[
+  ['n','Back home. A chunk of wall has fallen off the house. Again.'],
+  ['ninti','Ama, why is our house made of MUD? It crumbles every time it rains!'],
+  ['ama','Look around, Ninti. Do you see any forests? Any stone? Any metal?'],
+  ['ninti','…Just mud. Lots and lots of mud.'],
+  ['ama','Then mud it is: <b>mud bricks</b> for the walls and <b>mud plaster</b> to cover them. They crumble easily, so we repair them all the time.'],
+  ['dudu','(kicks the wall) Crumble, crumble.'],
+  ['ama','DUDU!'],
+  ['n','That night, the village drum booms. Raiders have been spotted near the river!'],
+  ['gpa','Everyone inside the wall! We have no mountains to hide behind, and no stone or trees to build barriers. So we built a <b>mud wall around the village</b>.'],
+  ['ninti','(whispering) Grandpa, if we have no trees, where did Dad get the wood for his plough?'],
+  ['gpa','We grow more barley than we need. That\'s a <b>surplus</b>. We <b>trade</b> it to people from other lands for <b>wood, stone and metal</b>.'],
+  ['gpa','And jobs that repeat (digging canals, building walls, trading) need doing at the right time, so our <b>community leaders</b> organize groups of people to do them.']
+ ],
+ s4:[
+  ['n','The big day! Ninti and Grandpa load Dudu with sacks of barley and head for the city of Uruk.'],
+  ['ninti','Whoa! There must be a thousand people here!'],
+  ['gpa','More like <b>5,000 to 20,000</b> in a city like this. Uruk is a <b>city-state</b>: a city that governs itself and the land around it. Our farm belongs to it.'],
+  ['ninti','Does Uruk share a king with Ur and Eridu?'],
+  ['gpa','No! Every city-state has <b>its own government</b>. Between the cities are <b>mud-flats and scorching desert</b>, so it\'s hard to travel and talk. Each city grew up on its own, growing its own crops and making its own goods.'],
+  ['ninti','Do they get along?'],
+  ['gpa','Sometimes they go to <b>war over resources and borders</b>. In peace, they <b>trade</b> and form <b>alliances</b> to protect each other.'],
+  ['guard','HURRY UP, you two! The sun is setting! These gates stay open by day, but they <b>close at night</b>!'],
+  ['dudu','Run? Me? With all this barley?! (runs anyway)'],
+  ['n','They squeeze through the big gate in the <b>mud-brick wall</b> just as it slams shut. In the <b>center</b> of the city: the king\'s <b>palace</b>, public buildings, and a giant stepped tower called the <b>ziggurat</b>.'],
+  ['ninti','Grandpa… is this what people call a <b>civilization</b>?'],
+  ['gpa','It is. Sumer was the world\'s <b>first civilization</b>, around <b>3000 B.C.</b>, in southern Mesopotamia. We have cities and government, religion, social classes, and writing. Civilizations grow where geography helps farming and trade, and our rivers help both.']
+ ],
+ s5:[
+  ['ninti','Let\'s climb to the very top!'],
+  ['priest','HALT, child! The top of the ziggurat is a <b>holy place</b>: the home of the gods. <b>Only special priests</b> may go up there.'],
+  ['ninti','Oops. Sorry! Which god lives here?'],
+  ['priest','Every city-state has its own <b>patron god</b>, and its ziggurat honors that god. The word <b>ziggurat</b> means “<b>to rise high</b>” in the <b>Akkadian</b> language.'],
+  ['ninti','How many gods are there?'],
+  ['priest','Many! We are <b>polytheistic</b>: we believe in more than one god. The gods explain the <b>forces of nature</b> (floods, storms, the sun) and <b>human activities and talents</b>, like farming and writing.'],
+  ['ninti','That makes sense. When your whole life depends on a river that might flood or might not, you want someone in charge of it!'],
+  ['ninti','So who rules the city? You?'],
+  ['priest','(laughs) Long ago, <b>priests did rule the city-states</b>. Then <b>war heroes</b> became kings. Today the king says his <b>power comes from the city\'s god</b>, and when he dies, <b>his son takes over</b>. We call that <b>hereditary</b> rule, and a government ruled by a king is a <b>monarchy</b>.'],
+  ['dudu','I\'d like to rule. Mostly over the hay.']
+ ],
+ s6:[
+  ['n','The market is LOUD. Everyone in Sumer seems to be here.'],
+  ['gpa','See the man in the fine robe with guards? A <b>government official</b>. He\'s <b>upper class</b>, with <b>kings, priests and warriors</b>.'],
+  ['ninti','And us?'],
+  ['gpa','Farmers are <b>middle class</b>, with <b>merchants, fishers and artisans</b>. It\'s the <b>biggest group</b> in Sumer. If you live in Sumer, you\'re <b>most likely a farmer</b>, with a plot of land around the city.'],
+  ['ninti','Who are those people carrying the heavy jars?'],
+  ['gpa','<b>Enslaved people</b>, the lowest class. Most were <b>captured in war</b>. Some were <b>criminals</b>, or people who <b>couldn\'t pay their debts</b>. In Sumer, you usually <b>stay in the class you\'re born into</b>.'],
+  ['ninti','(quietly) That doesn\'t seem fair.'],
+  ['gpa','No. It doesn\'t. Good that you noticed.'],
+  ['ninti','Grandpa, why does my brother get to go to school, and I don\'t?'],
+  ['gpa','In Sumer, <b>men</b> are head of the home and provide for the family. <b>Boys go to school and become apprentices</b> for specific jobs. Sons care for their parents if they need help. <b>Women run the home</b>, teach their <b>daughters to run a household</b>, and care for the <b>children and elderly parents</b>.'],
+  ['ninti','Hmph. Well, I\'m going to learn to write anyway. Just watch.']
+ ],
+ s6b:[
+  ['merch','Barley! Wonderful! I sail to faraway lands. I have <b>timber</b>, <b>metals and minerals</b>, and look at these…'],
+  ['merch','Red <b>carnelian</b> from India\'s <b>Indus Valley</b>, and deep-blue <b>lapis lazuli</b> from <b>Afghanistan</b>. Jewelers go wild for them.'],
+  ['ninti','Lapis lazuli! It\'s the same blue as the <b>Standard of Ur</b>!'],
+  ['merch','Smart girl. A <b>standard</b> is a flag or symbol carried on a pole. That little panel, only about 8.5 by 19.5 inches, shows all of Sumer\'s people, from the king down to the farmers. Now, shall we trade?'],
+  ['dudu','Finally. Take the sacks off my back.']
+ ],
+ s7:[
+  ['n','Ninti tiptoes to the window of the <b>edubba</b>, the “tablet house,” where boys train to become scribes.'],
+  ['teach','Who\'s there? A farm girl at my window?'],
+  ['ninti','Please, School Father! I want to learn to write!'],
+  ['teach','Hmph. Few girls become scribes… but a few do. Very well. A <b>scribe</b> copies or writes out documents. We are the <b>record keepers</b>.'],
+  ['teach','We press a sharp reed into <b>soft clay</b> to make <b>wedge-shaped marks</b>. That\'s <b>cuneiform</b>, the writing system the Sumerians invented.'],
+  ['ninti','Why did people invent writing?'],
+  ['teach','To keep track of things! Grain, cattle, trade, taxes. Later, to save laws and stories, like the <b>Epic of Gilgamesh</b>. An <b>epic</b> is a long poem about the deeds of a legendary or real hero.'],
+  ['teach','And writing is just ONE of our inventions. Later civilizations will copy and improve them all.'],
+  ['dudu','Did anybody invent a donkey-sized hammock?'],
+  ['teach','No.']
+ ],
+ s7b:[
+  ['teach','Now, the story every scribe copies. <b>Gilgamesh</b>, king of Uruk, was strong but bossy. So the gods made a wild man, <b>Enkidu</b>, to match him.'],
+  ['teach','They wrestled, tied, and became best friends. Together they traveled to the Cedar Forest and defeated its guardian, the monster <b>Humbaba</b>.'],
+  ['teach','When Enkidu died, Gilgamesh searched for the secret of living forever. He found a magic plant… and a snake ate it. He came home and saw the great <b>walls of Uruk</b> he had built, and realized that great deeds are what live on.'],
+  ['ninti','Humbaba… I hope I never meet him.'],
+  ['dudu','Foreshadowing. Hee-haw.']
+ ],
+ s8:[
+  ['n','That night, Ninti falls asleep with a clay tablet of the Epic of Gilgamesh on her chest. She dreams…'],
+  ['n','…of a dark forest of giant cedar trees. Branches crack. Something HUGE is coming.'],
+  ['hum','HRRRAAAH! Who dares enter my Cedar Forest?!'],
+  ['ninti','I… I\'m Ninti, from Uruk!'],
+  ['gil','Ninti! Swords won\'t work on this one. Humbaba can only be beaten by someone who truly knows Sumer. Every right answer is a hit!'],
+  ['dudu','I\'ll be over here. Cheering. From behind a tree.'],
+  ['hum','Hrrrm. A farm girl? Nobody from a farm remembers what <b>silt</b> is. Show me what you know!']
+ ]
+};
+const reduceMotion=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function lineHTML([w,t]){
+  if(w==='n')return `<div class="line narr"><p>${t}</p></div>`;
+  const [nm,em,col]=WHO[w];
+  return `<div class="line ${w==='ninti'?'me':''}"><span class="av" style="background:${col}" aria-hidden="true">${em}</span><div class="bubble"><b class="nm" style="color:${col}">${nm}</b>${t}</div></div>`;
+}
+document.querySelectorAll('.scene').forEach(box=>{
+  const lines=SCENES[box.dataset.scene];let shown=1;
+  box.innerHTML=`<div class="lines">${lines.map(lineHTML).join('')}</div><div class="scenectl"><button class="btn next">Next ▸</button><button class="link all">Show whole scene</button><span class="count"></span></div>`;
+  const els=[...box.querySelectorAll('.line')],nx=box.querySelector('.next'),al=box.querySelector('.all'),ct=box.querySelector('.count');
+  const upd=()=>{els.forEach((e,i)=>{e.classList.toggle('hide',i>=shown)});ct.textContent=`${shown} / ${els.length}`;
+    if(shown>=els.length){nx.textContent='Replay ↺';al.style.display='none'}else{nx.textContent='Next ▸';al.style.display=''}};
+  nx.addEventListener('click',()=>{if(shown>=els.length){shown=1}else{shown++;const e=els[shown-1];e.classList.add('pop');setTimeout(()=>e.classList.remove('pop'),400)}upd()});
+  al.addEventListener('click',()=>{shown=els.length;upd()});
+  upd();
+});
+
+/* ================= GEMS ================= */
+const GEMS=['ch1','ch2','ch3','ch4','ch5','ch6','ch7'];
+const GEMNAMES={ch1:'Village Saver',ch2:'Map Reader',ch3:'Mud Master',ch4:'City Builder',ch5:'Ziggurat Climber',ch6:'Master Trader',ch7:'Junior Scribe'};
+let earned=[];try{earned=JSON.parse(localStorage.getItem('ninti-gems')||'[]')}catch(e){earned=[]}
+function drawGems(){$('gemIcons').textContent=GEMS.map(g=>earned.includes(g)?'💎':'◇').join('');$('gemCount').textContent=`${earned.length}/7`}
+function award(g){
+  if(earned.includes(g))return;earned.push(g);try{localStorage.setItem('ninti-gems',JSON.stringify(earned))}catch(e){}
+  drawGems();const t=$('toast');t.innerHTML=`💎 Lapis gem earned: <b>${GEMNAMES[g]}</b>! (${earned.length}/7)${earned.length===7?'<br>All seven! Humbaba is waiting…':''}`;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),3200);
+}
+drawGems();
+
+/* generic choice adventure */
+function adventure(el,steps,finale,gem){
+  let i=0;
+  const render=()=>{
+    if(i>=steps.length){el.innerHTML=`<div class="progress">${steps.map(()=>'<i class="done"></i>').join('')}</div>${finale}<p><button class="btn again2">Play again</button></p>`;el.querySelector('.again2').onclick=()=>{i=0;render()};award(gem);return}
+    const st=steps[i];
+    el.innerHTML=`<div class="progress">${steps.map((_,k)=>`<i class="${k<i?'done':''}"></i>`).join('')}</div><div class="emo" aria-hidden="true">${st.emo}</div><p class="scene-t">${st.s}</p><div class="choices"></div><div class="advres"></div>`;
+    const ch=el.querySelector('.choices'),res=el.querySelector('.advres');
+    shuffle(st.c).forEach(([t,ok,r])=>{const b=document.createElement('button');b.textContent=t;b.addEventListener('click',()=>{
+      if(ok){ch.querySelectorAll('button').forEach(x=>x.disabled=true);b.classList.add('right');res.innerHTML=`<p>${r}</p><button class="btn">Continue ▸</button>`;res.querySelector('.btn').onclick=()=>{i++;render()}}
+      else{b.classList.add('wrong');b.disabled=true;res.innerHTML=`<p>${r}</p>`}});ch.appendChild(b)});
+  };render();
+}
+adventure($('fixit'),[
+ {emo:'🌧️🏠💥',s:'It rained last night, and a whole corner of the house has crumbled. Ama hands you a basket. What do you grab?',c:[['Wood planks from the forest',0,'What forest? Mesopotamia had no forests!'],['Stone blocks from the quarry',0,'There\'s no stone here either. Look down…'],['Mud, to make new mud bricks and mud plaster',1,'Yes! Mud bricks and plaster were the main building materials. They crumbled easily, so repairs never ended.']]},
+ {emo:'🥁⚔️🏃',s:'The drums are booming: raiders are coming across the flat, open land! How did the village protect itself?',c:[['Hide behind the mountains',0,'The land between the rivers was flat. The mountains were far away.'],['A mud wall built around the whole village',1,'Right! With few natural barriers and no stone or trees, people built mud walls around their villages.'],['Dig a moat full of crocodiles',0,'Ha! Fun idea, but no.']]},
+ {emo:'🌾🌾🌾➡️🪵',s:'Dad needs wood for a new plough, and Ama wants a stone to grind grain. The harvest was huge. What do you do?',c:[['Trade the extra barley (the surplus) for wood and stone',1,'Perfect. Surplus = more than you need. Trading it brought in the resources Mesopotamia lacked.'],['Eat all the barley really fast',0,'Dudu approves, but that won\'t get you wood.'],['Make the plough out of mud',0,'A mud plough? It would melt in the first canal!']]}
+],'<div class="emo">🏘️✅</div><p class="scene-t"><b>Village saved!</b> Mud for houses, mud for walls, and surplus grain to trade. Grandpa says you\'re ready for the big city.</p>','ch3');
+
+adventure($('rescue'),[
+ {emo:'🧾😵',s:'The temple storehouse can\'t remember who paid their barley tax. Everyone is arguing!',c:[['Cuneiform: write it down on clay tablets',1,'Write! Writing began as a way to keep records of grain, cattle and trade.'],['The sailboat',0,'Sailing away won\'t settle the argument.'],['Bronze',0,'Stronger tools won\'t help anyone remember.']]},
+ {emo:'🏺🏺🏺⏰',s:'A potter has to make fifty perfectly round pots by tomorrow morning!',c:[['The potter\'s wheel',1,'Spin! The spinning wheel shapes round pots fast.'],['The 12-month calendar',0,'Knowing the month won\'t make pots faster.'],['The plough',0,'That\'s for fields, not pots.']]},
+ {emo:'⛵🌾🌊',s:'A merchant must move a mountain of heavy barley down the river to Ur.',c:[['The sailboat',1,'Sail! Boats carry heavy loads, and wind and current do the work.'],['Multiplication tables',0,'Handy for counting sacks, but they won\'t move them.'],['The potter\'s wheel',0,'Not unless he wants very round barley.']]},
+ {emo:'🪵🌱💪',s:'Grandpa\'s arms ache from breaking hard soil with a digging stick.',c:[['The wooden plough',1,'Plow! Pulled through the field, it turns the soil much faster.'],['Cuneiform',0,'Writing about sore arms won\'t fix them.'],['The lunar calendar',0,'Nope.']]},
+ {emo:'⚔️🔨',s:'The king\'s soldiers say their copper spear tips keep bending.',c:[['Bronze: copper mixed with tin',1,'Melt! Bronze is stronger than copper.'],['The wheel',0,'Wheels won\'t fix bendy spears.'],['The sailboat',0,'Not quite.']]},
+ {emo:'🌙📅',s:'The priests need to plan festivals and the farmers need to plan planting for the whole year.',c:[['The 12-month lunar calendar',1,'Count! Twelve months, based on the moon.'],['Bronze',0,'Strong, but not a calendar.'],['The potter\'s wheel',0,'Try again.']]},
+ {emo:'🕐❓',s:'Ninti\'s little brother asks: “Why does an hour have 60 minutes, and a circle 360 degrees?”',c:[['Sumerians counted in groups of 60 (base 60)',1,'Count! Their base-60 number system gave us the 60-minute hour, 60-second minute and 360° circle.'],['Because 60 is the king\'s age',0,'Ha! No.'],['The Greeks chose it randomly',0,'It came from Sumer, long before the Greeks.']]}
+],'<div class="emo">📜🎓</div><p class="scene-t"><b>Lu-Nanna nods.</b> “Not bad, farm girl. Write, Roll, Sail, Plow, Spin, Melt, Count. You may come back tomorrow.” Ninti is officially a <b>junior scribe</b>!</p>','ch7');
+
+/* riddles */
+(function(){
+  const R=[['euph','“I am the river on the sunset side, the western one.”'],['gulf','“Both great rivers end their journey in me.”'],['zagros','“I am the mountains standing guard in the east.”'],['syrian','“I am a desert west of the Euphrates, named after a land to the northwest.”'],['ur','“Nineveh sits far north. I am the city about 400 miles away, near the Gulf, with a giant ziggurat.”']];
+  const box=$('riddle');let i=0,ok=0;
+  box.innerHTML=`<div class="mapq"><div class="mapbox">${mapSVG({labels:false,quiz:true})}</div><div><div class="prompt" id="rq"></div><ul class="maplog" id="rlog"></ul></div></div>`;
+  const set=()=>{$('rq').innerHTML=i<R.length?`Riddle ${i+1} of ${R.length}:<br>${R[i][1]}`:(ok===R.length?'🎉 All riddles solved! Grandpa is impressed.':`Done! ${ok} of ${R.length}. <button class="btn" id="rAgain">Try again</button>`);
+    const ra=$('rAgain');if(ra)ra.onclick=()=>{i=0;ok=0;$('rlog').innerHTML='';box.querySelectorAll('.hit .vis').forEach(v=>{v.removeAttribute('style')});set()}};set();
+  box.querySelectorAll('.hit').forEach(h=>h.addEventListener('click',e=>{e.stopPropagation();if(i>=R.length)return;
+    const right=h.dataset.f===R[i][0];if(right)ok++;
+    const nm=(FEATURES[R[i][0]]||[])[0]||CITIES.find(c=>c.id===R[i][0]).name;
+    $('rlog').insertAdjacentHTML('beforeend',`<li>${right?'✅':'❌'} ${nm}</li>`);
+    const v=box.querySelector(`.hit[data-f="${R[i][0]}"] .vis`);if(v){if(v.getAttribute('fill')==='none')v.style.stroke=right?'#23944A':'#F2B84A';else v.style.fill=right?'#23944A':'#F2B84A'}
+    i++;set();if(i===R.length&&ok===R.length)award('ch2')}));
+})();
 
 /* ================= QUIZ ================= */
 const QUIZ=[
