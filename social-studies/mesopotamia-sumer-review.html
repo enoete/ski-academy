@@ -1,0 +1,963 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rivers to Ziggurats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Lexend:wght@400;500;600;700&family=Noto+Sans+Cuneiform&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#F4E7C8; --paper:#FFFAEE; --ink:#24211C; --muted:#6A6253; --line:#E4D3A8;
+  --river:#1A8BAE; --lapis:#2A4BA0; --carnelian:#C8372D; --barley:#C98A12; --mud:#8A5A2B; --palm:#3E8E3E; --plum:#7A3E86;
+  --ok:#23944A; --okbg:#DDF5E4; --bad:#CF3B3B; --badbg:#FBE1E1;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sand:#18160F; --paper:#232017; --ink:#F4EDD8; --muted:#B8AE95; --line:#40392A;
+    --river:#4FC0E0; --lapis:#8AA4FF; --carnelian:#F37A6E; --barley:#F2B84A; --mud:#D69A60; --palm:#7CC46F; --plum:#C58BD1;
+    --okbg:#173A26; --badbg:#3E1C22; --ok:#5FD68A; --bad:#FF7B7B;
+  }
+}
+:root[data-theme="dark"]{
+  --sand:#18160F; --paper:#232017; --ink:#F4EDD8; --muted:#B8AE95; --line:#40392A;
+  --river:#4FC0E0; --lapis:#8AA4FF; --carnelian:#F37A6E; --barley:#F2B84A; --mud:#D69A60; --palm:#7CC46F; --plum:#C58BD1;
+  --okbg:#173A26; --badbg:#3E1C22; --ok:#5FD68A; --bad:#FF7B7B;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+body{margin:0;background:var(--sand);color:var(--ink);font-family:Lexend,"Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.6}
+h1,h2{font-family:"Lilita One",Impact,sans-serif;font-weight:400;line-height:1.02;margin:0;letter-spacing:.01em}
+h3{font-size:1.15rem;margin:1.4em 0 .4em}
+p{margin:.5em 0 .9em}
+button{font-family:inherit;font-size:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--barley);outline-offset:3px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+.cune{font-family:"Noto Sans Cuneiform",serif}
+
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#1E2F55;box-shadow:0 3px 0 #C98A12}
+nav.top .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.top a{flex:none;color:#F6EED6;text-decoration:none;font-size:.85rem;font-weight:600;padding:6px 12px;border-radius:999px;border:1.5px solid rgba(246,238,214,.35);white-space:nowrap}
+nav.top a:hover,nav.top a:focus-visible{background:#F2B84A;color:#241a05;border-color:#F2B84A}
+nav.top a.quizlink{background:#C8372D;border-color:#C8372D;color:#fff}
+
+/* hero journey */
+.hero{background:linear-gradient(180deg,#9FD3EA 0%,#F2DFAE 70%,#E7CC8E 100%);padding:30px 0 26px;color:#24211C}
+.hero h1{font-size:clamp(2.6rem,9vw,5rem);color:#1E2F55}
+.hero .sub{font-size:1.08rem;max-width:44ch;margin-top:8px}
+.journey{position:relative;margin-top:20px;display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.journey::before{content:"";position:absolute;left:4%;right:4%;top:28px;height:10px;border-radius:10px;background:repeating-linear-gradient(90deg,#1A8BAE 0 18px,#5FC2E3 18px 30px);z-index:0}
+@media (prefers-reduced-motion:no-preference){.journey::before{animation:flowx 2.2s linear infinite}}
+@keyframes flowx{to{background-position:30px 0}}
+.stop{position:relative;z-index:1;text-align:center;text-decoration:none;color:#24211C;font-size:.78rem;font-weight:700;line-height:1.2}
+.stop .dot{width:58px;height:58px;margin:0 auto 6px;border-radius:50%;background:#fff;border:4px solid #1E2F55;display:flex;align-items:center;justify-content:center;font-size:1.6rem;transition:transform .15s}
+.stop:hover .dot,.stop:focus-visible .dot{transform:scale(1.1)}
+@media (max-width:620px){.journey{grid-template-columns:repeat(4,1fr);row-gap:14px}.journey::before{display:none}.stop .dot{width:50px;height:50px}}
+
+section.tab{margin:34px auto;background:var(--paper);border-radius:28px;border:3px solid var(--line);overflow:hidden}
+.tabhead{padding:22px 22px 18px;color:#fff}
+.tabhead .lesson{display:inline-block;font-size:.8rem;font-weight:700;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px;margin-bottom:8px}
+.tabhead h2{font-size:clamp(1.9rem,5.5vw,2.7rem)}
+.tabhead p{margin:.3em 0 0;opacity:.95;max-width:56ch}
+.tabbody{padding:10px 22px 26px}
+.c-river{background:#147896}.c-lapis{background:#2A4BA0}.c-carn{background:#B3302A}.c-barley{background:#B07A0C}.c-mud{background:#7A4E24}.c-palm{background:#357C35}.c-plum{background:#6E3779}.c-navy{background:#1E2F55}
+
+.story{background:var(--sand);border-left:6px solid var(--barley);border-radius:4px 18px 18px 4px;padding:14px 18px;margin:16px 0}
+.story .who{font-weight:700;color:var(--carnelian)}
+.heads{background:var(--badbg);border-radius:16px;padding:12px 16px;margin:14px 0;border:2px solid var(--bad)}
+.heads b{color:var(--bad)}
+.lock{background:var(--okbg);border:2px solid var(--ok);border-radius:16px;padding:12px 16px;margin:14px 0}
+.lock b:first-child{color:var(--ok)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:14px 0}
+.fact{border:2px solid var(--line);border-radius:18px;padding:12px 14px;background:var(--sand)}
+.fact .k{font-size:.8rem;color:var(--muted);font-weight:600}
+.fact .v{font-weight:700;font-size:1.02rem}
+.big{font-family:"Lilita One",Impact,sans-serif;font-size:2.2rem;color:var(--carnelian);line-height:1}
+.panel{border:3px dashed var(--line);border-radius:18px;padding:14px 16px;min-height:120px}
+.btn{border:none;border-radius:12px;padding:9px 16px;font-weight:700;color:#fff;background:var(--lapis)}
+.btn.alt{background:var(--mud)}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* map */
+.mapgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:start}
+@media (max-width:680px){.mapgrid{grid-template-columns:1fr}}
+.mapbox{background:#EBD7A6;border-radius:22px;padding:6px;border:4px solid #B48A4C;max-width:440px}
+.mapbox svg{display:block;width:100%;height:auto}
+.hit{cursor:pointer}
+.hit:hover .vis,.hit:focus .vis{filter:brightness(1.12)}
+.hit.on .vis{stroke:#C8372D;stroke-width:3}
+.flow{stroke-dasharray:10 8}
+@media (prefers-reduced-motion:no-preference){.flow{animation:flow 2.4s linear infinite}}
+@keyframes flow{to{stroke-dashoffset:-36}}
+
+/* flood sim */
+.sim{display:grid;gap:12px}
+.sim svg{width:100%;height:auto;border-radius:18px;display:block}
+.simctl{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-weight:600;font-size:.9rem}
+input[type=range]{width:100%;accent-color:var(--river)}
+.simmsg{border-radius:16px;padding:12px 16px;font-weight:500;border:2px solid var(--line)}
+.simmsg.dry{background:#FBE9D2;border-color:#D9822B;color:#24211C}
+.simmsg.good{background:var(--okbg);border-color:var(--ok)}
+.simmsg.wild{background:var(--badbg);border-color:var(--bad)}
+.monthout{font-weight:700;color:var(--lapis)}
+.ed{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+@media (max-width:520px){.ed{grid-template-columns:1fr}}
+.ed > div{border-radius:18px;padding:14px;color:#fff}
+.ed .h{font-family:"Lilita One",Impact,sans-serif;font-size:1.4rem;font-weight:400;display:block}
+
+/* adventure */
+.adv{border:3px solid var(--line);border-radius:22px;padding:16px;background:var(--sand)}
+.adv .scene{font-size:1.02rem}
+.adv .emo{font-size:2.2rem}
+.choices{display:grid;gap:8px;margin-top:10px}
+.choices button{text-align:left;border:2px solid var(--line);background:var(--paper);color:var(--ink);border-radius:14px;padding:10px 12px;font-weight:600}
+.choices button:hover:not(:disabled){border-color:var(--river)}
+.choices button.right{background:var(--okbg);border-color:var(--ok)}
+.choices button.wrong{background:var(--badbg);border-color:var(--bad)}
+.advres{margin-top:10px;font-weight:500}
+.progress{display:flex;gap:6px;margin-bottom:10px}
+.progress i{flex:1;height:8px;border-radius:8px;background:var(--line)}
+.progress i.done{background:var(--palm)}
+
+/* trade */
+.trade{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}
+.tcard{border:3px solid var(--line);border-radius:18px;padding:12px;background:var(--sand);display:flex;flex-direction:column;gap:6px}
+.tcard .e{font-size:2rem}
+.tcard.done{border-color:var(--ok);background:var(--okbg)}
+.sacks{font-size:1.6rem;letter-spacing:.1em}
+.chest{border:3px dashed var(--barley);border-radius:18px;padding:10px 14px;min-height:60px;font-size:1.05rem}
+
+/* ziggurat */
+.zig{display:grid;grid-template-columns:240px 1fr;gap:16px;align-items:center}
+@media (max-width:560px){.zig{grid-template-columns:1fr}}
+.zig svg{width:100%;max-width:240px;height:auto;display:block;margin:auto}
+.zig .tier{transition:fill .3s}
+.climber{transition:transform .5s}
+@media (prefers-reduced-motion:reduce){.climber{transition:none}html{scroll-behavior:auto}}
+.ladder3{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.ladder3 span{border-radius:12px;padding:8px 12px;color:#fff;font-weight:700}
+.ladder3 .arr{color:var(--muted);background:none;padding:0}
+
+/* pyramid */
+.pyr{display:grid;gap:6px;justify-items:center;margin:14px 0}
+.tier3{border:none;color:#fff;font-weight:700;padding:14px 8px;border-radius:12px;text-align:center;transition:transform .15s,filter .15s}
+.tier3:hover{filter:brightness(1.1);transform:scale(1.02)}
+.tier3.sel{outline:4px solid var(--barley)}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.roles > div{border-radius:18px;padding:12px 14px;border:3px solid}
+.roles ul{margin:6px 0 0;padding-left:18px}
+@media (max-width:520px){.roles{grid-template-columns:1fr}}
+
+/* inventions */
+.inv{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;margin:12px 0}
+.inv > div{border-radius:18px;padding:12px;background:var(--sand);border:2px solid var(--line)}
+.inv .e{font-size:1.8rem;display:block}
+.inv b{display:block}
+.inv small{color:var(--muted);font-size:.82rem;line-height:1.35;display:block;margin-top:4px}
+.verb{display:inline-block;font-size:.72rem;font-weight:700;color:#fff;border-radius:999px;padding:1px 9px;margin-bottom:4px}
+.cw{display:grid;gap:10px}
+.cw input{font:inherit;font-size:1.1rem;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--sand);color:var(--ink);max-width:340px}
+.tablet{background:#C8794A;border-radius:26px 30px 22px 28px;border:4px solid #9A5530;padding:18px 20px;min-height:100px;color:#3a1a08;font-size:2.1rem;line-height:1.5;word-break:break-all;box-shadow:inset 0 0 0 6px rgba(255,255,255,.08)}
+
+/* timeline */
+.tl2{display:grid;grid-template-columns:1fr 70px 1fr;gap:0 10px;margin:14px 0}
+.tl2 .yr{text-align:center;font-weight:700;font-size:.85rem;background:var(--sand);border-radius:10px;padding:6px 2px;align-self:center}
+.tl2 .ev{border-radius:14px;padding:8px 12px;margin:6px 0;font-size:.92rem;color:#fff}
+.tl2 .ev.m{background:#2A4BA0}
+.tl2 .ev.w{background:#B3302A}
+.tl2 .empty{margin:6px 0}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.85rem;font-weight:600}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+
+.cheat{columns:2 260px;column-gap:18px}
+.cheat > div{break-inside:avoid;border-radius:16px;padding:12px 14px;margin:0 0 12px;border:3px solid;background:var(--sand)}
+.cheat b.t{font-family:"Lilita One",Impact,sans-serif;font-weight:400;font-size:1.25rem;display:block;margin-bottom:4px}
+.cheat ul{margin:0;padding-left:18px;font-size:.93rem}
+
+/* ================= QUIZ ================= */
+.monster{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+@media (max-width:520px){.monster{grid-template-columns:1fr}.monster svg{max-width:140px;margin:auto}}
+.monster svg{width:100%;height:auto}
+.hum.hit{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px) rotate(-3deg)}75%{transform:translateX(8px) rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){.hum.hit{animation:none}}
+.scorebar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);z-index:40;background:#1E2F55;color:#fff;border-radius:16px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin:14px 0;font-weight:700;font-size:.9rem}
+.hp{height:14px;background:rgba(255,255,255,.2);border-radius:10px;overflow:hidden}
+.hp i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#E04A3B,#F2B84A);transition:width .4s}
+.taunt{font-size:.85rem;color:var(--muted);font-style:italic;min-height:1.3em}
+.qpart{margin:28px 0 8px}
+.qpart h3{font-size:1.35rem;margin:0;color:var(--carnelian)}
+.qpart .how{color:var(--muted);font-size:.92rem;margin:.2em 0 0}
+.q{border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin:12px 0;background:var(--sand)}
+.q .stem{font-weight:600;margin-bottom:10px}
+.q .num{display:inline-block;background:var(--lapis);color:#fff;border-radius:999px;min-width:30px;text-align:center;font-size:.85rem;padding:1px 8px;margin-right:6px}
+.opts{display:grid;gap:8px}
+.opts.tf{grid-template-columns:1fr 1fr}
+.opts.odd{grid-template-columns:repeat(2,1fr)}
+@media (min-width:640px){.opts.odd{grid-template-columns:repeat(4,1fr)}}
+.opt{border:2px solid var(--line);background:var(--paper);color:var(--ink);border-radius:14px;padding:10px 12px;text-align:left;font-weight:500;transition:transform .12s}
+.opt:hover:not(:disabled){transform:translateX(3px);border-color:var(--lapis)}
+.opts.tf .opt,.opts.odd .opt{text-align:center;font-weight:700}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad);text-decoration:line-through}
+.fb{margin-top:10px;font-size:.93rem;border-radius:12px;padding:8px 12px;display:none}
+.fb.show{display:block}
+.fb.good{background:var(--okbg);border-left:5px solid var(--ok)}
+.fb.oops{background:var(--badbg);border-left:5px solid var(--bad)}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:54px;padding:10px;border:2px dashed var(--line);border-radius:16px;margin-bottom:12px;background:var(--paper)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#2A4BA0;color:#fff;border-radius:12px;padding:8px 10px;font-weight:600;font-size:.9rem;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.chip:active{cursor:grabbing}
+.chip.dragging{opacity:.35}
+.chip .x{border:none;background:rgba(255,255,255,.25);color:#fff;border-radius:50%;width:22px;height:22px;line-height:22px;padding:0;font-size:.75rem;flex:none}
+.chip.ok{background:var(--ok)}
+.chip.no{background:var(--bad)}
+.chip .fix{font-weight:500;font-size:.78rem}
+.locked .chip{cursor:default}
+.ghost{position:fixed;z-index:999;pointer-events:none;transform:translate(-50%,-60%) rotate(-3deg);opacity:.95}
+.target{border:2.5px dashed var(--line);border-radius:14px;padding:8px;min-height:52px;background:var(--paper);transition:background .15s,border-color .15s}
+.target.over{background:rgba(201,138,18,.22);border-color:var(--barley);border-style:solid}
+.target .lbl{font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:6px}
+.target .items{display:flex;flex-wrap:wrap;gap:6px}
+.matchgrid{display:grid;gap:8px}
+.matchrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.matchrow .def{border-radius:14px;padding:10px 12px;background:var(--paper);border:2px solid var(--line);font-size:.93rem;display:flex;align-items:center}
+.bins{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:10px}
+@media (max-width:620px){.bins{grid-template-columns:1fr}.matchrow{grid-template-columns:1fr}}
+.bins .target{min-height:150px}
+.bins .target .lbl{font-size:1rem;color:#fff;border-radius:10px;padding:4px 10px;display:inline-block}
+.slots{display:grid;gap:8px}
+.slots .target{display:flex;align-items:center;gap:10px}
+.slots .target .lbl{margin:0;min-width:96px}
+.checkbtn{margin-top:12px;border:none;background:var(--lapis);color:#fff;border-radius:12px;padding:10px 18px;font-weight:700}
+.checkbtn:disabled{opacity:.45;cursor:default}
+.warn{color:var(--bad);font-weight:600;font-size:.9rem;margin-left:8px}
+.sentence{display:flex;flex-wrap:wrap;gap:6px;font-size:1.05rem}
+.word{border:2px solid transparent;background:var(--paper);color:var(--ink);border-radius:10px;padding:4px 8px}
+.word:hover:not(:disabled){border-color:var(--barley)}
+.word.right{background:var(--okbg);border-color:var(--ok)}
+.word.wrong{background:var(--badbg);border-color:var(--bad)}
+.word.reveal{background:var(--barley);color:#241a05}
+.mapq{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:640px){.mapq{grid-template-columns:1fr}}
+.prompt{font-size:1.2rem;font-weight:700;color:var(--lapis);margin:4px 0 8px}
+.maplog{list-style:none;padding:0;margin:8px 0 0;font-size:.92rem}
+.results{display:none;text-align:center;border-radius:24px;padding:26px 18px;margin-top:20px;background:#1E2F55;color:#F6EED6}
+.results.show{display:block}
+.results .big{color:#F2B84A;font-size:3.2rem}
+.results ul{text-align:left;max-width:520px;margin:12px auto}
+.again{border:none;background:#F2B84A;color:#241a05;border-radius:14px;padding:12px 20px;font-weight:700;margin-top:10px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <a href="#rivers">Two rivers</a>
+    <a href="#machine">River machine</a>
+    <a href="#dryspell">Dry spell</a>
+    <a href="#resources">No wood, no stone</a>
+    <a href="#citystates">City-states</a>
+    <a href="#ziggurat">Ziggurat</a>
+    <a href="#classes">Who's who</a>
+    <a href="#trade">Trading post</a>
+    <a href="#inventions">Top 10</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#cheat">Cheat sheet</a>
+    <a href="#quiz" class="quizlink">Monster quiz</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Rivers to Ziggurats</h1>
+    <p class="sub">Lesson 1: The Geography of Mesopotamia. Lesson 2: The Sumerians. Ride the river from the snowy mountains all the way to the Persian Gulf, then face the monster.</p>
+    <div class="journey">
+      <a class="stop" href="#machine"><div class="dot">🏔️</div>Mountains</a>
+      <a class="stop" href="#machine"><div class="dot">🌊</div>Floodplain</a>
+      <a class="stop" href="#dryspell"><div class="dot">🌾</div>Village</a>
+      <a class="stop" href="#citystates"><div class="dot">🧱</div>City-state</a>
+      <a class="stop" href="#ziggurat"><div class="dot">🛕</div>Ziggurat</a>
+      <a class="stop" href="#trade"><div class="dot">⛵</div>Trade</a>
+      <a class="stop" href="#quiz"><div class="dot">👹</div>Monster</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- TWO RIVERS -->
+<section class="tab" id="rivers">
+  <div class="tabhead c-river"><span class="lesson">Lesson 1</span><h2>The land between two rivers</h2><p>The big idea: civilizations grow where the geography helps farming, trade, or both.</p></div>
+  <div class="tabbody">
+    <p><b>Mesopotamia</b> is a Greek name that means <b>“land between the rivers.”</b> It's also called the <b>Fertile Crescent</b>. The two rivers are the <b>Tigris</b> and the <b>Euphrates</b>. They begin in the <b>mountains of present-day Turkey and Kurdistan</b>, then flow <b>southeast</b> through present-day <b>Iraq</b> into the <b>Persian Gulf</b>.</p>
+    <p>The land between them was mostly <b>flat</b>, with small, scrubby plants. The rivers gave people three gifts:</p>
+    <div class="facts">
+      <div class="fact"><div class="k">Gift 1</div><div class="v">💧 Water for drinking and for crops</div></div>
+      <div class="fact"><div class="k">Gift 2</div><div class="v">🟫 Floods left fresh soil, perfect for farming</div></div>
+      <div class="fact"><div class="k">Gift 3</div><div class="v">⛵ Easy travel and trade by boat</div></div>
+    </div>
+    <h3>Why boats beat walking</h3>
+    <p>In ancient times it was easier to travel by boat than over land: boats can carry <b>heavy loads</b>, the <b>river current</b> pushes boats going downriver, and there were <b>few roads</b>.</p>
+
+    <h3>Explore the map: tap anything</h3>
+    <div class="mapgrid">
+      <div class="mapbox" id="mainMap"></div>
+      <div class="panel" id="mapInfo" aria-live="polite"><b>Tap a river, mountain, desert, sea or city.</b><p>Notice the green strip: that's the fertile soil the rivers left behind. The orange dots are Sumer's cities.</p></div>
+    </div>
+    <div class="lock"><b>Lock it in.</b> Read the map left to right in ABC order: <b>E</b>uphrates is west (left), <b>T</b>igris is east (right). Both rivers run “downhill to the Gulf”: from the mountains in the north-west, southeast into the <b>Persian Gulf</b>.</div>
+    <div class="lock"><b>Natural borders, “Mountains, Deserts, Gulf”:</b> the <b>Zagros Mountains</b> to the east, the <b>Syrian Desert</b> and <b>Arabian Desert</b> to the west, and the <b>Persian Gulf</b> to the south.</div>
+    <div class="heads"><b>Wait, borders but easy to invade?</b> Yes, both are true. The mountains and deserts are far out on the edges. The land where people actually lived was flat and open, with few mountains or barriers to stop raiders.</div>
+  </div>
+</section>
+
+<!-- RIVER MACHINE -->
+<section class="tab" id="machine">
+  <div class="tabhead c-lapis"><span class="lesson">Lesson 1</span><h2>The river machine</h2><p>Snow, floods, silt and drought. Drag the slider and watch what happens to the farm.</p></div>
+  <div class="tabbody">
+    <div class="sim">
+      <svg viewBox="0 0 400 210" id="simSvg" role="img" aria-label="River flowing from mountains across a floodplain">
+        <rect width="400" height="210" fill="#BFE3F2"/>
+        <g id="rain" opacity="0"><g stroke="#3B87C4" stroke-width="2" stroke-linecap="round">
+          <line x1="40" y1="12" x2="36" y2="24"/><line x1="70" y1="6" x2="66" y2="18"/><line x1="100" y1="16" x2="96" y2="28"/><line x1="130" y1="8" x2="126" y2="20"/><line x1="160" y1="14" x2="156" y2="26"/><line x1="55" y1="30" x2="51" y2="42"/><line x1="115" y1="32" x2="111" y2="44"/></g></g>
+        <polygon points="0,160 55,50 120,160" fill="#8E7A5E"/>
+        <polygon points="60,160 125,40 195,160" fill="#7B6A50"/>
+        <polygon id="snow1" points="40,80 55,50 70,80 62,76 55,82 48,76" fill="#fff"/>
+        <polygon id="snow2" points="108,72 125,40 142,72 133,67 125,74 117,67" fill="#fff"/>
+        <path id="riverPath" d="M120 110 Q 150 150 190 160 L 400 160" fill="none" stroke="#2F8FD0" stroke-width="8" stroke-linecap="round"/>
+        <rect x="160" y="160" width="240" height="50" fill="#A57B47"/>
+        <rect id="silt" x="190" y="156" width="210" height="5" fill="#4B2F14" opacity="0"/>
+        <rect id="floodWater" x="185" y="160" width="215" height="0" fill="#2F8FD0" opacity=".55"/>
+        <g id="cracks" stroke="#5B3B1A" stroke-width="2" fill="none" opacity="0"><path d="M210 175 l10 8 l-6 10"/><path d="M260 172 l-8 10 l9 9"/><path d="M320 176 l12 6 l-4 12"/><path d="M370 172 l-7 12"/></g>
+        <text id="crops" x="200" y="152" font-size="20" letter-spacing="10">🌱🌱🌱🌱🌱🌱</text>
+        <g id="soilDots" opacity="0">
+          <circle r="3.5" fill="#5B3B1A"><animateMotion dur="3s" repeatCount="indefinite" path="M120 110 Q 150 150 190 160 L 330 158"/></circle>
+          <circle r="3.5" fill="#5B3B1A"><animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M120 110 Q 150 150 190 160 L 300 158"/></circle>
+          <circle r="3.5" fill="#5B3B1A"><animateMotion dur="3s" begin="2s" repeatCount="indefinite" path="M120 110 Q 150 150 190 160 L 370 158"/></circle>
+        </g>
+        <text x="8" y="200" font-size="11" fill="#fff" font-family="Lexend" font-weight="700">MOUNTAINS</text>
+        <text x="240" y="200" font-size="11" fill="#fff" font-family="Lexend" font-weight="700">FLOODPLAIN</text>
+        <text x="350" y="185" font-size="11" fill="#fff" font-family="Lexend" font-weight="700">to Gulf →</text>
+      </svg>
+      <div class="simctl"><span>☀️ Dry</span><input type="range" id="snowSlider" min="0" max="100" value="50" aria-label="Amount of rain and melting snow"><span>🌨️ Wet</span></div>
+      <div class="simmsg" id="simMsg" aria-live="polite"></div>
+      <div><button class="btn" id="monthBtn">When will the flood come this year?</button> <span class="monthout" id="monthOut" aria-live="polite"></span></div>
+    </div>
+
+    <h3>How rivers move soil</h3>
+    <div class="ed">
+      <div style="background:#7A4E24"><span class="h">Erosion</span>Water rushing down the mountains <b>picks up</b> and carries away soil. Think: erosion = <b>e</b>rase it from the mountain.</div>
+      <div style="background:#357C35"><span class="h">Deposition</span>On the flat plain, the water slows down and <b>drops</b> the soil. Think: deposition = <b>dep</b>osit it, like money in a bank.</div>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="k">Floodplain</div><div class="v">The flat land bordering the river banks</div></div>
+      <div class="fact"><div class="k">Silt</div><div class="v">The fine soil the river leaves behind</div></div>
+      <div class="fact"><div class="k">Fertile</div><div class="v">Good for growing crops</div></div>
+      <div class="fact"><div class="k">Semiarid</div><div class="v">Dry: less than 10 inches of rain a year, hot summers</div></div>
+      <div class="fact"><div class="k">Drought</div><div class="v">A long time with very little or no rain and snow</div></div>
+      <div class="fact"><div class="k">By 4000 B.C.</div><div class="v">Farming villages all across southern Mesopotamia</div></div>
+    </div>
+    <div class="lock"><b>Lock it in, the Goldilocks river:</b> too little water = <b>drought</b> and starving. Too much = a <b>violent flood</b> washes everything away. “Just right” = <b>silt</b> on the <b>floodplain</b> and a great harvest. And nobody knew <i>when</i> it would come: <b>April? May? June?</b></div>
+  </div>
+</section>
+
+<!-- DRY SPELL -->
+<section class="tab" id="dryspell">
+  <div class="tabhead c-barley"><span class="lesson">Lesson 1 story</span><h2>The Long Dry Spell</h2><p>You're a farmer in Southwest Asia, more than 8,000 years ago. Make the choices that save your village.</p></div>
+  <div class="tabbody">
+    <div class="adv" id="adv" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="tab" id="resources">
+  <div class="tabhead c-mud"><span class="lesson">Lesson 1</span><h2>No wood, no stone</h2><p>Mesopotamia had amazing soil, and almost nothing else.</p></div>
+  <div class="tabbody">
+    <p>Mesopotamia had <b>no forests</b> for wood. It also lacked <b>stone</b> and <b>minerals, such as metals</b>. So how did people build anything?</p>
+    <div class="facts">
+      <div class="fact"><div class="k">Problem</div><div class="v">No wood or stone to build with</div></div>
+      <div class="fact"><div class="k">Solution</div><div class="v">🧱 Mud for bricks and plaster</div></div>
+      <div class="fact"><div class="k">Catch</div><div class="v">Mud buildings crumbled easily and needed repairs often</div></div>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="k">Problem</div><div class="v">Few mountains or natural barriers: easy to invade, and raiders came to steal or conquer</div></div>
+      <div class="fact"><div class="k">Solution</div><div class="v">🛡️ Mud walls around their villages</div></div>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="k">Problem</div><div class="v">Still needed stone, wood and metal</div></div>
+      <div class="fact"><div class="k">Solution</div><div class="v">🌾 Grow a <b>surplus</b> of grain and trade it</div></div>
+      <div class="fact"><div class="k">Surplus</div><div class="v">More than you need for yourself</div></div>
+    </div>
+    <div class="story"><span class="who">Who's in charge here?</span> Digging canals, building walls and trading had to be done again and again, at just the right time. So <b>community leaders</b> began organizing groups of people to do the work. That's the first step from village to city, and from city to government.</div>
+    <div class="lock"><b>Lock it in, “Mud, Mud, Grain”:</b> mud for <b>houses</b>, mud for <b>walls</b>, extra grain to <b>trade</b> for everything else.</div>
+  </div>
+</section>
+
+<!-- CITY-STATES -->
+<section class="tab" id="citystates">
+  <div class="tabhead c-carn"><span class="lesson">Lesson 2</span><h2>Sumer and its city-states</h2><p>The world's first civilization, in southern Mesopotamia, around 3000 B.C.</p></div>
+  <div class="tabbody">
+    <p><b>Sumer</b> was the first <b>civilization</b>, in <b>southern Mesopotamia</b>, around <b>3000 B.C.</b> Its people, the <b>Sumerians</b>, built the first cities in Southwest Asia, including <b>Ur, Uruk and Eridu</b>. These cities controlled the lower part of the Tigris and Euphrates valleys.</p>
+    <div class="story"><span class="who">Why every city went solo.</span> Picture each Sumerian city as an island, but surrounded by <b>mud-flats and scorching desert</b> instead of sea. Travelling and talking with neighbours over land was hard, so each city was cut off. Each one grew its own crops, made its own goods and took control of the land around it. That made each one a <b>city-state</b>: a city that governs itself and its surrounding territory. Kind of like how each Caribbean island runs itself.</div>
+    <div class="facts">
+      <div class="fact"><div class="k">Government</div><div class="v">Each had its own; not part of any bigger state</div></div>
+      <div class="fact"><div class="k">Population</div><div class="v"><span class="big">5,000–20,000</span></div></div>
+      <div class="fact"><div class="k">War</div><div class="v">Fought each other over resources and borders</div></div>
+      <div class="fact"><div class="k">Peace</div><div class="v">Traded and made alliances</div></div>
+    </div>
+    <h3>Build a city-state</h3>
+    <p>Drag each piece to where it belongs. Tap ✕ to send a piece back.</p>
+    <div id="cityGame"></div>
+    <div class="lock"><b>Lock it in, a city-state is like a castle in a board game:</b> a big <b>wall</b> around the outside, <b>gates</b> open by day and shut by night, the <b>palace and ziggurat</b> right in the <b>center</b>, and the farms outside.</div>
+  </div>
+</section>
+
+<!-- ZIGGURAT -->
+<section class="tab" id="ziggurat">
+  <div class="tabhead c-plum"><span class="lesson">Lesson 2</span><h2>Gods, priests and kings</h2><p>Climb the ziggurat one level at a time.</p></div>
+  <div class="tabbody">
+    <p>Sumerians believed in many gods: <b>polytheism</b> (poly = many, theism = belief in god). The gods helped explain <b>forces of nature</b> and <b>human activities and talents</b>. Each city-state had its own <b>patron god</b> and honored it with a huge temple called a <b>ziggurat</b>.</p>
+    <div class="zig">
+      <svg viewBox="0 0 240 220" role="img" aria-label="Ziggurat with four levels">
+        <rect width="240" height="220" fill="#F3D9A0" rx="18"/>
+        <rect class="tier" id="z0" x="20" y="160" width="200" height="40" fill="#B5814A"/>
+        <rect class="tier" id="z1" x="45" y="120" width="150" height="40" fill="#C08F57"/>
+        <rect class="tier" id="z2" x="70" y="82" width="100" height="38" fill="#CB9C63"/>
+        <rect class="tier" id="z3" x="95" y="48" width="50" height="34" fill="#D6AA70"/>
+        <path d="M112 200 L120 160 L128 200Z" fill="#8A5A2B"/>
+        <text x="120" y="40" font-size="20" text-anchor="middle">✨</text>
+        <g class="climber" id="climber"><circle cx="120" cy="188" r="6" fill="#2A4BA0"/><rect x="116" y="193" width="8" height="10" rx="2" fill="#2A4BA0"/></g>
+      </svg>
+      <div>
+        <div class="panel" id="zigInfo" aria-live="polite"><b>Ready to climb?</b><p>Press the button to go up one level.</p></div>
+        <p style="margin-top:10px"><button class="btn" id="climbBtn">Climb up a level</button></p>
+      </div>
+    </div>
+    <h3>Who's in charge? Three steps</h3>
+    <div class="ladder3">
+      <span style="background:#6E3779">1. Priests ruled the city-states</span><span class="arr">→</span>
+      <span style="background:#B3302A">2. War heroes became kings</span><span class="arr">→</span>
+      <span style="background:#B07A0C">3. Rule became hereditary</span>
+    </div>
+    <p>Sumerian kings claimed they got their <b>power to rule from the city's god</b>. Over time, their rule became <b>hereditary</b>: when a king died, <b>his son took over</b>. A kingdom like that is a <b>monarchy</b>.</p>
+    <div class="lock"><b>Lock it in:</b> zig-<b>ZAG</b> your way up and you <b>rise high</b>. Ziggurat means “to rise high” in the <b>Akkadian</b> language, and only special priests may reach the top, the home of the gods.</div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section class="tab" id="classes">
+  <div class="tabhead c-navy"><span class="lesson">Lesson 2</span><h2>Who's who in Sumer</h2><p>Three social classes. Tap a level. You usually stayed in the class you were born into.</p></div>
+  <div class="tabbody">
+    <div class="pyr" id="pyr"></div>
+    <div class="panel" id="pyrInfo" aria-live="polite"><b>Tap a level of the pyramid.</b></div>
+    <div class="heads"><b>Different from your notebook!</b> Your earlier notes put farmers at the bottom with enslaved people. <b>Lesson 2 puts farmers in the middle class</b>, along with merchants, fishers and artisans. For this test, go with Lesson 2.</div>
+    <div class="story"><span class="who">The Standard of Ur.</span> A <b>standard</b> is a flag or symbol carried on a pole. The Standard of Ur is a decorated panel, only about 8.5 by 19.5 inches, made with shell and blue lapis lazuli. Its rows of tiny people show Sumerian society: kings and soldiers at the top, farmers bringing animals and goods below. It's like an ancient comic strip of who's who.</div>
+    <h3>Roles of men and women</h3>
+    <div class="roles">
+      <div style="border-color:var(--lapis)"><b>Men</b><ul><li>Head of the home; provided for the family</li><li>Boys went to school and became apprentices, training for specific jobs</li><li>Cared for parents if they needed help</li></ul></div>
+      <div style="border-color:var(--carnelian)"><b>Women</b><ul><li>Ran the home</li><li>Taught daughters to run a household</li><li>Took care of children and elderly parents</li></ul></div>
+    </div>
+    <div class="lock"><b>Lock it in, “Kings Pray, Warriors Obey”</b> for the upper class: <b>K</b>ings, <b>P</b>riests, <b>W</b>arriors, <b>O</b>fficials. Middle class is “<b>M</b>y <b>F</b>arm <b>F</b>eeds <b>A</b>ll”: <b>M</b>erchants, <b>F</b>armers, <b>F</b>ishers, <b>A</b>rtisans. It's the biggest group. Enslaved people (war captives, criminals, people who couldn't pay debts) were the lowest.</div>
+  </div>
+</section>
+
+<!-- TRADE -->
+<section class="tab" id="trade">
+  <div class="tabhead c-palm"><span class="lesson">Lesson 2</span><h2>The trading post</h2><p>Farming was Sumer's main job. Trade got them everything else.</p></div>
+  <div class="tabbody">
+    <p>If you lived in Sumer, you were <b>most likely a farmer</b>, with a plot of land around the city-state. But Sumer couldn't produce everything, especially <b>metals</b> for metalworking. So traders sailed to other lands. You're a trader now. Spend your sacks wisely!</p>
+    <p><b>Your goods:</b> <span class="sacks" id="sacks"></span></p>
+    <div class="trade" id="tradeCards"></div>
+    <div class="chest" id="chest" aria-live="polite"><b>Treasure chest:</b> empty</div>
+    <div class="lock"><b>Lock it in, colours and places:</b> <b>C</b>arnelian is <b>C</b>rimson red, from India's Indus Valley. <b>L</b>apis <b>L</b>azuli is <b>L</b>ovely blue, from Afghanistan. Sumer gave <b>wheat, barley and tools</b> and got <b>timber, minerals and metals</b>.</div>
+  </div>
+</section>
+
+<!-- INVENTIONS -->
+<section class="tab" id="inventions">
+  <div class="tabhead c-lapis"><span class="lesson">Lesson 2</span><h2>Sumer's top 10</h2><p>Later civilizations copied and improved these ideas. Some are still on your wrist and in your phone.</p></div>
+  <div class="tabbody">
+    <div class="inv" id="invGrid"></div>
+    <div class="lock"><b>Lock it in, seven verbs:</b> <b>Write</b> (cuneiform), <b>Roll</b> (wheel), <b>Sail</b> (sailboat), <b>Plow</b> (wooden plough), <b>Spin</b> (potter's wheel), <b>Melt</b> (bronze), and <b>Count</b> (base 60, times tables, 60-minute hour and 360° circle, 12-month lunar calendar).</div>
+    <h3>Key words: cuneiform, scribe, epic</h3>
+    <div class="facts">
+      <div class="fact"><div class="k">Cuneiform</div><div class="v">Sumerian writing: wedge-shaped marks in soft clay</div></div>
+      <div class="fact"><div class="k">Scribe</div><div class="v">A person who copies or writes out documents; often a record keeper</div></div>
+      <div class="fact"><div class="k">Epic</div><div class="v">A long poem about the deeds of a legendary or real hero, like Gilgamesh</div></div>
+    </div>
+    <h3>Write your name like a scribe</h3>
+    <div class="cw">
+      <label for="cwIn">Type a name or a secret message:</label>
+      <input id="cwIn" value="Adiaha" maxlength="30" autocomplete="off">
+      <div class="tablet cune" id="cwOut" aria-live="polite"></div>
+      <small style="color:var(--muted)">A fun code made from real cuneiform signs, one sign per letter, just like your I.A. clay tablet activity. Real Sumerian used sounds and syllables, not an alphabet.</small>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="tab" id="timeline">
+  <div class="tabhead c-river"><span class="lesson">Lesson 1</span><h2>Two timelines side by side</h2><p>What was happening in Mesopotamia, and in the rest of the world, at the same time.</p></div>
+  <div class="tabbody">
+    <div class="legend"><span style="--c:#2A4BA0">Mesopotamia</span><span style="--c:#B3302A">World</span></div>
+    <div class="tl2" id="tl2"></div>
+    <div class="heads"><b>Two dates for irrigation:</b> the textbook timeline says people by the Euphrates began irrigating crops in <b>5000 B.C.</b>, while another slide says farmers built canals <b>by about 6000 B.C.</b> If a question asks, “around 6000–5000 B.C.” covers both. Check with your teacher which one they want.</div>
+  </div>
+</section>
+
+<!-- CHEAT SHEET -->
+<section class="tab" id="cheat">
+  <div class="tabhead c-mud"><h2>Night-before cheat sheet</h2><p>Everything on one screen. Read it out loud once.</p></div>
+  <div class="tabbody">
+    <div class="cheat">
+      <div style="border-color:var(--river)"><b class="t" style="color:var(--river)">Geography</b><ul><li>Mesopotamia = land between the rivers = Fertile Crescent</li><li>Tigris (east) &amp; Euphrates (west)</li><li>Start: mountains of Turkey &amp; Kurdistan</li><li>Flow southeast through Iraq to the Persian Gulf</li><li>Borders: Zagros Mts, Syrian &amp; Arabian Deserts, Persian Gulf</li></ul></div>
+      <div style="border-color:var(--lapis)"><b class="t" style="color:var(--lapis)">River words</b><ul><li>Floodplain: flat land by the banks</li><li>Silt: fine soil left by rivers</li><li>Fertile: good for crops</li><li>Semiarid: under 10 in. of rain, hot summers</li><li>Drought: long time with little or no rain/snow</li><li>Erosion picks up soil; deposition drops it</li></ul></div>
+      <div style="border-color:var(--barley)"><b class="t" style="color:var(--barley)">Taming the water</b><ul><li>Floods unpredictable: April to June</li><li>Irrigation: canals carry river water to fields</li><li>Workers cleaned silt out of canals</li><li>Dams held back extra flood water</li></ul></div>
+      <div style="border-color:var(--mud)"><b class="t" style="color:var(--mud)">Resources</b><ul><li>No forests, stone or metals</li><li>Mud bricks &amp; plaster (crumbled easily)</li><li>Few natural barriers: mud walls</li><li>Surplus grain traded for stone, wood, metal</li></ul></div>
+      <div style="border-color:var(--carnelian)"><b class="t" style="color:var(--carnelian)">City-states</b><ul><li>Sumer: 1st civilization, ~3000 B.C., southern Mesopotamia</li><li>Cities: Ur, Uruk, Eridu (also Kish, Nippur, Lagash)</li><li>Cut off by mud-flats &amp; desert → independent</li><li>5,000–20,000 people, own government, big wall</li><li>Palace + ziggurat in the center</li><li>War over resources &amp; borders; trade in peace</li></ul></div>
+      <div style="border-color:var(--plum)"><b class="t" style="color:var(--plum)">Religion &amp; rulers</b><ul><li>Polytheism: many gods; each city has a patron god</li><li>Ziggurat = “to rise high” (Akkadian)</li><li>Top = home of the gods; only special priests</li><li>Priests → war-hero kings → hereditary kings</li><li>Kings' power came “from the city's god”</li></ul></div>
+      <div style="border-color:#1E2F55"><b class="t">Classes</b><ul><li>Upper: kings, priests, warriors, officials</li><li>Middle (largest): merchants, farmers, fishers, artisans</li><li>Lowest: enslaved people</li><li>You stayed in the class you were born into</li></ul></div>
+      <div style="border-color:var(--palm)"><b class="t" style="color:var(--palm)">Trade &amp; inventions</b><ul><li>Most Sumerians were farmers</li><li>Gave wheat, barley, tools; got timber, minerals, metals</li><li>Carnelian (red) from the Indus Valley; lapis lazuli (blue) from Afghanistan</li><li>Write, Roll, Sail, Plow, Spin, Melt, Count</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="tab" id="quiz">
+  <div class="tabhead c-carn"><h2>The monster quiz</h2><p>Thirteen rounds. Every correct answer is a hit on Humbaba.</p></div>
+  <div class="tabbody">
+    <div class="monster">
+      <svg viewBox="0 0 150 150" aria-hidden="true"><g class="hum" id="hum">
+        <path d="M30 40 L18 8 L48 30Z M120 40 L132 8 L102 30Z" fill="#E8D7A8" stroke="#7A5A2A" stroke-width="2"/>
+        <circle cx="75" cy="78" r="56" fill="#6E8B3D" stroke="#3E5320" stroke-width="4"/>
+        <path d="M30 60 Q 75 30 120 60" fill="none" stroke="#3E5320" stroke-width="5"/>
+        <circle cx="54" cy="70" r="11" fill="#fff"/><circle cx="96" cy="70" r="11" fill="#fff"/>
+        <circle id="eyeL" cx="56" cy="72" r="5" fill="#2a1a08"/><circle id="eyeR" cx="94" cy="72" r="5" fill="#2a1a08"/>
+        <path id="mouth" d="M45 104 L55 96 L65 106 L75 96 L85 106 L95 96 L105 104 Q 75 124 45 104Z" fill="#7A1E1E" stroke="#3E5320" stroke-width="3"/>
+      </g></svg>
+      <div>
+        <p><b>Humbaba</b>, the monster of the Cedar Forest from the <b>Epic of Gilgamesh</b>, guards the last stop of your journey. Gilgamesh and his friend Enkidu beat him with teamwork. You'll beat him with knowledge.</p>
+        <p class="taunt" id="taunt">“Hrrrm. Nobody remembers what silt is.”</p>
+      </div>
+    </div>
+    <div class="scorebar"><span>👹 HP</span><div class="hp"><i id="hpBar"></i></div><span id="hpTxt"></span></div>
+    <div id="quizRoot"></div>
+    <div class="results" id="results" aria-live="polite"></div>
+  </div>
+</section>
+
+</main>
+<footer>Made for Adiaha &amp; friends · SKI Academy</footer>
+
+<script>
+/* ================= MAP ================= */
+const EUPH="M 80 50 C 70 110, 120 170, 165 225 S 222 305, 255 345 S 305 395, 322 418 L 340 440";
+const TIG ="M 200 46 C 222 88, 206 124, 224 162 S 254 234, 274 280 S 312 352, 322 418";
+const CITIES=[
+ {id:'nineveh',name:'Nineveh',x:222,y:108,dx:10,sum:false,txt:'Up north on the Tigris. Not a Sumerian city: it belonged to the Assyrians, who came later.'},
+ {id:'kish',name:'Kish',x:212,y:256,dx:-36,sum:true,txt:'A Sumerian city-state in the north of Sumer.'},
+ {id:'nippur',name:'Nippur',x:238,y:288,dx:-48,sum:true,txt:'A Sumerian city-state, a famous religious centre.'},
+ {id:'lagash',name:'Lagash',x:290,y:318,dx:10,sum:true,txt:'A Sumerian city-state. Around 2400 B.C., its King Urukagina reformed (changed and improved) its government.'},
+ {id:'uruk',name:'Uruk',x:272,y:350,dx:-40,sum:true,txt:'One of Sumer\'s first cities, and the home of King Gilgamesh from the epic.'},
+ {id:'ur',name:'Ur',x:306,y:384,dx:9,sum:true,txt:'One of Sumer\'s first cities, famous for its giant ziggurat and the Standard of Ur.'},
+ {id:'eridu',name:'Eridu',x:290,y:406,dx:-42,sum:true,txt:'One of Sumer\'s first cities, near the Gulf. Sumerians believed it was the very first city.'}
+];
+const FEATURES={
+ euph:['Euphrates River','The river on the <b>western</b> side of Mesopotamia. It starts in the mountains of Turkey and flows southeast to the Persian Gulf. Most of Sumer\'s cities sat close to it.'],
+ tig:['Tigris River','The river on the <b>eastern</b> side, closer to the Zagros Mountains. It also flows southeast into the Persian Gulf.'],
+ gulf:['Persian Gulf','The larger body of water where both rivers empty, and where Sumerian boats sailed to trade.'],
+ zagros:['Zagros Mountains','A natural border to the <b>east</b>.'],
+ taurus:['Mountains of Turkey & Kurdistan','Where the Tigris and Euphrates begin. Rain and melting snow here make the rivers swell each spring.'],
+ syrian:['Syrian Desert','A desert west of the Euphrates and a natural border.'],
+ arabian:['Arabian Desert','A desert to the southwest, another natural border.']
+};
+function mapSVG(opts){
+  const {labels=true,quiz=false}=opts;
+  const T=(x,y,t,c,r)=>labels?`<text x="${x}" y="${y}" font-size="12" font-weight="700" fill="${c}" font-family="Lexend"${r?` transform="rotate(${r} ${x} ${y})"`:''}>${t}</text>`:'';
+  let s=`<svg viewBox="0 0 400 480" role="img" aria-label="Map of Mesopotamia"><rect width="400" height="480" fill="#EBD7A6"/>`;
+  s+=`<g class="hit" data-f="taurus" tabindex="0" role="button" aria-label="${labels?'Mountains of Turkey and Kurdistan':'a landform'}"><path class="vis" d="M0 0 H400 V40 Q300 66 200 40 Q100 18 0 50 Z" fill="#A98C62"/>${T(40,26,'Mountains of Turkey & Kurdistan','#fff')}</g>`;
+  s+=`<g class="hit" data-f="zagros" tabindex="0" role="button" aria-label="${labels?'Zagros Mountains':'a landform'}"><path class="vis" d="M300 76 Q 340 62 400 80 L 400 384 Q 372 364 356 334 Q 324 224 300 76 Z" fill="#A98C62"/>${T(352,140,'Zagros Mountains','#fff',72)}</g>`;
+  s+=`<g class="hit" data-f="syrian" tabindex="0" role="button" aria-label="${labels?'Syrian Desert':'a landform'}"><path class="vis" d="M0 120 Q 80 110 135 168 Q 150 228 110 276 Q 50 298 0 288 Z" fill="#E7C27A"/>${T(14,210,'Syrian Desert','#7A5A2A')}</g>`;
+  s+=`<g class="hit" data-f="arabian" tabindex="0" role="button" aria-label="${labels?'Arabian Desert':'a landform'}"><path class="vis" d="M0 312 Q 80 302 150 334 Q 216 382 246 480 L 0 480 Z" fill="#DDB060"/>${T(20,420,'Arabian Desert','#7A5A2A')}</g>`;
+  s+=`<path d="M150 210 Q 230 300 320 420" fill="none" stroke="#7FB862" stroke-width="64" stroke-linecap="round" opacity=".45"/>`;
+  s+=`<g class="hit" data-f="gulf" tabindex="0" role="button" aria-label="${labels?'Persian Gulf':'a body of water'}"><path class="vis" d="M300 446 Q 344 420 400 392 L 400 480 L 268 480 Q 286 458 300 446 Z" fill="#3C8FD0"/>${T(312,462,'Persian Gulf','#fff')}</g>`;
+  [['euph',EUPH,'Euphrates River'],['tig',TIG,'Tigris River']].forEach(([id,d,nm])=>{
+    s+=`<g class="hit" data-f="${id}" tabindex="0" role="button" aria-label="${labels?nm:'a river'}"><path d="${d}" fill="none" stroke="transparent" stroke-width="24"/><path class="vis" d="${d}" fill="none" stroke="#2F8FD0" stroke-width="7" stroke-linecap="round"/>${quiz?'':`<path class="flow" d="${d}" fill="none" stroke="#BFE6FF" stroke-width="2.5" stroke-linecap="round" pointer-events="none"/>`}</g>`;
+  });
+  s+=T(104,128,'Euphrates','#1d5f93',58)+T(232,190,'Tigris','#1d5f93',62);
+  CITIES.forEach(c=>{
+    s+=`<g class="hit" data-f="${c.id}" tabindex="0" role="button" aria-label="${labels?c.name:'a city'}"><circle class="vis" cx="${c.x}" cy="${c.y}" r="7" fill="${quiz?'#3a2a14':(c.sum?'#E07B1F':'#6E3779')}" stroke="#fff" stroke-width="2.5"/>${labels?`<text x="${c.x+c.dx}" y="${c.y+4}" font-size="12" font-weight="700" fill="#2a1f10" font-family="Lexend" pointer-events="none">${c.name}</text>`:''}</g>`;
+  });
+  s+=`<g transform="translate(372,452)" pointer-events="none"><circle r="15" fill="#fff" opacity=".8"/><text y="5" text-anchor="middle" font-size="13" font-weight="700" fill="#2a1f10" font-family="Lexend">N↑</text></g></svg>`;
+  return s;
+}
+const mm=document.getElementById('mainMap');mm.innerHTML=mapSVG({labels:true});
+const mi=document.getElementById('mapInfo');
+mm.querySelectorAll('.hit').forEach(h=>{
+  const go=()=>{mm.querySelectorAll('.hit').forEach(x=>x.classList.remove('on'));h.classList.add('on');
+    const f=h.dataset.f,c=CITIES.find(x=>x.id===f);
+    mi.innerHTML=c?`<b style="font-size:1.15rem">${c.name}</b> <small>(${c.sum?'Sumerian city-state':'not Sumerian'})</small><p>${c.txt}</p>`:`<b style="font-size:1.15rem">${FEATURES[f][0]}</b><p>${FEATURES[f][1]}</p>`};
+  h.addEventListener('click',go);h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});
+});
+
+/* ================= FLOOD SIM ================= */
+const $=id=>document.getElementById(id);
+function sim(v){
+  $('snow1').setAttribute('opacity',(v/100).toFixed(2));$('snow2').setAttribute('opacity',(v/100).toFixed(2));
+  $('rain').setAttribute('opacity',v>40?((v-40)/60).toFixed(2):0);
+  $('riverPath').setAttribute('stroke-width',(3+v/12).toFixed(1));
+  const m=$('simMsg');
+  if(v<25){
+    $('floodWater').setAttribute('height',0);$('floodWater').setAttribute('y',160);$('silt').setAttribute('opacity',0);$('cracks').setAttribute('opacity',1);$('soilDots').setAttribute('opacity',0);
+    $('crops').textContent='🥀🥀🥀🥀🥀🥀';
+    m.className='simmsg dry';m.innerHTML='<b>Drought!</b> Too little rain and melting snow, so the flood never comes. The river drops, the ground cracks, and crops die. If crops fail, people starve.';
+  } else if(v<=70){
+    const h=6+((v-25)/45)*10;$('floodWater').setAttribute('y',160-h);$('floodWater').setAttribute('height',h);$('silt').setAttribute('opacity',1);$('cracks').setAttribute('opacity',0);$('soilDots').setAttribute('opacity',1);
+    $('crops').textContent='🌾🌾🌾🌾🌾🌾';
+    m.className='simmsg good';m.innerHTML='<b>Just right!</b> The swollen river picks up soil in the mountains (<b>erosion</b>), spills over the <b>floodplain</b>, and drops a layer of <b>silt</b> (<b>deposition</b>). The <b>fertile</b> soil grows a great harvest.';
+  } else {
+    const h=44+((v-70)/30)*20;$('floodWater').setAttribute('y',160-h);$('floodWater').setAttribute('height',h);$('silt').setAttribute('opacity',0);$('cracks').setAttribute('opacity',0);$('soilDots').setAttribute('opacity',1);
+    $('crops').textContent='🌊🌊🌊🌊🌊🌊';
+    m.className='simmsg wild';m.innerHTML='<b>Violent flood!</b> Too much rain and snowmelt. The water rushes over everything and washes crops, animals and homes away. This is why farmers later built <b>dams</b>.';
+  }
+}
+$('snowSlider').addEventListener('input',e=>sim(+e.target.value));sim(50);
+$('monthBtn').addEventListener('click',()=>{const m=['early April','late April','May','early June','late June'][Math.floor(Math.random()*5)];const s=['small','medium','huge'][Math.floor(Math.random()*3)];
+  $('monthOut').textContent=`This year: a ${s} flood in ${m}! Press again… different every time. That's why farmers couldn't plan when to plant.`});
+
+/* ================= ADVENTURE ================= */
+const ADV=[
+ {emo:'☀️🥵',s:'Every year the river floods and lays rich, dark mud on your fields. But <b>this year the flood never came</b>: not enough rain. The soil is rock-hard, the little plants are wilting and the ground is cracking. What do you do?',
+  c:[['Sit and wait for rain. It has to come eventually.',0,'Days pass. No rain. The plants shrivel. Waiting doesn\'t feed your family. Try again!'],
+     ['Walk to the river all day with animal-skin bags of water.',0,'You carry water hour after hour until your legs ache, but the scorching sun dries it up almost as soon as it hits the ground. It helps a little, but you can\'t keep this up. There must be a smarter way…'],
+     ['Get the village together to dig channels from the river to the fields.',1,'Brilliant! The river water now flows to the crops by itself. You just invented <b>irrigation</b>: canals that carry water from the rivers to the fields.']]},
+ {emo:'🟫🚧',s:'Your canals work! But a few months later the water slows to a trickle. The canals are full of <b>silt</b>, the fine soil the river carries. What now?',
+  c:[['Abandon the canals. They were a bad idea.',0,'Then you\'re back to carrying water bags! Canals are worth saving.'],
+     ['Organize workers to clean the silt out regularly.',1,'Yes! Workers had to clean the silt out of the canals over and over to keep the water flowing. Community leaders organized the work.'],
+     ['Dig a brand-new canal every time.',0,'Exhausting, and the new canal will clog too. Try something that keeps the old ones working.']]},
+ {emo:'🌊😱',s:'Next spring, the mountains get tons of snow. Scouts say a <b>huge, violent flood</b> is coming that could wash away the whole village. Quick!',
+  c:[['Build dams to hold back the extra water.',1,'Smart! Mesopotamians built <b>dams</b> to hold back excess water during floods.'],
+     ['Dig the canals even wider so more water rushes in.',0,'Uh oh, that sends even MORE flood water into the village. Try again.'],
+     ['Pack up and become nomads again.',0,'Leave all that rich soil? No way! There\'s a way to control the water.']]},
+ {emo:'🌾🌾🌾',s:'Thanks to irrigation, this harvest is enormous: more grain than your village can eat. But you need <b>wood</b> for tools and <b>stone</b> to grind grain, and Mesopotamia has neither. What do you do with the extra grain?',
+  c:[['Leave it in a pile until it rots.',0,'What a waste! That extra grain is valuable.'],
+     ['Trade the surplus grain to people from other lands for wood, stone and metal.',1,'Perfect! A <b>surplus</b> means more than you need. Trading it brought in the resources Mesopotamia lacked.'],
+     ['Burn it to make more room.',0,'Definitely not! That grain could buy you what you need.']]}
+];
+let advStep=0;
+function renderAdv(){
+  const a=$('adv');
+  if(advStep>=ADV.length){a.innerHTML=`<div class="progress">${ADV.map(()=>'<i class="done"></i>').join('')}</div><div class="emo">🏆🏘️➡️🏙️</div><p class="scene"><b>You saved the village!</b> With irrigation, silt-cleaning crews, dams and trade, your village keeps growing. Around 3500 B.C., farming villages like yours grow into the first <b>cities</b>.</p><p>Your class question: <i>“What can you invent to make farming easier?”</i> Now you know the inventions Mesopotamians really came up with: canals, dams, and later the <b>wooden plough</b>.</p><button class="btn" id="advRestart">Play again</button>`;$('advRestart').onclick=()=>{advStep=0;renderAdv()};return}
+  const st=ADV[advStep];
+  a.innerHTML=`<div class="progress">${ADV.map((_,i)=>`<i class="${i<advStep?'done':''}"></i>`).join('')}</div><div class="emo" aria-hidden="true">${st.emo}</div><p class="scene">${st.s}</p><div class="choices"></div><div class="advres"></div>`;
+  const ch=a.querySelector('.choices'),res=a.querySelector('.advres');
+  st.c.forEach(([t,ok,r])=>{const b=document.createElement('button');b.textContent=t;b.addEventListener('click',()=>{
+    if(ok){ch.querySelectorAll('button').forEach(x=>x.disabled=true);b.classList.add('right');res.innerHTML=`<p>${r}</p><button class="btn" id="advNext">Continue</button>`;$('advNext').onclick=()=>{advStep++;renderAdv()}}
+    else{b.classList.add('wrong');b.disabled=true;res.innerHTML=`<p>${r}</p>`}});ch.appendChild(b)});
+}
+renderAdv();
+
+/* ================= PYRAMID ================= */
+const TIERS=[
+ {n:'Upper class',w:'45%',c:'#B07A0C',d:'<b>Upper class:</b> kings, priests, warriors and government officials. Few people, lots of power.'},
+ {n:'Middle class (largest)',w:'72%',c:'#2A4BA0',d:'<b>Middle class:</b> merchants, farmers, fishers and artisans (skilled makers). This was <b>Sumer\'s largest social group</b>.'},
+ {n:'Lowest class',w:'96%',c:'#7A4E24',d:'<b>Lowest class: enslaved people.</b> Most had been captured in war. Criminals and people who could not pay their debts were often enslaved too.'}
+];
+TIERS.forEach(t=>{const b=document.createElement('button');b.className='tier3';b.style.width=t.w;b.style.background=t.c;b.textContent=t.n;b.addEventListener('click',()=>{document.querySelectorAll('.tier3').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');$('pyrInfo').innerHTML=t.d});$('pyr').appendChild(b)});
+
+/* ================= ZIGGURAT ================= */
+const ZIG=[
+ ['Ground level','The ziggurat stood in the <b>center of the city</b>, near the ruler\'s palace. It was built of <b>mud brick</b>, like everything else in Sumer.'],
+ ['Level 2','Each city-state had its own <b>patron god</b>, and the ziggurat was built to honor that god. Sumerians were <b>polytheistic</b>: they believed in many gods.'],
+ ['Level 3','The word <b>ziggurat</b> means <b>“to rise high”</b> in the ancient <b>Akkadian</b> language. It\'s a pyramid-shaped structure with a temple at the top.'],
+ ['The very top','A <b>holy place</b>: the home of the gods. <b>Only special priests</b> were allowed up here. In the early days, these priests ruled the city-states!']
+];
+const ZY=[188,150,110,74];let zl=-1;
+$('climbBtn').addEventListener('click',()=>{
+  zl=(zl+1)%(ZIG.length+1);
+  document.querySelectorAll('.zig .tier').forEach((t,i)=>t.setAttribute('fill',i===zl?'#E9B949':['#B5814A','#C08F57','#CB9C63','#D6AA70'][i]));
+  if(zl===ZIG.length){$('climber').style.transform='translate(0,0)';$('zigInfo').innerHTML='<b>Back to the ground.</b><p>Press again to climb once more.</p>';$('climbBtn').textContent='Climb up a level';return}
+  $('climber').style.transform=`translate(0,${ZY[zl]-188}px)`;
+  $('zigInfo').innerHTML=`<b>${ZIG[zl][0]}</b><p>${ZIG[zl][1]}</p>`;
+  $('climbBtn').textContent=zl===ZIG.length-1?'Climb back down':'Climb up a level';
+});
+
+/* ================= TRADE ================= */
+const TRADE=[
+ {place:'India\'s Indus Valley',get:'Carnelian',e:'🔴',note:'a red gemstone the Sumerians loved for jewelry'},
+ {place:'Present-day Afghanistan',get:'Lapis lazuli',e:'🔵',note:'a deep-blue stone; you\'ll spot it on the Standard of Ur'},
+ {place:'Forest lands',get:'Timber',e:'🪵',note:'wood for boats, ploughs and roofs, because Mesopotamia had no forests'},
+ {place:'Mountain mines',get:'Metals & minerals',e:'⛏️',note:'for tools and jewelry, and for making bronze'}
+];
+let sacks=['🌾','🌾','🛠️','🌾'],got=[];
+function renderTrade(){
+  $('sacks').textContent=sacks.length?sacks.join(' '):'all traded!';
+  const wrap=$('tradeCards');wrap.innerHTML='';
+  TRADE.forEach((t,i)=>{const d=document.createElement('div');d.className='tcard'+(got.includes(i)?' done':'');
+    d.innerHTML=`<span class="e" aria-hidden="true">${t.e}</span><b>${t.place}</b><span>Has: <b>${t.get}</b></span>${got.includes(i)?'<span>✅ Traded!</span>':'<button class="btn alt">Trade 1 sack</button>'}`;
+    const b=d.querySelector('button');if(b)b.addEventListener('click',()=>{sacks.pop();got.push(i);renderTrade();renderChest(t)});wrap.appendChild(d)});
+}
+function renderChest(last){
+  const c=$('chest');
+  if(!got.length){c.innerHTML='<b>Treasure chest:</b> empty';return}
+  c.innerHTML=`<b>Treasure chest:</b> ${got.map(i=>TRADE[i].e+' '+TRADE[i].get).join(' · ')}${last?`<br><small>You got <b>${last.get}</b>: ${last.note}.</small>`:''}${got.length===TRADE.length?'<br><b>All goods collected!</b> Sumer traded <b>wheat, barley and tools</b> for <b>timber, minerals and metals</b>, plus fancy gems for jewelry. <button class="btn" id="tradeAgain" style="margin-top:6px">Trade again</button>':''}`;
+  const ta=$('tradeAgain');if(ta)ta.onclick=()=>{sacks=['🌾','🌾','🛠️','🌾'];got=[];renderTrade();renderChest()};
+}
+renderTrade();renderChest();
+
+/* ================= INVENTIONS ================= */
+const INV=[
+ ['Write','#2A4BA0','📜','Cuneiform','Writing! Every text you send started here.'],
+ ['Roll','#B3302A','🛞','The wheel','Cars, bikes, skateboards, suitcases.'],
+ ['Sail','#147896','⛵','The sailboat','Wind power moved heavy goods along the rivers.'],
+ ['Plow','#357C35','🪵','Wooden plough','Turned soil faster than a digging stick.'],
+ ['Spin','#6E3779','🏺','Potter\'s wheel','Perfectly round pots, fast.'],
+ ['Melt','#B07A0C','🔔','Bronze','Copper + tin = stronger tools and weapons.'],
+ ['Count','#1E2F55','🔢','Base-60 place value','Counting in groups of 60.'],
+ ['Count','#1E2F55','✖️','Multiplication & division tables','The ancestors of your times tables!'],
+ ['Count','#1E2F55','⏰','60-minute hour & 360° circle','Every clock face and protractor.'],
+ ['Count','#1E2F55','🌙','12-month lunar calendar','12 months, based on the moon.']
+];
+INV.forEach(([v,c,e,n,t])=>{const d=document.createElement('div');d.innerHTML=`<span class="verb" style="background:${c}">${v}</span><span class="e" aria-hidden="true">${e}</span><b>${n}</b><small>${t}</small>`;$('invGrid').appendChild(d)});
+
+/* cuneiform writer */
+const CMAP={a:0x12000,b:0x12040,c:0x1235D,d:0x12055,e:0x1208A,f:0x1227A,g:0x12100,h:0x12129,i:0x1213F,j:0x12150,k:0x121A0,l:0x121B7,m:0x12220,n:0x1223E,o:0x1230B,p:0x1227F,q:0x121A5,r:0x1228F,s:0x12293,t:0x122EB,u:0x12311,v:0x12309,w:0x12337,x:0x1236A,y:0x1219F,z:0x12360};
+function cw(){const v=$('cwIn').value.toLowerCase();$('cwOut').textContent=[...v].map(ch=>CMAP[ch]?String.fromCodePoint(CMAP[ch]):(ch===' '?'  ':'')).join('')||'𒀭'}
+$('cwIn').addEventListener('input',cw);cw();
+
+/* ================= TIMELINE ================= */
+const TL=[
+ ['6000 B.C.','m','By about 6000 B.C., farmers build canals for irrigation (slide)'],
+ ['5000 B.C.','m','People by the Euphrates begin to irrigate crops (textbook timeline)'],
+ ['4000 B.C.','m','Farming villages spread across southern Mesopotamia'],
+ ['4000 B.C.','w','A dry period begins in Africa, and the Sahara spreads'],
+ ['3500 B.C.','m','Farming villages grow into cities'],
+ ['3100 B.C.','w','King Narmer unifies Egypt'],
+ ['3000 B.C.','m','Sumer arises; the first system of writing is in use'],
+ ['2600–2500','w','People in the Indus Valley build cities'],
+ ['2400 B.C.','m','King Urukagina of Lagash reforms government']
+];
+TL.forEach(([y,k,t])=>{const tl=$('tl2');
+  tl.insertAdjacentHTML('beforeend',k==='m'?`<div class="ev m">${t}</div><div class="yr">${y}</div><div class="empty"></div>`:`<div class="empty"></div><div class="yr">${y}</div><div class="ev w">${t}</div>`)});
+
+/* ================= DRAG ENGINE ================= */
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function chipEl(label,ans){const c=document.createElement('div');c.className='chip';c.draggable=true;c.dataset.ans=ans;c.innerHTML=`<span class="label">${label}</span>`;bindChip(c);return c}
+function targetEl(key,lbl,style){const t=document.createElement('div');t.className='target';t.dataset.key=key;t.innerHTML=`${lbl!==null?`<div class="lbl"${style||''}>${lbl}</div>`:''}<div class="items"></div>`;bindTarget(t);return t}
+function renderDragQ(p,n,onDone){
+  const q=document.createElement('div');q.className='q';
+  q.innerHTML=`<div class="stem">${n?`<span class="num">${n}</span>`:''}${p.stem||(p.type==='bins'?'Sort every chip.':p.type==='match'?'Match every chip.':'Fill every slot.')}</div><div class="pool"></div><div class="area"></div><button class="checkbtn">Check my answers</button><span class="warn"></span><div class="fb"></div>`;
+  const pool=q.querySelector('.pool'),area=q.querySelector('.area');let chips=[];
+  if(p.type==='match'){const g=document.createElement('div');g.className='matchgrid';
+    shuffle(p.pairs.map((x,i)=>[x,i])).forEach(([[w,d],i])=>{const row=document.createElement('div');row.className='matchrow';const t=targetEl('m'+i,null);t.dataset.cap=1;t.dataset.name=w;row.appendChild(t);const def=document.createElement('div');def.className='def';def.textContent=d;row.appendChild(def);g.appendChild(row)});
+    area.appendChild(g);chips=p.pairs.map(([w],i)=>chipEl(w,'m'+i));}
+  else if(p.type==='bins'){const g=document.createElement('div');g.className='bins';if(p.cols)g.style.setProperty('--cols',p.cols);p.bins.forEach(([k,l,c])=>{const t=targetEl(k,l,` style="background:${c}"`);t.dataset.name=l;g.appendChild(t)});area.appendChild(g);chips=p.chips.map(([l,k])=>chipEl(l,k));}
+  else {const g=document.createElement('div');g.className='slots';p.slots.forEach(([l],i)=>{const t=targetEl('s'+i,l);t.dataset.cap=1;t.dataset.name=l;g.appendChild(t)});area.appendChild(g);chips=p.slots.map(([l,v],i)=>chipEl(v,'s'+i));}
+  shuffle(chips).forEach(c=>pool.appendChild(c));
+  const btn=q.querySelector('.checkbtn'),warn=q.querySelector('.warn'),f=q.querySelector('.fb');
+  btn.addEventListener('click',()=>{
+    if(pool.querySelector('.chip')){warn.textContent='Place every chip first.';return}
+    warn.textContent='';let g=0;const names={};q.querySelectorAll('.target').forEach(t=>names[t.dataset.key]=t.dataset.name);
+    q.querySelectorAll('.target').forEach(t=>t.querySelectorAll('.chip').forEach(c=>{c.querySelector('.x')?.remove();c.draggable=false;
+      if(c.dataset.ans===t.dataset.key){c.classList.add('ok');g++}else{c.classList.add('no');const s=document.createElement('span');s.className='fix';
+        s.textContent=p.type==='match'?`→ answer here: ${t.dataset.name}`:`→ ${names[c.dataset.ans]}`;c.appendChild(s)}}));
+    q.classList.add('locked');btn.disabled=true;const max=chips.length;
+    fb(f,g===max,g===max?`All ${max} correct. Brilliant!`:`You got ${g} of ${max}. Red chips show the right answer.${p.explain?' '+p.explain:''}`);
+    onDone&&onDone(g,max);
+  });
+  return q;
+}
+let dragChip=null,ghost=null,tChip=null,lastOver=null;
+function bindTarget(t){
+  t.addEventListener('dragover',e=>{if(!dragChip||dragChip.closest('.q')!==t.closest('.q'))return;e.preventDefault();t.classList.add('over')});
+  t.addEventListener('dragleave',()=>t.classList.remove('over'));
+  t.addEventListener('drop',e=>{e.preventDefault();t.classList.remove('over');if(dragChip&&dragChip.closest('.q')===t.closest('.q'))place(dragChip,t)});
+}
+function bindChip(c){
+  c.addEventListener('dragstart',e=>{if(c.closest('.locked')){e.preventDefault();return}dragChip=c;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','chip');setTimeout(()=>c.classList.add('dragging'),0)});
+  c.addEventListener('dragend',()=>{c.classList.remove('dragging');dragChip=null});
+  c.addEventListener('touchstart',touchStart,{passive:false});
+}
+function touchStart(e){
+  const c=e.currentTarget;if(c.closest('.locked'))return;if(e.target.closest('.x'))return;
+  e.preventDefault();tChip=c;ghost=c.cloneNode(true);ghost.classList.add('ghost');ghost.querySelector('.x')?.remove();document.body.appendChild(ghost);
+  moveGhost(e.touches[0]);c.classList.add('dragging');
+  document.addEventListener('touchmove',touchMove,{passive:false});document.addEventListener('touchend',touchEnd);document.addEventListener('touchcancel',touchEnd);
+}
+function moveGhost(t){ghost.style.left=t.clientX+'px';ghost.style.top=t.clientY+'px'}
+function touchMove(e){e.preventDefault();const t=e.touches[0];moveGhost(t);
+  const el=document.elementFromPoint(t.clientX,t.clientY);const tg=el&&el.closest('.target');
+  if(lastOver&&lastOver!==tg)lastOver.classList.remove('over');
+  if(tg&&tg.closest('.q')===tChip.closest('.q')){tg.classList.add('over');lastOver=tg}else lastOver=null;}
+function touchEnd(){
+  if(lastOver){place(tChip,lastOver);lastOver.classList.remove('over')}
+  ghost&&ghost.remove();ghost=null;tChip&&tChip.classList.remove('dragging');tChip=null;lastOver=null;
+  document.removeEventListener('touchmove',touchMove);document.removeEventListener('touchend',touchEnd);document.removeEventListener('touchcancel',touchEnd);
+}
+function place(chip,target){
+  const q=target.closest('.q');if(q.classList.contains('locked'))return;
+  const items=target.querySelector('.items');
+  if(target.dataset.cap==='1'){const ex=items.querySelector('.chip');if(ex&&ex!==chip)returnToPool(ex)}
+  items.appendChild(chip);
+  if(!chip.querySelector('.x')){const x=document.createElement('button');x.type='button';x.className='x';x.setAttribute('aria-label','Send back to the word pool');x.textContent='✕';
+    x.addEventListener('click',ev=>{ev.stopPropagation();returnToPool(chip)});x.addEventListener('touchstart',ev=>ev.stopPropagation(),{passive:true});chip.appendChild(x)}
+  q.querySelector('.warn').textContent='';
+}
+function returnToPool(chip){const q=chip.closest('.q');if(q.classList.contains('locked'))return;chip.querySelector('.x')?.remove();q.querySelector('.pool').appendChild(chip)}
+function fb(el,ok,msg){el.className='fb show '+(ok?'good':'oops');el.innerHTML=(ok?'<b>Yes!</b> ':'<b>Not quite.</b> ')+msg}
+
+/* city-state practice game */
+$('cityGame').appendChild(renderDragQ({type:'bins',stem:'Where does each piece go?',bins:[['center','City center','#B3302A'],['edge','Edge of the city','#7A4E24'],['out','Outside the walls','#357C35']],
+  chips:[['Ruler\'s palace','center'],['Ziggurat','center'],['Other public buildings','center'],['Large mud-brick wall','edge'],['Gates: open by day, shut at night','edge'],['Farmers\' plots of land','out'],['Irrigation canals','out']]},0,null));
+
+/* ================= QUIZ ================= */
+const QUIZ=[
+ {part:'Round 1: Multiple choice',how:'Your first tap counts!',type:'mc',items:[
+  {q:'According to the big idea, where do civilizations arise?',o:['Only near oceans','In places that help farming, trade, or both','Only on top of mountains','Wherever there are lots of trees'],a:1,t:'Geography',e:'Mesopotamia\'s rivers helped both farming and trade.'},
+  {q:'Which river flowed through the WESTERN side of Mesopotamia?',o:['Tigris','Nile','Euphrates','Indus'],a:2,t:'Geography',e:'E before T: Euphrates west, Tigris east.'},
+  {q:'Where do the Tigris and Euphrates begin?',o:['In the Arabian Desert','In the mountains of present-day Turkey and Kurdistan','In the Persian Gulf','In Egypt'],a:1,t:'Geography',e:'They start in the mountains and flow southeast.'},
+  {q:'Why was it easier to travel by boat than over land?',o:['Boats could carry heavy loads','The river current helped boats going downriver','There were few roads','All of these'],a:3,t:'Geography',e:'All three reasons are on the slides.'},
+  {q:'What is a floodplain?',o:['A mountain where snow melts','The flat land bordering a river\'s banks','A canal dug by farmers','A type of boat'],a:1,t:'River words',e:'Floodwater spreads over this flat land and leaves silt.'},
+  {q:'Southern Mesopotamia usually got less than how much rain a year?',o:['10 inches','50 inches','100 inches','1 inch'],a:0,t:'Climate',e:'Less than 10 inches, with hot summers: semiarid.'},
+  {q:'Why couldn\'t farmers plan exactly when to plant?',o:['They had no calendar','The yearly flood was unpredictable, from April to as late as June','It rained every day','The king chose the date'],a:1,t:'Floods & irrigation',e:'No one knew when, or how big, the flood would be.'},
+  {q:'Why did each Sumerian city become independent?',o:['Kings banned travel','Mud-flats and scorching desert made land travel and communication hard','The cities hated each other','The rivers dried up'],a:1,t:'City-states',e:'Cut off from neighbours, each city ran itself.'},
+  {q:'How many people lived in a Sumerian city-state?',o:['50–200','5,000–20,000','1 million','500,000'],a:1,t:'City-states',e:'Between 5,000 and 20,000 people.'},
+  {q:'The word “ziggurat” means…',o:['House of the king','To rise high','Land between rivers','Many gods'],a:1,t:'Religion & rulers',e:'“To rise high” in the ancient Akkadian language.'},
+  {q:'Where did Sumerian kings say their power to rule came from?',o:['The people voted for them','The city\'s god','The richest merchants','The priests of Egypt'],a:1,t:'Religion & rulers',e:'Kings claimed the city\'s god gave them their power.'},
+  {q:'Where did the red gemstone carnelian come from?',o:['Afghanistan','Egypt','India\'s Indus Valley','The Zagros Mountains'],a:2,t:'Trade',e:'Carnelian = crimson, from the Indus Valley.'},
+  {q:'What was Sumer\'s LARGEST social group?',o:['Upper class','Middle class','Enslaved people','Priests'],a:1,t:'Social classes',e:'Merchants, farmers, fishers and artisans: the middle class.'}
+ ]},
+ {part:'Round 2: True or false',how:'Some of these are sneaky. Read every word.',type:'tf',items:[
+  {q:'Mesopotamia is also known as the Fertile Crescent.',a:true,t:'Geography',e:'Both names describe this region.'},
+  {q:'The Tigris and Euphrates flow northwest into the Mediterranean Sea.',a:false,t:'Geography',e:'They flow southeast into the Persian Gulf.'},
+  {q:'Silt is the fine soil deposited by rivers.',a:true,t:'River words',e:'And it\'s fertile!'},
+  {q:'Mesopotamia had thick forests that supplied plenty of wood.',a:false,t:'Resources',e:'No forests, no stone, few metals.'},
+  {q:'Mud-brick buildings were strong and almost never needed repairs.',a:false,t:'Resources',e:'They crumbled easily and needed repairs often.'},
+  {q:'Mesopotamia was easy to invade because it had few mountains or natural barriers.',a:true,t:'Resources',e:'So people built mud walls around their villages.'},
+  {q:'Every Sumerian city-state was part of one big Sumerian kingdom.',a:false,t:'City-states',e:'Each had its own government and was not part of a larger state.'},
+  {q:'City gates stayed open during the day and were closed at night.',a:true,t:'City-states',e:'For protection.'},
+  {q:'Anyone in the city could climb to the top of the ziggurat.',a:false,t:'Religion & rulers',e:'Only special priests could go to the holy top.'},
+  {q:'If you lived in Sumer, you were most likely a farmer.',a:true,t:'Trade',e:'Farming was Sumer\'s main economic activity.'},
+  {q:'In Sumer, people usually stayed in the social class they were born into.',a:true,t:'Social classes',e:'Moving up was very rare.'},
+  {q:'Lapis lazuli is a red gemstone from India.',a:false,t:'Trade',e:'Lapis lazuli is blue, from present-day Afghanistan.'},
+  {q:'The Sumerians created a 12-month lunar calendar.',a:true,t:'Inventions',e:'Based on the moon.'}
+ ]},
+ {part:'Round 3: River words',how:'Drag each word onto its meaning. Tap ✕ to send it back.',type:'match',id:'m1',t:'River words',pairs:[
+  ['Floodplain','Flat land bordering the river banks'],['Silt','Fine soil deposited by rivers'],['Fertile','Good for growing crops'],['Semiarid','A dry climate with less than 10 inches of rain a year'],['Drought','A long period with very little or no rain and snow'],['Irrigation','A system of canals carrying river water to fields'],['Surplus','More than you need for yourself'],['Erosion','When moving water picks up and carries away soil'],['Deposition','When water slows down and drops the soil it carried']]},
+ {part:'Round 4: Sumer words',how:'Drag each word onto its meaning.',type:'match',id:'m2',t:'Sumer words',pairs:[
+  ['City-state','A city that governs itself and its surrounding territory'],['Polytheism','A belief in more than one god'],['Ziggurat','A pyramid-shaped structure with a temple at the top'],['Cuneiform','Writing with wedge-shaped marks made in soft clay'],['Scribe','A person who copies or writes out documents; a record keeper'],['Epic','A long poem about the deeds of a legendary or real hero'],['Hereditary','Passed from parent to child, like a king\'s rule to his son']]},
+ {part:'Round 5: Problem solvers',how:'Drag each solution next to the problem it fixed.',type:'match',id:'m3',t:'Floods & irrigation',pairs:[
+  ['Canals (irrigation)','Too little water reaching the crops'],['Workers clean out the silt','Canals keep getting clogged'],['Dams','Violent floods with too much water'],['Mud bricks and plaster','No wood or stone to build with'],['Mud walls around villages','Few natural barriers, so raiders attack'],['Trade surplus grain','No timber, stone or metal at home']]},
+ {part:'Round 6: Who belongs where?',how:'Drag each person into their social class.',type:'bins',id:'b1',t:'Social classes',
+  bins:[['up','Upper class','#B07A0C'],['mid','Middle class','#2A4BA0'],['low','Lowest class','#7A4E24']],
+  chips:[['Kings','up'],['Priests','up'],['Warriors','up'],['Government officials','up'],['Merchants','mid'],['Farmers','mid'],['Fishers','mid'],['Artisans','mid'],['Prisoners captured in war','low'],['People who couldn\'t pay their debts','low'],['Criminals made to work','low']]},
+ {part:'Round 7: Made in Sumer?',how:'Drag each invention to Sumer, or to “Not Sumerian.”',type:'bins',id:'b2',t:'Inventions',cols:2,
+  bins:[['yes','Sumerian invention','#357C35'],['no','Not Sumerian','#B3302A']],
+  chips:[['Cuneiform','yes'],['The wheel','yes'],['The sailboat','yes'],['Wooden plough','yes'],['Potter\'s wheel','yes'],['Bronze','yes'],['Base-60 numbers','yes'],['12-month lunar calendar','yes'],['Paper','no'],['The telescope','no'],['The printing press','no'],['The magnetic compass','no']]},
+ {part:'Round 8: Map detective',how:'The labels are gone! Tap the right spot.',type:'map',id:'map1',t:'Map skills',
+  prompts:[['euph','the Euphrates River'],['tig','the Tigris River'],['gulf','the Persian Gulf'],['zagros','the Zagros Mountains'],['syrian','the Syrian Desert'],['arabian','the Arabian Desert'],['ur','the city of Ur']]},
+ {part:'Round 9: Timeline scramble',how:'Oldest at the top. No dates to help you!',type:'slots',id:'s1',t:'Timeline',
+  slots:[['1st (oldest)','People by the Euphrates begin to irrigate crops'],['2nd','Farming villages spread across southern Mesopotamia'],['3rd','Farming villages grow into cities'],['4th','King Narmer unifies Egypt'],['5th','The first system of writing is in use'],['6th','People in the Indus Valley build cities'],['7th (newest)','King Urukagina of Lagash reforms government']]},
+ {part:'Round 10: The river machine',how:'Put the steps in order, from the mountains to a harvest.',type:'slots',id:'s2',t:'River words',
+  slots:[['Step 1','Rain and melting snow fall in the mountains'],['Step 2','The rivers swell'],['Step 3','Rushing water picks up soil (erosion)'],['Step 4','The river overflows onto the floodplain'],['Step 5','Silt settles on the land (deposition)'],['Step 6','Farmers grow crops in the fertile soil']]},
+ {part:'Round 11: Men and women',how:'Drag each role to the right group.',type:'bins',id:'b3',t:'Social classes',cols:2,
+  bins:[['men','Men','#2A4BA0'],['women','Women','#B3302A']],
+  chips:[['Head of the home; provided for the family','men'],['Went to school and became apprentices','men'],['Cared for parents if they needed help','men'],['Ran the home','women'],['Taught daughters to run a household','women'],['Took care of children and elderly parents','women']]},
+ {part:'Round 12: Odd one out',how:'Tap the one that doesn\'t belong.',type:'odd',items:[
+  {q:'Which is NOT a Sumerian city?',o:['Ur','Uruk','Eridu','Nineveh'],a:3,t:'City-states',e:'Nineveh was an Assyrian city up north.'},
+  {q:'Which is NOT in the upper class?',o:['Kings','Priests','Merchants','Warriors'],a:2,t:'Social classes',e:'Merchants were middle class.'},
+  {q:'Which did Mesopotamia actually HAVE plenty of?',o:['Wood','Stone','Metal','Mud'],a:3,t:'Resources',e:'Mud was everywhere; the rest had to be traded for.'},
+  {q:'Which did Sumer trade AWAY (not bring in)?',o:['Carnelian','Lapis lazuli','Barley','Timber'],a:2,t:'Trade',e:'Sumer traded wheat, barley and tools for the others.'},
+  {q:'Which is NOT about Sumerian religion?',o:['Polytheism','Ziggurat','Patron god','Irrigation'],a:3,t:'Religion & rulers',e:'Irrigation is about farming and water.'}
+ ]},
+ {part:'Round 13: Spot the mistake',how:'Each sentence has ONE wrong word. Tap it.',type:'spot',items:[
+  {s:'Usually less than 10 inches of rain fell in northern Mesopotamia each year.',w:'northern',fix:'southern',t:'Climate'},
+  {s:'Farmers built canals to hold back extra water during floods.',w:'canals',fix:'dams',t:'Floods & irrigation'},
+  {s:'Sumer arose in southern Mesopotamia around 5000 B.C.',w:'5000',fix:'3000',t:'City-states'},
+  {s:'Lapis lazuli is a blue stone from present-day India.',w:'India',fix:'Afghanistan',t:'Trade'},
+  {s:'Over time, kingship became hereditary, so when a king died his brother took over.',w:'brother',fix:'son',t:'Religion & rulers'},
+  {s:'Cuneiform used wedge-shaped marks made in soft stone.',w:'stone',fix:'clay',t:'Sumer words'},
+  {s:'Enslaved people made up Sumer\'s highest class.',w:'highest',fix:'lowest',t:'Social classes'}
+ ]}
+];
+
+let SCORES={};
+function totalMax(){let m=0;QUIZ.forEach(p=>{if(['mc','tf','spot','odd'].includes(p.type))m+=p.items.length;else if(p.type==='match')m+=p.pairs.length;else if(p.type==='bins')m+=p.chips.length;else if(p.type==='slots')m+=p.slots.length;else if(p.type==='map')m+=p.prompts.length});return m}
+const MAX=totalMax();const HP=Math.ceil(MAX*0.8);
+const TAUNTS_HIT=['“OOF! Lucky guess!”','“Grrr… who told you that?”','“Ow! That one stung.”','“My Cedar Forest is trembling!”','“Stop knowing things!”'];
+const TAUNTS_MISS=['“Ha! Wrong! The river laughs at you!”','“Humbaba heals a little… just kidding, but that was wrong.”','“Hrrrm, try the cheat sheet, little scribe.”'];
+function record(key,got,max,topic){
+  const prev=SCORES[key]?SCORES[key].got:0;SCORES[key]={got,max,topic};updateBar();
+  const hum=$('hum');if(got>prev){hum.classList.remove('hit');void hum.getBBox();hum.classList.add('hit');$('taunt').textContent=TAUNTS_HIT[Math.floor(Math.random()*TAUNTS_HIT.length)]}
+  else $('taunt').textContent=TAUNTS_MISS[Math.floor(Math.random()*TAUNTS_MISS.length)];
+}
+function updateBar(){const v=Object.values(SCORES);const got=v.reduce((a,b)=>a+b.got,0),done=v.reduce((a,b)=>a+b.max,0);
+  const left=Math.max(0,HP-got);$('hpBar').style.width=(left/HP*100)+'%';$('hpTxt').textContent=left>0?`${left} HP · ${got}/${MAX}`:`DEFEATED · ${got}/${MAX}`;
+  if(left===0){$('mouth').setAttribute('d','M50 110 Q 75 96 100 110');$('eyeL').setAttribute('r',2);$('eyeR').setAttribute('r',2)}
+  if(done===MAX)showResults(got)}
+const clean=s=>s.replace(/[^\p{L}\p{N}]/gu,'');
+
+function renderQuiz(){
+  SCORES={};const root=$('quizRoot');root.innerHTML='';$('results').className='results';
+  $('mouth').setAttribute('d','M45 104 L55 96 L65 106 L75 96 L85 106 L95 96 L105 104 Q 75 124 45 104Z');$('eyeL').setAttribute('r',5);$('eyeR').setAttribute('r',5);
+  $('taunt').textContent='“Hrrrm. Nobody remembers what silt is.”';
+  let n=0;
+  QUIZ.forEach((p,pi)=>{
+    root.insertAdjacentHTML('beforeend',`<div class="qpart"><h3>${p.part}</h3><p class="how">${p.how}</p></div>`);
+    if(['mc','tf','odd'].includes(p.type)){
+      p.items.forEach((it,ii)=>{n++;const key=`${pi}-${ii}`;const q=document.createElement('div');q.className='q';
+        q.innerHTML=`<div class="stem"><span class="num">${n}</span>${it.q}</div><div class="opts ${p.type==='mc'?'':p.type}"></div><div class="fb"></div>`;
+        const o=q.querySelector('.opts'),f=q.querySelector('.fb');
+        const opts=p.type==='tf'?[['True',it.a===true],['False',it.a===false]]:p.type==='odd'?shuffle(it.o.map((t,i)=>[t,i===it.a])):shuffle(it.o.map((t,i)=>[t,i===it.a]));
+        if(p.type==='mc'){const allIdx=opts.findIndex(x=>x[0]==='All of these');if(allIdx>-1)opts.push(opts.splice(allIdx,1)[0])}
+        opts.forEach(([t,right])=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.dataset.r=right?1:0;
+          b.addEventListener('click',()=>{o.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.dataset.r==='1')x.classList.add('right')});if(!right)b.classList.add('wrong');fb(f,right,it.e);record(key,right?1:0,1,it.t)});o.appendChild(b)});
+        root.appendChild(q)});
+    } else if(p.type==='spot'){
+      p.items.forEach((it,ii)=>{n++;const key=`${pi}-${ii}`;const q=document.createElement('div');q.className='q';
+        q.innerHTML=`<div class="stem"><span class="num">${n}</span>Tap the wrong word:</div><div class="sentence"></div><div class="fb"></div>`;
+        const s=q.querySelector('.sentence'),f=q.querySelector('.fb');
+        it.s.split(' ').forEach(tok=>{const b=document.createElement('button');b.className='word';b.textContent=tok;
+          b.addEventListener('click',()=>{const right=clean(tok)===it.w;s.querySelectorAll('.word').forEach(x=>{x.disabled=true;if(clean(x.textContent)===it.w)x.classList.add(right?'right':'reveal')});if(!right)b.classList.add('wrong');
+            fb(f,right,`“${it.w}” should be “${it.fix}.”`);record(key,right?1:0,1,it.t)});s.appendChild(b)});
+        root.appendChild(q)});
+    } else if(p.type==='map'){n++;root.appendChild(renderMapQ(p,n))}
+    else {n++;root.appendChild(renderDragQ(p,n,(g,m)=>record(p.id,g,m,p.t)))}
+  });
+  updateBar();
+}
+function renderMapQ(p,n){
+  const q=document.createElement('div');q.className='q';
+  q.innerHTML=`<div class="stem"><span class="num">${n}</span>Find each place in turn.</div><div class="mapq"><div class="mapbox">${mapSVG({labels:false,quiz:true})}</div><div><div>Tap:</div><div class="prompt"></div><ul class="maplog"></ul></div></div>`;
+  let i=0,g=0;const pr=q.querySelector('.prompt'),log=q.querySelector('.maplog');
+  const setP=()=>{pr.textContent=i<p.prompts.length?p.prompts[i][1]:'Done!'};setP();
+  const names={};Object.entries(FEATURES).forEach(([k,v])=>names[k]=v[0]);CITIES.forEach(c=>names[c.id]=c.name);
+  q.querySelectorAll('.hit').forEach(h=>{const go=e=>{
+    e.stopPropagation();if(i>=p.prompts.length)return;
+    const [want,label]=p.prompts[i];const right=h.dataset.f===want;if(right)g++;
+    log.insertAdjacentHTML('beforeend',`<li>${right?'✅':'❌'} ${label}${right?'':`: you tapped ${names[h.dataset.f]}`}</li>`);
+    const tg=q.querySelector(`.hit[data-f="${want}"] .vis`);if(tg){if(tg.getAttribute('fill')==='none')tg.setAttribute('stroke',right?'#23944A':'#F2B84A');else tg.setAttribute('fill',right?'#23944A':'#F2B84A')}
+    i++;setP();if(i===p.prompts.length)record(p.id,g,p.prompts.length,p.t)};
+    h.addEventListener('click',go);h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(e)}})});
+  return q;
+}
+function showResults(got){
+  const pct=Math.round(got/MAX*100);const topics={};
+  Object.values(SCORES).forEach(s=>{if(s.got<s.max)topics[s.topic]=(topics[s.topic]||0)+(s.max-s.got)});
+  const win=got>=HP;
+  const msg=win?(pct>=95?'Legendary! Gilgamesh himself would write an epic about you.':'Humbaba is defeated! You\'re ready for the real thing.'):pct>=60?'So close! Humbaba is still standing. Review the topics below and battle again.':'Humbaba wins this round. Reread the sections below, use the cheat sheet, and come back stronger.';
+  const list=Object.keys(topics).length?`<p><b>Review these:</b></p><ul>${Object.entries(topics).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<li>${k} (${v} missed)</li>`).join('')}</ul>`:'<p>Nothing to review. Perfect score!</p>';
+  const r=$('results');r.innerHTML=`<div style="font-size:2.6rem">${win?'🏆':'👹'}</div><div class="big">${got} / ${MAX}</div><p style="font-size:1.2rem;font-weight:700">${pct}%</p><p>${msg}</p>${list}<button class="again" id="again">Shuffle and battle again</button>`;r.className='results show';
+  $('again').addEventListener('click',()=>{renderQuiz();$('quiz').scrollIntoView()});
+}
+renderQuiz();
+</script>
+</body>
+</html>
+
+</body></html>
