@@ -251,6 +251,24 @@ input[type=range]{width:100%;accent-color:var(--river)}
 .results .big{color:#F2B84A;font-size:3.2rem}
 .results ul{text-align:left;max-width:520px;margin:12px auto}
 .again{border:none;background:#F2B84A;color:#241a05;border-radius:14px;padding:12px 20px;font-weight:700;margin-top:10px}
+.pq{border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin:12px 0;background:var(--sand)}
+.pq .tag{display:inline-block;font-size:.75rem;font-weight:700;color:#fff;border-radius:999px;padding:1px 10px;margin-bottom:6px}
+.pq .qq{font-weight:700;font-size:1.05rem}
+.pq .think{color:var(--muted);font-size:.9rem;margin:.3em 0 .6em}
+.pq .ans{display:none;margin-top:10px;border-top:2px dashed var(--line);padding-top:10px}
+.pq.open .ans{display:block}
+.pq .model{background:var(--paper);border-left:5px solid var(--palm);border-radius:4px 14px 14px 4px;padding:10px 14px;margin:8px 0}
+.pq .keys{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:6px}
+.pq .keys label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+.pq .keys input{width:20px;height:20px;accent-color:var(--palm);flex:none;margin-top:3px}
+.pq .got{font-weight:700;color:var(--palm);font-size:.9rem;margin-top:6px}
+.pfilter{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+.pfilter button{border:2px solid var(--line);background:var(--sand);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:700}
+.pfilter button[aria-pressed="true"]{background:var(--palm);color:#fff;border-color:var(--palm)}
+.civ4{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0}
+.civ4 > div{border-radius:18px;padding:14px;color:#fff}
+.civ4 .h{font-family:"Lilita One",Impact,sans-serif;font-size:1.3rem;display:block}
+.civ4 small{display:block;margin-top:6px;opacity:.95}
 footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px}
 </style>
 </head>
@@ -262,12 +280,14 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
     <a href="#machine">River machine</a>
     <a href="#dryspell">Dry spell</a>
     <a href="#resources">No wood, no stone</a>
+    <a href="#civ">Civilization</a>
     <a href="#citystates">City-states</a>
     <a href="#ziggurat">Ziggurat</a>
     <a href="#classes">Who's who</a>
     <a href="#trade">Trading post</a>
     <a href="#inventions">Top 10</a>
     <a href="#timeline">Timeline</a>
+    <a href="#practice">Test questions</a>
     <a href="#cheat">Cheat sheet</a>
     <a href="#quiz" class="quizlink">Monster quiz</a>
   </div>
@@ -302,6 +322,8 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
       <div class="fact"><div class="k">Gift 2</div><div class="v">🟫 Floods left fresh soil, perfect for farming</div></div>
       <div class="fact"><div class="k">Gift 3</div><div class="v">⛵ Easy travel and trade by boat</div></div>
     </div>
+    <h3>Why “Fertile Crescent”?</h3>
+    <p>A <b>crescent</b> is a curved shape, like a banana or a fingernail moon 🌙. Look at a map of Southwest Asia (also called the <b>Middle East</b>): the strip of good farmland curves up from the <b>Persian Gulf</b>, along the Tigris and Euphrates, then bends west and down along the <b>Mediterranean</b> coast. A curved strip of <b>fertile</b> land = the <b>Fertile Crescent</b>. Mesopotamia is the eastern half of it, and many historians call it the <b>“Cradle of Civilization”</b> because the first cities grew there.</p>
     <h3>Why boats beat walking</h3>
     <p>In ancient times it was easier to travel by boat than over land: boats can carry <b>heavy loads</b>, the <b>river current</b> pushes boats going downriver, and there were <b>few roads</b>.</p>
 
@@ -371,6 +393,15 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
   <div class="tabhead c-barley"><span class="lesson">Lesson 1 story</span><h2>The Long Dry Spell</h2><p>You're a farmer in Southwest Asia, more than 8,000 years ago. Make the choices that save your village.</p></div>
   <div class="tabbody">
     <div class="adv" id="adv" aria-live="polite"></div>
+    <p>This story takes place more than <b>8,000 years ago</b>. The first people of Southwest Asia were <b>hunters and gatherers</b>. When they learned to plant wild grains themselves, they settled in <b>villages</b> near rivers, and they came to <b>depend on the flood</b>.</p>
+    <h3>Real Mesopotamian water tools</h3>
+    <div class="facts">
+      <div class="fact"><div class="k">Canals (by about 6000 B.C.)</div><div class="v">Ditches that carried river water to the fields. That system is <b>irrigation</b>.</div></div>
+      <div class="fact"><div class="k">Silt crews</div><div class="v">Workers dug silt out of the canals so the water kept flowing</div></div>
+      <div class="fact"><div class="k">Dams</div><div class="v">Held back extra water during floods</div></div>
+      <div class="fact"><div class="k">Shaduf</div><div class="v">A long pole with a bucket on one end and a heavy weight on the other. Push down, and it lifts water from the river into a canal, like a seesaw.</div></div>
+    </div>
+    <div class="lock"><b>Lock it in, “Dig it, Clean it, Block it, Lift it”:</b> <b>dig</b> canals, <b>clean</b> out the silt, <b>block</b> floods with dams, <b>lift</b> water with a shaduf.</div>
   </div>
 </section>
 
@@ -398,6 +429,25 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
   </div>
 </section>
 
+<!-- CIVILIZATION -->
+<section class="tab" id="civ">
+  <div class="tabhead c-palm"><span class="lesson">Lessons 1 &amp; 2</span><h2>What makes a civilization?</h2><p>Why Sumer is called the <b>first civilization</b>, not just a big village.</p></div>
+  <div class="tabbody">
+    <p>A <b>civilization</b> is a complex way of life that grows when people settle down, farm and build cities. Remember the big idea from Lesson 1: civilizations <b>arise in places that help farming, trade, or both</b>. Mesopotamia had both, so the first one grew there: <b>Sumer</b>.</p>
+    <p>Every civilization has these features. Here's how Sumer shows each one:</p>
+    <div class="civ4">
+      <div style="background:#2A4BA0"><span class="h">Cities &amp; government</span>Organized cities with leaders who make rules and protect the food supply.<small><b>Sumer:</b> city-states like Ur, Uruk and Eridu, each with its own king and walls.</small></div>
+      <div style="background:#6E3779"><span class="h">Religion</span>Beliefs that explain life and the forces of nature.<small><b>Sumer:</b> many gods (polytheism), a patron god for each city, and ziggurats.</small></div>
+      <div style="background:#B07A0C"><span class="h">Social structure</span>People grouped by their work, wealth and power.<small><b>Sumer:</b> upper, middle and lowest classes.</small></div>
+      <div style="background:#357C35"><span class="h">Writing &amp; art</span>Ways to keep records and pass on ideas.<small><b>Sumer:</b> cuneiform, scribes, the Standard of Ur, the Epic of Gilgamesh.</small></div>
+    </div>
+    <p>Bonus features you can also mention: <b>job specialization</b> (artisans, merchants, scribes with special jobs), <b>trade</b>, and <b>new technology</b> (the wheel, bronze, the plough).</p>
+    <h3>Sort Sumer's features</h3>
+    <div id="civGame"></div>
+    <div class="lock"><b>Lock it in, “Can Royals Sing Well?”</b> <b>C</b>ities &amp; government, <b>R</b>eligion, <b>S</b>ocial structure, <b>W</b>riting &amp; art. If a test asks for <b>two features of Sumer</b> that made it a civilization, pick any two and give a Sumer example for each, e.g. “Sumer had <b>writing</b> (cuneiform) and <b>organized religion</b> (ziggurats for many gods).”</div>
+  </div>
+</section>
+
 <!-- CITY-STATES -->
 <section class="tab" id="citystates">
   <div class="tabhead c-carn"><span class="lesson">Lesson 2</span><h2>Sumer and its city-states</h2><p>The world's first civilization, in southern Mesopotamia, around 3000 B.C.</p></div>
@@ -408,7 +458,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
       <div class="fact"><div class="k">Government</div><div class="v">Each had its own; not part of any bigger state</div></div>
       <div class="fact"><div class="k">Population</div><div class="v"><span class="big">5,000–20,000</span></div></div>
       <div class="fact"><div class="k">War</div><div class="v">Fought each other over resources and borders</div></div>
-      <div class="fact"><div class="k">Peace</div><div class="v">Traded and made alliances</div></div>
+      <div class="fact"><div class="k">Peace</div><div class="v">Traded with each other and formed alliances to protect common interests</div></div>
     </div>
     <h3>Build a city-state</h3>
     <p>Drag each piece to where it belongs. Tap ✕ to send a piece back.</p>
@@ -422,6 +472,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
   <div class="tabhead c-plum"><span class="lesson">Lesson 2</span><h2>Gods, priests and kings</h2><p>Climb the ziggurat one level at a time.</p></div>
   <div class="tabbody">
     <p>Sumerians believed in many gods: <b>polytheism</b> (poly = many, theism = belief in god). The gods helped explain <b>forces of nature</b> and <b>human activities and talents</b>. Each city-state had its own <b>patron god</b> and honored it with a huge temple called a <b>ziggurat</b>.</p>
+    <div class="story"><span class="who">Why so many gods?</span> Imagine your whole life depends on a river that might flood in April, or June, or not at all. Sumerians couldn't explain floods, droughts, storms or the sun scientifically, so they believed a different god controlled each force of nature, and others gave people their talents, like writing or farming. Keeping all those gods happy felt like the best way to keep the river kind. That's why they built their tallest building, the ziggurat, for their god, in the very center of the city.</div>
     <div class="zig">
       <svg viewBox="0 0 240 220" role="img" aria-label="Ziggurat with four levels">
         <rect width="240" height="220" fill="#F3D9A0" rx="18"/>
@@ -444,7 +495,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
       <span style="background:#B3302A">2. War heroes became kings</span><span class="arr">→</span>
       <span style="background:#B07A0C">3. Rule became hereditary</span>
     </div>
-    <p>Sumerian kings claimed they got their <b>power to rule from the city's god</b>. Over time, their rule became <b>hereditary</b>: when a king died, <b>his son took over</b>. A kingdom like that is a <b>monarchy</b>.</p>
+    <p>Sumerian kings claimed they got their <b>power to rule from the city's god</b>. Over time, their rule became <b>hereditary</b>: when a king died, <b>his son took over</b>. A government ruled by a king or queen like that is a <b>monarchy</b>. The first kings were most likely <b>war heroes</b>.</p>
     <div class="lock"><b>Lock it in:</b> zig-<b>ZAG</b> your way up and you <b>rise high</b>. Ziggurat means “to rise high” in the <b>Akkadian</b> language, and only special priests may reach the top, the home of the gods.</div>
   </div>
 </section>
@@ -490,6 +541,8 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
       <div class="fact"><div class="k">Scribe</div><div class="v">A person who copies or writes out documents; often a record keeper</div></div>
       <div class="fact"><div class="k">Epic</div><div class="v">A long poem about the deeds of a legendary or real hero, like Gilgamesh</div></div>
     </div>
+    <div class="story"><span class="who">The Epic of Gilgamesh, in 30 seconds.</span> Gilgamesh, king of Uruk, was strong but bossy, so the gods sent a wild man, <b>Enkidu</b>, to match him. They wrestled, tied, and became best friends. Together they defeated <b>Humbaba</b>, the monster of the Cedar Forest. When Enkidu died, Gilgamesh searched for the secret of living forever, found a magic plant, and lost it to a snake. He came home to Uruk and realized his great city walls would be what lived on. It's one of the oldest stories ever written, carved in cuneiform on clay tablets by scribes.</div>
+    <div class="story"><span class="who">School for scribes.</span> Boys who went to school trained as <b>apprentices</b> for specific jobs, and the most famous job was <b>scribe</b>. Students copied signs into clay all day in the “tablet house.” Scribes kept records of grain, trade, laws and taxes, which made them important people.</div>
     <h3>Write your name like a scribe</h3>
     <div class="cw">
       <label for="cwIn">Type a name or a secret message:</label>
@@ -510,17 +563,29 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
   </div>
 </section>
 
+<!-- PRACTICE -->
+<section class="tab" id="practice">
+  <div class="tabhead c-plum"><h2>Test-style questions</h2><p>Every discussion question and activity from both lessons. Say or write your answer first, then open the model answer and tick the key points you remembered.</p></div>
+  <div class="tabbody">
+    <div class="pfilter" role="group" aria-label="Filter questions">
+      <button aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="L1">Lesson 1</button><button aria-pressed="false" data-f="L2">Lesson 2</button>
+    </div>
+    <div id="pqList"></div>
+  </div>
+</section>
+
 <!-- CHEAT SHEET -->
 <section class="tab" id="cheat">
   <div class="tabhead c-mud"><h2>Night-before cheat sheet</h2><p>Everything on one screen. Read it out loud once.</p></div>
   <div class="tabbody">
     <div class="cheat">
-      <div style="border-color:var(--river)"><b class="t" style="color:var(--river)">Geography</b><ul><li>Mesopotamia = land between the rivers = Fertile Crescent</li><li>Tigris (east) &amp; Euphrates (west)</li><li>Start: mountains of Turkey &amp; Kurdistan</li><li>Flow southeast through Iraq to the Persian Gulf</li><li>Borders: Zagros Mts, Syrian &amp; Arabian Deserts, Persian Gulf</li></ul></div>
+      <div style="border-color:var(--river)"><b class="t" style="color:var(--river)">Geography</b><ul><li>Mesopotamia = land between the rivers = Fertile Crescent</li><li>Tigris (east) &amp; Euphrates (west)</li><li>Start: mountains of Turkey &amp; Kurdistan</li><li>Flow southeast through Iraq to the Persian Gulf</li><li>Borders: Zagros Mts, Syrian &amp; Arabian Deserts, Persian Gulf</li><li>Fertile Crescent: curved strip of farmland, Gulf → Mediterranean</li><li>Southwest Asia = the Middle East</li><li>Nineveh to Ur ≈ 400 miles</li></ul></div>
       <div style="border-color:var(--lapis)"><b class="t" style="color:var(--lapis)">River words</b><ul><li>Floodplain: flat land by the banks</li><li>Silt: fine soil left by rivers</li><li>Fertile: good for crops</li><li>Semiarid: under 10 in. of rain, hot summers</li><li>Drought: long time with little or no rain/snow</li><li>Erosion picks up soil; deposition drops it</li></ul></div>
-      <div style="border-color:var(--barley)"><b class="t" style="color:var(--barley)">Taming the water</b><ul><li>Floods unpredictable: April to June</li><li>Irrigation: canals carry river water to fields</li><li>Workers cleaned silt out of canals</li><li>Dams held back extra flood water</li></ul></div>
+      <div style="border-color:var(--barley)"><b class="t" style="color:var(--barley)">Taming the water</b><ul><li>Floods unpredictable: April to June</li><li>Irrigation: canals carry river water to fields</li><li>Workers cleaned silt out of canals</li><li>Dams held back extra flood water</li><li>Shaduf: pole + bucket + weight lifts water</li></ul></div>
       <div style="border-color:var(--mud)"><b class="t" style="color:var(--mud)">Resources</b><ul><li>No forests, stone or metals</li><li>Mud bricks &amp; plaster (crumbled easily)</li><li>Few natural barriers: mud walls</li><li>Surplus grain traded for stone, wood, metal</li></ul></div>
+      <div style="border-color:var(--palm)"><b class="t" style="color:var(--palm)">Civilization</b><ul><li>Can Royals Sing Well?</li><li>Cities &amp; government, Religion, Social structure, Writing &amp; art</li><li>Sumer = first civilization (~3000 B.C.)</li></ul></div>
       <div style="border-color:var(--carnelian)"><b class="t" style="color:var(--carnelian)">City-states</b><ul><li>Sumer: 1st civilization, ~3000 B.C., southern Mesopotamia</li><li>Cities: Ur, Uruk, Eridu (also Kish, Nippur, Lagash)</li><li>Cut off by mud-flats &amp; desert → independent</li><li>5,000–20,000 people, own government, big wall</li><li>Palace + ziggurat in the center</li><li>War over resources &amp; borders; trade in peace</li></ul></div>
-      <div style="border-color:var(--plum)"><b class="t" style="color:var(--plum)">Religion &amp; rulers</b><ul><li>Polytheism: many gods; each city has a patron god</li><li>Ziggurat = “to rise high” (Akkadian)</li><li>Top = home of the gods; only special priests</li><li>Priests → war-hero kings → hereditary kings</li><li>Kings' power came “from the city's god”</li></ul></div>
+      <div style="border-color:var(--plum)"><b class="t" style="color:var(--plum)">Religion &amp; rulers</b><ul><li>Polytheism: many gods; each city has a patron god</li><li>Ziggurat = “to rise high” (Akkadian)</li><li>Top = home of the gods; only special priests</li><li>Priests → war-hero kings → hereditary kings</li><li>Kings' power came “from the city's god”</li><li>Monarchy: ruled by a king or queen</li><li>Gods explained nature &amp; human talents</li></ul></div>
       <div style="border-color:#1E2F55"><b class="t">Classes</b><ul><li>Upper: kings, priests, warriors, officials</li><li>Middle (largest): merchants, farmers, fishers, artisans</li><li>Lowest: enslaved people</li><li>You stayed in the class you were born into</li></ul></div>
       <div style="border-color:var(--palm)"><b class="t" style="color:var(--palm)">Trade &amp; inventions</b><ul><li>Most Sumerians were farmers</li><li>Gave wheat, barley, tools; got timber, minerals, metals</li><li>Carnelian (red) from the Indus Valley; lapis lazuli (blue) from Afghanistan</li><li>Write, Roll, Sail, Plow, Spin, Melt, Count</li></ul></div>
     </div>
@@ -529,7 +594,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
 
 <!-- QUIZ -->
 <section class="tab" id="quiz">
-  <div class="tabhead c-carn"><h2>The monster quiz</h2><p>Thirteen rounds. Every correct answer is a hit on Humbaba.</p></div>
+  <div class="tabhead c-carn"><h2>The monster quiz</h2><p>Fourteen rounds. Every correct answer is a hit on Humbaba.</p></div>
   <div class="tabbody">
     <div class="monster">
       <svg viewBox="0 0 150 150" aria-hidden="true"><g class="hum" id="hum">
@@ -559,7 +624,7 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 40px
 const EUPH="M 80 50 C 70 110, 120 170, 165 225 S 222 305, 255 345 S 305 395, 322 418 L 340 440";
 const TIG ="M 200 46 C 222 88, 206 124, 224 162 S 254 234, 274 280 S 312 352, 322 418";
 const CITIES=[
- {id:'nineveh',name:'Nineveh',x:222,y:108,dx:10,sum:false,txt:'Up north on the Tigris. Not a Sumerian city: it belonged to the Assyrians, who came later.'},
+ {id:'nineveh',name:'Nineveh',x:222,y:108,dx:10,sum:false,txt:'Up north on the Tigris. Not a Sumerian city: it belonged to the Assyrians, who came later. From Nineveh to Ur is <b>about 400 miles</b> (roughly 650 km) as the crow flies. Check it with the scale bar on the map on pages 74–75 of your textbook.'},
  {id:'kish',name:'Kish',x:212,y:256,dx:-36,sum:true,txt:'A Sumerian city-state in the north of Sumer.'},
  {id:'nippur',name:'Nippur',x:238,y:288,dx:-48,sum:true,txt:'A Sumerian city-state, a famous religious centre.'},
  {id:'lagash',name:'Lagash',x:290,y:318,dx:10,sum:true,txt:'A Sumerian city-state. Around 2400 B.C., its King Urukagina reformed (changed and improved) its government.'},
@@ -815,6 +880,45 @@ function fb(el,ok,msg){el.className='fb show '+(ok?'good':'oops');el.innerHTML=(
 $('cityGame').appendChild(renderDragQ({type:'bins',stem:'Where does each piece go?',bins:[['center','City center','#B3302A'],['edge','Edge of the city','#7A4E24'],['out','Outside the walls','#357C35']],
   chips:[['Ruler\'s palace','center'],['Ziggurat','center'],['Other public buildings','center'],['Large mud-brick wall','edge'],['Gates: open by day, shut at night','edge'],['Farmers\' plots of land','out'],['Irrigation canals','out']]},0,null));
 
+/* civilization practice game */
+$('civGame').appendChild(renderDragQ({type:'bins',cols:2,stem:'Which feature of civilization does each Sumer example show?',
+  bins:[['gov','Cities & government','#2A4BA0'],['rel','Religion','#6E3779'],['soc','Social structure','#B07A0C'],['wri','Writing & art','#357C35']],
+  chips:[['Walled city-states like Ur and Uruk','gov'],['Kings who passed power to their sons','gov'],['Many gods (polytheism)','rel'],['A ziggurat in every city','rel'],['Upper, middle and lowest classes','soc'],['People born into their class','soc'],['Cuneiform on clay tablets','wri'],['The Standard of Ur','wri']]},0,null));
+
+/* ================= PRACTICE QUESTIONS ================= */
+const PQ=[
+ {l:'L1',tag:'Map focus',q:'What river flowed through the western side of Mesopotamia?',think:'Left or right? ABC order!',model:'The <b>Euphrates River</b> flowed through the western side. The Tigris was on the eastern side.',keys:['Euphrates','Western side (Tigris is east)']},
+ {l:'L1',tag:'Map focus',q:'What is the approximate distance from Nineveh to Ur (in miles)?',think:'Use the scale bar: about how many 150-mile chunks fit between them?',model:'<b>About 400 miles.</b> Nineveh is far north on the Tigris; Ur is far south near the Persian Gulf. On the textbook map, measure with the scale bar (150 miles) and you get between roughly 350 and 450 miles depending on your ruler.',keys:['About 400 miles','Used the scale bar to measure']},
+ {l:'L1',tag:'Map focus',q:'To what larger body of water did the people living along these rivers sail?',think:'Where do both rivers end?',model:'They sailed to the <b>Persian Gulf</b>, where both the Tigris and the Euphrates empty.',keys:['Persian Gulf']},
+ {l:'L1',tag:'Map focus',q:'Why do you think many cities in Mesopotamia developed near rivers?',think:'Think of the river\'s three gifts.',model:'Cities grew near rivers because the rivers gave people <b>water for drinking and for crops</b>. Their floods left <b>fertile silt</b>, so farmers could grow a <b>surplus</b> of food to feed a city. Rivers were also <b>easy highways</b>: boats could carry heavy trade goods, and there were few roads.',keys:['Water for drinking and crops','Floods left fertile silt / good farming','Boat travel and trade','Surplus food could feed many people']},
+ {l:'L1',tag:'Geography',q:'What is the meaning of the Greek name “Mesopotamia”? By what other name is the area known?',think:'Two answers needed!',model:'“Mesopotamia” means <b>“land between the rivers.”</b> The area is also known as the <b>Fertile Crescent</b>.',keys:['Land between the rivers','Fertile Crescent']},
+ {l:'L1',tag:'Geography',q:'Into which large body of water do the Tigris and Euphrates Rivers empty?',think:'Which direction do they flow?',model:'They flow southeast and empty into the <b>Persian Gulf</b>.',keys:['Persian Gulf']},
+ {l:'L1',tag:'Geography',q:'Name three natural borders that separated Mesopotamia from other regions.',think:'Mountains, Deserts, Gulf.',model:'1. The <b>Zagros Mountains</b> (east). 2. The <b>Syrian Desert</b> and <b>Arabian Desert</b> (west and southwest). 3. The <b>Persian Gulf</b> (south). You can also name the <b>mountains of Turkey</b> (north).',keys:['Zagros Mountains','A desert (Syrian or Arabian)','Persian Gulf']},
+ {l:'L1',tag:'Geography',q:'Name two deserts west of the Euphrates River that impacted life in Mesopotamia.',think:'One is named after a country to the northwest, one after a peninsula.',model:'The <b>Syrian Desert</b> and the <b>Arabian Desert</b>. Their heat and dryness made the semiarid climate and land travel harder, which pushed people to live close to the rivers.',keys:['Syrian Desert','Arabian Desert']},
+ {l:'L1',tag:'Geography',q:'How did geography shape the lives of Mesopotamians?',think:'Rivers, climate, resources, barriers. Aim for 4 points.',model:'Geography shaped almost everything. The <b>rivers</b> gave water and fertile silt, so people became <b>farmers</b> and settled near them. The <b>semiarid climate</b> and <b>unpredictable floods and droughts</b> forced them to invent <b>irrigation</b> (canals and dams). With <b>no wood, stone or metal</b>, they built with <b>mud bricks</b> and <b>traded their surplus grain</b> for what they lacked. And because the flat land had <b>few natural barriers</b>, they built <b>walls</b> around their villages for protection.',keys:['Rivers → farming and settling near water','Dry climate / floods → irrigation and dams','No wood or stone → mud bricks','Few resources → trade surplus grain','Few barriers → mud walls for protection']},
+ {l:'L1',tag:'Story activity',q:'Based on “The Long Dry Spell,” what can you invent to make farming easier? Describe it step by step and explain how it changes farming.',think:'Pick one invention. Describe it, explain the steps, then summarize the change.',model:'<b>Example: a shaduf-and-canal system.</b> First, dig a canal from the river to the fields. Next, set up a shaduf: a tall post with a long pole on top, a bucket on one end and a heavy rock on the other. Then dip the bucket in the river, push the pole, and the weight swings the water up into the canal, which carries it to every row of crops. <b>How it changes farming:</b> farmers no longer have to carry animal-skin bags all day, crops survive droughts, and families get a steady supply of food.',keys:['Described the invention','Explained how it works step by step','Concluded with how it changes farming']},
+ {l:'L1',tag:'Diagram activity',q:'Explain how rivers pick up soil and how they deposit it on the floodplain.',think:'Two key words: one for picking up, one for dropping.',model:'Rain and melting snow make the rivers swell. As the fast water rushes down the mountains, it picks up and carries soil: that\'s <b>erosion</b>. When the river reaches the flat plain, it overflows onto the <b>floodplain</b> and slows down, so the soil settles: that\'s <b>deposition</b>. The fine soil left behind is called <b>silt</b>, and it\'s <b>fertile</b>.',keys:['Rain and snowmelt make rivers swell','Erosion: fast water picks up soil','Deposition: slow water drops soil on the floodplain','The soil is silt, which is fertile']},
+ {l:'L2',tag:'Discussion',q:'List two features of Sumer that made it a civilization.',think:'Can Royals Sing Well?',model:'Any two of these, with an example: <b>cities and government</b> (city-states like Ur with their own kings); <b>religion</b> (many gods and ziggurats); <b>social structure</b> (upper, middle and lowest classes); <b>writing</b> (cuneiform kept by scribes).',keys:['Named a first feature with a Sumer example','Named a second feature with a Sumer example']},
+ {l:'L2',tag:'Discussion',q:'What does it mean to be polytheistic? Why do you think Sumerians had many gods?',think:'Define it, then explain the “why.”',model:'<b>Polytheistic</b> means believing in <b>more than one god</b>. Sumerians probably had many gods because they used them to <b>explain the forces of nature</b> (floods, droughts, storms, the sun) and <b>human activities and talents</b>. Their lives depended on an unpredictable river, so they believed many gods controlled different parts of the world.',keys:['Belief in more than one god','Gods explained forces of nature','Gods explained human activities and talents']},
+ {l:'L2',tag:'Discussion',q:'Where did Sumerians worship?',think:'The tallest building in the city.',model:'At the <b>ziggurat</b>, a pyramid-shaped temple in the <b>center of each city-state</b>, built to honor the city\'s <b>patron god</b>. Only special priests could go to the holy top.',keys:['Ziggurat','In the center of the city-state','Honored the city\'s patron god']},
+ {l:'L2',tag:'Discussion & essay',q:'In your opinion, what was the most important advancement created by the Sumerians? (Research essay: explain its impact on our modern societies.)',think:'Pick one. Give 3 reasons it still matters today.',model:'<b>Sample answer: writing (cuneiform).</b> <i>Claim:</i> Cuneiform was the Sumerians\' most important development. <i>Reason 1:</i> Writing let people keep records of trade and taxes, which is how businesses and governments still work. <i>Reason 2:</i> It let laws and stories be saved, like the Epic of Gilgamesh, so knowledge could pass to future generations. <i>Reason 3:</i> Every book, text message and website today grew from the idea of writing things down. <i>Conclusion:</i> Without writing, history itself wouldn\'t exist. <br><br>Other strong choices: <b>the wheel</b> (transport, machines), the <b>60-minute hour and 360° circle</b> (clocks, maps, maths), the <b>plough</b> (farming and food supply).',keys:['Clear claim naming one invention','At least two reasons','Linked it to life today','A concluding sentence']},
+ {l:'L2',tag:'Activity',q:'Draw and label the Sumerian social pyramid.',think:'How many levels? Who goes in each? What symbol would you draw?',model:'<b>Title:</b> “Social Classes of Sumer.” <b>Top (upper class):</b> kings, priests, warriors, government officials. Symbol idea: 👑 a crown. <b>Middle (middle class, the largest):</b> merchants, farmers, fishers, artisans. Symbol: 🌾 wheat or 🏺 a pot. <b>Bottom (lowest class):</b> enslaved people (war captives, criminals, people in debt). Symbol: ⛓️ a chain. Write the people <b>inside</b> each level and the class names <b>outside</b>. Note: the top level can be split so <b>kings</b> sit alone at the very point.',keys:['Upper class: kings, priests, warriors, officials','Middle class: merchants, farmers, fishers, artisans','Lowest class: enslaved people','Title, symbols, and class names outside']},
+ {l:'L2',tag:'Big idea',q:'Why did Sumerian cities become independent city-states?',think:'What surrounded each city?',model:'Sumer\'s cities were surrounded by <b>mud-flats and scorching desert</b>, which made it hard to travel and communicate over land. Each city was <b>cut off</b>, so its people grew their own crops, made their own goods, and took political and economic control of the land around them, becoming <b>city-states</b> with their own governments.',keys:['Mud-flats and desert','Hard to travel / communicate','Grew own food, made own goods','Controlled surrounding land → city-state']},
+ {l:'L2',tag:'Big idea',q:'How did Sumerian government change over time?',think:'Three steps up the ladder.',model:'At first, <b>priests</b> of the ziggurats ruled the city-states. Later, city-states became <b>monarchies</b> ruled by <b>kings</b>, who were most likely <b>war heroes</b> and claimed their power came from the <b>city\'s god</b>. Over time, rule became <b>hereditary</b>: when a king died, his son took over.',keys:['Priests ruled first','Then kings (war heroes), a monarchy','Kings claimed power from the city\'s god','Rule became hereditary (father to son)']}
+];
+function renderPQ(filter){
+  const list=$('pqList');list.innerHTML='';
+  PQ.filter(x=>filter==='all'||x.l===filter).forEach(x=>{
+    const d=document.createElement('div');d.className='pq';
+    d.innerHTML=`<span class="tag" style="background:${x.l==='L1'?'#147896':'#B3302A'}">${x.l==='L1'?'Lesson 1':'Lesson 2'} · ${x.tag}</span><div class="qq">${x.q}</div><div class="think">💭 Hint: ${x.think}</div><button class="btn">Show model answer</button><div class="ans"><div class="model">${x.model}</div><b>Tick what you remembered:</b><ul class="keys">${x.keys.map(k=>`<li><label><input type="checkbox"><span>${k}</span></label></li>`).join('')}</ul><div class="got"></div></div>`;
+    const b=d.querySelector('.btn');b.addEventListener('click',()=>{d.classList.toggle('open');b.textContent=d.classList.contains('open')?'Hide model answer':'Show model answer'});
+    const upd=()=>{const t=d.querySelectorAll('.keys input').length,c=d.querySelectorAll('.keys input:checked').length;d.querySelector('.got').textContent=c===t?'⭐ Full marks! You remembered every key point.':`${c} of ${t} key points`};
+    d.querySelectorAll('.keys input').forEach(i=>i.addEventListener('change',upd));upd();
+    list.appendChild(d)});
+}
+document.querySelectorAll('.pfilter button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.pfilter button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderPQ(b.dataset.f)}));
+renderPQ('all');
+
 /* ================= QUIZ ================= */
 const QUIZ=[
  {part:'Round 1: Multiple choice',how:'Your first tap counts!',type:'mc',items:[
@@ -830,7 +934,17 @@ const QUIZ=[
   {q:'The word “ziggurat” means…',o:['House of the king','To rise high','Land between rivers','Many gods'],a:1,t:'Religion & rulers',e:'“To rise high” in the ancient Akkadian language.'},
   {q:'Where did Sumerian kings say their power to rule came from?',o:['The people voted for them','The city\'s god','The richest merchants','The priests of Egypt'],a:1,t:'Religion & rulers',e:'Kings claimed the city\'s god gave them their power.'},
   {q:'Where did the red gemstone carnelian come from?',o:['Afghanistan','Egypt','India\'s Indus Valley','The Zagros Mountains'],a:2,t:'Trade',e:'Carnelian = crimson, from the Indus Valley.'},
-  {q:'What was Sumer\'s LARGEST social group?',o:['Upper class','Middle class','Enslaved people','Priests'],a:1,t:'Social classes',e:'Merchants, farmers, fishers and artisans: the middle class.'}
+  {q:'What was Sumer\'s LARGEST social group?',o:['Upper class','Middle class','Enslaved people','Priests'],a:1,t:'Social classes',e:'Merchants, farmers, fishers and artisans: the middle class.'},
+  {q:'Why is the region called the Fertile CRESCENT?',o:['It was shaped like a curved moon','It was full of crescent-shaped rocks','Its people worshipped the moon only','It was surrounded by water on all sides'],a:0,t:'Geography',e:'A curved strip of fertile farmland from the Persian Gulf to the Mediterranean.'},
+  {q:'About how far is it from Nineveh to Ur?',o:['About 40 miles','About 400 miles','About 4,000 miles','About 4 miles'],a:1,t:'Map skills',e:'About 400 miles: Nineveh is far north, Ur is far south near the Gulf.'},
+  {q:'A shaduf was used to…',o:['Grind grain into flour','Lift water from the river into canals','Write cuneiform','Carry soldiers into battle'],a:1,t:'Floods & irrigation',e:'Pole, bucket and counterweight, working like a seesaw.'},
+  {q:'Jobs like digging canals and building walls had to be done again and again. Who organized the work?',o:['Enslaved people','Community leaders','Traders from India','Nobody; people worked alone'],a:1,t:'Resources',e:'Community leaders organized groups to do the work at the right time.'},
+  {q:'What did city-states do during times of peace?',o:['Built pyramids together','Traded with each other and formed alliances','Joined into one kingdom','Stopped farming'],a:1,t:'City-states',e:'They traded and formed alliances to protect common interests.'},
+  {q:'Which BEST describes a monarchy?',o:['Government run by all the citizens','Government ruled by a king or queen','Government run by merchants','No government at all'],a:1,t:'Religion & rulers',e:'Sumerian city-states became monarchies with hereditary kings.'},
+  {q:'Sumerian gods helped people explain…',o:['Only the weather','Forces of nature and human activities and talents','Only how to write','Nothing; they were just decorations'],a:1,t:'Religion & rulers',e:'Floods, sun and storms, plus talents like writing and farming.'},
+  {q:'The Standard of Ur is…',o:['A law code','A decorated panel showing people in Sumerian society','A unit of measurement','A ziggurat'],a:1,t:'Social classes',e:'A standard is a flag or symbol carried on a pole; this panel shows Sumer\'s people.'},
+  {q:'Who were most likely the first Sumerian kings?',o:['Farmers','War heroes','Scribes','Traders'],a:1,t:'Religion & rulers',e:'War heroes, whose rule later became hereditary.'},
+  {q:'Which pair are BOTH features of a civilization?',o:['Hunting and gathering','Writing and organized government','Living in caves and moving often','Wild plants and no rules'],a:1,t:'Civilization',e:'Can Royals Sing Well? Cities & government, Religion, Social structure, Writing & art.'}
  ]},
  {part:'Round 2: True or false',how:'Some of these are sneaky. Read every word.',type:'tf',items:[
   {q:'Mesopotamia is also known as the Fertile Crescent.',a:true,t:'Geography',e:'Both names describe this region.'},
@@ -845,7 +959,12 @@ const QUIZ=[
   {q:'If you lived in Sumer, you were most likely a farmer.',a:true,t:'Trade',e:'Farming was Sumer\'s main economic activity.'},
   {q:'In Sumer, people usually stayed in the social class they were born into.',a:true,t:'Social classes',e:'Moving up was very rare.'},
   {q:'Lapis lazuli is a red gemstone from India.',a:false,t:'Trade',e:'Lapis lazuli is blue, from present-day Afghanistan.'},
-  {q:'The Sumerians created a 12-month lunar calendar.',a:true,t:'Inventions',e:'Based on the moon.'}
+  {q:'The Sumerians created a 12-month lunar calendar.',a:true,t:'Inventions',e:'Based on the moon.'},
+  {q:'Kish and Nippur were Sumerian city-states.',a:true,t:'City-states',e:'Along with Ur, Uruk, Eridu and Lagash.'},
+  {q:'The first people in Southwest Asia were hunters and gatherers.',a:true,t:'Geography',e:'Then they learned to plant wild grains and settled in villages.'},
+  {q:'Southwest Asia is sometimes called the Middle East.',a:true,t:'Geography',e:'Both names describe the same region.'},
+  {q:'Sumer was a civilization because it had cities, government, religion, social classes and writing.',a:true,t:'Civilization',e:'Exactly the features of a civilization.'},
+  {q:'In the story “The Long Dry Spell,” the flood came early and washed the crops away.',a:false,t:'Floods & irrigation',e:'The flood never came, because there wasn\'t enough rain.'}
  ]},
  {part:'Round 3: River words',how:'Drag each word onto its meaning. Tap ✕ to send it back.',type:'match',id:'m1',t:'River words',pairs:[
   ['Floodplain','Flat land bordering the river banks'],['Silt','Fine soil deposited by rivers'],['Fertile','Good for growing crops'],['Semiarid','A dry climate with less than 10 inches of rain a year'],['Drought','A long period with very little or no rain and snow'],['Irrigation','A system of canals carrying river water to fields'],['Surplus','More than you need for yourself'],['Erosion','When moving water picks up and carries away soil'],['Deposition','When water slows down and drops the soil it carried']]},
@@ -856,33 +975,38 @@ const QUIZ=[
  {part:'Round 6: Who belongs where?',how:'Drag each person into their social class.',type:'bins',id:'b1',t:'Social classes',
   bins:[['up','Upper class','#B07A0C'],['mid','Middle class','#2A4BA0'],['low','Lowest class','#7A4E24']],
   chips:[['Kings','up'],['Priests','up'],['Warriors','up'],['Government officials','up'],['Merchants','mid'],['Farmers','mid'],['Fishers','mid'],['Artisans','mid'],['Prisoners captured in war','low'],['People who couldn\'t pay their debts','low'],['Criminals made to work','low']]},
- {part:'Round 7: Made in Sumer?',how:'Drag each invention to Sumer, or to “Not Sumerian.”',type:'bins',id:'b2',t:'Inventions',cols:2,
+ {part:'Round 7: Features of a civilization',how:'Drag each Sumer example to the feature it shows.',type:'bins',id:'bciv',t:'Civilization',cols:2,
+  bins:[['gov','Cities & government','#2A4BA0'],['rel','Religion','#6E3779'],['soc','Social structure','#B07A0C'],['wri','Writing & art','#357C35']],
+  chips:[['Each city-state had its own government','gov'],['Walls and gates protected the city','gov'],['Each city had a patron god','rel'],['Only priests could climb to the top of the ziggurat','rel'],['Kings, priests, warriors and officials on top','soc'],['Merchants, farmers, fishers and artisans in the middle','soc'],['Scribes who kept records','wri'],['The Epic of Gilgamesh','wri']]},
+ {part:'Round 8: Made in Sumer?',how:'Drag each invention to Sumer, or to “Not Sumerian.”',type:'bins',id:'b2',t:'Inventions',cols:2,
   bins:[['yes','Sumerian invention','#357C35'],['no','Not Sumerian','#B3302A']],
   chips:[['Cuneiform','yes'],['The wheel','yes'],['The sailboat','yes'],['Wooden plough','yes'],['Potter\'s wheel','yes'],['Bronze','yes'],['Base-60 numbers','yes'],['12-month lunar calendar','yes'],['Paper','no'],['The telescope','no'],['The printing press','no'],['The magnetic compass','no']]},
- {part:'Round 8: Map detective',how:'The labels are gone! Tap the right spot.',type:'map',id:'map1',t:'Map skills',
-  prompts:[['euph','the Euphrates River'],['tig','the Tigris River'],['gulf','the Persian Gulf'],['zagros','the Zagros Mountains'],['syrian','the Syrian Desert'],['arabian','the Arabian Desert'],['ur','the city of Ur']]},
- {part:'Round 9: Timeline scramble',how:'Oldest at the top. No dates to help you!',type:'slots',id:'s1',t:'Timeline',
+ {part:'Round 9: Map detective',how:'The labels are gone! Tap the right spot.',type:'map',id:'map1',t:'Map skills',
+  prompts:[['euph','the Euphrates River'],['tig','the Tigris River'],['gulf','the Persian Gulf'],['zagros','the Zagros Mountains'],['syrian','the Syrian Desert'],['arabian','the Arabian Desert'],['ur','the city of Ur'],['nineveh','Nineveh'],['kish','Kish']]},
+ {part:'Round 10: Timeline scramble',how:'Oldest at the top. No dates to help you!',type:'slots',id:'s1',t:'Timeline',
   slots:[['1st (oldest)','People by the Euphrates begin to irrigate crops'],['2nd','Farming villages spread across southern Mesopotamia'],['3rd','Farming villages grow into cities'],['4th','King Narmer unifies Egypt'],['5th','The first system of writing is in use'],['6th','People in the Indus Valley build cities'],['7th (newest)','King Urukagina of Lagash reforms government']]},
- {part:'Round 10: The river machine',how:'Put the steps in order, from the mountains to a harvest.',type:'slots',id:'s2',t:'River words',
+ {part:'Round 11: The river machine',how:'Put the steps in order, from the mountains to a harvest.',type:'slots',id:'s2',t:'River words',
   slots:[['Step 1','Rain and melting snow fall in the mountains'],['Step 2','The rivers swell'],['Step 3','Rushing water picks up soil (erosion)'],['Step 4','The river overflows onto the floodplain'],['Step 5','Silt settles on the land (deposition)'],['Step 6','Farmers grow crops in the fertile soil']]},
- {part:'Round 11: Men and women',how:'Drag each role to the right group.',type:'bins',id:'b3',t:'Social classes',cols:2,
+ {part:'Round 12: Men and women',how:'Drag each role to the right group.',type:'bins',id:'b3',t:'Social classes',cols:2,
   bins:[['men','Men','#2A4BA0'],['women','Women','#B3302A']],
   chips:[['Head of the home; provided for the family','men'],['Went to school and became apprentices','men'],['Cared for parents if they needed help','men'],['Ran the home','women'],['Taught daughters to run a household','women'],['Took care of children and elderly parents','women']]},
- {part:'Round 12: Odd one out',how:'Tap the one that doesn\'t belong.',type:'odd',items:[
+ {part:'Round 13: Odd one out',how:'Tap the one that doesn\'t belong.',type:'odd',items:[
   {q:'Which is NOT a Sumerian city?',o:['Ur','Uruk','Eridu','Nineveh'],a:3,t:'City-states',e:'Nineveh was an Assyrian city up north.'},
   {q:'Which is NOT in the upper class?',o:['Kings','Priests','Merchants','Warriors'],a:2,t:'Social classes',e:'Merchants were middle class.'},
   {q:'Which did Mesopotamia actually HAVE plenty of?',o:['Wood','Stone','Metal','Mud'],a:3,t:'Resources',e:'Mud was everywhere; the rest had to be traded for.'},
   {q:'Which did Sumer trade AWAY (not bring in)?',o:['Carnelian','Lapis lazuli','Barley','Timber'],a:2,t:'Trade',e:'Sumer traded wheat, barley and tools for the others.'},
   {q:'Which is NOT about Sumerian religion?',o:['Polytheism','Ziggurat','Patron god','Irrigation'],a:3,t:'Religion & rulers',e:'Irrigation is about farming and water.'}
  ]},
- {part:'Round 13: Spot the mistake',how:'Each sentence has ONE wrong word. Tap it.',type:'spot',items:[
+ {part:'Round 14: Spot the mistake',how:'Each sentence has ONE wrong word. Tap it.',type:'spot',items:[
   {s:'Usually less than 10 inches of rain fell in northern Mesopotamia each year.',w:'northern',fix:'southern',t:'Climate'},
   {s:'Farmers built canals to hold back extra water during floods.',w:'canals',fix:'dams',t:'Floods & irrigation'},
   {s:'Sumer arose in southern Mesopotamia around 5000 B.C.',w:'5000',fix:'3000',t:'City-states'},
   {s:'Lapis lazuli is a blue stone from present-day India.',w:'India',fix:'Afghanistan',t:'Trade'},
   {s:'Over time, kingship became hereditary, so when a king died his brother took over.',w:'brother',fix:'son',t:'Religion & rulers'},
   {s:'Cuneiform used wedge-shaped marks made in soft stone.',w:'stone',fix:'clay',t:'Sumer words'},
-  {s:'Enslaved people made up Sumer\'s highest class.',w:'highest',fix:'lowest',t:'Social classes'}
+  {s:'Enslaved people made up Sumer\'s highest class.',w:'highest',fix:'lowest',t:'Social classes'},
+  {s:'Sumerian traders went to other lands and traded wheat, barley and tools for timber, minerals and grain.',w:'grain',fix:'metals',t:'Trade'},
+  {s:'The fine soil carried by rivers settled on the floodplain through a process called erosion.',w:'erosion',fix:'deposition',t:'River words'}
  ]}
 ];
 
